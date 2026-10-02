@@ -5,11 +5,16 @@ import {
   type TemplateManager,
 } from '@blocksuite/affine/gfx/template';
 
+import { createLocalizedTemplateManager } from './localized-template-manager';
+
+const localizedStickers = createLocalizedTemplateManager(
+  builtInStickersTemplates as TemplateManager
+);
+const localizedEdgelessTemplates = createLocalizedTemplateManager(
+  builtInEdgelessTemplates as TemplateManager
+);
+
 export function registerTemplates() {
-  EdgelessTemplatePanel.templates.extend(
-    builtInStickersTemplates as TemplateManager
-  );
-  EdgelessTemplatePanel.templates.extend(
-    builtInEdgelessTemplates as TemplateManager
-  );
+  EdgelessTemplatePanel.templates.extend(localizedStickers);
+  EdgelessTemplatePanel.templates.extend(localizedEdgelessTemplates);
 }

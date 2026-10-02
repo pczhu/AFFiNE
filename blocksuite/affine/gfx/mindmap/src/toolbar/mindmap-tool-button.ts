@@ -41,8 +41,8 @@ import {
 import {
   basketIconDark,
   basketIconLight,
+  getTextIcon,
   mindmapMenuMediaIcon,
-  textIcon,
 } from './icons.js';
 import { importMindmap } from './utils/import-mindmap.js';
 
@@ -171,7 +171,7 @@ export class EdgelessMindmapToolButton extends EdgelessToolbarToolMixin(
       },
       {
         name: 'text',
-        icon: textIcon,
+        icon: getTextIcon(),
         config: textConfig,
         standardWidth: 100,
         render: textRender,

@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import type { Disposable } from '@blocksuite/global/disposable';
 import type { BlobEngine, BlobState } from '@blocksuite/sync';
 import {
@@ -120,7 +121,9 @@ export class ResourceController implements Disposable {
       result.icon = loadingIcon ?? icon;
     } else if (error) {
       result.icon = errorIcon ?? icon;
-      result.description = this.state$.value.errorMessage ?? description;
+      const message = this.state$.value.errorMessage ?? description;
+      result.description =
+        typeof message === 'string' ? editorText(message) : message;
     }
 
     return result;

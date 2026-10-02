@@ -26,7 +26,11 @@ import { repeat } from 'lit/directives/repeat.js';
 
 import { getMindMaps, type ToolbarMindmapItem } from './assets.js';
 import { mediaRender, textRender } from './basket-elements.js';
-import { importMindMapIcon, mindmapMenuMediaIcon, textIcon } from './icons.js';
+import {
+  getTextIcon,
+  importMindMapIcon,
+  mindmapMenuMediaIcon,
+} from './icons.js';
 import { MindMapPlaceholder } from './mindmap-importing-placeholder.js';
 
 type TextItem = {
@@ -46,7 +50,13 @@ type ImportItem = {
   icon: TemplateResult;
 };
 
-const textItem: TextItem = { type: 'text', icon: textIcon, render: textRender };
+const textItem: TextItem = {
+  type: 'text',
+  get icon() {
+    return getTextIcon();
+  },
+  render: textRender,
+};
 
 const mediaItem: MediaItem = {
   type: 'media',

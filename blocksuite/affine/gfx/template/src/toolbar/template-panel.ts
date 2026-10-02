@@ -33,6 +33,12 @@ function toSvgPreviewDataUrl(svg: string) {
   return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
 }
 
+function templateLabel(name: string) {
+  const key = `Canvas asset: ${name}`;
+  const translated = editorText(key);
+  return translated === key ? name : translated;
+}
+
 export class EdgelessTemplatePanel extends WithDisposable(LitElement) {
   static override styles = css`
     :host {
@@ -415,7 +421,7 @@ export class EdgelessTemplatePanel extends WithDisposable(LitElement) {
                   this._updateTemplates();
                 }}
               >
-                ${cate}
+                ${templateLabel(cate)}
               </div>`;
             }
           )}
@@ -436,16 +442,19 @@ export class EdgelessTemplatePanel extends WithDisposable(LitElement) {
                       _templates,
                       template => template.name,
                       template => {
+                        const label = templateLabel(template.name ?? '');
                         const preview = template.preview
                           ? template.preview.startsWith('<svg')
                             ? html`<img
                                 src="${toSvgPreviewDataUrl(template.preview)}"
                                 class="template-preview"
+                                alt=${label}
                                 loading="lazy"
                               />`
                             : html`<img
                                 src="${template.preview}"
                                 class="template-preview"
+                                alt=${label}
                                 loading="lazy"
                               />`
                           : defaultPreview;
@@ -463,7 +472,8 @@ export class EdgelessTemplatePanel extends WithDisposable(LitElement) {
                             style=${styleMap({
                               opacity: isBeingDragged ? '0' : '1',
                             })}
-                            data-hover-text="Add"
+                            data-hover-text=${editorText('Add')}
+                            aria-label=${label}
                             @mousedown=${(e: MouseEvent) =>
                               this.draggableController.onMouseDown(e, {
                                 data: template,
@@ -489,7 +499,7 @@ export class EdgelessTemplatePanel extends WithDisposable(LitElement) {
                                     .autoHide=${true}
                                     tip-position="top"
                                   >
-                                    ${template.name}
+                                    ${label}
                                   </affine-tooltip>`
                                 : nothing
                             }

@@ -116,9 +116,12 @@ export const replaceIdMiddleware = (job: TemplateJob) => {
     if (blockJson.flavour === 'affine:frame') {
       assertType<Record<string, boolean>>(blockJson.props.childElementIds);
       const newChildElementIds: Record<string, boolean> = {};
-      Object.entries(blockJson.props.childElementIds).forEach(([key, val]) => {
-        newChildElementIds[regeneratedIdMap.get(key) ?? key] = val;
-      });
+      // 旧版内置模板未记录画框的子元素列表。
+      Object.entries(blockJson.props.childElementIds ?? {}).forEach(
+        ([key, val]) => {
+          newChildElementIds[regeneratedIdMap.get(key) ?? key] = val;
+        }
+      );
       blockJson.props.childElementIds = newChildElementIds;
     }
   };

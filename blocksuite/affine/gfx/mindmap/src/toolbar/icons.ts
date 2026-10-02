@@ -1,4 +1,14 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { svg } from 'lit';
+
+/** 原图标把英文绘成了路径，其他语言使用可翻译的文字。 */
+export function getTextIcon() {
+  const label = editorText('Text');
+  if (label === 'Text') return textIcon;
+  return svg`<svg width="54" height="24" viewBox="0 0 54 24" xmlns="http://www.w3.org/2000/svg" aria-label=${label}>
+    <text x="27" y="18" text-anchor="middle" font-family="var(--affine-font-family)" font-size="18" font-weight="700" fill="#6b4dd6" stroke="white" stroke-width="2" paint-order="stroke" textLength="42" lengthAdjust="spacingAndGlyphs">${label}</text>
+  </svg>`;
+}
 
 export const basketIconLight = svg`<svg width="76" height="17" viewBox="0 0 76 17" fill="none" xmlns="http://www.w3.org/2000/svg"
 xmlns:xlink="http://www.w3.org/1999/xlink">
