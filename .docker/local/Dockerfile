@@ -23,10 +23,12 @@ ENV PATH=/root/.cargo/bin:$PATH \
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \
     | sh -s -- -y --profile minimal --default-toolchain none \
     && rustup toolchain install "$(sed -n 's/^channel = "\(.*\)"/\1/p' rust-toolchain.toml)" --profile minimal
+ARG AFFINE_PRO_PUBLIC_KEY
 RUN --mount=type=cache,target=/root/.cargo/registry \
     --mount=type=cache,target=/root/.cargo/git \
     --mount=type=cache,target=/source/target \
-    yarn workspace @affine/server-native build --target x86_64-unknown-linux-gnu \
+    node -e "require('crypto').createPublicKey(process.env.AFFINE_PRO_PUBLIC_KEY)" \
+    && yarn workspace @affine/server-native build --target x86_64-unknown-linux-gnu \
     && cp packages/backend/native/server-native.node packages/backend/native/server-native.x64.node
 
 FROM native AS backend
