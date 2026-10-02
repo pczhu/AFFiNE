@@ -4,7 +4,7 @@ import {
   type FilterParams,
 } from '@affine/core/modules/collection-rules';
 import { ShareDocsListService } from '@affine/core/modules/share-doc';
-import { Trans, useI18n } from '@affine/i18n';
+import { Trans, translateUiText, useI18n } from '@affine/i18n';
 import { FilterIcon } from '@blocksuite/icons/rc';
 import { useLiveData, useServices } from '@toeverything/infra';
 import { memo, type ReactNode, useCallback, useEffect, useState } from 'react';
@@ -229,7 +229,7 @@ export const EmptyList = ({ search }: { search?: string }) => {
           style={{ maxWidth: 300, fontSize: 15, lineHeight: '24px' }}
         >
           <Trans i18nKey="com.affine.selectPage.empty.tips" values={{ search }}>
-            No page titles contain
+            {translateUiText('No page titles contain\n            ')}
             <span
               style={{ fontWeight: 600, color: 'var(--affine-primary-color)' }}
             >

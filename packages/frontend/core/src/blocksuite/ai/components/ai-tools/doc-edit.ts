@@ -1,3 +1,4 @@
+import { translateUiText } from '@affine/i18n';
 import track from '@affine/track';
 import { WithDisposable } from '@blocksuite/affine/global/lit';
 import { unsafeCSSVar, unsafeCSSVarV2 } from '@blocksuite/affine/shared/theme';
@@ -268,7 +269,9 @@ export class DocEditTool extends WithDisposable(ShadowlessElement) {
     const success = await copyText(removeMarkdownComments(changedMarkdown));
     if (success) {
       this.notificationService.notify({
-        title: 'Copied to clipboard',
+        get title() {
+          return translateUiText('Copied to clipboard');
+        },
         accent: 'success',
         onClose: function (): void {},
       });
@@ -302,13 +305,13 @@ export class DocEditTool extends WithDisposable(ShadowlessElement) {
               <div class="doc-edit-tool-result-card-diff-replace">
                 <div class="doc-edit-tool-result-card-diff original">
                   <div class="doc-edit-tool-result-card-diff-title">
-                    Original
+                    ${translateUiText('\n                    Original\n                  ')}
                   </div>
                   <div>${this.renderSantizedText(oldBlock?.content ?? '')}</div>
                 </div>
                 <div class="doc-edit-tool-result-card-diff modified">
                   <div class="doc-edit-tool-result-card-diff-title">
-                    Modified
+                    ${translateUiText('\n                    Modified\n                  ')}
                   </div>
                   <div>${this.renderSantizedText(patch.content)}</div>
                 </div>
@@ -318,14 +321,18 @@ export class DocEditTool extends WithDisposable(ShadowlessElement) {
             const oldBlock = oldBlockMap.get(patch.id);
             return html`
               <div class="doc-edit-tool-result-card-diff deleted">
-                <div class="doc-edit-tool-result-card-diff-title">Deleted</div>
+                <div class="doc-edit-tool-result-card-diff-title">
+                  ${translateUiText('Deleted')}
+                </div>
                 <div>${this.renderSantizedText(oldBlock?.content ?? '')}</div>
               </div>
             `;
           } else if (patch.op === 'insert') {
             return html`
               <div class="doc-edit-tool-result-card-diff insert">
-                <div class="doc-edit-tool-result-card-diff-title">Inserted</div>
+                <div class="doc-edit-tool-result-card-diff-title">
+                  ${translateUiText('Inserted')}
+                </div>
                 <div>${this.renderSantizedText(patch.block.content)}</div>
               </div>
             `;
@@ -370,14 +377,18 @@ export class DocEditTool extends WithDisposable(ShadowlessElement) {
                     <button @click=${() => this._toggleCollapse()}>
                       ${this.isCollapsed ? ExpandFullIcon() : ExpandCloseIcon()}
                       <affine-tooltip>
-                        ${this.isCollapsed ? 'Expand' : 'Collapse'}
+                        ${this.isCollapsed ? translateUiText('Expand') : translateUiText('Collapse')}
                       </affine-tooltip>
                     </button>
                     <button @click=${() => this._handleCopy(changedContent)}>
                       ${CopyIcon()}
-                      <affine-tooltip>Copy</affine-tooltip>
+                      <affine-tooltip
+                        >${translateUiText('Copy')}</affine-tooltip
+                      >
                     </button>
-                    <button @click=${() => this._handleApply(op)}>Apply</button>
+                    <button @click=${() => this._handleApply(op)}>
+                      ${translateUiText('Apply')}
+                    </button>
                   </div>
                 </div>
                 <div class="doc-edit-tool-result-card-content">

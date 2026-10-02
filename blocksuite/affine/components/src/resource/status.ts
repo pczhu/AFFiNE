@@ -5,6 +5,7 @@ import {
 import { unsafeCSSVar, unsafeCSSVarV2 } from '@blocksuite/affine-shared/theme';
 import {
   createButtonPopper,
+  editorText,
   stopPropagation,
 } from '@blocksuite/affine-shared/utils';
 import { WithDisposable } from '@blocksuite/global/lit';
@@ -126,11 +127,15 @@ export class ResourceStatus extends WithDisposable(LitElement) {
     const { type, label } = needUpload
       ? {
           type: 'Upload',
-          label: 'Retry',
+          get label() {
+            return editorText('Retry');
+          },
         }
       : {
           type: 'Download',
-          label: 'Reload',
+          get label() {
+            return editorText('Reload');
+          },
         };
 
     return html`

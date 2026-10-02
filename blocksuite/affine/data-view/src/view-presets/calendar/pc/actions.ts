@@ -2,6 +2,7 @@ import {
   popMenu,
   popupTargetFromElement,
 } from '@blocksuite/affine-components/context-menu';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import {
   CalendarPanelIcon,
   DateTimeIcon,
@@ -59,7 +60,7 @@ export const openCalendarEntry = (
               <span class="calendar-event-popover-icon"
                 >${CalendarPanelIcon()}</span
               >
-              <span>${entry.calendarName ?? 'Calendar event'}</span>
+              <span>${entry.calendarName ?? editorText('Calendar event')}</span>
             </div>
             <div class="calendar-event-popover-row">
               <span class="calendar-event-popover-icon">${DateTimeIcon()}</span>

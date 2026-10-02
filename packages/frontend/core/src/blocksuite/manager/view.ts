@@ -24,6 +24,7 @@ import { AffineThemeViewExtension } from '@affine/core/blocksuite/view-extension
 import { TurboRendererViewExtension } from '@affine/core/blocksuite/view-extensions/turbo-renderer';
 import { PeekViewService } from '@affine/core/modules/peek-view';
 import { DebugLogger } from '@affine/debug';
+import { translateUiText } from '@affine/i18n';
 import { tracker } from '@affine/track';
 import { DatabaseViewExtension } from '@blocksuite/affine/blocks/database/view';
 import { ParagraphViewExtension } from '@blocksuite/affine/blocks/paragraph/view';
@@ -267,7 +268,9 @@ class ViewProvider {
       this._manager.configure(ParagraphViewExtension, {
         getPlaceholder: model => {
           const placeholders = {
-            text: "Type '/' for commands, 'space' for AI",
+            get text() {
+              return translateUiText("Type '/' for commands, 'space' for AI");
+            },
             h1: 'Heading 1',
             h2: 'Heading 2',
             h3: 'Heading 3',

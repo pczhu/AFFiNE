@@ -9,6 +9,7 @@ import {
 } from '@affine/admin/components/ui/select';
 import { Switch } from '@affine/admin/components/ui/switch';
 import { cn } from '@affine/admin/utils';
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { Textarea } from '../../components/ui/textarea';
@@ -92,6 +93,7 @@ const Inputs: Record<
     onValidationChange,
     secret,
   }) {
+    useUiLanguage();
     const fallbackText = useMemo(
       () =>
         secret && defaultValue === undefined
@@ -115,7 +117,7 @@ const Inputs: Record<
         onValidationChange?.(undefined);
         onChange(value);
       } catch {
-        onValidationChange?.('Invalid JSON format');
+        onValidationChange?.(translateUiText('Invalid JSON format'));
         // Keep the draft "dirty" even when JSON is temporarily invalid
         // so Save/Cancel state can reflect real editing progress.
         onChange(nextText);
@@ -136,18 +138,19 @@ const Inputs: Record<
     );
   },
   Enum: function EnumInput({ defaultValue, onChange, options }) {
+    useUiLanguage();
     return (
       <Select
         value={typeof defaultValue === 'string' ? defaultValue : undefined}
         onValueChange={onChange}
       >
         <SelectTrigger>
-          <SelectValue placeholder="Select an option" />
+          <SelectValue placeholder={translateUiText('Select an option')} />
         </SelectTrigger>
         <SelectContent>
           {options?.map(option => (
             <SelectItem key={option} value={option}>
-              {option}
+              {translateUiText(option)}
             </SelectItem>
           ))}
         </SelectContent>
@@ -170,6 +173,7 @@ export const ConfigRow = ({
   onClear,
   ...props
 }: ConfigInputProps) => {
+  useUiLanguage();
   const Input = Inputs[type] ?? Inputs.JSON;
   const [validationError, setValidationError] = useState<string>();
 
@@ -203,11 +207,15 @@ export const ConfigRow = ({
       <div className="flex-3">
         <div
           className="text-sm font-semibold leading-6 text-foreground"
-          dangerouslySetInnerHTML={{ __html: desc }}
+          dangerouslySetInnerHTML={{ __html: translateUiText(desc) }}
         />
         <div className="text-xs text-muted-foreground">
-          {source ? `Source: ${source}` : null}
-          {secret ? ` · ${configured ? 'Configured' : 'Not configured'}` : null}
+          {source
+            ? `${translateUiText('Source:')} ${translateUiText('Configuration source ' + source)}`
+            : null}
+          {secret
+            ? ` · ${translateUiText(configured ? 'Configured' : 'Not configured')}`
+            : null}
         </div>
       </div>
       <div
@@ -231,12 +239,12 @@ export const ConfigRow = ({
             className="mt-2 self-start"
             onClick={onClear}
           >
-            Reset override
+            {translateUiText('Reset override\n          ')}
           </Button>
         ) : null}
         {mergedError && (
           <div className="mt-1 w-full break-words text-sm text-destructive">
-            {mergedError}
+            {translateUiText(mergedError)}
           </div>
         )}
       </div>

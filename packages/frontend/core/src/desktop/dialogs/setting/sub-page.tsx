@@ -1,6 +1,7 @@
 import { Button, Scrollable } from '@affine/component';
 import { FeatureFlagService } from '@affine/core/modules/feature-flag';
 import { type Island } from '@affine/core/utils/island';
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import { ArrowLeftBigIcon } from '@blocksuite/icons/rc';
 import { useLiveData, useService } from '@toeverything/infra';
 import { eases, waapi } from 'animejs';
@@ -59,7 +60,7 @@ export const SubPageProvider = ({
   open,
   onClose,
   children,
-  backText = 'Back',
+  backText = translateUiText('Back'),
   animation = true,
 }: {
   island: Island;
@@ -69,6 +70,8 @@ export const SubPageProvider = ({
   backText?: string;
   animation?: boolean;
 }) => {
+  useUiLanguage();
+
   const featureFlagService = useService(FeatureFlagService);
   const enableSettingSubpageAnimation = useLiveData(
     featureFlagService.flags.enable_setting_subpage_animation.$

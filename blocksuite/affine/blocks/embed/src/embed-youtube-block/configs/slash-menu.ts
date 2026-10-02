@@ -1,5 +1,6 @@
 import { DefaultTool } from '@blocksuite/affine-block-surface';
 import { toggleEmbedCardCreateModal } from '@blocksuite/affine-components/embed-card-modal';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import type { SlashMenuConfig } from '@blocksuite/affine-widget-slash-menu';
 import { YoutubeDuotoneIcon } from '@blocksuite/icons/lit';
 import { GfxControllerIdentifier } from '@blocksuite/std/gfx';
@@ -10,11 +11,17 @@ export const embedYoutubeSlashMenuConfig: SlashMenuConfig = {
   items: [
     {
       name: 'YouTube',
-      description: 'Embed a YouTube video.',
+      get description() {
+        return editorText('Embed a YouTube video.');
+      },
       icon: YoutubeDuotoneIcon(),
       tooltip: {
-        figure: YoutubeVideoTooltip,
-        caption: 'YouTube Video',
+        get figure() {
+          return YoutubeVideoTooltip();
+        },
+        get caption() {
+          return editorText('YouTube Video');
+        },
       },
       group: '4_Content & Media@6',
       when: ({ model }) =>

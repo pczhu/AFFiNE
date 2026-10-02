@@ -6,7 +6,7 @@ import { getLineHeight } from '@blocksuite/affine-gfx-text';
 import type { ConnectorElementModel } from '@blocksuite/affine-model';
 import type { RichText } from '@blocksuite/affine-rich-text';
 import { ThemeProvider } from '@blocksuite/affine-shared/services';
-import { almostEqual } from '@blocksuite/affine-shared/utils';
+import { almostEqual, editorText } from '@blocksuite/affine-shared/utils';
 import { BlockSuiteError, ErrorCode } from '@blocksuite/global/exceptions';
 import { Bound, type IVec, Vec } from '@blocksuite/global/gfx';
 import { WithDisposable } from '@blocksuite/global/lit';
@@ -371,9 +371,9 @@ export class EdgelessConnectorLabelEditor extends WithDisposable(
         ${
           isEmpty
             ? html`
-                <span class="edgeless-connector-label-editor-placeholder">
-                  Add text
-                </span>
+                <span class="edgeless-connector-label-editor-placeholder"
+                  >${editorText('\n                  Add text\n                ')}</span
+                >
               `
             : nothing
         }

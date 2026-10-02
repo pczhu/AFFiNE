@@ -3,6 +3,7 @@ import type {
   LinkPreviewResult,
 } from '@blocksuite/affine-shared/services';
 import { unsafeCSSVarV2 } from '@blocksuite/affine-shared/theme';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { ToggleDownIcon, ToggleRightIcon } from '@blocksuite/icons/lit';
 import { flip, offset, shift } from '@floating-ui/dom';
 import { css, html, LitElement, nothing, type PropertyValues } from 'lit';
@@ -217,7 +218,7 @@ export class LinkPreviewDetails extends LitElement {
       contenteditable="false"
       aria-busy=${this.loading}
       role=${this.floating ? 'dialog' : 'region'}
-      aria-label="Link details"
+      aria-label=${editorText('Link details')}
       tabindex="-1"
       @click=${(event: Event) => event.stopPropagation()}
       @dblclick=${(event: Event) => event.stopPropagation()}
@@ -226,14 +227,16 @@ export class LinkPreviewDetails extends LitElement {
     >
       ${
         this.loading
-          ? html`<span class="status" role="status">Loading details…</span>`
+          ? html`<span class="status" role="status"
+              >${editorText('Loading details…')}</span
+            >`
           : html`
               ${metadata.length ? html`<div class="meta">${metadata.join(' · ')}</div>` : nothing}
               ${value?.description ? html`<p class="description">${value.description}</p>` : nothing}
               ${
                 transcript?.segments.length
                   ? html`
-                      <h4>Transcript</h4>
+                      <h4>${editorText('Transcript')}</h4>
                       ${transcript.segments.map(segment => {
                         const headings = [];
                         while (
@@ -253,9 +256,11 @@ export class LinkPreviewDetails extends LitElement {
                             >
                           </div>`;
                       })}
-                      ${transcript.truncated ? html`<p class="status">Transcript truncated by the preview service.</p>` : nothing}
+                      ${transcript.truncated ? html`<p class="status">${editorText('Transcript truncated by the preview service.')}</p>` : nothing}
                     `
-                  : html`<div class="status">No transcript available.</div>`
+                  : html`<div class="status">
+                      ${editorText('No transcript available.')}
+                    </div>`
               }
             `
       }

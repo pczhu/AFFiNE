@@ -1,3 +1,5 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
+
 import { t } from '../logical/index.js';
 import { createStatisticConfig } from './create.js';
 import type { StatisticsConfig } from './types.js';
@@ -6,7 +8,9 @@ export const anyTypeStatsFunctions: StatisticsConfig[] = [
   createStatisticConfig({
     group: 'Count',
     menuName: 'Count All',
-    displayName: 'All',
+    get displayName() {
+      return editorText('All');
+    },
     type: 'count-all',
     dataType: t.unknown.instance(),
     impl: data => {
@@ -16,7 +20,9 @@ export const anyTypeStatsFunctions: StatisticsConfig[] = [
   createStatisticConfig({
     group: 'Count',
     menuName: 'Count Values',
-    displayName: 'Values',
+    get displayName() {
+      return editorText('Values');
+    },
     type: 'count-values',
     dataType: t.unknown.instance(),
     impl: data => {
@@ -32,7 +38,9 @@ export const anyTypeStatsFunctions: StatisticsConfig[] = [
   createStatisticConfig({
     group: 'Count',
     menuName: 'Count Unique Values',
-    displayName: 'Unique Values',
+    get displayName() {
+      return editorText('Unique Values');
+    },
     type: 'count-unique-values',
     dataType: t.unknown.instance(),
     impl: data => {
@@ -50,7 +58,9 @@ export const anyTypeStatsFunctions: StatisticsConfig[] = [
   createStatisticConfig({
     group: 'Count',
     menuName: 'Count Empty',
-    displayName: 'Empty',
+    get displayName() {
+      return editorText('Empty');
+    },
     type: 'count-empty',
     dataType: t.unknown.instance(),
     impl: (data, { meta, dataSource }) => {
@@ -63,7 +73,9 @@ export const anyTypeStatsFunctions: StatisticsConfig[] = [
   createStatisticConfig({
     group: 'Count',
     menuName: 'Count Not Empty',
-    displayName: 'Not Empty',
+    get displayName() {
+      return editorText('Not Empty');
+    },
     type: 'count-not-empty',
     dataType: t.unknown.instance(),
     impl: (data, { meta, dataSource }) => {
@@ -76,7 +88,9 @@ export const anyTypeStatsFunctions: StatisticsConfig[] = [
   createStatisticConfig({
     group: 'Percent',
     menuName: 'Percent Empty',
-    displayName: 'Empty',
+    get displayName() {
+      return editorText('Empty');
+    },
     type: 'percent-empty',
     dataType: t.unknown.instance(),
     impl: (data, { meta, dataSource }) => {
@@ -90,7 +104,9 @@ export const anyTypeStatsFunctions: StatisticsConfig[] = [
   createStatisticConfig({
     group: 'Percent',
     menuName: 'Percent Not Empty',
-    displayName: 'Not Empty',
+    get displayName() {
+      return editorText('Not Empty');
+    },
     type: 'percent-not-empty',
     dataType: t.unknown.instance(),
     impl: (data, { meta, dataSource }) => {

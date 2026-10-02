@@ -1,4 +1,5 @@
 import type { AffineTextAttributes } from '@blocksuite/affine-shared/types';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { propertyType, t } from '@blocksuite/data-view';
 import type { DeltaInsert } from '@blocksuite/store';
 import { Text } from '@blocksuite/store';
@@ -18,7 +19,9 @@ export const toYText = (text?: RichTextCellType): undefined | Text['yText'] => {
 };
 
 export const richTextPropertyModelConfig = richTextColumnType.modelConfig({
-  name: 'Text',
+  get name() {
+    return editorText('Text');
+  },
   propertyData: {
     schema: zod.object({}),
     default: () => ({}),

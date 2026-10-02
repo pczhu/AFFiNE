@@ -5,6 +5,7 @@ import type {
 } from '@blocksuite/affine-model';
 import { ImageProxyService } from '@blocksuite/affine-shared/adapters';
 import { ThemeProvider } from '@blocksuite/affine-shared/services';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { BlockSelection, isGfxBlockComponent } from '@blocksuite/std';
 import { html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -218,7 +219,7 @@ export class EmbedGithubBlockComponent extends EmbedBlockComponent<
                       <div
                         class="affine-embed-github-content-assignees-text label"
                       >
-                        Assignees
+                        ${editorText('\n                        Assignees\n                      ')}
                       </div>
 
                       <div
@@ -228,7 +229,7 @@ export class EmbedGithubBlockComponent extends EmbedBlockComponent<
                           assignees.length === 0
                             ? html`<span
                                 class="affine-embed-github-content-assignees-text-users placeholder"
-                                >No one</span
+                                >${editorText('No one')}</span
                               >`
                             : repeat(
                                 assignees,

@@ -1,6 +1,6 @@
 import type { Tag } from '@affine/core/modules/tag';
 import { WorkspaceService } from '@affine/core/modules/workspace';
-import { Trans } from '@affine/i18n';
+import { Trans, translateUiText, useUiLanguage } from '@affine/i18n';
 import { useService } from '@toeverything/infra';
 import { useCallback, useMemo, useRef, useState } from 'react';
 
@@ -23,6 +23,7 @@ export const VirtualizedTagList = ({
   tagMetas: TagMeta[];
   onTagDelete: (tagIds: string[]) => void;
 }) => {
+  useUiLanguage();
   const listRef = useRef<ItemListHandle>(null);
   const [showFloatingToolbar, setShowFloatingToolbar] = useState(false);
   const [showCreateTagInput, setShowCreateTagInput] = useState(false);
@@ -110,7 +111,7 @@ export const VirtualizedTagList = ({
             <div style={{ color: 'var(--affine-text-secondary-color)' }}>
               {{ count: selectedTagIds.length } as any}
             </div>
-            selected
+            {translateUiText('selected\n          ')}
           </Trans>
         }
         onClose={hideFloatingToolbar}

@@ -12,6 +12,7 @@ import {
 import { fontSMStyle, fontXSStyle } from '@blocksuite/affine-shared/styles';
 import { unsafeCSSVarV2 } from '@blocksuite/affine-shared/theme';
 import {
+  editorText,
   listenClickAway,
   stopPropagation,
 } from '@blocksuite/affine-shared/utils';
@@ -187,7 +188,7 @@ export class EmbedCardEditModal extends SignalWatcher(
 
     const title = this.title$.value.trim();
     if (title.length === 0) {
-      toast(this.host, 'Title can not be empty');
+      toast(this.host, editorText('Title can not be empty'));
       return;
     }
 
@@ -235,15 +236,24 @@ export class EmbedCardEditModal extends SignalWatcher(
   get placeholders() {
     if (this.isInternalEmbedModel) {
       return {
-        title: 'Add title alias',
-        description:
-          'Add description alias (empty to inherit document content)',
+        get title() {
+          return editorText('Add title alias');
+        },
+        get description() {
+          return editorText(
+            'Add description alias (empty to inherit document content)'
+          );
+        },
       };
     }
 
     return {
-      title: 'Write a title',
-      description: 'Write a description...',
+      get title() {
+        return editorText('Write a title');
+      },
+      get description() {
+        return editorText('Write a description...');
+      },
     };
   }
 
@@ -335,7 +345,7 @@ export class EmbedCardEditModal extends SignalWatcher(
                   .disabled=${this.resetButtonDisabled$.value}
                   @click=${this._onReset}
                 >
-                  Reset
+                  ${editorText('\n                  Reset\n                ')}
                 </button>
               `,
             ],
@@ -349,7 +359,7 @@ export class EmbedCardEditModal extends SignalWatcher(
                   })}
                   @click=${this._hide}
                 >
-                  Cancel
+                  ${editorText('\n                  Cancel\n                ')}
                 </button>
               `,
             ],
@@ -362,7 +372,7 @@ export class EmbedCardEditModal extends SignalWatcher(
             .disabled=${this.saveButtonDisabled$.value}
             @click=${this._onSave}
           >
-            Save
+            ${editorText('\n            Save\n          ')}
           </button>
         </div>
       </div>

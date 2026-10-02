@@ -8,7 +8,7 @@ import {
   Scrollable,
 } from '@affine/component';
 import { TagService, useDeleteTagConfirmModal } from '@affine/core/modules/tag';
-import { useI18n } from '@affine/i18n';
+import { translateUiText, useI18n } from '@affine/i18n';
 import { DoneIcon, MoreHorizontalIcon } from '@blocksuite/icons/rc';
 import { useLiveData, useService } from '@toeverything/infra';
 import clsx from 'clsx';
@@ -278,7 +278,7 @@ export const TagsEditor = ({
             onEnter={onEnter}
             autoFocus
             className={styles.searchInput}
-            placeholder="Type here ..."
+            placeholder={translateUiText('Type here ...')}
           />
         </InlineTagList>
 
@@ -302,7 +302,9 @@ export const TagsEditor = ({
             className={styles.tagSelectorTagsScrollContainer}
           >
             {tagOptions.length === 0 && (
-              <div className={styles.tagSelectorEmpty}>Nothing here yet</div>
+              <div className={styles.tagSelectorEmpty}>
+                {translateUiText('Nothing here yet')}
+              </div>
             )}
 
             {tagOptions.map((tag, idx) => {

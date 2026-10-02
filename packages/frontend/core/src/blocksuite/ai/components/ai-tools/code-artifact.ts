@@ -1,3 +1,4 @@
+import { translateUiText } from '@affine/i18n';
 import { CodeBlockHighlighter } from '@blocksuite/affine/blocks/code';
 import { SignalWatcher, WithDisposable } from '@blocksuite/affine/global/lit';
 import { ColorScheme } from '@blocksuite/affine/model';
@@ -548,7 +549,9 @@ export class CodeArtifactTool extends ArtifactTool<
           blobs: {},
         }),
       }));
-      this.notificationService.toast('Copied HTML to clipboard');
+      this.notificationService.toast(
+        translateUiText('Copied HTML to clipboard')
+      );
     };
 
     const downloadHTML = () => {
@@ -580,7 +583,9 @@ export class CodeArtifactTool extends ArtifactTool<
           { text: new Text(html), language: 'html', preview: true },
           parentId
         );
-        this.notificationService.toast('Inserted to current doc');
+        this.notificationService.toast(
+          translateUiText('Inserted to current doc')
+        );
       } catch (e) {
         console.error(e);
       }
@@ -609,7 +614,7 @@ export class CodeArtifactTool extends ArtifactTool<
           })}
           @click=${setCodeMode}
         >
-          Code
+          ${translateUiText('\n          Code\n        ')}
         </div>
         <div
           class=${classMap({
@@ -618,7 +623,7 @@ export class CodeArtifactTool extends ArtifactTool<
           })}
           @click=${setPreviewMode}
         >
-          Preview
+          ${translateUiText('\n          Preview\n        ')}
         </div>
       </div>
       <div style="flex: 1"></div>
@@ -630,10 +635,13 @@ export class CodeArtifactTool extends ArtifactTool<
         })}
         Insert
       </button>
-      <icon-button @click=${downloadHTML} title="Download HTML">
+      <icon-button
+        @click=${downloadHTML}
+        title=${translateUiText('Download HTML')}
+      >
         ${DownloadIcon({ width: '20', height: '20' })}
       </icon-button>
-      <icon-button @click=${copyHTML} title="Copy HTML">
+      <icon-button @click=${copyHTML} title=${translateUiText('Copy HTML')}>
         ${CopyIcon({ width: '20', height: '20' })}
       </icon-button>
     `;

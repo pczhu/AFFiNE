@@ -1,4 +1,5 @@
 import { useAsyncCallback } from '@affine/core/components/hooks/affine-async-hooks';
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import { UploadIcon } from '@blocksuite/icons/rc';
 import {
   type ChangeEvent,
@@ -26,6 +27,7 @@ export const FileUploadArea = forwardRef<
   FileUploadAreaRef,
   FileUploadAreaProps
 >(({ onFileSelected }, ref) => {
+  useUiLanguage();
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -49,7 +51,7 @@ export const FileUploadArea = forwardRef<
   const validateAndProcessFile = useAsyncCallback(
     async (file: File) => {
       if (file.type !== 'text/csv' && !file.name.endsWith('.csv')) {
-        toast.error('Please upload a CSV file');
+        toast.error(translateUiText('Please upload a CSV file'));
         return;
       }
       await onFileSelected(file);
@@ -103,11 +105,11 @@ export const FileUploadArea = forwardRef<
         />
         <div className="text-xs font-medium text-muted-foreground">
           {isDragging
-            ? 'Release mouse to upload file'
-            : 'Upload your CSV file or drag it here'}
+            ? translateUiText('Release mouse to upload file')
+            : translateUiText('Upload your CSV file or drag it here')}
         </div>
         <p className="mt-1 text-xs text-muted-foreground">
-          {isDragging ? 'Preparing to upload...' : ''}
+          {isDragging ? translateUiText('Preparing to upload...') : ''}
         </p>
       </div>
       <input

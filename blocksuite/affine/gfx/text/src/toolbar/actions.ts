@@ -22,6 +22,7 @@ import {
   type ToolbarContext,
 } from '@blocksuite/affine-shared/services';
 import {
+  editorText,
   getMostCommonResolvedValue,
   getMostCommonValue,
 } from '@blocksuite/affine-shared/utils';
@@ -157,8 +158,8 @@ export function createTextActions<
             .contentPadding="${'8px'}"
             .button=${html`
               <editor-icon-button
-                aria-label="Font"
-                .tooltip="${'Font'}"
+                aria-label=${editorText('Font')}
+                .tooltip="${editorText('Font')}"
                 .justify="${'space-between'}"
                 .iconContainerWidth="${'40px'}"
               >
@@ -239,7 +240,7 @@ export function createTextActions<
         return html`
           <edgeless-color-picker-button
             class="text-color"
-            .label="${'Text color'}"
+            .label="${editorText('Text color')}"
             .pick=${onPick}
             .color=${color}
             .theme=${theme}
@@ -289,8 +290,8 @@ export function createTextActions<
             .contentPadding="${'8px'}"
             .button=${html`
               <editor-icon-button
-                aria-label="Font style"
-                .tooltip="${'Font style'}"
+                aria-label=${editorText('Font style')}
+                .tooltip="${editorText('Font style')}"
                 .justify="${'space-between'}"
                 .iconContainerWidth="${'90px'}"
                 .disabled=${disabled}
@@ -351,7 +352,7 @@ export function createTextActions<
 
         return html`<affine-size-dropdown-menu
           @select=${onPick}
-          .label="${'Font size'}"
+          .label="${editorText('Font size')}"
           .sizes=${FONT_SIZE_LIST}
           .sizeSignal=${fontSize$}
         ></affine-size-dropdown-menu>`;
@@ -378,7 +379,9 @@ export function createTextActions<
         };
 
         return renderMenu({
-          label: 'Alignment',
+          get label() {
+            return editorText('Alignment');
+          },
           items: TEXT_ALIGN_LIST,
           currentValue: textAlign,
           onPick,

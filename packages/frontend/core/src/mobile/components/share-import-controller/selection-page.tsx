@@ -1,4 +1,5 @@
 import { Button, SafeArea, Scrollable } from '@affine/component';
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 
 import { PageHeader } from '../page-header';
 import * as styles from './style.css';
@@ -27,6 +28,7 @@ export const SelectionPage = ({
   onSelect: (id: string) => void;
   onConfirm?: () => void;
 }) => {
+  useUiLanguage();
   return (
     <div className={styles.page}>
       <PageHeader back backAction={onBack}>
@@ -84,7 +86,7 @@ export const SelectionPage = ({
             variant="primary"
             onClick={onConfirm}
           >
-            Done
+            {translateUiText('Done\n          ')}
           </Button>
         </SafeArea>
       ) : null}

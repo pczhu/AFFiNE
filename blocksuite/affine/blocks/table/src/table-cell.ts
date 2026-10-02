@@ -9,7 +9,10 @@ import { DefaultInlineManagerExtension } from '@blocksuite/affine-inline-preset'
 import type { TableColumn, TableRow } from '@blocksuite/affine-model';
 import { RichText } from '@blocksuite/affine-rich-text';
 import { cssVarV2 } from '@blocksuite/affine-shared/theme';
-import { getViewportElement } from '@blocksuite/affine-shared/utils';
+import {
+  editorText,
+  getViewportElement,
+} from '@blocksuite/affine-shared/utils';
 import { IS_MAC } from '@blocksuite/global/env';
 import { SignalWatcher, WithDisposable } from '@blocksuite/global/lit';
 import {
@@ -129,11 +132,18 @@ export class TableCell extends SignalWatcher(
           menu.group({
             items: [
               menu.subMenu({
-                name: 'Background color',
+                get name() {
+                  return editorText('Background color');
+                },
                 prefix: ColorPickerIcon(),
                 options: {
                   items: [
-                    { name: 'Default', color: undefined },
+                    {
+                      get name() {
+                        return editorText('Default');
+                      },
+                      color: undefined,
+                    },
                     ...colorList,
                   ].map(item =>
                     menu.action({
@@ -159,7 +169,9 @@ export class TableCell extends SignalWatcher(
               ...(column.backgroundColor
                 ? [
                     menu.action({
-                      name: 'Clear column style',
+                      get name() {
+                        return editorText('Clear column style');
+                      },
                       prefix: CloseIcon(),
                       select: () => {
                         this.dataManager.setColumnBackgroundColor(
@@ -175,7 +187,9 @@ export class TableCell extends SignalWatcher(
           menu.group({
             items: [
               menu.action({
-                name: 'Insert Left',
+                get name() {
+                  return editorText('Insert Left');
+                },
                 prefix: InsertLeftIcon(),
                 select: () => {
                   this.dataManager.insertColumn(
@@ -184,21 +198,27 @@ export class TableCell extends SignalWatcher(
                 },
               }),
               menu.action({
-                name: 'Insert Right',
+                get name() {
+                  return editorText('Insert Right');
+                },
                 prefix: InsertRightIcon(),
                 select: () => {
                   this.dataManager.insertColumn(columnIndex);
                 },
               }),
               menu.action({
-                name: 'Move Left',
+                get name() {
+                  return editorText('Move Left');
+                },
                 prefix: ArrowLeftBigIcon(),
                 select: () => {
                   this.dataManager.moveColumn(columnIndex, columnIndex - 2);
                 },
               }),
               menu.action({
-                name: 'Move Right',
+                get name() {
+                  return editorText('Move Right');
+                },
                 prefix: ArrowRightBigIcon(),
                 select: () => {
                   this.dataManager.moveColumn(columnIndex, columnIndex + 1);
@@ -209,7 +229,9 @@ export class TableCell extends SignalWatcher(
           menu.group({
             items: [
               menu.action({
-                name: 'Duplicate',
+                get name() {
+                  return editorText('Duplicate');
+                },
                 prefix: DuplicateIcon(),
                 select: () => {
                   this.dataManager.duplicateColumn(columnIndex);
@@ -217,7 +239,9 @@ export class TableCell extends SignalWatcher(
               }),
 
               menu.action({
-                name: 'Clear column contents',
+                get name() {
+                  return editorText('Clear column contents');
+                },
                 prefix: CloseIcon(),
                 select: () => {
                   this.dataManager.clearColumn(column.columnId);
@@ -225,7 +249,9 @@ export class TableCell extends SignalWatcher(
               }),
 
               menu.action({
-                name: 'Delete',
+                get name() {
+                  return editorText('Delete');
+                },
                 class: {
                   'delete-item': true,
                 },
@@ -255,11 +281,18 @@ export class TableCell extends SignalWatcher(
           menu.group({
             items: [
               menu.subMenu({
-                name: 'Background color',
+                get name() {
+                  return editorText('Background color');
+                },
                 prefix: ColorPickerIcon(),
                 options: {
                   items: [
-                    { name: 'Default', color: undefined },
+                    {
+                      get name() {
+                        return editorText('Default');
+                      },
+                      color: undefined,
+                    },
                     ...colorList,
                   ].map(item =>
                     menu.action({
@@ -285,7 +318,9 @@ export class TableCell extends SignalWatcher(
               ...(row.backgroundColor
                 ? [
                     menu.action({
-                      name: 'Clear row style',
+                      get name() {
+                        return editorText('Clear row style');
+                      },
                       prefix: CloseIcon(),
                       select: () => {
                         this.dataManager.setRowBackgroundColor(
@@ -301,7 +336,9 @@ export class TableCell extends SignalWatcher(
           menu.group({
             items: [
               menu.action({
-                name: 'Insert Above',
+                get name() {
+                  return editorText('Insert Above');
+                },
                 prefix: InsertAboveIcon(),
                 select: () => {
                   this.dataManager.insertRow(
@@ -310,21 +347,27 @@ export class TableCell extends SignalWatcher(
                 },
               }),
               menu.action({
-                name: 'Insert Below',
+                get name() {
+                  return editorText('Insert Below');
+                },
                 prefix: InsertBelowIcon(),
                 select: () => {
                   this.dataManager.insertRow(rowIndex);
                 },
               }),
               menu.action({
-                name: 'Move Up',
+                get name() {
+                  return editorText('Move Up');
+                },
                 prefix: ArrowUpBigIcon(),
                 select: () => {
                   this.dataManager.moveRow(rowIndex, rowIndex - 1);
                 },
               }),
               menu.action({
-                name: 'Move Down',
+                get name() {
+                  return editorText('Move Down');
+                },
                 prefix: ArrowDownBigIcon(),
                 select: () => {
                   this.dataManager.moveRow(rowIndex, rowIndex + 1);
@@ -335,21 +378,27 @@ export class TableCell extends SignalWatcher(
           menu.group({
             items: [
               menu.action({
-                name: 'Duplicate',
+                get name() {
+                  return editorText('Duplicate');
+                },
                 prefix: DuplicateIcon(),
                 select: () => {
                   this.dataManager.duplicateRow(rowIndex);
                 },
               }),
               menu.action({
-                name: 'Clear row contents',
+                get name() {
+                  return editorText('Clear row contents');
+                },
                 prefix: CloseIcon(),
                 select: () => {
                   this.dataManager.clearRow(row.rowId);
                 },
               }),
               menu.action({
-                name: 'Delete',
+                get name() {
+                  return editorText('Delete');
+                },
                 class: {
                   'delete-item': true,
                 },
@@ -370,10 +419,20 @@ export class TableCell extends SignalWatcher(
     select: (color?: string) => void
   ) {
     return menu.subMenu({
-      name: 'Background color',
+      get name() {
+        return editorText('Background color');
+      },
       prefix: ColorPickerIcon(),
       options: {
-        items: [{ name: 'Default', color: undefined }, ...colorList].map(item =>
+        items: [
+          {
+            get name() {
+              return editorText('Default');
+            },
+            color: undefined,
+          },
+          ...colorList,
+        ].map(item =>
           menu.action({
             prefix: html`<div
               style="color: ${
@@ -408,14 +467,18 @@ export class TableCell extends SignalWatcher(
             menu.group({
               items: [
                 menu.action({
-                  name: 'Copy',
+                  get name() {
+                    return editorText('Copy');
+                  },
                   prefix: CopyIcon(),
                   select: () => {
                     this.selectionController.doCopyOrCut(selected, false);
                   },
                 }),
                 menu.action({
-                  name: 'Paste',
+                  get name() {
+                    return editorText('Paste');
+                  },
                   prefix: PasteIcon(),
                   select: () => {
                     // oxlint-disable-next-line typescript/no-floating-promises
@@ -429,7 +492,9 @@ export class TableCell extends SignalWatcher(
             menu.group({
               items: [
                 menu.action({
-                  name: 'Clear contents',
+                  get name() {
+                    return editorText('Clear contents');
+                  },
                   prefix: CloseIcon(),
                   select: () => {
                     this.dataManager.clearCellsBySelection(selected);

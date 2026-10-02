@@ -2,7 +2,7 @@ import {
   type InviteLink,
   WorkspaceInviteLinkExpireTime,
 } from '@affine/graphql';
-import { useI18n } from '@affine/i18n';
+import { translateUiText, useI18n } from '@affine/i18n';
 import { CloseIcon } from '@blocksuite/icons/rc';
 import { cssVar } from '@toeverything/theme';
 import { cssVarV2 } from '@toeverything/theme/v2';
@@ -76,7 +76,9 @@ export const LinkInvite = ({
     generateInvitationLink(selectedValue).catch(err => {
       console.error('Failed to generate invitation link: ', err);
       notify.error({
-        title: 'Failed to generate invitation link',
+        get title() {
+          return translateUiText('Failed to generate invitation link');
+        },
         message: err.message,
       });
     });
@@ -95,7 +97,9 @@ export const LinkInvite = ({
       .catch(err => {
         console.error('Failed to copy text: ', err);
         notify.error({
-          title: 'Failed to copy link to clipboard',
+          get title() {
+            return translateUiText('Failed to copy link to clipboard');
+          },
           message: err.message,
         });
       });
@@ -105,7 +109,9 @@ export const LinkInvite = ({
     revokeInvitationLink().catch(err => {
       console.error('Failed to revoke invitation link: ', err);
       notify.error({
-        title: 'Failed to revoke invitation link',
+        get title() {
+          return translateUiText('Failed to revoke invitation link');
+        },
         message: err.message,
       });
     });

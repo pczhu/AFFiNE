@@ -8,6 +8,7 @@ import {
   popupTargetFromElement,
 } from '@blocksuite/affine-components/context-menu';
 import { unsafeCSSVarV2 } from '@blocksuite/affine-shared/theme';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import {
   ArrowRightSmallIcon,
   DeleteIcon,
@@ -196,7 +197,7 @@ export const popViewOptions = (
           style="padding:4px 8px;font-size:12px;line-height:20px;font-weight:500;border-radius:4px;cursor:pointer;color:var(--affine-primary-color);"
           @click="${clickChangeAll}"
         >
-          ${isAllShowed ? 'Hide All' : 'Show All'}
+          ${isAllShowed ? editorText('Hide All') : editorText('Show All')}
         </div>`;
     },
     get onClose() {
@@ -233,7 +234,9 @@ export const popViewOptions = (
       menu.group({
         items: [
           menu.action({
-            name: 'Add',
+            get name() {
+              return editorText('Add');
+            },
             prefix: PlusIcon(),
             select: ele => {
               const value = filterTrait.filter$.value;
@@ -262,7 +265,9 @@ export const popViewOptions = (
     return [
       () => html`<sort-root-view .sortUtils="${sortUtils}"></sort-root-view>`,
       menu.action({
-        name: 'Add sort',
+        get name() {
+          return editorText('Add sort');
+        },
         prefix: PlusIcon(),
         select: ele => {
           popCreateSort(popupTargetFromElement(ele), { sortUtils });
@@ -270,7 +275,9 @@ export const popViewOptions = (
         },
       }),
       menu.action({
-        name: 'Delete',
+        get name() {
+          return editorText('Delete');
+        },
         class: { 'delete-item': true },
         prefix: DeleteIcon(),
         select: () => {
@@ -316,7 +323,9 @@ export const popViewOptions = (
     items.push(
       menu.input({
         initialValue: view.name$.value,
-        placeholder: 'View name',
+        get placeholder() {
+          return editorText('View name');
+        },
         disableAutoFocus: true,
         onChange: text => {
           view.nameSet(text);
@@ -398,7 +407,7 @@ export const popViewOptions = (
                 <div
                   style="font-size:14px;line-height:22px;color:var(--affine-text-secondary-color);"
                 >
-                  Layout
+                  ${editorText('\n                  Layout\n                ')}
                 </div>
               </div>
               <div style="display:flex;gap:4px;margin-top:8px;">
@@ -414,7 +423,9 @@ export const popViewOptions = (
 
     settingItems.push(
       menu.action({
-        name: 'Properties',
+        get name() {
+          return editorText('Properties');
+        },
         prefix: InfoIcon(),
         closeOnSelect: false,
         postfix: html`
@@ -435,7 +446,9 @@ export const popViewOptions = (
       const filterCount = filterTrait.filter$.value.conditions.length;
       settingItems.push(
         menu.action({
-          name: 'Filter',
+          get name() {
+            return editorText('Filter');
+          },
           prefix: FilterIcon(),
           closeOnSelect: false,
           postfix: html`
@@ -444,7 +457,7 @@ export const popViewOptions = (
                 filterCount === 0
                   ? ''
                   : filterCount === 1
-                    ? '1 active'
+                    ? editorText('1 active')
                     : `${filterCount} active`
               }
             </div>
@@ -463,7 +476,9 @@ export const popViewOptions = (
       const sortCount = sortTrait.sortList$.value.length;
       settingItems.push(
         menu.action({
-          name: 'Sort',
+          get name() {
+            return editorText('Sort');
+          },
           prefix: SortIcon(),
           closeOnSelect: false,
           postfix: html`
@@ -472,7 +487,7 @@ export const popViewOptions = (
                 sortCount === 0
                   ? ''
                   : sortCount === 1
-                    ? '1 active'
+                    ? editorText('1 active')
                     : `${sortCount} active`
               }
             </div>
@@ -490,7 +505,9 @@ export const popViewOptions = (
     if (groupTrait) {
       settingItems.push(
         menu.action({
-          name: 'Group',
+          get name() {
+            return editorText('Group');
+          },
           prefix: GroupingIcon(),
           closeOnSelect: false,
           postfix: html`
@@ -531,7 +548,9 @@ export const popViewOptions = (
       menu.group({
         items: [
           menu.action({
-            name: 'Duplicate view',
+            get name() {
+              return editorText('Duplicate view');
+            },
             prefix: DuplicateIcon(),
             closeOnSelect: false,
             select: () => {
@@ -539,7 +558,9 @@ export const popViewOptions = (
             },
           }),
           menu.action({
-            name: 'Delete view',
+            get name() {
+              return editorText('Delete view');
+            },
             prefix: DeleteIcon(),
             closeOnSelect: false,
             select: () => {

@@ -4,7 +4,7 @@ import type { FavoriteSupportTypeUnion } from '@affine/core/modules/favorite';
 import { FavoriteService } from '@affine/core/modules/favorite';
 import { NavigationPanelService } from '@affine/core/modules/navigation-panel';
 import { WorkspaceService } from '@affine/core/modules/workspace';
-import { useI18n } from '@affine/i18n';
+import { translateUiText, useI18n } from '@affine/i18n';
 import { useLiveData, useServices } from '@toeverything/infra';
 import { useCallback, useMemo } from 'react';
 
@@ -48,7 +48,9 @@ export const NavigationPanelFavorites = () => {
       testId="navigation-panel-favorites"
       headerTestId="navigation-panel-favorite-category-divider"
     >
-      <NavigationPanelTreeRoot placeholder={isLoading ? 'Loading' : null}>
+      <NavigationPanelTreeRoot
+        placeholder={isLoading ? translateUiText('Loading') : null}
+      >
         {favorites.map(favorite => (
           <FavoriteNode
             key={favorite.id}

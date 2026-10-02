@@ -5,7 +5,12 @@ import {
   i18nCompletenesses,
   type Language,
   SUPPORTED_LANGUAGES,
+  translateUiText,
 } from '@affine/i18n';
+import {
+  configureEditorI18n,
+  refreshEditorTranslations,
+} from '@blocksuite/affine-shared/utils';
 import { effect, Entity, fromPromise, LiveData } from '@toeverything/infra';
 import { catchError, EMPTY, exhaustMap } from 'rxjs';
 
@@ -53,6 +58,7 @@ export class I18n extends Entity {
 
   constructor(private readonly cache: GlobalCache) {
     super();
+    configureEditorI18n(translateUiText);
     this.i18n.on('languageChanged', (language: Language) => {
       this.applyDocumentLanguage(language);
       this.cache.set('i18n_lng', language);
@@ -70,6 +76,7 @@ export class I18n extends Entity {
     document.documentElement.dir = SUPPORTED_LANGUAGES[language]?.rtl
       ? 'rtl'
       : 'ltr';
+    queueMicrotask(() => refreshEditorTranslations(document));
   }
 
   changeLanguage = effect(
@@ -78,8 +85,14 @@ export class I18n extends Entity {
         catchError(error => {
           notify({
             theme: 'error',
-            title: 'Failed to change language',
-            message: 'Error occurs when loading language files',
+            get title() {
+              return translateUiText('Failed to change language');
+            },
+            get message() {
+              return translateUiText(
+                'Error occurs when loading language files'
+              );
+            },
           });
 
           logger.error('Failed to change language', error);

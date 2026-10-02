@@ -14,7 +14,7 @@ import {
 } from '@affine/core/modules/workspace';
 import { UNTITLED_WORKSPACE_NAME } from '@affine/env/constant';
 import { ServerDeploymentType } from '@affine/graphql';
-import { useI18n } from '@affine/i18n';
+import { translateUiText, useI18n, useUiLanguage } from '@affine/i18n';
 import {
   ArrowDownSmallIcon,
   CloudWorkspaceIcon,
@@ -42,34 +42,38 @@ import * as styles from './styles.css';
 export { PureWorkspaceCard } from './pure-workspace-card';
 
 const RemoteWorkspaceStatus = ({ selfHosted }: { selfHosted?: boolean }) => {
+  useUiLanguage();
   const Icon = selfHosted ? SelfhostIcon : CloudWorkspaceIcon;
   return (
     <>
       <Icon />
-      {selfHosted ? 'AFFiNE' : 'Cloud'}
+      {selfHosted ? 'AFFiNE' : translateUiText('Cloud')}
     </>
   );
 };
 
 const SyncingWorkspaceStatus = ({ progress }: { progress?: number }) => {
+  useUiLanguage();
   return (
     <>
       <Loading progress={progress} speed={0} />
-      Syncing...
+      {translateUiText('Syncing...\n    ')}
     </>
   );
 };
 
 const UnSyncWorkspaceStatus = () => {
+  useUiLanguage();
   return (
     <>
       <UnsyncIcon />
-      Wait for upload
+      {translateUiText('Wait for upload\n    ')}
     </>
   );
 };
 
 const LocalWorkspaceStatus = () => {
+  useUiLanguage();
   return (
     <>
       {!BUILD_CONFIG.isElectron ? (
@@ -77,16 +81,17 @@ const LocalWorkspaceStatus = () => {
       ) : (
         <LocalWorkspaceIcon />
       )}
-      Local
+      {translateUiText('Local\n    ')}
     </>
   );
 };
 
 const OfflineStatus = () => {
+  useUiLanguage();
   return (
     <>
       <NoNetworkIcon />
-      Offline
+      {translateUiText('Offline\n    ')}
     </>
   );
 };
@@ -392,7 +397,9 @@ export const WorkspaceCard = forwardRef<
             )}
           </div>
           {information?.isEmpty && information.isOwner ? (
-            <Button onClick={onRemoveWorkspace}>Remove</Button>
+            <Button onClick={onRemoveWorkspace}>
+              {translateUiText('Remove')}
+            </Button>
           ) : null}
           <div className={styles.showOnCardHover}>
             {onClickEnableCloud && workspaceMetadata.flavour === 'local' ? (
@@ -400,7 +407,7 @@ export const WorkspaceCard = forwardRef<
                 className={styles.enableCloudButton}
                 onClick={onEnableCloud}
               >
-                Enable Cloud
+                {translateUiText('Enable Cloud\n              ')}
               </Button>
             ) : null}
 

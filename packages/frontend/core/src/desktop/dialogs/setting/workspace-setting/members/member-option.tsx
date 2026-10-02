@@ -5,7 +5,7 @@ import {
   WorkspacePermissionService,
 } from '@affine/core/modules/permissions';
 import { Permission, WorkspaceMemberStatus } from '@affine/graphql';
-import { useI18n } from '@affine/i18n';
+import { translateUiText, useI18n } from '@affine/i18n';
 import { useLiveData, useService } from '@toeverything/infra';
 import { useCallback, useMemo } from 'react';
 
@@ -54,7 +54,9 @@ export const MemberOptions = ({
             })
             .catch(error => {
               notify.error({
-                title: 'Operation failed',
+                get title() {
+                  return translateUiText('Operation failed');
+                },
                 message: error.message,
               });
             }),
@@ -94,7 +96,9 @@ export const MemberOptions = ({
       })
       .catch(error => {
         notify.error({
-          title: 'Operation failed',
+          get title() {
+            return translateUiText('Operation failed');
+          },
           message: error.message,
         });
       });
@@ -136,7 +140,9 @@ export const MemberOptions = ({
       })
       .catch(error => {
         notify.error({
-          title: 'Operation failed',
+          get title() {
+            return translateUiText('Operation failed');
+          },
           message: error.message,
         });
       });
@@ -159,7 +165,9 @@ export const MemberOptions = ({
       })
       .catch(error => {
         notify.error({
-          title: 'Operation failed',
+          get title() {
+            return translateUiText('Operation failed');
+          },
           message: error.message,
         });
       });

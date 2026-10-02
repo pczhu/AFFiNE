@@ -31,6 +31,7 @@ import type {
   ToolbarContext,
 } from '@blocksuite/affine-shared/services';
 import {
+  editorText,
   matchModels,
   type ReorderingType,
 } from '@blocksuite/affine-shared/utils';
@@ -69,7 +70,9 @@ export const moreActions = [
     actions: [
       {
         id: 'a.create-frame',
-        label: 'Frame section',
+        get label() {
+          return editorText('Frame section');
+        },
         icon: FrameIcon(),
         run(ctx) {
           const frame = ctx.std
@@ -90,7 +93,9 @@ export const moreActions = [
       },
       {
         id: 'b.create-group',
-        label: 'Group section',
+        get label() {
+          return editorText('Group section');
+        },
         icon: GroupIcon(),
         when(ctx) {
           const models = ctx.getSurfaceModels();
@@ -110,7 +115,9 @@ export const moreActions = [
     actions: [
       {
         id: 'a.bring-to-front',
-        label: 'Bring to Front',
+        get label() {
+          return editorText('Bring to Front');
+        },
         icon: ArrowUpBigTopIcon(),
         run(ctx) {
           const models = ctx.getSurfaceModels();
@@ -119,7 +126,9 @@ export const moreActions = [
       },
       {
         id: 'b.bring-forward',
-        label: 'Bring Forward',
+        get label() {
+          return editorText('Bring Forward');
+        },
         icon: ArrowUpBigIcon(),
         run(ctx) {
           const models = ctx.getSurfaceModels();
@@ -128,7 +137,9 @@ export const moreActions = [
       },
       {
         id: 'c.send-backward',
-        label: 'Send Backward',
+        get label() {
+          return editorText('Send Backward');
+        },
         icon: ArrowDownBigIcon(),
         run(ctx) {
           const models = ctx.getSurfaceModels();
@@ -137,7 +148,9 @@ export const moreActions = [
       },
       {
         id: 'c.send-to-back',
-        label: 'Send to Back',
+        get label() {
+          return editorText('Send to Back');
+        },
         icon: ArrowDownBigBottomIcon(),
         run(ctx) {
           const models = ctx.getSurfaceModels();
@@ -154,7 +167,9 @@ export const moreActions = [
     actions: [
       {
         id: 'copy',
-        label: 'Copy',
+        get label() {
+          return editorText('Copy');
+        },
         icon: CopyIcon(),
         run(ctx) {
           const models = ctx.getSurfaceModels();
@@ -170,7 +185,9 @@ export const moreActions = [
       },
       {
         id: 'duplicate',
-        label: 'Duplicate',
+        get label() {
+          return editorText('Duplicate');
+        },
         icon: DuplicateIcon(),
         run(ctx) {
           const models = ctx.getSurfaceModels();
@@ -184,7 +201,9 @@ export const moreActions = [
       },
       {
         id: 'reload',
-        label: 'Reload',
+        get label() {
+          return editorText('Reload');
+        },
         icon: ResetIcon(),
         when(ctx) {
           const models = ctx.getSurfaceModels();
@@ -213,7 +232,9 @@ export const moreActions = [
     actions: [
       {
         id: 'a.turn-into-linked-doc',
-        label: 'Turn into linked doc',
+        get label() {
+          return editorText('Turn into linked doc');
+        },
         icon: LinkedPageIcon(),
         when(ctx) {
           const models = ctx.getSurfaceModels();
@@ -290,7 +311,9 @@ export const moreActions = [
       },
       {
         id: 'b.create-linked-doc',
-        label: 'Create linked doc',
+        get label() {
+          return editorText('Create linked doc');
+        },
         icon: LinkedPageIcon(),
         when(ctx) {
           const models = ctx.getSurfaceModels();
@@ -374,7 +397,9 @@ export const moreActions = [
   // Deleting Group
   {
     id: 'e.delete',
-    label: 'Delete',
+    get label() {
+      return editorText('Delete');
+    },
     icon: DeleteIcon(),
     variant: 'destructive',
     run(ctx) {

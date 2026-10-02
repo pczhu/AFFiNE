@@ -25,7 +25,10 @@ import {
   ThemeExtensionIdentifier,
   ThemeProvider,
 } from '@blocksuite/affine-shared/services';
-import { cloneReferenceInfo } from '@blocksuite/affine-shared/utils';
+import {
+  cloneReferenceInfo,
+  editorText,
+} from '@blocksuite/affine-shared/utils';
 import { Bound, getCommonBound } from '@blocksuite/global/gfx';
 import {
   BlockSelection,
@@ -246,9 +249,9 @@ export class EmbedSyncedDocBlockComponent extends EmbedBlockComponent<EmbedSynce
               isPageMode && this._isEmptySyncedDoc
                 ? html`
                     <div class="affine-embed-synced-doc-editor-empty">
-                      <span>
-                        This is a linked doc, you can add content here.
-                      </span>
+                      <span
+                        >${editorText('\n                        This is a linked doc, you can add content here.\n                      ')}</span
+                      >
                     </div>
                   `
                 : guard(
@@ -389,7 +392,7 @@ export class EmbedSyncedDocBlockComponent extends EmbedBlockComponent<EmbedSynce
   }
 
   get docTitle() {
-    return this.syncedDoc?.meta?.title || 'Untitled';
+    return this.syncedDoc?.meta?.title || editorText('Untitled');
   }
 
   get docUpdatedAt() {

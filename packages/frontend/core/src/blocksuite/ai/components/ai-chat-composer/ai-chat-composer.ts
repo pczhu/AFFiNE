@@ -11,6 +11,7 @@ import type {
 } from '@affine/core/modules/cloud';
 import type { WorkspaceDialogService } from '@affine/core/modules/dialogs';
 import type { CopilotChatHistoryFragment } from '@affine/graphql';
+import { translateUiText } from '@affine/i18n';
 import { SignalWatcher, WithDisposable } from '@blocksuite/affine/global/lit';
 import type { EditorHost } from '@blocksuite/affine/std';
 import { ShadowlessElement } from '@blocksuite/affine/std';
@@ -191,7 +192,9 @@ export class AIChatComposer extends SignalWatcher(
       <div class="chat-panel-footer">
         <ai-chat-composer-tip
           .tips=${[
-            html`<span>AI outputs can be misleading or wrong</span>`,
+            html`<span
+              >${translateUiText('AI outputs can be misleading or wrong')}</span
+            >`,
           ].filter(Boolean)}
           .loop=${false}
         ></ai-chat-composer-tip>
@@ -414,7 +417,7 @@ export class AIChatComposer extends SignalWatcher(
     const index = findChipIndex(this.chips, chip);
     if (index !== -1) {
       if (!silent) {
-        this.notificationService.toast('chip already exists');
+        this.notificationService.toast(translateUiText('chip already exists'));
       }
       return;
     }

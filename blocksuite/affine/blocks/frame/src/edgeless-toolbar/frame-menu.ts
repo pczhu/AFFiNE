@@ -1,4 +1,5 @@
 import { DefaultTool } from '@blocksuite/affine-block-surface';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { EdgelessToolbarToolMixin } from '@blocksuite/affine-widget-edgeless-toolbar';
 import { css, html, LitElement } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
@@ -77,7 +78,7 @@ export class EdgelessFrameMenu extends EdgelessToolbarToolMixin(LitElement) {
     return html`
       <edgeless-slide-menu .showNext=${false}>
         <div class="menu-content">
-          <div class="frame-add-button custom">Custom</div>
+          <div class="frame-add-button custom">${editorText('Custom')}</div>
           <div class="divider"></div>
           ${repeat(
             FrameConfig,

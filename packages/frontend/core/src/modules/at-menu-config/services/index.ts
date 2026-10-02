@@ -5,7 +5,7 @@ import {
   DocRole,
   ErrorNames,
 } from '@affine/graphql';
-import { I18n, i18nTime } from '@affine/i18n';
+import { I18n, i18nTime, translateUiText } from '@affine/i18n';
 import track from '@affine/track';
 import type { DocMode } from '@blocksuite/affine/model';
 import { DocModeProvider } from '@blocksuite/affine/shared/services';
@@ -487,7 +487,9 @@ export class AtMenuConfigService extends Service {
                     actions: [
                       {
                         key: 'invite',
-                        label: 'Invite',
+                        get label() {
+                          return translateUiText('Invite');
+                        },
                         onClick: async () => {
                           track.$.sharePanel.$.inviteUserDocRole({
                             control: 'member list',
@@ -553,7 +555,9 @@ export class AtMenuConfigService extends Service {
 
     const inviteItem: LinkedMenuItem = {
       key: 'invite',
-      name: 'Invite...',
+      get name() {
+        return translateUiText('Invite...');
+      },
       icon: UserIcon(),
       action: () => {
         close();

@@ -8,7 +8,12 @@ import {
 import { WorkspaceService } from '@affine/core/modules/workspace';
 import { UserFriendlyError } from '@affine/error';
 import { Permission, WorkspaceMemberStatus } from '@affine/graphql';
-import { type I18nString, useI18n } from '@affine/i18n';
+import {
+  type I18nString,
+  translateUiText,
+  useI18n,
+  useUiLanguage,
+} from '@affine/i18n';
 import { MoreVerticalIcon } from '@blocksuite/icons/rc';
 import { useLiveData, useService } from '@toeverything/infra';
 import clsx from 'clsx';
@@ -174,7 +179,9 @@ const MemberItem = ({
       })
       .catch(error => {
         notify.error({
-          title: 'Operation failed',
+          get title() {
+            return translateUiText('Operation failed');
+          },
           message: error.message,
         });
       });
@@ -313,6 +320,7 @@ export const MemberListError = ({
   error?: unknown;
   memberCount?: number;
 }) => {
+  useUiLanguage();
   const height = useMemo(
     () => getMembersFallbackHeight(memberCount),
     [memberCount]
@@ -328,7 +336,7 @@ export const MemberListError = ({
       <span className={styles.errorStyle}>
         {error
           ? UserFriendlyError.fromAny(error).message
-          : 'Failed to load members'}
+          : translateUiText('Failed to load members')}
       </span>
     </div>
   );

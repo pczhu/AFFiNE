@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import zod from 'zod';
 
 import { t } from '../../core/index.js';
@@ -5,7 +6,9 @@ import { propertyType } from '../../core/property/property-config.js';
 export const textPropertyType = propertyType('text');
 
 export const textPropertyModelConfig = textPropertyType.modelConfig({
-  name: 'Plain-Text',
+  get name() {
+    return editorText('Plain-Text');
+  },
   propertyData: {
     schema: zod.object({}),
     default: () => ({}),

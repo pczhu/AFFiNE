@@ -13,7 +13,7 @@ import {
   WorkspaceService,
   WorkspacesService,
 } from '@affine/core/modules/workspace';
-import { useI18n } from '@affine/i18n';
+import { translateUiText, useI18n } from '@affine/i18n';
 import {
   AccountIcon,
   CloudWorkspaceIcon,
@@ -104,7 +104,7 @@ const WorkspaceServerInfo = ({
         <div className={styles.workspaceServerName}>{name}</div>
         {isCloud ? (
           <div className={styles.workspaceServerAccount}>
-            {account ? account.email : 'Not signed in'}
+            {account ? account.email : translateUiText('Not signed in')}
           </div>
         ) : null}
       </div>

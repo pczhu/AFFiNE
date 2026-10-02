@@ -3,6 +3,7 @@ import {
   popMenu,
   popupTargetFromElement,
 } from '@blocksuite/affine-components/context-menu';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { SignalWatcher, WithDisposable } from '@blocksuite/global/lit';
 import { PlusIcon } from '@blocksuite/icons/lit';
 import { ShadowlessElement } from '@blocksuite/std';
@@ -30,7 +31,9 @@ export class VirtualTableHeader extends SignalWatcher(
     popMenu(popupTargetFromElement(ele), {
       options: {
         title: {
-          text: 'Property type',
+          get text() {
+            return editorText('Property type');
+          },
         },
         items: [
           menu.group({

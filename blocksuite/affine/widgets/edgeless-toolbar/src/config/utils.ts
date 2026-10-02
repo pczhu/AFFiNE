@@ -1,5 +1,6 @@
 import { EditorChevronDown } from '@blocksuite/affine-components/toolbar';
 import type { ToolbarContext } from '@blocksuite/affine-shared/services';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import type { BlockComponent } from '@blocksuite/std';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -25,11 +26,11 @@ export function renderMenu<T>({
 }: Menu<T>) {
   return html`
     <editor-menu-button
-      aria-label="${`${label.toLowerCase()}-menu`}"
+      aria-label="${editorText(label)}"
       .button=${html`
         <editor-icon-button
-          aria-label="${label}"
-          .tooltip="${tooltip ?? label}"
+          aria-label="${editorText(label)}"
+          .tooltip="${editorText(tooltip ?? label)}"
         >
           ${icon ?? renderCurrentMenuItemWith(items, currentValue, 'icon')}
           ${EditorChevronDown}
@@ -51,9 +52,9 @@ export function renderMenuItems<T>(
     item => item.value,
     ({ key, value, icon, disabled }) => html`
       <editor-icon-button
-        aria-label="${ifDefined(key)}"
+        aria-label="${ifDefined(key === undefined ? key : editorText(key))}"
         .disabled=${ifDefined(disabled)}
-        .tooltip="${ifDefined(key)}"
+        .tooltip="${ifDefined(key === undefined ? key : editorText(key))}"
         .active="${currentValue === value}"
         .activeMode="${'background'}"
         @click=${() => onPick(value)}

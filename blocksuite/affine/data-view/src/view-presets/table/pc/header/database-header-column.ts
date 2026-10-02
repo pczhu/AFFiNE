@@ -4,6 +4,7 @@ import {
   popMenu,
   popupTargetFromElement,
 } from '@blocksuite/affine-components/context-menu';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { SignalWatcher, WithDisposable } from '@blocksuite/global/lit';
 import {
   DeleteIcon,
@@ -212,7 +213,9 @@ export class DatabaseHeaderColumn extends SignalWatcher(
           typeConfig(this.column),
           // Number format begin
           menu.subMenu({
-            name: 'Number Format',
+            get name() {
+              return editorText('Number Format');
+            },
             hide: () =>
               !this.column.dataUpdate || this.column.type$.value !== 'number',
             options: {
@@ -242,7 +245,9 @@ export class DatabaseHeaderColumn extends SignalWatcher(
           menu.group({
             items: [
               menu.action({
-                name: 'Hide In View',
+                get name() {
+                  return editorText('Hide In View');
+                },
                 prefix: ViewIcon(),
                 hide: () => !this.column.hideCanSet,
                 select: () => {
@@ -254,17 +259,23 @@ export class DatabaseHeaderColumn extends SignalWatcher(
           menu.group({
             items: [
               menu.action({
-                name: 'Filter',
+                get name() {
+                  return editorText('Filter');
+                },
                 prefix: FilterIcon(),
                 select: () => this._addFilter(),
               }),
               menu.action({
-                name: 'Sort Ascending',
+                get name() {
+                  return editorText('Sort Ascending');
+                },
                 prefix: SortIcon(),
                 select: () => this._addSort(false),
               }),
               menu.action({
-                name: 'Sort Descending',
+                get name() {
+                  return editorText('Sort Descending');
+                },
                 prefix: SortIcon(),
                 select: () => this._addSort(true),
               }),
@@ -273,7 +284,9 @@ export class DatabaseHeaderColumn extends SignalWatcher(
           menu.group({
             items: [
               menu.action({
-                name: 'Insert Left Column',
+                get name() {
+                  return editorText('Insert Left Column');
+                },
                 prefix: InsertLeftIcon(),
                 select: () => {
                   this.tableViewManager.propertyAdd({
@@ -296,7 +309,9 @@ export class DatabaseHeaderColumn extends SignalWatcher(
                 },
               }),
               menu.action({
-                name: 'Insert Right Column',
+                get name() {
+                  return editorText('Insert Right Column');
+                },
                 prefix: InsertRightIcon(),
                 select: () => {
                   this.tableViewManager.propertyAdd({
@@ -318,7 +333,9 @@ export class DatabaseHeaderColumn extends SignalWatcher(
                 },
               }),
               menu.action({
-                name: 'Move Left',
+                get name() {
+                  return editorText('Move Left');
+                },
                 prefix: MoveLeftIcon(),
                 hide: () => this.column.isFirst$.value,
                 select: () => {
@@ -333,7 +350,9 @@ export class DatabaseHeaderColumn extends SignalWatcher(
                 },
               }),
               menu.action({
-                name: 'Move Right',
+                get name() {
+                  return editorText('Move Right');
+                },
                 prefix: MoveRightIcon(),
                 hide: () => this.column.isLast$.value,
                 select: () => {
@@ -352,7 +371,9 @@ export class DatabaseHeaderColumn extends SignalWatcher(
           menu.group({
             items: [
               menu.action({
-                name: 'Duplicate',
+                get name() {
+                  return editorText('Duplicate');
+                },
                 prefix: DuplicateIcon(),
                 hide: () => !this.column.canDuplicate,
                 select: () => {
@@ -360,7 +381,9 @@ export class DatabaseHeaderColumn extends SignalWatcher(
                 },
               }),
               menu.action({
-                name: 'Delete',
+                get name() {
+                  return editorText('Delete');
+                },
                 prefix: DeleteIcon(),
                 hide: () => !this.column.canDelete,
                 select: () => {

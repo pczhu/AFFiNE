@@ -1,3 +1,4 @@
+import { translateUiText } from '@affine/i18n';
 import { ArrowRightIcon, EnterIcon } from '@blocksuite/affine/components/icons';
 import { WithDisposable } from '@blocksuite/affine/global/lit';
 import { ColorScheme } from '@blocksuite/affine/model';
@@ -40,8 +41,10 @@ export class AIItem extends WithDisposable(LitElement) {
     >
       <span class="item-icon">${item.icon}</span>
       <div class="item-name">
-        ${item.name}${
-          item.beta ? html`<div class="item-beta">(Beta)</div>` : nothing
+        ${translateUiText(item.name)}${
+          item.beta
+            ? html`<div class="item-beta">${translateUiText('(Beta)')}</div>`
+            : nothing
         }
       </div>
       ${

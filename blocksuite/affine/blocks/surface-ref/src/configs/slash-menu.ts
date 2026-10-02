@@ -1,6 +1,7 @@
 import { EdgelessFrameManagerIdentifier } from '@blocksuite/affine-block-frame';
 import { EdgelessCRUDExtension } from '@blocksuite/affine-block-surface';
 import { MindmapStyle, SurfaceRefBlockSchema } from '@blocksuite/affine-model';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import {
   type SlashMenuActionItem,
   type SlashMenuConfig,
@@ -53,11 +54,17 @@ const surfaceRefSlashMenuConfig: SlashMenuConfig = {
 
     const insertBlankFrameItem: SlashMenuItem = {
       name: 'Frame',
-      description: 'Insert a blank frame',
+      get description() {
+        return editorText('Insert a blank frame');
+      },
       icon: FrameIcon(),
       tooltip: {
-        figure: FrameTooltip,
-        caption: 'Frame',
+        get figure() {
+          return FrameTooltip();
+        },
+        get caption() {
+          return editorText('Frame');
+        },
       },
       group: `5_Edgeless Element@${index++}`,
       action: () => {
@@ -69,11 +76,17 @@ const surfaceRefSlashMenuConfig: SlashMenuConfig = {
 
     const insertMindMapItem: SlashMenuItem = {
       name: 'Mind Map',
-      description: 'Insert a mind map',
+      get description() {
+        return editorText('Insert a mind map');
+      },
       icon: MindmapIcon(),
       tooltip: {
-        figure: MindMapTooltip,
-        caption: 'Edgeless',
+        get figure() {
+          return MindMapTooltip();
+        },
+        get caption() {
+          return editorText('Edgeless');
+        },
       },
       group: `5_Edgeless Element@${index++}`,
       action: () => {
@@ -98,7 +111,9 @@ const surfaceRefSlashMenuConfig: SlashMenuConfig = {
 
         const root: MindMapNode = {
           children: [],
-          text: 'Mind Map',
+          get text() {
+            return editorText('Mind Map');
+          },
           xywh: `[${rootX},${rootY},${rootW},${rootH}]`,
         };
 
@@ -107,7 +122,9 @@ const surfaceRefSlashMenuConfig: SlashMenuConfig = {
           const nodeY = centerVertical - nodeH / 2 + (i - 1) * 50;
           root.children.push({
             children: [],
-            text: 'Text',
+            get text() {
+              return editorText('Text');
+            },
             xywh: `[${nodeX},${nodeY},${nodeW},${nodeH}]`,
           });
         }
@@ -127,8 +144,12 @@ const surfaceRefSlashMenuConfig: SlashMenuConfig = {
       icon: FrameIcon(),
       group: `5_Edgeless Element@${index++}`,
       tooltip: {
-        figure: EdgelessTooltip,
-        caption: 'Edgeless',
+        get figure() {
+          return EdgelessTooltip();
+        },
+        get caption() {
+          return editorText('Edgeless');
+        },
       },
       action: () => {
         insertSurfaceRefAndSelect(frameModel.id);
@@ -141,8 +162,12 @@ const surfaceRefSlashMenuConfig: SlashMenuConfig = {
       icon: GroupingIcon(),
       group: `5_Edgeless Element@${index++}`,
       tooltip: {
-        figure: EdgelessTooltip,
-        caption: 'Edgeless',
+        get figure() {
+          return EdgelessTooltip();
+        },
+        get caption() {
+          return editorText('Edgeless');
+        },
       },
       action: () => {
         insertSurfaceRefAndSelect(group.id);

@@ -1,3 +1,4 @@
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import { ArrowRightSmallIcon } from '@blocksuite/icons/rc';
 import clsx from 'clsx';
 import { useMemo, useState } from 'react';
@@ -59,6 +60,7 @@ export const ScrollableLayout = ({
   headerItems?: React.ReactNode;
   children: React.ReactNode;
 }) => {
+  useUiLanguage();
   return (
     <div className={styles.layout} data-is-macos-electron={isMacosDesktop}>
       <header
@@ -78,7 +80,7 @@ export const ScrollableLayout = ({
             target="_blank"
             rel="noreferrer"
           >
-            Terms of Conditions
+            {translateUiText('Terms of Conditions\n          ')}
           </a>
           <Divider orientation="vertical" />
           <a
@@ -87,7 +89,7 @@ export const ScrollableLayout = ({
             target="_blank"
             rel="noreferrer"
           >
-            Privacy Policy
+            {translateUiText('Privacy Policy\n          ')}
           </a>
         </div>
       </footer>
@@ -102,6 +104,7 @@ export const OnboardingPage = ({
   user: User;
   onOpenAffine: () => void;
 }) => {
+  useUiLanguage();
   const location = useLocation();
   const navigate = useNavigate();
   const [questionIdx, setQuestionIdx] = useState(0);
@@ -137,7 +140,7 @@ export const OnboardingPage = ({
             size="extraLarge"
             onClick={() => setQuestionIdx(questions.length)}
           >
-            Skip
+            {translateUiText('Skip\n          ')}
           </Button>
         }
         isMacosDesktop={isMacosDesktop}
@@ -196,7 +199,7 @@ export const OnboardingPage = ({
               size="extraLarge"
               onClick={() => setQuestionIdx(questions.length)}
             >
-              Skip
+              {translateUiText('Skip\n            ')}
             </Button>
             <Button
               className={styles.button}
@@ -231,7 +234,9 @@ export const OnboardingPage = ({
               }}
               suffix={<ArrowRightSmallIcon />}
             >
-              {questionIdx === 0 ? 'start' : 'Next'}
+              {questionIdx === 0
+                ? translateUiText('start')
+                : translateUiText('Next')}
             </Button>
           </div>
         </div>
@@ -244,10 +249,11 @@ export const OnboardingPage = ({
       isWindowsDesktop={isWindowsDesktop}
     >
       <div className={styles.thankContainer}>
-        <h1 className={styles.thankTitle}>Thank you!</h1>
+        <h1 className={styles.thankTitle}>{translateUiText('Thank you!')}</h1>
         <p className={styles.thankText}>
-          We will continue to enhance our products based on your feedback. Thank
-          you once again for your supports.
+          {translateUiText(
+            'We will continue to enhance our products based on your feedback. Thank\n          you once again for your supports.\n        '
+          )}
         </p>
         <Button
           className={clsx(styles.button, styles.openAFFiNEButton)}
@@ -262,7 +268,7 @@ export const OnboardingPage = ({
           }}
           suffix={<ArrowRightSmallIcon />}
         >
-          Get Started
+          {translateUiText('Get Started\n        ')}
         </Button>
       </div>
     </ScrollableLayout>

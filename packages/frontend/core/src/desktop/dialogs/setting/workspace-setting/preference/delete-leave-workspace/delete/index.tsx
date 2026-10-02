@@ -4,7 +4,7 @@ import { ConfirmModal } from '@affine/component/ui/modal';
 import { useWorkspaceInfo } from '@affine/core/components/hooks/use-workspace-info';
 import type { WorkspaceMetadata } from '@affine/core/modules/workspace';
 import { UNTITLED_WORKSPACE_NAME } from '@affine/env/constant';
-import { Trans, useI18n } from '@affine/i18n';
+import { Trans, translateUiText, useI18n } from '@affine/i18n';
 import { useCallback, useState } from 'react';
 
 import * as styles from './style.css';
@@ -45,21 +45,23 @@ export const WorkspaceDeleteModal = ({
     >
       {workspaceMetadata.flavour === 'local' ? (
         <Trans i18nKey="com.affine.workspaceDelete.description">
-          Deleting (
+          {translateUiText('Deleting (\n          ')}
           <span className={styles.workspaceName}>
             {{ workspace: workspaceName } as any}
           </span>
-          ) cannot be undone, please proceed with caution. All contents will be
-          lost.
+          {translateUiText(
+            ') cannot be undone, please proceed with caution. All contents will be\n          lost.\n        '
+          )}
         </Trans>
       ) : (
         <Trans i18nKey="com.affine.workspaceDelete.description2">
-          Deleting (
+          {translateUiText('Deleting (\n          ')}
           <span className={styles.workspaceName}>
             {{ workspace: workspaceName } as any}
           </span>
-          ) will delete both local and cloud data, this operation cannot be
-          undone, please proceed with caution.
+          {translateUiText(
+            ') will delete both local and cloud data, this operation cannot be\n          undone, please proceed with caution.\n        '
+          )}
         </Trans>
       )}
       <div className={styles.inputContent}>

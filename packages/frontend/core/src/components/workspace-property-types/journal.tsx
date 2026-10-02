@@ -11,7 +11,12 @@ import { DocService } from '@affine/core/modules/doc';
 import { JournalService } from '@affine/core/modules/journal';
 import { WorkbenchService } from '@affine/core/modules/workbench';
 import { ViewService } from '@affine/core/modules/workbench/services/view';
-import { i18nTime, useI18n } from '@affine/i18n';
+import {
+  i18nTime,
+  translateUiText,
+  useI18n,
+  useUiLanguage,
+} from '@affine/i18n';
 import { TodayIcon } from '@blocksuite/icons/rc';
 import {
   useLiveData,
@@ -192,6 +197,7 @@ export const JournalFilterValue = ({
   onDraftCompleted?: () => void;
   onChange?: (filter: FilterParams) => void;
 }) => {
+  useUiLanguage();
   return (
     <FilterValueMenu
       isDraft={isDraft}
@@ -207,7 +213,7 @@ export const JournalFilterValue = ({
             }}
             selected={filter.value === 'true'}
           >
-            {'True'}
+            {translateUiText('True')}
           </MenuItem>
           <MenuItem
             onClick={() => {
@@ -218,12 +224,16 @@ export const JournalFilterValue = ({
             }}
             selected={filter.value !== 'true'}
           >
-            {'False'}
+            {translateUiText('False')}
           </MenuItem>
         </>
       }
     >
-      <span>{filter.value === 'true' ? 'True' : 'False'}</span>
+      <span>
+        {filter.value === 'true'
+          ? translateUiText('True')
+          : translateUiText('False')}
+      </span>
     </FilterValueMenu>
   );
 };

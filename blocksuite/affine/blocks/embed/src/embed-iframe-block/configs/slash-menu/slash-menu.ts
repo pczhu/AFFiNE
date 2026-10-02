@@ -1,4 +1,5 @@
 import { getSelectedModelsCommand } from '@blocksuite/affine-shared/commands';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import type { SlashMenuConfig } from '@blocksuite/affine-widget-slash-menu';
 import { EmbedIcon } from '@blocksuite/icons/lit';
 
@@ -9,11 +10,15 @@ export const embedIframeSlashMenuConfig: SlashMenuConfig = {
   items: [
     {
       name: 'Embed',
-      description: 'For Google Drive, and more.',
+      get description() {
+        return editorText('For Google Drive, and more.');
+      },
       icon: EmbedIcon(),
       tooltip: {
         figure: EmbedIframeTooltip,
-        caption: 'Embed',
+        get caption() {
+          return editorText('Embed');
+        },
       },
       group: '4_Content & Media@5',
       when: ({ model }) => {

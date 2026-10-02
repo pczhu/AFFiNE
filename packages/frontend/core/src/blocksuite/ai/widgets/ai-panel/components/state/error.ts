@@ -1,3 +1,4 @@
+import { translateUiText } from '@affine/i18n';
 import { WithDisposable } from '@blocksuite/affine/global/lit';
 import type { EditorHost } from '@blocksuite/affine/std';
 import { baseTheme } from '@toeverything/theme';
@@ -146,14 +147,14 @@ export class AIPanelError extends WithDisposable(LitElement) {
           AIErrorType.Unauthorized,
           () =>
             html` <div class="error-info">
-                You need to login to AFFiNE Cloud to continue using AFFiNE AI.
+                ${translateUiText('\n                You need to login to AFFiNE Cloud to continue using AFFiNE AI.\n              ')}
               </div>
               <div class="action-button-group">
                 <div @click=${this.config.cancel} class="action-button">
-                  <span>Cancel</span>
+                  <span>${translateUiText('Cancel')}</span>
                 </div>
                 <div @click=${this.config.login} class="action-button primary">
-                  <span>Login</span>
+                  <span>${translateUiText('Login')}</span>
                 </div>
               </div>`,
         ],
@@ -161,19 +162,17 @@ export class AIPanelError extends WithDisposable(LitElement) {
           AIErrorType.PaymentRequired,
           () =>
             html` <div class="error-info">
-                You've reached the current usage cap for AFFiNE AI. You can
-                subscribe to AFFiNE AI(with free 7-day-trial) to continue the AI
-                experience!
+                ${translateUiText("You've reached the current usage cap for AFFiNE AI. You can subscribe to AFFiNE AI(with free 7-day-trial) to continue the AI experience!")}
               </div>
               <div class="action-button-group">
                 <div @click=${this.config.cancel} class="action-button">
-                  <span>Cancel</span>
+                  <span>${translateUiText('Cancel')}</span>
                 </div>
                 <div
                   @click=${this.config.upgrade}
                   class="action-button primary"
                 >
-                  <span>Upgrade</span>
+                  <span>${translateUiText('Upgrade')}</span>
                 </div>
               </div>`,
         ],
@@ -182,9 +181,10 @@ export class AIPanelError extends WithDisposable(LitElement) {
       () => {
         const tip = this.config.error?.message;
         const error = tip
-          ? html`<span class="error-tip">
-              An error occurred
-              <affine-tooltip tip-position="bottom-start">
+          ? html`<span class="error-tip"
+              >${translateUiText('\n              An error occurred\n              ')}<affine-tooltip
+                tip-position="bottom-start"
+              >
                 ${tip}
               </affine-tooltip>
             </span>`
@@ -209,7 +209,7 @@ export class AIPanelError extends WithDisposable(LitElement) {
     return html`
       <div class="error" data-testid="ai-error">
         <div class="answer-tip">
-          <div class="answer-label">Answer</div>
+          <div class="answer-label">${translateUiText('Answer')}</div>
           <slot></slot>
         </div>
         ${errorTemplate}

@@ -17,7 +17,7 @@ import {
   EditPropsStore,
   ThemeProvider,
 } from '@blocksuite/affine-shared/services';
-import { stopPropagation } from '@blocksuite/affine-shared/utils';
+import { editorText, stopPropagation } from '@blocksuite/affine-shared/utils';
 import {
   ArrowLeftSmallIcon,
   ArrowRightSmallIcon,
@@ -528,9 +528,9 @@ export class EdgelessToolbarWidget extends WidgetComponent<RootBlockModel> {
             .some(tool => tool.type === this.edgelessTool)}
         >
           ${MoreHorizontalIcon({ width: '20px', height: '20px' })}
-          <affine-tooltip tip-position="top" .offset=${25}>
-            More Tools
-          </affine-tooltip>
+          <affine-tooltip tip-position="top" .offset=${25}
+            >${editorText('\n            More Tools\n          ')}</affine-tooltip
+          >
         </icon-button>
       </div>
       <div class="full-divider"></div>

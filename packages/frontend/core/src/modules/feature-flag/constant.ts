@@ -1,3 +1,5 @@
+import { translateUiText } from '@affine/i18n';
+
 import type { FlagInfo } from './types';
 
 // const isNotStableBuild = BUILD_CONFIG.appBuildType !== 'stable';
@@ -199,32 +201,49 @@ export const AFFINE_FLAGS = {
   },
   enable_mobile_ai_button: {
     category: 'affine',
-    displayName: 'Enable AI Button',
-    description: 'Enable AI Button on mobile',
+    get displayName() {
+      return translateUiText('Enable AI Button');
+    },
+    get description() {
+      return translateUiText('Enable AI Button on mobile');
+    },
     configurable: isMobile && isIOS,
     defaultState: isMobile && isIOS,
   },
   enable_mermaid_wasm_native_renderer: {
     category: 'affine',
-    displayName: 'Enable Native Mermaid Renderer',
-    description:
-      'Use the new Mermaid renderer backend. Web uses WASM, desktop uses native, and mobile always uses native. The native renderer is more than 10x faster, but its styling/aesthetic quality and the types of graphics it supports are not as good as the JS version.',
+    get displayName() {
+      return translateUiText('Enable Native Mermaid Renderer');
+    },
+    get description() {
+      return translateUiText(
+        'Use the new Mermaid renderer backend. Web uses WASM, desktop uses native, and mobile always uses native. The native renderer is more than 10x faster, but its styling/aesthetic quality and the types of graphics it supports are not as good as the JS version.'
+      );
+    },
     configurable: !isIOS && !isAndroid,
     defaultState: isIOS || isAndroid,
   },
   enable_turbo_renderer: {
     category: 'blocksuite',
     bsFlag: 'enable_turbo_renderer',
-    displayName: 'Enable Turbo Renderer',
-    description: 'Enable experimental edgeless turbo renderer',
+    get displayName() {
+      return translateUiText('Enable Turbo Renderer');
+    },
+    get description() {
+      return translateUiText('Enable experimental edgeless turbo renderer');
+    },
     configurable: isCanaryBuild,
     defaultState: false,
   },
   enable_dom_renderer: {
     category: 'blocksuite',
     bsFlag: 'enable_dom_renderer',
-    displayName: 'Enable DOM Renderer',
-    description: 'Enable DOM renderer for graphics elements',
+    get displayName() {
+      return translateUiText('Enable DOM Renderer');
+    },
+    get description() {
+      return translateUiText('Enable DOM renderer for graphics elements');
+    },
     configurable: true,
     defaultState: false,
   },
@@ -250,8 +269,12 @@ export const AFFINE_FLAGS = {
   },
   enable_setting_subpage_animation: {
     category: 'affine',
-    displayName: 'Enable Setting Subpage Animation',
-    description: 'Apply animation for setting subpage open/close',
+    get displayName() {
+      return translateUiText('Enable Setting Subpage Animation');
+    },
+    get description() {
+      return translateUiText('Apply animation for setting subpage open/close');
+    },
     configurable: isCanaryBuild,
     defaultState: false,
   },
@@ -266,16 +289,27 @@ export const AFFINE_FLAGS = {
   },
   enable_view_analytics_panel: {
     category: 'affine',
-    displayName: 'Enable View Analytics Panel',
-    description: 'Show the View analytics tab in the right sidebar.',
+    get displayName() {
+      return translateUiText('Enable View Analytics Panel');
+    },
+    get description() {
+      return translateUiText(
+        'Show the View analytics tab in the right sidebar.'
+      );
+    },
     configurable: true,
     defaultState: false,
   },
   enable_two_step_journal_confirmation: {
     category: 'affine',
-    displayName: 'Enable Two Step Journal Confirmation',
-    description:
-      'When enabled, you must confirm the journal before you can create a new journal.',
+    get displayName() {
+      return translateUiText('Enable Two Step Journal Confirmation');
+    },
+    get description() {
+      return translateUiText(
+        'When enabled, you must confirm the journal before you can create a new journal.'
+      );
+    },
     configurable: isCanaryBuild,
     defaultState: isCanaryBuild,
   },
@@ -290,33 +324,53 @@ export const AFFINE_FLAGS = {
   },
   enable_battery_save_mode: {
     category: 'affine',
-    displayName: 'Enable Battery Save Mode (Require Restart)',
-    description:
-      'Limit indexing and other compute-intensive tasks on this device, may experience longer loading time and latency in search and other features, in exchange for quietness.',
+    get displayName() {
+      return translateUiText('Enable Battery Save Mode (Require Restart)');
+    },
+    get description() {
+      return translateUiText(
+        'Limit indexing and other compute-intensive tasks on this device, may experience longer loading time and latency in search and other features, in exchange for quietness.'
+      );
+    },
     configurable: true,
     defaultState: isMobile,
   },
   enable_disk_sync: {
     category: 'affine',
-    displayName: 'Enable Disk Markdown Sync',
-    description: 'Sync workspace pages with Markdown files in a local folder.',
+    get displayName() {
+      return translateUiText('Enable Disk Markdown Sync');
+    },
+    get description() {
+      return translateUiText(
+        'Sync workspace pages with Markdown files in a local folder.'
+      );
+    },
     configurable: BUILD_CONFIG.isElectron && isCanaryBuild,
     defaultState: false,
   },
   enable_mobile_database_editing: {
     category: 'blocksuite',
     bsFlag: 'enable_mobile_database_editing',
-    displayName: 'Enable Mobile Database Editing',
-    description: 'Enable mobile database editing',
+    get displayName() {
+      return translateUiText('Enable Mobile Database Editing');
+    },
+    get description() {
+      return translateUiText('Enable mobile database editing');
+    },
     configurable: isMobile,
     defaultState: false,
   },
   enable_pdfmake_export: {
     category: 'blocksuite',
     bsFlag: 'enable_pdfmake_export',
-    displayName: 'Enable PDF Export',
-    description:
-      'Experimental export PDFs support, it may contain the wrong style.',
+    get displayName() {
+      return translateUiText('Enable PDF Export');
+    },
+    get description() {
+      return translateUiText(
+        'Experimental export PDFs support, it may contain the wrong style.'
+      );
+    },
     configurable: true,
     defaultState: false,
   },

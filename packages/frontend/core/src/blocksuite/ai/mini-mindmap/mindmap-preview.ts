@@ -1,4 +1,5 @@
 import { WorkspaceImpl } from '@affine/core/modules/workspace/impls/workspace.js';
+import { translateUiText } from '@affine/i18n';
 import type { SurfaceBlockModel } from '@blocksuite/affine/blocks/surface';
 import {
   MindmapStyleFour,
@@ -186,7 +187,9 @@ export class MiniMindmapPreview extends WithDisposable(LitElement) {
 
       ${
         this.templateShow
-          ? html` <div class="select-template-title">Select template</div>
+          ? html` <div class="select-template-title">
+                ${translateUiText('Select template')}
+              </div>
               <div class="template">
                 ${repeat(
                   mindmapStyles,

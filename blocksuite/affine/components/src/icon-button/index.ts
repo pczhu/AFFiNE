@@ -189,7 +189,7 @@ export class IconButton extends LitElement {
 
     const text = this.text
       ? // wrap a span around the text so we can ellipsis it automatically
-        html`<div class="text">${this.text}</div>`
+        html`<div class="text">${this.displayText ?? this.text}</div>`
       : nothing;
 
     const subText = this.subText
@@ -227,6 +227,10 @@ export class IconButton extends LitElement {
 
   @property()
   accessor text: string | TemplateResult<1> | null = null;
+
+  /** 显示文案与按钮原始名称分开，避免翻译影响菜单查找和操作。 */
+  @property({ attribute: false })
+  accessor displayText: string | undefined = undefined;
 
   @query('.text-container .text')
   accessor textElement: HTMLDivElement | null = null;

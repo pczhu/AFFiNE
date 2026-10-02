@@ -14,6 +14,7 @@ import {
   ToolbarModuleExtension,
 } from '@blocksuite/affine-shared/services';
 import {
+  editorText,
   getMostCommonResolvedValue,
   getMostCommonValue,
 } from '@blocksuite/affine-shared/utils';
@@ -98,7 +99,7 @@ export const brushToolbarConfig = {
         return html`
           <edgeless-color-picker-button
             class="color"
-            .label="${'Color'}"
+            .label="${editorText('Color')}"
             .pick=${onPick}
             .color=${color}
             .theme=${theme}

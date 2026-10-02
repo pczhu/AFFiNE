@@ -3,6 +3,8 @@ import { EditorLifeCycleExtension } from '@blocksuite/std';
 import { type ExtensionType, StoreIdentifier } from '@blocksuite/store';
 import type { TemplateResult } from 'lit';
 
+import { editorText } from '../utils/editor-i18n';
+
 export interface NotificationService {
   toast(
     message: string,
@@ -108,7 +110,9 @@ function notifyWithUndoActionImpl(
     actions: [
       {
         key: 'notification-card-undo',
-        label: 'Undo',
+        get label() {
+          return editorText('Undo');
+        },
         onClick: () => {
           store.undo();
           abortController.abort();

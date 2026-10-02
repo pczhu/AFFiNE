@@ -26,7 +26,7 @@ import {
   type ToolbarModuleConfig,
   ToolbarModuleExtension,
 } from '@blocksuite/affine-shared/services';
-import { getBlockProps } from '@blocksuite/affine-shared/utils';
+import { editorText, getBlockProps } from '@blocksuite/affine-shared/utils';
 import { Bound } from '@blocksuite/global/gfx';
 import {
   CaptionIcon,
@@ -63,7 +63,9 @@ const previewAction = {
 
 const captionAction = {
   id: 'd.caption',
-  tooltip: 'Caption',
+  get tooltip() {
+    return editorText('Caption');
+  },
   icon: CaptionIcon(),
   run(ctx) {
     const block = ctx.getCurrentBlockByType(BookmarkBlockComponent);
@@ -106,7 +108,9 @@ const builtinToolbarConfig = {
       actions: [
         {
           id: 'inline',
-          label: 'Inline view',
+          get label() {
+            return editorText('Inline view');
+          },
           run(ctx) {
             const model = ctx.getCurrentModelByType(BookmarkBlockModel);
             if (!model) return;
@@ -139,12 +143,16 @@ const builtinToolbarConfig = {
         },
         {
           id: 'card',
-          label: 'Card view',
+          get label() {
+            return editorText('Card view');
+          },
           disabled: true,
         },
         {
           id: 'embed',
-          label: 'Embed view',
+          get label() {
+            return editorText('Embed view');
+          },
           disabled(ctx) {
             const model = ctx.getCurrentModelByType(BookmarkBlockModel);
             if (!model) return true;
@@ -247,11 +255,15 @@ const builtinToolbarConfig = {
       actions: [
         {
           id: 'horizontal',
-          label: 'Large horizontal style',
+          get label() {
+            return editorText('Large horizontal style');
+          },
         },
         {
           id: 'list',
-          label: 'Small horizontal style',
+          get label() {
+            return editorText('Small horizontal style');
+          },
         },
       ],
       content(ctx) {
@@ -294,7 +306,9 @@ const builtinToolbarConfig = {
       actions: [
         {
           id: 'copy',
-          label: 'Copy',
+          get label() {
+            return editorText('Copy');
+          },
           icon: CopyIcon(),
           run(ctx) {
             const model = ctx.getCurrentModelByType(BookmarkBlockModel);
@@ -303,13 +317,15 @@ const builtinToolbarConfig = {
             const slice = Slice.fromModels(ctx.store, [model]);
             ctx.clipboard
               .copySlice(slice)
-              .then(() => toast(ctx.host, 'Copied to clipboard'))
+              .then(() => toast(ctx.host, editorText('Copied to clipboard')))
               .catch(console.error);
           },
         },
         {
           id: 'duplicate',
-          label: 'Duplicate',
+          get label() {
+            return editorText('Duplicate');
+          },
           icon: DuplicateIcon(),
           run(ctx) {
             const model = ctx.getCurrentModelByType(BookmarkBlockModel);
@@ -327,7 +343,9 @@ const builtinToolbarConfig = {
     {
       placement: ActionPlacement.More,
       id: 'b.refresh',
-      label: 'Reload',
+      get label() {
+        return editorText('Reload');
+      },
       icon: ResetIcon(),
       run(ctx) {
         const block = ctx.getCurrentBlockByType(BookmarkBlockComponent);
@@ -337,7 +355,9 @@ const builtinToolbarConfig = {
     {
       placement: ActionPlacement.More,
       id: 'c.delete',
-      label: 'Delete',
+      get label() {
+        return editorText('Delete');
+      },
       icon: DeleteIcon(),
       variant: 'destructive',
       run(ctx) {
@@ -362,12 +382,16 @@ const builtinSurfaceToolbarConfig = {
       actions: [
         {
           id: 'card',
-          label: 'Card view',
+          get label() {
+            return editorText('Card view');
+          },
           disabled: true,
         },
         {
           id: 'embed',
-          label: 'Embed view',
+          get label() {
+            return editorText('Embed view');
+          },
           run(ctx) {
             const model = ctx.getCurrentModelByType(BookmarkBlockModel);
             if (!model) return;
@@ -483,19 +507,27 @@ const builtinSurfaceToolbarConfig = {
         [
           {
             id: 'horizontal',
-            label: 'Large horizontal style',
+            get label() {
+              return editorText('Large horizontal style');
+            },
           },
           {
             id: 'list',
-            label: 'Small horizontal style',
+            get label() {
+              return editorText('Small horizontal style');
+            },
           },
           {
             id: 'vertical',
-            label: 'Large vertical style',
+            get label() {
+              return editorText('Large vertical style');
+            },
           },
           {
             id: 'cube',
-            label: 'Small vertical style',
+            get label() {
+              return editorText('Small vertical style');
+            },
           },
         ] as const
       ).filter(action => BookmarkStyles.includes(action.id)),

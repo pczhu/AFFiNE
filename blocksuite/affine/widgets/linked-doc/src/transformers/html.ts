@@ -6,6 +6,7 @@ import {
   HtmlAdapter,
   titleMiddleware,
 } from '@blocksuite/affine-shared/adapters';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { Container } from '@blocksuite/global/di';
 import { sha } from '@blocksuite/global/utils';
 import type {
@@ -65,7 +66,7 @@ async function exportDoc(doc: Store) {
   });
 
   let downloadBlob: Blob;
-  const docTitle = doc.meta?.title || 'Untitled';
+  const docTitle = doc.meta?.title || editorText('Untitled');
   let name: string;
   const contentBlob = new Blob([htmlResult.file], { type: 'plain/text' });
   if (htmlResult.assetsIds.length > 0) {

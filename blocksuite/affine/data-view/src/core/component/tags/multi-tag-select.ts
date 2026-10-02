@@ -6,7 +6,7 @@ import {
   popupTargetFromElement,
 } from '@blocksuite/affine-components/context-menu';
 import { unsafeCSSVarV2 } from '@blocksuite/affine-shared/theme';
-import { rangeWrap } from '@blocksuite/affine-shared/utils';
+import { editorText, rangeWrap } from '@blocksuite/affine-shared/utils';
 import { IS_MOBILE } from '@blocksuite/global/env';
 import { SignalWatcher, WithDisposable } from '@blocksuite/global/lit';
 import {
@@ -225,7 +225,9 @@ export class MultiTagSelect extends SignalWatcher(
             },
           }),
           menu.action({
-            name: 'Delete',
+            get name() {
+              return editorText('Delete');
+            },
             prefix: DeleteIcon(),
             class: {
               'delete-item': true,
@@ -345,7 +347,7 @@ export class MultiTagSelect extends SignalWatcher(
         <input
           class="${tagSelectInputStyle}"
           ${ref(this._selectInput)}
-          placeholder="Type here..."
+          placeholder=${editorText('Type here...')}
           .value="${this.text.value}"
           @input="${this._onInput}"
           @keydown="${this._onInputKeydown}"
@@ -378,7 +380,9 @@ export class MultiTagSelect extends SignalWatcher(
           'layer/insideBorder/border'
         )};margin: 4px 0;"
       ></div>
-      <div class="${selectOptionsTipsStyle}">Select tag or create one</div>
+      <div class="${selectOptionsTipsStyle}">
+        ${editorText('Select tag or create one')}
+      </div>
       <div data-testid="tag-option-list" class="${selectOptionsContainerStyle}">
         ${repeat(
           this.tagManager.filteredOptions$.value,
@@ -407,7 +411,7 @@ export class MultiTagSelect extends SignalWatcher(
                   ${
                     select.isCreate
                       ? html` <div class="${selectOptionNewIconStyle}">
-                          Create
+                          ${editorText('\n                          Create\n                        ')}
                         </div>`
                       : html`
                           <div
@@ -571,7 +575,7 @@ const popMobileTagSelect = (target: PopupTarget, ops: TagSelectOptions) => {
                 .value="${tagManager.text$.value}"
                 @input="${onInput}"
                 @keydown="${onKeydown}"
-                placeholder="Type here..."
+                placeholder=${editorText('Type here...')}
                 type="text"
                 style="outline: none;border: none;flex:1;min-width: 10px"
               />
@@ -595,7 +599,7 @@ const popMobileTagSelect = (target: PopupTarget, ops: TagSelectOptions) => {
                         ${
                           option.isCreate
                             ? html` <div style="margin-right: 8px;">
-                                Create
+                                ${editorText('\n                                Create\n                              ')}
                               </div>`
                             : ''
                         }

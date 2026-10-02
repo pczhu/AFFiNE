@@ -1,5 +1,6 @@
 import { DefaultTool } from '@blocksuite/affine-block-surface';
 import { toggleEmbedCardCreateModal } from '@blocksuite/affine-components/embed-card-modal';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import type { SlashMenuConfig } from '@blocksuite/affine-widget-slash-menu';
 import { FigmaDuotoneIcon } from '@blocksuite/icons/lit';
 import { GfxControllerIdentifier } from '@blocksuite/std/gfx';
@@ -10,10 +11,14 @@ export const embedFigmaSlashMenuConfig: SlashMenuConfig = {
   items: [
     {
       name: 'Figma',
-      description: 'Embed a Figma document.',
+      get description() {
+        return editorText('Embed a Figma document.');
+      },
       icon: FigmaDuotoneIcon(),
       tooltip: {
-        figure: FigmaTooltip,
+        get figure() {
+          return FigmaTooltip();
+        },
         caption: 'Figma',
       },
       group: '4_Content & Media@8',

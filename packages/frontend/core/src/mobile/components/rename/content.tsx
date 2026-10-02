@@ -1,5 +1,5 @@
 import { Button, RowInput } from '@affine/component';
-import { useI18n } from '@affine/i18n';
+import { translateUiText, useI18n } from '@affine/i18n';
 import clsx from 'clsx';
 import { useCallback, useState } from 'react';
 
@@ -13,7 +13,7 @@ export const RenameContent = ({
   inputPrefixRenderer: InputPrefixRenderer,
   inputBelowRenderer: InputBelowRenderer,
   descRenderer: DescRenderer,
-  confirmText = 'Done',
+  confirmText = translateUiText('Done'),
   onConfirm,
 }: RenameContentProps) => {
   const t = useI18n();

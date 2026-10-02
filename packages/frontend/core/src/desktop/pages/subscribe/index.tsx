@@ -2,6 +2,7 @@ import { Button, Loading } from '@affine/component';
 import { UrlService } from '@affine/core/modules/url';
 import { UserFriendlyError } from '@affine/error';
 import { SubscriptionPlan, SubscriptionRecurring } from '@affine/graphql';
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import { track } from '@affine/track';
 import { effect, fromPromise, useServices } from '@toeverything/infra';
 import { nanoid } from 'nanoid';
@@ -78,6 +79,7 @@ function getProductTriple(searchParams: URLSearchParams): ProductTriple {
 }
 
 export const Component = () => {
+  useUiLanguage();
   const { authService, subscriptionService, urlService } = useServices({
     AuthService,
     SubscriptionService,
@@ -181,7 +183,7 @@ export const Component = () => {
           {error}
           <br />
           <Button variant="primary" onClick={() => setRetryCount(i => i + 1)}>
-            Retry
+            {translateUiText('Retry\n          ')}
           </Button>
         </>
       )}

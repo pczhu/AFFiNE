@@ -5,7 +5,7 @@ import {
   type WorkspacePropertyType,
 } from '@affine/core/modules/workspace-property';
 import { generateUniqueNameInSequence } from '@affine/core/utils/unique-name';
-import { useI18n } from '@affine/i18n';
+import { translateUiText, useI18n } from '@affine/i18n';
 import track from '@affine/track';
 import { PlusIcon } from '@blocksuite/icons/rc';
 import {
@@ -120,7 +120,9 @@ export const WorkspacePropertySidebar = () => {
                     <Icon className={styles.itemIcon} />
                     <span className={styles.itemName}>{t.t(value.name)}</span>
                     {isUniqueExist ? (
-                      <span className={styles.itemAdded}>Added</span>
+                      <span className={styles.itemAdded}>
+                        {translateUiText('Added')}
+                      </span>
                     ) : (
                       <IconButton size={20} iconClassName={styles.itemAdd}>
                         <PlusIcon />

@@ -6,6 +6,7 @@ import {
 } from '@affine/admin/components/ui/accordion';
 import { Button } from '@affine/admin/components/ui/button';
 import { ScrollArea } from '@affine/admin/components/ui/scroll-area';
+import { translateUiText, useI18n, useUiLanguage } from '@affine/i18n';
 import { get } from 'lodash-es';
 import { useCallback, useState } from 'react';
 
@@ -19,6 +20,7 @@ import { type ConfigInputProps, ConfigRow } from './config-input-row';
 import { useAppConfig } from './use-app-config';
 
 export function SettingsPage() {
+  useUiLanguage();
   const {
     appConfig,
     appConfigMetadata,
@@ -35,7 +37,7 @@ export function SettingsPage() {
 
   return (
     <div className="flex h-dvh flex-1 flex-col bg-background">
-      <Header title="Settings" />
+      <Header title={translateUiText('Settings')} />
       <AdminPanel
         expandedModules={expandedModules}
         onExpandedModulesChange={setExpandedModules}
@@ -81,6 +83,8 @@ const AdminPanel = ({
   isGroupSaving: (module: string) => boolean;
   getGroupVersion: (module: string) => number;
 }) => {
+  useUiLanguage();
+  const t = useI18n();
   const [groupErrors, setGroupErrors] = useState<
     Record<string, Record<string, string>>
   >({});
@@ -168,9 +172,13 @@ const AdminPanel = ({
               >
                 <AccordionTrigger className="hover:no-underline py-4">
                   <div className="flex flex-col items-start text-left gap-1">
-                    <div className="text-base font-semibold">{name}</div>
+                    <div className="text-base font-semibold">
+                      {translateUiText(name)}
+                    </div>
                     <div className="text-xs text-muted-foreground">
-                      Manage {name.toLowerCase()} settings
+                      {t.t('com.affine.admin.settings.manage-module', {
+                        module: translateUiText(name),
+                      })}
                     </div>
                   </div>
                 </AccordionTrigger>
@@ -276,7 +284,7 @@ const AdminPanel = ({
                           }}
                           disabled={saving}
                         >
-                          Cancel
+                          {translateUiText('Cancel\n                        ')}
                         </Button>
                       ) : null}
                       <Button
@@ -289,7 +297,9 @@ const AdminPanel = ({
                         }}
                         disabled={!dirty || saving || hasValidationError}
                       >
-                        {saving ? 'Saving...' : 'Save'}
+                        {saving
+                          ? translateUiText('Saving...')
+                          : translateUiText('Save')}
                       </Button>
                     </div>
                   </div>

@@ -10,7 +10,10 @@ import {
 } from '@blocksuite/affine-components/icons';
 import type { MenuItemGroup } from '@blocksuite/affine-components/toolbar';
 import { CommentProviderIdentifier } from '@blocksuite/affine-shared/services';
-import { isInsidePageEditor } from '@blocksuite/affine-shared/utils';
+import {
+  editorText,
+  isInsidePageEditor,
+} from '@blocksuite/affine-shared/utils';
 import { noop, sleep } from '@blocksuite/global/utils';
 import { CommentIcon, NumberedListIcon } from '@blocksuite/icons/lit';
 import { BlockSelection } from '@blocksuite/std';
@@ -61,7 +64,9 @@ export const PRIMARY_GROUPS: MenuItemGroup<CodeBlockToolbarContext>[] = [
       },
       {
         type: 'copy-code',
-        label: 'Copy code',
+        get label() {
+          return editorText('Copy code');
+        },
         icon: CopyIcon,
         generate: ({ blockComponent }) => {
           return {
@@ -121,7 +126,9 @@ export const PRIMARY_GROUPS: MenuItemGroup<CodeBlockToolbarContext>[] = [
       },
       {
         type: 'caption',
-        label: 'Caption',
+        get label() {
+          return editorText('Caption');
+        },
         icon: CaptionIcon,
         when: ({ doc }) => !doc.readonly,
         generate: ({ blockComponent }) => {
@@ -150,8 +157,12 @@ export const PRIMARY_GROUPS: MenuItemGroup<CodeBlockToolbarContext>[] = [
       },
       {
         type: 'comment',
-        label: 'Comment',
-        tooltip: 'Comment',
+        get label() {
+          return editorText('Comment');
+        },
+        get tooltip() {
+          return editorText('Comment');
+        },
         icon: CommentIcon({
           width: '20',
           height: '20',
@@ -266,7 +277,9 @@ export const clipboardGroup: MenuItemGroup<CodeBlockToolbarContext> = {
   items: [
     {
       type: 'duplicate',
-      label: 'Duplicate',
+      get label() {
+        return editorText('Duplicate');
+      },
       icon: DuplicateIcon,
       when: ({ doc }) => !doc.readonly,
       action: ({ host, blockComponent, close }) => {
@@ -301,7 +314,9 @@ export const deleteGroup: MenuItemGroup<CodeBlockToolbarContext> = {
   items: [
     {
       type: 'delete',
-      label: 'Delete',
+      get label() {
+        return editorText('Delete');
+      },
       icon: DeleteIcon,
       when: ({ doc }) => !doc.readonly,
       action: ({ doc, blockComponent, close }) => {

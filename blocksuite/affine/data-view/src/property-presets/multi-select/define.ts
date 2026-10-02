@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { nanoid } from '@blocksuite/store';
 import zod from 'zod';
 
@@ -9,7 +10,9 @@ export const multiSelectPropertyType = propertyType('multi-select');
 
 export const multiSelectPropertyModelConfig =
   multiSelectPropertyType.modelConfig({
-    name: 'Multi-select',
+    get name() {
+      return editorText('Multi-select');
+    },
     kanbanGroup: {
       enabled: true,
       mutable: true,

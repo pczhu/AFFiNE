@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import type { Placement } from '@floating-ui/dom';
 import type { TemplateResult } from 'lit';
 import { css, html, LitElement, nothing } from 'lit';
@@ -97,7 +98,11 @@ export class EdgelessToolIconButton extends LitElement {
   }
 
   override render() {
-    const tooltip = this.coming ? '(Coming soon)' : this.tooltip;
+    const sourceTooltip = this.coming ? '(Coming soon)' : this.tooltip;
+    const tooltip =
+      typeof sourceTooltip === 'string'
+        ? editorText(sourceTooltip)
+        : sourceTooltip;
     const classnames = `icon-container active-mode-${this.activeMode} ${this.hoverState ? 'hovered' : ''}`;
     const padding = this.iconContainerPadding;
     const iconContainerStyles = styleMap({

@@ -1,5 +1,5 @@
 import { Button } from '@affine/component';
-import { useI18n } from '@affine/i18n';
+import { translateUiText, useI18n } from '@affine/i18n';
 import type { AttachmentBlockModel } from '@blocksuite/affine/model';
 import { ArrowDownBigIcon } from '@blocksuite/icons/rc';
 import clsx from 'clsx';
@@ -111,7 +111,7 @@ export const AttachmentFallback = ({ model, ext }: ErrorProps) => {
             download(model).catch(console.error);
           }}
         >
-          Download
+          {translateUiText('Download\n        ')}
         </Button>,
       ]}
     />

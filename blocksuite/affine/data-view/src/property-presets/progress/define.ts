@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import zod from 'zod';
 
 import { t } from '../../core/logical/type-presets.js';
@@ -5,7 +6,9 @@ import { propertyType } from '../../core/property/property-config.js';
 export const progressPropertyType = propertyType('progress');
 
 export const progressPropertyModelConfig = progressPropertyType.modelConfig({
-  name: 'Progress',
+  get name() {
+    return editorText('Progress');
+  },
   propertyData: {
     schema: zod.object({}),
     default: () => ({}),

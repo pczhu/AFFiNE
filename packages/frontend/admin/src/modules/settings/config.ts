@@ -1,3 +1,4 @@
+import { translateUiText } from '@affine/i18n';
 import { upperFirst } from 'lodash-es';
 import type { ComponentType } from 'react';
 
@@ -47,12 +48,16 @@ const ALL_CONFIGURABLE_MODULES = Object.keys(CONFIG_DESCRIPTORS).filter(
 
 export const KNOWN_CONFIG_GROUPS = [
   {
-    name: 'Server',
+    get name() {
+      return translateUiText('Server');
+    },
     module: 'server',
     fields: ['externalUrl', 'name', 'hosts'],
   } as ConfigGroup<'server'>,
   {
-    name: 'Auth',
+    get name() {
+      return translateUiText('Auth');
+    },
     module: 'auth',
     fields: [
       'allowSignup',
@@ -79,7 +84,9 @@ export const KNOWN_CONFIG_GROUPS = [
     operations: [AuthSigningKeys],
   } as ConfigGroup<'auth'>,
   {
-    name: 'Notification',
+    get name() {
+      return translateUiText('Notification');
+    },
     module: 'mailer',
     fields: [
       'SMTP.name',
@@ -93,7 +100,9 @@ export const KNOWN_CONFIG_GROUPS = [
     operations: [SendTestEmail],
   } as ConfigGroup<'mailer'>,
   {
-    name: 'Storage',
+    get name() {
+      return translateUiText('Storage');
+    },
     module: 'storages',
     fields: [
       {
@@ -119,7 +128,9 @@ export const KNOWN_CONFIG_GROUPS = [
     fields: ['providers.google', 'providers.github', 'providers.oidc'],
   } as ConfigGroup<'oauth'>,
   {
-    name: 'AI BYOK',
+    get name() {
+      return translateUiText('AI BYOK');
+    },
     module: 'copilot',
     fields: [
       {
@@ -136,7 +147,9 @@ export const KNOWN_CONFIG_GROUPS = [
     ],
   } as ConfigGroup<'copilot'>,
   {
-    name: 'Indexer',
+    get name() {
+      return translateUiText('Indexer');
+    },
     module: 'indexer',
     fields: [
       {

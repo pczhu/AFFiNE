@@ -14,6 +14,7 @@ import {
   TextIcon,
 } from '@blocksuite/affine-components/icons';
 import type { NoteChildrenFlavour } from '@blocksuite/affine-shared/types';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import type { TemplateResult } from 'lit';
 
 export const BUTTON_GROUP_LENGTH = 10;
@@ -29,26 +30,44 @@ const LIST_ITEMS = [
   {
     flavour: 'affine:list',
     type: 'bulleted',
-    name: 'Bulleted List',
-    description: 'A simple bulleted list.',
+    get name() {
+      return editorText('Bulleted List');
+    },
+    get description() {
+      return editorText('A simple bulleted list.');
+    },
     icon: BulletedListIcon,
-    tooltip: 'Drag/Click to insert Bulleted List',
+    get tooltip() {
+      return editorText('Drag/Click to insert Bulleted List');
+    },
   },
   {
     flavour: 'affine:list',
     type: 'numbered',
-    name: 'Numbered List',
-    description: 'A list with numbering.',
+    get name() {
+      return editorText('Numbered List');
+    },
+    get description() {
+      return editorText('A list with numbering.');
+    },
     icon: NumberedListIcon,
-    tooltip: 'Drag/Click to insert Numbered List',
+    get tooltip() {
+      return editorText('Drag/Click to insert Numbered List');
+    },
   },
   {
     flavour: 'affine:list',
     type: 'todo',
-    name: 'To-do List',
-    description: 'Track tasks with a to-do list.',
+    get name() {
+      return editorText('To-do List');
+    },
+    get description() {
+      return editorText('Track tasks with a to-do list.');
+    },
     icon: CheckBoxIcon,
-    tooltip: 'Drag/Click to insert To-do List',
+    get tooltip() {
+      return editorText('Drag/Click to insert To-do List');
+    },
   },
 ];
 
@@ -56,95 +75,154 @@ const TEXT_ITEMS = [
   {
     flavour: 'affine:paragraph',
     type: 'text',
-    name: 'Text',
-    description: 'Start typing with plain text.',
+    get name() {
+      return editorText('Text');
+    },
+    get description() {
+      return editorText('Start typing with plain text.');
+    },
     icon: TextIcon,
-    tooltip: 'Drag/Click to insert Text block',
+    get tooltip() {
+      return editorText('Drag/Click to insert Text block');
+    },
   },
   {
     flavour: 'affine:paragraph',
     type: 'h1',
-    name: 'Heading 1',
-    description: 'Headings in the largest font.',
+    get name() {
+      return editorText('Heading 1');
+    },
+    get description() {
+      return editorText('Headings in the largest font.');
+    },
     icon: Heading1Icon,
-    tooltip: 'Drag/Click to insert Heading 1',
+    get tooltip() {
+      return editorText('Drag/Click to insert Heading 1');
+    },
   },
   {
     flavour: 'affine:paragraph',
     type: 'h2',
-    name: 'Heading 2',
-    description: 'Headings in the 2nd font size.',
+    get name() {
+      return editorText('Heading 2');
+    },
+    get description() {
+      return editorText('Headings in the 2nd font size.');
+    },
     icon: Heading2Icon,
-    tooltip: 'Drag/Click to insert Heading 2',
+    get tooltip() {
+      return editorText('Drag/Click to insert Heading 2');
+    },
   },
   {
     flavour: 'affine:paragraph',
     type: 'h3',
-    name: 'Heading 3',
-    description: 'Headings in the 3rd font size.',
+    get name() {
+      return editorText('Heading 3');
+    },
+    get description() {
+      return editorText('Headings in the 3rd font size.');
+    },
     icon: Heading3Icon,
-    tooltip: 'Drag/Click to insert Heading 3',
+    get tooltip() {
+      return editorText('Drag/Click to insert Heading 3');
+    },
   },
   {
     flavour: 'affine:paragraph',
     type: 'h4',
-    name: 'Heading 4',
-    description: 'Heading in the 4th font size.',
+    get name() {
+      return editorText('Heading 4');
+    },
+    get description() {
+      return editorText('Heading in the 4th font size.');
+    },
     icon: Heading4Icon,
-    tooltip: 'Drag/Click to insert Heading 4',
+    get tooltip() {
+      return editorText('Drag/Click to insert Heading 4');
+    },
   },
   {
     flavour: 'affine:paragraph',
     type: 'h5',
-    name: 'Heading 5',
-    description: 'Heading in the 5th font size.',
+    get name() {
+      return editorText('Heading 5');
+    },
+    get description() {
+      return editorText('Heading in the 5th font size.');
+    },
     icon: Heading5Icon,
-    tooltip: 'Drag/Click to insert Heading 5',
+    get tooltip() {
+      return editorText('Drag/Click to insert Heading 5');
+    },
   },
   {
     flavour: 'affine:paragraph',
     type: 'h6',
-    name: 'Heading 6',
-    description: 'Heading in the 6th font size.',
+    get name() {
+      return editorText('Heading 6');
+    },
+    get description() {
+      return editorText('Heading in the 6th font size.');
+    },
     icon: Heading6Icon,
-    tooltip: 'Drag/Click to insert Heading 6',
+    get tooltip() {
+      return editorText('Drag/Click to insert Heading 6');
+    },
   },
   {
     flavour: 'affine:code',
     type: 'code',
-    name: 'Code Block',
-    description: 'Capture a code snippet.',
+    get name() {
+      return editorText('Code Block');
+    },
+    get description() {
+      return editorText('Capture a code snippet.');
+    },
     icon: CodeBlockIcon,
-    tooltip: 'Drag/Click to insert Code Block',
+    get tooltip() {
+      return editorText('Drag/Click to insert Code Block');
+    },
   },
   {
     flavour: 'affine:paragraph',
     type: 'quote',
-    name: 'Quote',
-    description: 'Capture a quote.',
+    get name() {
+      return editorText('Quote');
+    },
+    get description() {
+      return editorText('Capture a quote.');
+    },
     icon: QuoteIcon,
-    tooltip: 'Drag/Click to insert Quote',
+    get tooltip() {
+      return editorText('Drag/Click to insert Quote');
+    },
   },
   {
     flavour: 'affine:divider',
     type: null,
-    name: 'Divider',
-    description: 'A visual divider.',
+    get name() {
+      return editorText('Divider');
+    },
+    get description() {
+      return editorText('A visual divider.');
+    },
     icon: DividerIcon,
-    tooltip: 'A visual divider',
+    get tooltip() {
+      return editorText('A visual divider');
+    },
   },
 ];
 
 // TODO: add image, bookmark, database blocks
 export const NOTE_MENU_ITEMS = TEXT_ITEMS.concat(LIST_ITEMS)
-  .filter(item => item.name !== 'Divider')
+  .filter(item => item.flavour !== 'affine:divider')
   .map(item => {
     return {
       icon: item.icon,
-      tooltip:
-        item.type !== 'text'
-          ? item.tooltip.replace('Drag/Click to insert ', '')
-          : 'Text',
+      get tooltip() {
+        return item.type !== 'text' ? item.name : editorText('Text');
+      },
       childFlavour: item.flavour as NoteChildrenFlavour,
       childType: item.type,
     } as NoteMenuItem;

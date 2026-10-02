@@ -7,7 +7,7 @@ import { WorkspacePermissionService } from '@affine/core/modules/permissions';
 import { WorkspaceService } from '@affine/core/modules/workspace';
 import { validateAndReduceImage } from '@affine/core/utils/reduce-image';
 import { UNTITLED_WORKSPACE_NAME } from '@affine/env/constant';
-import { useI18n } from '@affine/i18n';
+import { translateUiText, useI18n } from '@affine/i18n';
 import { CameraIcon } from '@blocksuite/icons/rc';
 import { LiveData, useLiveData, useService } from '@toeverything/infra';
 import type { KeyboardEvent } from 'react';
@@ -114,11 +114,17 @@ export const ProfilePanel = () => {
     (file: File) => {
       setWorkspaceAvatar(file)
         .then(() => {
-          notify.success({ title: 'Update workspace avatar success' });
+          notify.success({
+            get title() {
+              return translateUiText('Update workspace avatar success');
+            },
+          });
         })
         .catch(error => {
           notify.error({
-            title: 'Update workspace avatar failed',
+            get title() {
+              return translateUiText('Update workspace avatar failed');
+            },
             message: error,
           });
         });

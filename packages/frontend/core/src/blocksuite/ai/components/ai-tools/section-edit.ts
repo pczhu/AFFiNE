@@ -1,4 +1,5 @@
 import type { FeatureFlagService } from '@affine/core/modules/feature-flag';
+import { translateUiText } from '@affine/i18n';
 import { WithDisposable } from '@blocksuite/affine/global/lit';
 import type { ColorScheme } from '@blocksuite/affine/model';
 import { unsafeCSSVarV2 } from '@blocksuite/affine/shared/theme';
@@ -158,7 +159,7 @@ export class SectionEditTool extends WithDisposable(ShadowlessElement) {
           <div class="section-edit-header">
             <div class="section-edit-title">
               ${PageIcon()}
-              <span>Edited Content</span>
+              <span>${translateUiText('Edited Content')}</span>
             </div>
             <div class="section-edit-actions">
               <div
@@ -166,12 +167,12 @@ export class SectionEditTool extends WithDisposable(ShadowlessElement) {
                 @click=${async () => {
                   const success = await copyText(result.content);
                   if (success) {
-                    this.notifySuccess('Copied to clipboard');
+                    this.notifySuccess(translateUiText('Copied to clipboard'));
                   }
                 }}
               >
                 ${CopyIcon()}
-                <affine-tooltip>Copy</affine-tooltip>
+                <affine-tooltip>${translateUiText('Copy')}</affine-tooltip>
               </div>
               ${
                 this.independentMode
@@ -182,7 +183,11 @@ export class SectionEditTool extends WithDisposable(ShadowlessElement) {
                         if (!this.host) return;
                         if (this.host.std.store.readonly$.value) {
                           this.notificationService.notify({
-                            title: 'Cannot insert in read-only mode',
+                            get title() {
+                              return translateUiText(
+                                'Cannot insert in read-only mode'
+                              );
+                            },
                             accent: 'error',
                             onClose: () => {},
                           });
@@ -204,7 +209,9 @@ export class SectionEditTool extends WithDisposable(ShadowlessElement) {
                       }}
                     >
                       ${InsertBleowIcon()}
-                      <affine-tooltip>Insert below</affine-tooltip>
+                      <affine-tooltip
+                        >${translateUiText('Insert below')}</affine-tooltip
+                      >
                     </div>`
               }
               ${
@@ -218,7 +225,9 @@ export class SectionEditTool extends WithDisposable(ShadowlessElement) {
                       }}
                     >
                       ${LinkedPageIcon()}
-                      <affine-tooltip>Create new doc</affine-tooltip>
+                      <affine-tooltip
+                        >${translateUiText('Create new doc')}</affine-tooltip
+                      >
                     </div>`
               }
             </div>

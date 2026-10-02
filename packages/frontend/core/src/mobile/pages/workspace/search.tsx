@@ -11,7 +11,7 @@ import {
 } from '@affine/core/modules/quicksearch';
 import { TagService } from '@affine/core/modules/tag';
 import { UserFriendlyError } from '@affine/error';
-import { useI18n } from '@affine/i18n';
+import { translateUiText, useI18n, useUiLanguage } from '@affine/i18n';
 import { sleep } from '@blocksuite/affine/global/utils';
 import { ViewLayersIcon } from '@blocksuite/icons/rc';
 import {
@@ -36,6 +36,7 @@ import { SearchResults } from '../../views/search/search-results';
 import * as styles from '../../views/search/style.css';
 
 const RecentList = () => {
+  useUiLanguage();
   const { mobileSearchService, collectionService, tagService } = useServices({
     MobileSearchService,
     CollectionService,
@@ -92,7 +93,7 @@ const RecentList = () => {
 
   return (
     <SearchResults
-      title="Recent"
+      title={translateUiText('Recent')}
       docs={docs}
       collections={collectionList}
       tags={tagList}
@@ -101,6 +102,7 @@ const RecentList = () => {
 };
 
 const WithQueryList = () => {
+  useUiLanguage();
   const searchService = useService(MobileSearchService);
   const collectionList = useLiveData(searchService.collections.items$);
   const docList = useLiveData(searchService.docs.items$);
@@ -122,7 +124,7 @@ const WithQueryList = () => {
 
   return (
     <SearchResults
-      title="Search result"
+      title={translateUiText('Search result')}
       docs={docs}
       collections={collectionList}
       tags={tagList}
@@ -175,7 +177,7 @@ export const Component = () => {
             autoFocus={!searchInput}
             value={searchInput}
             onInput={onSearch}
-            placeholder="Search Docs, Collections"
+            placeholder={translateUiText('Search Docs, Collections')}
           />
           <NavigationBackButton>
             <Button

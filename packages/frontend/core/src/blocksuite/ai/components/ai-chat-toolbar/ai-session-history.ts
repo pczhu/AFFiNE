@@ -1,4 +1,5 @@
 import type { CopilotChatHistoryFragment } from '@affine/graphql';
+import { translateUiText } from '@affine/i18n';
 import { WithDisposable } from '@blocksuite/affine/global/lit';
 import { scrollbarStyle } from '@blocksuite/affine/shared/styles';
 import { unsafeCSSVar, unsafeCSSVarV2 } from '@blocksuite/affine/shared/theme';
@@ -297,9 +298,9 @@ export class AISessionHistory extends WithDisposable(ShadowlessElement) {
             >
               <div class="ai-session-title">
                 ${sessionTitle}
-                <affine-tooltip .offsetX=${60}>
-                  Click to open this chat
-                </affine-tooltip>
+                <affine-tooltip .offsetX=${60}
+                  >${translateUiText('\n                  Click to open this chat\n                ')}</affine-tooltip
+                >
               </div>
               ${
                 session.docId
@@ -314,7 +315,7 @@ export class AISessionHistory extends WithDisposable(ShadowlessElement) {
                 }}
               >
                 ${DeleteIcon()}
-                <affine-tooltip>Delete</affine-tooltip>
+                <affine-tooltip>${translateUiText('Delete')}</affine-tooltip>
               </div>
             </div>
           `;
@@ -336,14 +337,16 @@ export class AISessionHistory extends WithDisposable(ShadowlessElement) {
     >
       ${docIcon}
       <span class="doc-title"> ${this.docDisplayConfig.getTitle(docId)} </span>
-      <affine-tooltip>Open this doc</affine-tooltip>
+      <affine-tooltip>${translateUiText('Open this doc')}</affine-tooltip>
     </div>`;
   }
 
   private renderLoading() {
     return html`
       <div class="loading-container">
-        <div class="loading-title">Loading history...</div>
+        <div class="loading-title">
+          ${translateUiText('Loading history...')}
+        </div>
       </div>
     `;
   }
@@ -351,7 +354,7 @@ export class AISessionHistory extends WithDisposable(ShadowlessElement) {
   private renderEmpty() {
     return html`
       <div class="empty-container">
-        <div class="empty-title">Empty history</div>
+        <div class="empty-title">${translateUiText('Empty history')}</div>
       </div>
     `;
   }

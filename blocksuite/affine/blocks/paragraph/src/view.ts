@@ -3,6 +3,7 @@ import {
   ViewExtensionProvider,
 } from '@blocksuite/affine-ext-loader';
 import { ParagraphBlockModel } from '@blocksuite/affine-model';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { BlockViewExtension, FlavourExtension } from '@blocksuite/std';
 import { literal } from 'lit/static-html.js';
 import { z } from 'zod';
@@ -16,7 +17,9 @@ import {
 } from './paragraph-keymap.js';
 
 const placeholders = {
-  text: "Type '/' for commands",
+  get text() {
+    return editorText("Type '/' for commands");
+  },
   h1: 'Heading 1',
   h2: 'Heading 2',
   h3: 'Heading 3',

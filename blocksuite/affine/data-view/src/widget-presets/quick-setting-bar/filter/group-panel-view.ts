@@ -5,6 +5,7 @@ import {
   type PopupTarget,
   popupTargetFromElement,
 } from '@blocksuite/affine-components/context-menu';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { SignalWatcher } from '@blocksuite/global/lit';
 import {
   ArrowDownSmallIcon,
@@ -36,7 +37,9 @@ export const popAddNewFilter = (
 ) => {
   popFilterableSimpleMenu(target, [
     menu.action({
-      name: 'Add filter',
+      get name() {
+        return editorText('Add filter');
+      },
       select: () => {
         props.onChange({
           ...props.value,
@@ -45,7 +48,9 @@ export const popAddNewFilter = (
       },
     }),
     menu.action({
-      name: 'Add filter group',
+      get name() {
+        return editorText('Add filter group');
+      },
       select: () => {
         props.onChange({
           ...props.value,
@@ -208,7 +213,9 @@ export class FilterGroupView extends SignalWatcher(ShadowlessElement) {
       popupTargetFromElement(event.currentTarget as HTMLElement),
       [
         menu.action({
-          name: 'And',
+          get name() {
+            return editorText('And');
+          },
           select: () => {
             this.onChange({
               ...this.filterGroup.value,
@@ -217,7 +224,9 @@ export class FilterGroupView extends SignalWatcher(ShadowlessElement) {
           },
         }),
         menu.action({
-          name: 'Or',
+          get name() {
+            return editorText('Or');
+          },
           select: () => {
             this.onChange({
               ...this.filterGroup.value,
@@ -288,7 +297,9 @@ export class FilterGroupView extends SignalWatcher(ShadowlessElement) {
             },
           }),
           menu.action({
-            name: 'Duplicate',
+            get name() {
+              return editorText('Duplicate');
+            },
             prefix: DuplicateIcon(),
             onHover: hover => {
               this.containerClass = hover
@@ -314,7 +325,9 @@ export class FilterGroupView extends SignalWatcher(ShadowlessElement) {
         name: '',
         items: [
           menu.action({
-            name: 'Delete',
+            get name() {
+              return editorText('Delete');
+            },
             prefix: DeleteIcon(),
             class: { 'delete-item': true },
             onHover: hover => {
@@ -348,7 +361,9 @@ export class FilterGroupView extends SignalWatcher(ShadowlessElement) {
           };
           let op: TemplateResult;
           if (i === 0) {
-            op = html` <div class="filter-group-op">Where</div>`;
+            op = html` <div class="filter-group-op">
+              ${editorText('Where')}
+            </div>`;
           } else {
             op = html`
               <div
@@ -449,7 +464,9 @@ export const popFilterGroup = (
   popMenu(target, {
     options: {
       title: {
-        text: 'Filter group',
+        get text() {
+          return editorText('Filter group');
+        },
         onBack: props.onBack,
       },
       items: [
@@ -467,7 +484,9 @@ export const popFilterGroup = (
         menu.group({
           items: [
             menu.action({
-              name: 'Delete',
+              get name() {
+                return editorText('Delete');
+              },
               class: { 'delete-item': true },
               prefix: DeleteIcon(),
               select: () => {

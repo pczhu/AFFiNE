@@ -1,7 +1,11 @@
 import { changeNoteDisplayMode } from '@blocksuite/affine-block-note';
 import { NoteBlockModel, NoteDisplayMode } from '@blocksuite/affine-model';
 import { DocModeProvider } from '@blocksuite/affine-shared/services';
-import { focusTitle, matchModels } from '@blocksuite/affine-shared/utils';
+import {
+  editorText,
+  focusTitle,
+  matchModels,
+} from '@blocksuite/affine-shared/utils';
 import { Bound } from '@blocksuite/global/gfx';
 import { SignalWatcher, WithDisposable } from '@blocksuite/global/lit';
 import {
@@ -122,7 +126,7 @@ export class OutlinePanelBody extends SignalWatcher(
         data-testid="empty-panel-placeholder"
         class=${styles.emptyPanelPlaceholder}
       >
-        Use headings to create a table of contents.
+        ${editorText('\n        Use headings to create a table of contents.\n      ')}
       </div>
     </div>`;
   }
@@ -449,7 +453,9 @@ export class OutlinePanelBody extends SignalWatcher(
       ${when(
         items.length > 0,
         () =>
-          html`<div class=${styles.edgelessCardListTitle}>Hidden Contents</div>`
+          html`<div class=${styles.edgelessCardListTitle}>
+            ${editorText('Hidden Contents')}
+          </div>`
       )}
       ${this._renderNoteCards(items)}
     </div>`;

@@ -15,7 +15,7 @@ import {
   type SubscriptionRecurring,
   SubscriptionStatus,
 } from '@affine/graphql';
-import { Trans, useI18n } from '@affine/i18n';
+import { Trans, translateUiText, useI18n } from '@affine/i18n';
 import { track } from '@affine/track';
 import { DoneIcon } from '@blocksuite/icons/rc';
 import { useLiveData, useService } from '@toeverything/infra';
@@ -370,10 +370,13 @@ const ChangeRecurring = ({
 
   const changeCurringContent = (
     <Trans values={{ from, to, due }} className={styles.downgradeContent}>
-      You are changing your <span className={styles.textEmphasis}>{from}</span>{' '}
-      subscription to <span className={styles.textEmphasis}>{to}</span>{' '}
-      subscription. This change will take effect in the next billing cycle, with
-      an effective date of{' '}
+      {translateUiText('You are changing your ')}
+      <span className={styles.textEmphasis}>{from}</span>{' '}
+      {translateUiText('subscription to ')}
+      <span className={styles.textEmphasis}>{to}</span>{' '}
+      {translateUiText(
+        'subscription. This change will take effect in the next billing cycle, with\n      an effective date of'
+      )}{' '}
       <span className={styles.textEmphasis}>
         {new Date(due).toLocaleDateString()}
       </span>

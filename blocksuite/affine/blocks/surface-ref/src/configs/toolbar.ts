@@ -8,6 +8,7 @@ import {
   blockCommentToolbarButton,
   type ToolbarModuleConfig,
 } from '@blocksuite/affine-shared/services';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { CaptionIcon, CopyIcon, DeleteIcon } from '@blocksuite/icons/lit';
 import { html } from 'lit';
 
@@ -32,7 +33,9 @@ export const surfaceRefToolbarModuleConfig: ToolbarModuleConfig = {
     },
     {
       id: 'c.copy-surface-ref',
-      label: 'Copy',
+      get label() {
+        return editorText('Copy');
+      },
       icon: CopyIcon(),
       run: ctx => {
         const surfaceRefBlock = ctx.getCurrentBlockByType(
@@ -47,7 +50,7 @@ export const surfaceRefToolbarModuleConfig: ToolbarModuleConfig = {
           .pipe(copySelectedModelsCommand)
           .run();
 
-        toast(surfaceRefBlock.std.host, 'Copied to clipboard');
+        toast(surfaceRefBlock.std.host, editorText('Copied to clipboard'));
       },
     },
     {
@@ -82,7 +85,9 @@ export const surfaceRefToolbarModuleConfig: ToolbarModuleConfig = {
     },
     {
       id: 'g.surface-ref-deletion',
-      label: 'Delete',
+      get label() {
+        return editorText('Delete');
+      },
       icon: DeleteIcon(),
       placement: ActionPlacement.More,
       variant: 'destructive',

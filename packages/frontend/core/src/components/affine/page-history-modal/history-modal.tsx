@@ -171,6 +171,8 @@ const HistoryEditorPreview = ({
 const planPromptClosedAtom = atom(false);
 
 const PlanPrompt = () => {
+  const uiI18n = useI18n();
+
   const workspaceQuotaService = useService(WorkspaceQuotaService);
   useEffect(() => {
     workspaceQuotaService.quota.revalidate();
@@ -231,8 +233,11 @@ const PlanPrompt = () => {
       return (
         <>
           <Trans i18nKey="com.affine.history.confirm-restore-modal.free-plan-prompt.description">
-            With the workspace creator&apos;s Free account, every member can
-            access up to <b>7 days</b> of version history.
+            {uiI18n.uiText(
+              'With the workspace creator&apos;s Free account, every member can\n            access up to '
+            )}
+            <b>{uiI18n.uiText('7 days')}</b>{' '}
+            {uiI18n.uiText('of version history.\n          ')}
           </Trans>
           {isOwner ? (
             <span
@@ -249,12 +254,15 @@ const PlanPrompt = () => {
     } else {
       return (
         <Trans i18nKey="com.affine.history.confirm-restore-modal.pro-plan-prompt.description">
-          With the workspace creator&apos;s Pro account, every member enjoys the
-          privilege of accessing up to <b>30 days</b> of version history.
+          {uiI18n.uiText(
+            'With the workspace creator&apos;s Pro account, every member enjoys the\n          privilege of accessing up to '
+          )}
+          <b>{uiI18n.uiText('30 days')}</b>{' '}
+          {uiI18n.uiText('of version history.\n        ')}
         </Trans>
       );
     }
-  }, [isOwner, isProWorkspace, onClickUpgrade, t]);
+  }, [isOwner, isProWorkspace, onClickUpgrade, t, uiI18n]);
 
   return !planPromptClosed ? (
     <div className={styles.planPromptWrapper}>

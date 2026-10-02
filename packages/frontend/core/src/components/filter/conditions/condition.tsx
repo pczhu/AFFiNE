@@ -1,5 +1,6 @@
 import { Menu, MenuItem } from '@affine/component';
 import type { FilterParams } from '@affine/core/modules/collection-rules';
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import clsx from 'clsx';
 import type React from 'react';
 
@@ -30,6 +31,7 @@ export const Condition = ({
     onChange?: (filter: FilterParams) => void;
   }>;
 }) => {
+  useUiLanguage();
   return (
     <>
       <div className={clsx(styles.filterTypeStyle, styles.ellipsisTextStyle)}>
@@ -74,7 +76,7 @@ export const Condition = ({
                   >
                     {methods.find(
                       ([method]) => method === filter.method
-                    )?.[1] ?? 'unknown'}
+                    )?.[1] ?? translateUiText('unknown')}
                   </div>
                 </Menu>
               );

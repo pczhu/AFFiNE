@@ -1,4 +1,7 @@
-import { openSingleFileWith } from '@blocksuite/affine-shared/utils';
+import {
+  editorText,
+  openSingleFileWith,
+} from '@blocksuite/affine-shared/utils';
 import { type SlashMenuConfig } from '@blocksuite/affine-widget-slash-menu';
 import { ExportToPdfIcon, FileIcon } from '@blocksuite/icons/lit';
 
@@ -9,11 +12,17 @@ export const attachmentSlashMenuConfig: SlashMenuConfig = {
   items: [
     {
       name: 'Attachment',
-      description: 'Attach a file to document.',
+      get description() {
+        return editorText('Attach a file to document.');
+      },
       icon: FileIcon(),
       tooltip: {
-        figure: AttachmentTooltip,
-        caption: 'Attachment',
+        get figure() {
+          return AttachmentTooltip();
+        },
+        get caption() {
+          return editorText('Attachment');
+        },
       },
       searchAlias: ['file'],
       group: '4_Content & Media@3',
@@ -33,10 +42,14 @@ export const attachmentSlashMenuConfig: SlashMenuConfig = {
     },
     {
       name: 'PDF',
-      description: 'Upload a PDF to document.',
+      get description() {
+        return editorText('Upload a PDF to document.');
+      },
       icon: ExportToPdfIcon(),
       tooltip: {
-        figure: PDFTooltip,
+        get figure() {
+          return PDFTooltip();
+        },
         caption: 'PDF',
       },
       group: '4_Content & Media@4',

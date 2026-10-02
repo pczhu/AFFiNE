@@ -13,6 +13,7 @@ import {
   type ToolbarModuleConfig,
   ToolbarModuleExtension,
 } from '@blocksuite/affine-shared/services';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { DeleteIcon, PaletteIcon, SmileIcon } from '@blocksuite/icons/lit';
 import { BlockFlavourIdentifier } from '@blocksuite/std';
 import type { ExtensionType } from '@blocksuite/store';
@@ -37,8 +38,12 @@ const colors = [
 
 const backgroundColorAction = {
   id: 'background-color',
-  label: 'Background Color',
-  tooltip: 'Change background color',
+  get label() {
+    return editorText('Background Color');
+  },
+  get tooltip() {
+    return editorText('Change background color');
+  },
   icon: PaletteIcon(),
   run() {
     // This will be handled by the content function
@@ -57,14 +62,14 @@ const backgroundColorAction = {
         .button=${html`
           <editor-icon-button
             aria-label="background"
-            .tooltip=${'Background Color'}
+            .tooltip=${editorText('Background Color')}
           >
             ${PaletteIcon()} ${EditorChevronDown}
           </editor-icon-button>
         `}
       >
         <div data-size="large" data-orientation="vertical">
-          <div class="highlight-heading">Background</div>
+          <div class="highlight-heading">${editorText('Background')}</div>
           ${repeat(colors, color => {
             const isDefault = color === 'default';
             const value = isDefault
@@ -95,8 +100,12 @@ const backgroundColorAction = {
 
 const iconPickerAction = {
   id: 'icon-picker',
-  label: 'Icon Picker',
-  tooltip: 'Change icon',
+  get label() {
+    return editorText('Icon Picker');
+  },
+  get tooltip() {
+    return editorText('Change icon');
+  },
   icon: SmileIcon(),
   run() {
     // This will be handled by the content function
@@ -153,7 +162,7 @@ const iconPickerAction = {
     return html`
       <editor-icon-button
         aria-label="icon-picker"
-        .tooltip=${'Change Icon'}
+        .tooltip=${editorText('Change Icon')}
         @click=${handleIconPickerClick}
       >
         ${SmileIcon()} ${EditorChevronDown}
@@ -175,7 +184,9 @@ const builtinToolbarConfig = {
     {
       placement: ActionPlacement.More,
       id: 'c.delete',
-      label: 'Delete',
+      get label() {
+        return editorText('Delete');
+      },
       icon: DeleteIcon(),
       variant: 'destructive',
       run(ctx) {

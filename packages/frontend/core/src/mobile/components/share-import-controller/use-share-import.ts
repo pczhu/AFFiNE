@@ -9,6 +9,7 @@ import {
   WorkspacesService,
 } from '@affine/core/modules/workspace';
 import { ServerDeploymentType } from '@affine/graphql';
+import { translateUiText } from '@affine/i18n';
 import { useLiveData, useService } from '@toeverything/infra';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
@@ -208,8 +209,11 @@ export function useShareImport(provider: ShareInboxProvider) {
         result.warning === 'destination-not-found'
       ) {
         notify.warning({
-          title:
-            'Content saved. Some selected tags or the collection are no longer available.',
+          get title() {
+            return translateUiText(
+              'Content saved. Some selected tags or the collection are no longer available.'
+            );
+          },
         });
       }
       try {
@@ -448,7 +452,11 @@ export function useShareImport(provider: ShareInboxProvider) {
         );
         if (!retryEntry || retryEntry.status !== 'ready') {
           setEntry(undefined);
-          notify.success({ title: 'Shared content saved' });
+          notify.success({
+            get title() {
+              return translateUiText('Shared content saved');
+            },
+          });
           await refresh();
           return;
         }
@@ -465,7 +473,12 @@ export function useShareImport(provider: ShareInboxProvider) {
         allowOffline
       );
       if (outcome === 'completed') {
-        if (ownsOperation) notify.success({ title: 'Shared content saved' });
+        if (ownsOperation)
+          notify.success({
+            get title() {
+              return translateUiText('Shared content saved');
+            },
+          });
       } else if (outcome === 'completion-failed') {
         setManualItem({ ...item, lastError: 'completion-failed' });
         return;

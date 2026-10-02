@@ -1,4 +1,5 @@
 import { DefaultInlineManagerExtension } from '@blocksuite/affine-inline-preset';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import type { DetailSlotProps } from '@blocksuite/data-view';
 import type {
   KanbanSingleView,
@@ -38,7 +39,7 @@ export class BlockRenderer
     }
 
     database-datasource-block-renderer.empty rich-text::before {
-      content: 'Untitled';
+      content: attr(data-empty-placeholder);
       position: absolute;
       color: var(--affine-text-disable-color);
       font-size: 15px;
@@ -124,6 +125,7 @@ export class BlockRenderer
     return html`
       ${this.renderIcon()}
       <rich-text
+        data-empty-placeholder=${editorText('Untitled')}
         .yText=${model.text}
         .attributesSchema=${this.attributesSchema}
         .attributeRenderer=${this.attributeRenderer}

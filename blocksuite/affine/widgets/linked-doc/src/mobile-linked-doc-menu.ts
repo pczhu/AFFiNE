@@ -3,7 +3,10 @@ import {
   getTextContentFromInlineRange,
 } from '@blocksuite/affine-rich-text';
 import { VirtualKeyboardProvider } from '@blocksuite/affine-shared/services';
-import { getViewportElement } from '@blocksuite/affine-shared/utils';
+import {
+  editorText,
+  getViewportElement,
+} from '@blocksuite/affine-shared/utils';
 import { SignalWatcher, WithDisposable } from '@blocksuite/global/lit';
 import { MoreHorizontalIcon } from '@blocksuite/icons/lit';
 import { PropTypes, requiredProperties } from '@blocksuite/std';
@@ -53,7 +56,7 @@ export class AffineMobileLinkedDocMenu extends SignalWatcher(
         }}
       >
         ${MoreHorizontalIcon()}
-        <div class="text">${group.overflowText || 'more'}</div>
+        <div class="text">${group.overflowText || editorText('more')}</div>
       </div>`;
     }
 

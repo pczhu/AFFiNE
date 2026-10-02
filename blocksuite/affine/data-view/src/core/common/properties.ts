@@ -3,6 +3,7 @@ import {
   popMenu,
   type PopupTarget,
 } from '@blocksuite/affine-components/context-menu';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { SignalWatcher, WithDisposable } from '@blocksuite/global/lit';
 import { InvisibleIcon, ViewIcon } from '@blocksuite/icons/lit';
 import { ShadowlessElement } from '@blocksuite/std';
@@ -243,7 +244,9 @@ export const popPropertiesSetting = (
     middleware,
     options: {
       title: {
-        text: 'Properties',
+        get text() {
+          return editorText('Properties');
+        },
         onBack: props.onBack,
         onClose: props.onClose,
         postfix: () => {
@@ -260,7 +263,7 @@ export const popPropertiesSetting = (
             class="properties-group-op"
             @click="${clickChangeAll}"
           >
-            ${isAllShowed ? 'Hide All' : 'Show All'}
+            ${isAllShowed ? editorText('Hide All') : editorText('Show All')}
           </div>`;
         },
       },

@@ -1,3 +1,4 @@
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import type { FC, RefObject } from 'react';
 
 import type { ParsedUser } from '../../utils/csv-utils';
@@ -17,12 +18,15 @@ export const ImportPreviewContent: FC<ImportPreviewContentProps> = ({
   parsedUsers,
   isImported,
 }) => {
+  useUiLanguage();
   return (
     <div className="grid gap-3">
       {!isImported && (
         <p className="text-sm text-muted-foreground">
-          {parsedUsers.length} users detected from the CSV file. Please confirm
-          the user list below and import.
+          {parsedUsers.length}{' '}
+          {translateUiText(
+            'users detected from the CSV file. Please confirm\n          the user list below and import.\n        '
+          )}
         </p>
       )}
       <UserTable users={parsedUsers} />
@@ -47,11 +51,13 @@ export const ImportInitialContent: FC<ImportInitialContentProps> = ({
   fileUploadRef,
   onFileSelected,
 }) => {
+  useUiLanguage();
   return (
     <div className="grid gap-3">
       <p className="text-sm text-muted-foreground">
-        You need to import the accounts by importing a CSV file in the correct
-        format. Please download the CSV template.
+        {translateUiText(
+          'You need to import the accounts by importing a CSV file in the correct\n        format. Please download the CSV template.\n      '
+        )}
       </p>
       <CsvFormatGuidance passwordLimits={passwordLimits} />
       <FileUploadArea ref={fileUploadRef} onFileSelected={onFileSelected} />
@@ -67,7 +73,11 @@ interface ImportErrorContentProps {
  * Component for displaying import errors
  */
 export const ImportErrorContent: FC<ImportErrorContentProps> = ({
-  message = 'You need to import the accounts by importing a CSV file in the correct format. Please download the CSV template.',
+  message = translateUiText(
+    'You need to import the accounts by importing a CSV file in the correct format. Please download the CSV template.'
+  ),
 }) => {
+  useUiLanguage();
+
   return message;
 };

@@ -1,4 +1,5 @@
 import { NavigationPanelTreeContext } from '@affine/core/desktop/components/navigation-panel';
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import { PlusIcon } from '@blocksuite/icons/rc';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 import clsx from 'clsx';
@@ -17,11 +18,13 @@ const DEFAULT_ICON = <PlusIcon />;
 
 export const AddItemPlaceholder = ({
   onClick,
-  label = 'Add Item',
+  label = translateUiText('Add Item'),
   icon = DEFAULT_ICON,
   className,
   ...attrs
 }: AddItemPlaceholderProps) => {
+  useUiLanguage();
+
   const context = useContext(NavigationPanelTreeContext);
   const level = context?.level ?? 0;
 

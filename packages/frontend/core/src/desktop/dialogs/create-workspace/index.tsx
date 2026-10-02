@@ -12,7 +12,7 @@ import {
 } from '@affine/core/modules/dialogs';
 import { WorkspacesService } from '@affine/core/modules/workspace';
 import { buildShowcaseWorkspace } from '@affine/core/utils/first-app-data';
-import { useI18n } from '@affine/i18n';
+import { translateUiText, useI18n } from '@affine/i18n';
 import track from '@affine/track';
 import { FrameworkScope, useLiveData, useService } from '@toeverything/infra';
 import { useCallback, useState } from 'react';
@@ -155,8 +155,12 @@ const CustomConfirmButton = ({
     } catch (e) {
       console.error(e);
       notify.error({
-        title: 'Failed to create workspace',
-        message: 'please try again later.',
+        get title() {
+          return translateUiText('Failed to create workspace');
+        },
+        get message() {
+          return translateUiText('please try again later.');
+        },
       });
     } finally {
       setLoading(false);

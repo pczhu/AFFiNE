@@ -12,6 +12,7 @@ import {
   ThemeExtensionIdentifier,
   ThemeProvider,
 } from '@blocksuite/affine-shared/services';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { Bound } from '@blocksuite/global/gfx';
 import { type BlockComponent, BlockStdScope } from '@blocksuite/std';
 import { html, nothing } from 'lit';
@@ -127,9 +128,9 @@ export class EmbedEdgelessSyncedDocBlockComponent extends toEdgelessEmbedBlock(
               this.isPageMode && this._isEmptySyncedDoc
                 ? html`
                     <div class="affine-embed-synced-doc-editor-empty">
-                      <span>
-                        This is a linked doc, you can add content here.
-                      </span>
+                      <span
+                        >${editorText('\n                        This is a linked doc, you can add content here.\n                      ')}</span
+                      >
                     </div>
                   `
                 : guard([editorMode, syncedDoc], renderEditor)

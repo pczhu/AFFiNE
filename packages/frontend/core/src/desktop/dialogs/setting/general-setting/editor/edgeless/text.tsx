@@ -87,11 +87,11 @@ export const TextSettings = () => {
           selected={isSelected}
           prefix={<Point color={resolvedValue} />}
         >
-          {key}
+          {t.uiText(String(key))}
         </MenuItem>
       );
     });
-  }, [editorSetting, settings, palettes]);
+  }, [editorSetting, settings, palettes, t]);
 
   const fontFamilyItems = useMemo(() => {
     const { fontFamily } = settings['affine:edgeless-text'];
@@ -102,11 +102,11 @@ export const TextSettings = () => {
       const isSelected = fontFamily === value;
       return (
         <MenuItem key={name} onSelect={handler} selected={isSelected}>
-          {name}
+          {t.uiText(String(name))}
         </MenuItem>
       );
     });
-  }, [editorSetting, settings]);
+  }, [editorSetting, settings, t]);
 
   const fontStyleItems = useMemo(() => {
     const { fontStyle } = settings['affine:edgeless-text'];
@@ -117,11 +117,11 @@ export const TextSettings = () => {
       const isSelected = fontStyle === value;
       return (
         <MenuItem key={name} onSelect={handler} selected={isSelected}>
-          {name}
+          {t.uiText(String(name))}
         </MenuItem>
       );
     });
-  }, [editorSetting, settings]);
+  }, [editorSetting, settings, t]);
 
   const fontWeightItems = useMemo(() => {
     const { fontWeight } = settings['affine:edgeless-text'];
@@ -132,11 +132,11 @@ export const TextSettings = () => {
       const isSelected = fontWeight === value;
       return (
         <MenuItem key={name} onSelect={handler} selected={isSelected}>
-          {name}
+          {t.uiText('Font weight ' + name)}
         </MenuItem>
       );
     });
-  }, [editorSetting, settings]);
+  }, [editorSetting, settings, t]);
 
   const currentColor = useMemo(() => {
     const { color } = settings['affine:edgeless-text'];
@@ -167,7 +167,7 @@ export const TextSettings = () => {
                 className={menuTrigger}
                 prefix={<Point color={currentColor.resolvedValue} />}
               >
-                {currentColor.key}
+                {t.uiText(currentColor.key)}
               </MenuTrigger>
             }
           />
@@ -183,7 +183,11 @@ export const TextSettings = () => {
           items={fontFamilyItems}
           trigger={
             <MenuTrigger className={menuTrigger}>
-              {FontFamilyMap[settings['affine:edgeless-text'].fontFamily]}
+              {t.uiText(
+                String(
+                  FontFamilyMap[settings['affine:edgeless-text'].fontFamily]
+                )
+              )}
             </MenuTrigger>
           }
         />
@@ -198,7 +202,7 @@ export const TextSettings = () => {
           items={fontStyleItems}
           trigger={
             <MenuTrigger className={menuTrigger}>
-              {String(settings['affine:edgeless-text'].fontStyle)}
+              {t.uiText(String(settings['affine:edgeless-text'].fontStyle))}
             </MenuTrigger>
           }
         />
@@ -213,7 +217,12 @@ export const TextSettings = () => {
           items={fontWeightItems}
           trigger={
             <MenuTrigger className={menuTrigger}>
-              {FontWeightMap[settings['affine:edgeless-text'].fontWeight]}
+              {t.uiText(
+                'Font weight ' +
+                  String(
+                    FontWeightMap[settings['affine:edgeless-text'].fontWeight]
+                  )
+              )}
             </MenuTrigger>
           }
         />

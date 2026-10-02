@@ -8,6 +8,7 @@ import {
   ThemeProvider,
 } from '@blocksuite/affine-shared/services';
 import {
+  editorText,
   requestConnectedFrame,
   stopPropagation,
 } from '@blocksuite/affine-shared/utils';
@@ -393,7 +394,7 @@ export class EdgelessTemplatePanel extends WithDisposable(LitElement) {
           <input
             class="search-input"
             type="text"
-            placeholder="Search file or anything..."
+            placeholder=${editorText('Search file or anything...')}
             @input=${this._updateSearchKeyword}
             @cut=${stopPropagation}
             @copy=${stopPropagation}

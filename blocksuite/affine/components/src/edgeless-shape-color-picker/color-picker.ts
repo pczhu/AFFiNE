@@ -11,6 +11,7 @@ import {
 import { unsafeCSSVarV2 } from '@blocksuite/affine-shared/theme';
 import {
   type ColorEvent,
+  editorText,
   stopPropagation,
 } from '@blocksuite/affine-shared/utils';
 import { SignalWatcher, WithDisposable } from '@blocksuite/global/lit';
@@ -195,7 +196,10 @@ export class EdgelessShapeColorPicker extends WithDisposable(
         .contentPadding="${tabType === 'normal' ? '8px' : '0px'}"
         @click=${stopPropagation}
         .button=${html`
-          <editor-icon-button aria-label="Color" .tooltip="${'Color'}">
+          <editor-icon-button
+            aria-label=${editorText('Color')}
+            .tooltip="${editorText('Color')}"
+          >
             <edgeless-color-button
               .color=${fillColorWithoutAlpha}
             ></edgeless-color-button>
@@ -211,14 +215,18 @@ export class EdgelessShapeColorPicker extends WithDisposable(
                   ${repeat(
                     [
                       {
-                        label: 'Fill color',
+                        get label() {
+                          return editorText('Fill color');
+                        },
                         type: 'fillColor',
                         value: fillColor,
                         hollowCircle: false,
                         onPick: this.#pickFillColor,
                       },
                       {
-                        label: 'Border color',
+                        get label() {
+                          return editorText('Border color');
+                        },
                         type: 'strokeColor',
                         value: strokeColor,
                         hollowCircle: true,
@@ -229,7 +237,7 @@ export class EdgelessShapeColorPicker extends WithDisposable(
                     ({ label, type, value, onPick, hollowCircle }) => html`
                       <div class="picker-label">${label}</div>
                       <edgeless-color-panel
-                        aria-label="${label}"
+                        aria-label="${editorText(label)}"
                         role="listbox"
                         .hasTransparent=${false}
                         .hollowCircle=${hollowCircle}
@@ -259,7 +267,7 @@ export class EdgelessShapeColorPicker extends WithDisposable(
                       </edgeless-color-panel>
                     `
                   )}
-                  <div class="picker-label">Border style</div>
+                  <div class="picker-label">${editorText('Border style')}</div>
                   <edgeless-line-styles-panel
                     class="picker"
                     .lineSize=${strokeWidth}

@@ -3,6 +3,7 @@ import {
   TelemetryProvider,
 } from '@blocksuite/affine-shared/services';
 import { unsafeCSSVarV2 } from '@blocksuite/affine-shared/theme';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { SignalWatcher, WithDisposable } from '@blocksuite/global/lit';
 import { css, html, LitElement, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -92,7 +93,7 @@ export class PreviewButton extends WithDisposable(SignalWatcher(LitElement)) {
           })}
           @click=${() => this._toggle(false)}
         >
-          Code
+          ${editorText('\n          Code\n        ')}
         </div>
         <div
           class=${classMap({
@@ -101,7 +102,7 @@ export class PreviewButton extends WithDisposable(SignalWatcher(LitElement)) {
           })}
           @click=${() => this._toggle(true)}
         >
-          Preview
+          ${editorText('\n          Preview\n        ')}
         </div>
       </div>
     `;

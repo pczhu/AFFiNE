@@ -1,4 +1,5 @@
 import { useAutoFocus } from '@affine/component';
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import { getFigmaSquircleSvgPath } from '@blocksuite/affine/shared/utils';
 import { SearchIcon } from '@blocksuite/icons/rc';
 import clsx from 'clsx';
@@ -32,7 +33,7 @@ export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
     {
       className,
       style,
-      placeholder = 'Search',
+      placeholder = translateUiText('Search'),
       value = '',
       height = 44,
       cornerRadius = 10,
@@ -45,6 +46,8 @@ export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
     },
     upstreamRef
   ) {
+    useUiLanguage();
+
     const focusRef = useAutoFocus<HTMLInputElement>(autoFocus);
     const containerRef = useRef<HTMLDivElement>(null);
     const [width, setWidth] = useState(window.innerWidth);

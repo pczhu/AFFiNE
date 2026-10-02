@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import type { ResizeHandle } from '@blocksuite/std/gfx';
 import { html, nothing } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
@@ -45,7 +46,8 @@ function ResizeHandleRenderer(
 
   return html`<div
     class="handle"
-    aria-label=${handle}
+    data-handle=${handle}
+    aria-label=${editorText(`Resize handle ${handle}`)}
     @pointerdown=${handlerPointerDown}
   >
     ${rotationTpl}

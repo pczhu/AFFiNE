@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { clamp } from '@blocksuite/global/gfx';
 import { WithDisposable } from '@blocksuite/global/lit';
 import { isSameDay, isSameMonth, isToday } from 'date-fns';
@@ -89,7 +90,7 @@ export class DatePicker extends WithDisposable(LitElement) {
   }
 
   get dayLabel() {
-    return days[this.day];
+    return editorText(days[this.day]);
   }
 
   get minHeight() {
@@ -102,7 +103,7 @@ export class DatePicker extends WithDisposable(LitElement) {
   }
 
   get monthLabel() {
-    return months[this.month];
+    return editorText(months[this.month]);
   }
 
   get year() {
@@ -159,13 +160,13 @@ export class DatePicker extends WithDisposable(LitElement) {
           () => this._moveMonth(1),
           html`<button
             tabindex="0"
-            aria-label="today"
+            aria-label=${editorText('today')}
             class="action-label interactive today"
             @click=${() => {
               this._onChange(new Date());
             }}
           >
-            <span>TODAY</span>
+            <span>${editorText('TODAY')}</span>
           </button>`
         )}
       </div>
@@ -187,7 +188,7 @@ export class DatePicker extends WithDisposable(LitElement) {
                 class="footer-button interactive"
                 @click=${() => this.onClear?.()}
               >
-                Clear
+                ${editorText('\n                Clear\n              ')}
               </button>
             </div>`
           : nothing
@@ -197,7 +198,7 @@ export class DatePicker extends WithDisposable(LitElement) {
   /** Week header */
   private _dayHeaderRenderer() {
     return html`<div class="days-header">
-      ${days.map(day => html`<div class="date-cell">${day}</div>`)}
+      ${days.map(day => html`<div class="date-cell">${editorText(day)}</div>`)}
     </div>`;
   }
 
@@ -273,7 +274,7 @@ export class DatePicker extends WithDisposable(LitElement) {
           });
           return html`<button
             tabindex=${this._monthCursor === index ? 0 : -1}
-            aria-label=${month}
+            aria-label=${editorText(month)}
             class=${classes}
             @click=${() => {
               this._cursor.setMonth(index);
@@ -282,7 +283,7 @@ export class DatePicker extends WithDisposable(LitElement) {
               this._getMatrix();
             }}
           >
-            ${month}
+            ${editorText(month)}
           </button>`;
         })}
       </div>`;
@@ -319,7 +320,7 @@ export class DatePicker extends WithDisposable(LitElement) {
     });
     return html`<div class=${classes}>
       <button
-        aria-label="previous month"
+        aria-label=${editorText('previous month')}
         class="date-picker-small-action interactive left"
         @click=${onPrev}
         ?disabled=${prevDisable}
@@ -328,7 +329,7 @@ export class DatePicker extends WithDisposable(LitElement) {
       </button>
       ${slot ?? nothing}
       <button
-        aria-label="next month"
+        aria-label=${editorText('next month')}
         class="date-picker-small-action interactive right"
         @click=${onNext}
         ?disabled=${nextDisable}

@@ -1,8 +1,11 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { propertyType, t } from '@blocksuite/data-view';
 import zod from 'zod';
 export const linkColumnType = propertyType('link');
 export const linkPropertyModelConfig = linkColumnType.modelConfig({
-  name: 'Link',
+  get name() {
+    return editorText('Link');
+  },
   propertyData: {
     schema: zod.object({}),
     default: () => ({}),

@@ -4,6 +4,7 @@ import {
   MindmapElementModel,
   ShapeElementModel,
 } from '@blocksuite/affine-model';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import {
   EdgelessIcon,
   FrameIcon,
@@ -118,19 +119,27 @@ export const TYPE_ICON_MAP: {
   };
 } = {
   'affine:frame': {
-    name: 'Frame',
+    get name() {
+      return editorText('Frame');
+    },
     icon: FrameIcon(),
   },
   group: {
-    name: 'Group',
+    get name() {
+      return editorText('Group');
+    },
     icon: GroupIcon(),
   },
   mindmap: {
-    name: 'Mind map',
+    get name() {
+      return editorText('Mind map');
+    },
     icon: MindmapIcon(),
   },
   edgeless: {
-    name: 'Edgeless content',
+    get name() {
+      return editorText('Edgeless content');
+    },
     icon: EdgelessIcon(),
   },
 };

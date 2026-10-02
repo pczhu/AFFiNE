@@ -7,6 +7,7 @@ import {
   type UpdateAppConfigInput,
   updateAppConfigMutation,
 } from '@affine/graphql';
+import { translateUiText } from '@affine/i18n';
 import { cloneDeep, get, set, unset } from 'lodash-es';
 import { useCallback, useEffect, useState } from 'react';
 
@@ -108,13 +109,19 @@ export const useAppConfig = () => {
       setUpdates({});
       setPatchedAppConfig(cloneDeep(refreshed?.appConfig ?? appConfig));
       notify.success({
-        title: 'Saved',
-        message: 'Settings have been saved successfully.',
+        get title() {
+          return translateUiText('Saved');
+        },
+        get message() {
+          return translateUiText('Settings have been saved successfully.');
+        },
       });
     } catch (e) {
       const error = UserFriendlyError.fromAny(e);
       notify.error({
-        title: 'Failed to save',
+        get title() {
+          return translateUiText('Failed to save');
+        },
         message: error.message,
       });
       console.error(e);
@@ -151,13 +158,19 @@ export const useAppConfig = () => {
         });
         bumpGroupVersion(module);
         notify.success({
-          title: 'Saved',
-          message: 'Settings have been saved successfully.',
+          get title() {
+            return translateUiText('Saved');
+          },
+          get message() {
+            return translateUiText('Settings have been saved successfully.');
+          },
         });
       } catch (e) {
         const error = UserFriendlyError.fromAny(e);
         notify.error({
-          title: 'Failed to save',
+          get title() {
+            return translateUiText('Failed to save');
+          },
           message: error.message,
         });
         console.error(e);

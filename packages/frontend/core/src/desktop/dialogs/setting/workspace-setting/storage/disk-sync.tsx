@@ -9,10 +9,12 @@ import {
   getDiskSyncFolderPath,
   setDiskSyncFolderPath,
 } from '@affine/core/modules/workspace-engine/impls/disk-config';
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import { useLiveData, useService } from '@toeverything/infra';
 import { useCallback, useEffect, useState } from 'react';
 
 export const DiskSyncPanel = ({ workspaceId }: { workspaceId: string }) => {
+  useUiLanguage();
   const desktopApi = useService(DesktopApiService);
   const featureFlagService = useService(FeatureFlagService);
   const enabled = useLiveData(featureFlagService.flags.enable_disk_sync.$);
@@ -55,7 +57,9 @@ export const DiskSyncPanel = ({ workspaceId }: { workspaceId: string }) => {
       return;
     }
     notify.success({
-      title: 'Disk sync folder updated',
+      get title() {
+        return translateUiText('Disk sync folder updated');
+      },
     });
   }, [desktopApi.handler.dialog, enabled, folder, workspaceId]);
 
@@ -77,7 +81,7 @@ export const DiskSyncPanel = ({ workspaceId }: { workspaceId: string }) => {
         desc={'Sync pages with Markdown files in a local folder.'}
       >
         <Switch
-          aria-label="Disk Markdown Sync"
+          aria-label={translateUiText('Disk Markdown Sync')}
           data-testid="disk-sync-toggle"
           checked={!!enabled}
           onChange={onToggle}
@@ -94,7 +98,7 @@ export const DiskSyncPanel = ({ workspaceId }: { workspaceId: string }) => {
             disabled={!enabled}
             onClick={onChooseFolder}
           >
-            Choose Folder
+            {translateUiText('Choose Folder\n          ')}
           </Button>
           {folder ? (
             <Button
@@ -102,7 +106,7 @@ export const DiskSyncPanel = ({ workspaceId }: { workspaceId: string }) => {
               disabled={!enabled}
               onClick={onClearFolder}
             >
-              Clear
+              {translateUiText('Clear\n            ')}
             </Button>
           ) : null}
         </div>

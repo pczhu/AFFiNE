@@ -1,4 +1,4 @@
-import { I18n } from '@affine/i18n';
+import { I18n, translateUiText } from '@affine/i18n';
 import { SignalWatcher, WithDisposable } from '@blocksuite/affine/global/lit';
 import { scrollbarStyle } from '@blocksuite/affine/shared/styles';
 import { unsafeCSSVarV2 } from '@blocksuite/affine/shared/theme';
@@ -137,7 +137,7 @@ export class AIErrorWrapper extends SignalWatcher(WithDisposable(LitElement)) {
                       (this._showDetailContent.value =
                         !this._showDetailContent.value)}
                   >
-                    <span>Show detail</span>
+                    <span>${translateUiText('Show detail')}</span>
                     <span
                       class="toggle ${
                         this._showDetailContent.value ? 'down' : 'up'
@@ -208,7 +208,7 @@ export class AIErrorWrapper extends SignalWatcher(WithDisposable(LitElement)) {
 
 const PaymentRequiredErrorRenderer = (host?: EditorHost | null) => html`
   <ai-error-wrapper
-    .text=${"You've reached the current usage cap for AFFiNE AI. You can subscribe to AFFiNE AI(with free 7-day-trial) to continue the AI experience!"}
+    .text=${translateUiText("You've reached the current usage cap for AFFiNE AI. You can subscribe to AFFiNE AI(with free 7-day-trial) to continue the AI experience!")}
     .actionText=${'Upgrade'}
     .onClick=${() => AIAppEvents.requestUpgradePlan.next({ host })}
   ></ai-error-wrapper>
@@ -216,7 +216,7 @@ const PaymentRequiredErrorRenderer = (host?: EditorHost | null) => html`
 
 const LoginRequiredErrorRenderer = (host?: EditorHost | null) => html`
   <ai-error-wrapper
-    .text=${'You need to login to AFFiNE Cloud to continue using AFFiNE AI.'}
+    .text=${translateUiText('You need to login to AFFiNE Cloud to continue using AFFiNE AI.')}
     .actionText=${'Login'}
     .onClick=${() => AIAppEvents.requestLogin.next({ host })}
   ></ai-error-wrapper>

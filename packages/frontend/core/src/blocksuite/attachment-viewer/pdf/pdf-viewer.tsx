@@ -14,6 +14,7 @@ import {
   Scroller,
   ScrollSeekPlaceholder,
 } from '@affine/core/modules/pdf/views';
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import track from '@affine/track';
 import {
   CollapseIcon,
@@ -346,6 +347,7 @@ type PDFViewerStatusProps = {
 };
 
 function PDFViewerStatusMenuItems({ message, reload }: PDFViewerStatusProps) {
+  useUiLanguage();
   const onClick = useCallback(
     (e: MouseEvent) => {
       e.stopPropagation();
@@ -364,7 +366,7 @@ function PDFViewerStatusMenuItems({ message, reload }: PDFViewerStatusProps) {
           className={styles.pdfReloadButton}
           onClick={onClick}
         >
-          Reload
+          {translateUiText('Reload\n        ')}
         </button>
       </div>
     </div>

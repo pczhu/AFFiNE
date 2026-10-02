@@ -1,7 +1,7 @@
 import { Button } from '@affine/component/ui/button';
 import { WorkspaceDialogService } from '@affine/core/modules/dialogs';
 import { appIconMap, appNames } from '@affine/core/utils/channel';
-import { Trans, useI18n } from '@affine/i18n';
+import { Trans, translateUiText, useI18n } from '@affine/i18n';
 import { LocalWorkspaceIcon, Logo1Icon } from '@blocksuite/icons/rc';
 import { useServiceOptional } from '@toeverything/infra';
 import type { MouseEvent } from 'react';
@@ -71,7 +71,7 @@ export const OpenInAppPage = ({
             rel="noreferrer"
             className={styles.topNavLink}
           >
-            Official Website
+            {translateUiText('Official Website\n          ')}
           </a>
           <a
             href="https://affine.pro/blog"
@@ -79,7 +79,7 @@ export const OpenInAppPage = ({
             rel="noreferrer"
             className={styles.topNavLink}
           >
-            Blog
+            {translateUiText('Blog\n          ')}
           </a>
           <a
             href="https://affine.pro/about-us"
@@ -87,7 +87,7 @@ export const OpenInAppPage = ({
             rel="noreferrer"
             className={styles.topNavLink}
           >
-            Contact us
+            {translateUiText('Contact us\n          ')}
           </a>
         </div>
 
@@ -102,11 +102,13 @@ export const OpenInAppPage = ({
         <div className={styles.prompt}>
           {mode === 'open-doc' ? (
             <Trans i18nKey="com.affine.auth.open.affine.open-doc-prompt">
-              This doc is now opened in {appName}
+              {translateUiText('This doc is now opened in ')}
+              {appName}
             </Trans>
           ) : (
             <Trans i18nKey="com.affine.auth.open.affine.prompt">
-              Open {appName} app now
+              {translateUiText('Open ')}
+              {appName} {translateUiText('app now\n            ')}
             </Trans>
           )}
         </div>

@@ -9,7 +9,7 @@ import {
   BlockElementCommentManager,
   ToolbarRegistryIdentifier,
 } from '@blocksuite/affine-shared/services';
-import { formatSize } from '@blocksuite/affine-shared/utils';
+import { editorText, formatSize } from '@blocksuite/affine-shared/utils';
 import { IS_MOBILE } from '@blocksuite/global/env';
 import { BrokenImageIcon, ImageIcon } from '@blocksuite/icons/lit';
 import { BlockSelection } from '@blocksuite/std';
@@ -159,7 +159,9 @@ export class ImageBlockComponent extends CaptionedBlockComponent<ImageBlockModel
       }),
       errorIcon: BrokenImageIcon(),
       icon: ImageIcon(),
-      title: 'Image',
+      get title() {
+        return editorText('Image');
+      },
       description: formatSize(size),
     });
 

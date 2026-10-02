@@ -1,4 +1,5 @@
 import type { AffineTextStyleAttributes } from '@blocksuite/affine-shared/types';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { PropTypes, requiredProperties } from '@blocksuite/std';
 import { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -52,7 +53,10 @@ export class HighlightDropdownMenu extends LitElement {
       <editor-menu-button
         .contentPadding="${'8px'}"
         .button=${html`
-          <editor-icon-button aria-label="highlight" .tooltip="${'Highlight'}">
+          <editor-icon-button
+            aria-label="highlight"
+            .tooltip="${editorText('Highlight')}"
+          >
             <affine-highlight-duotone-icon
               style=${styleMap({
                 '--color':
@@ -65,7 +69,7 @@ export class HighlightDropdownMenu extends LitElement {
         `}
       >
         <div data-size="large" data-orientation="vertical">
-          <div class="highlight-heading">Color</div>
+          <div class="highlight-heading">${editorText('Color')}</div>
           ${repeat(colors, color => {
             const isDefault = color === 'default';
             const value = isDefault
@@ -88,7 +92,7 @@ export class HighlightDropdownMenu extends LitElement {
             `;
           })}
 
-          <div class="highlight-heading">Background</div>
+          <div class="highlight-heading">${editorText('Background')}</div>
           ${repeat(colors, color => {
             const isDefault = color === 'default';
             const value = isDefault ? null : `var(${prefix}-${color})`;

@@ -3,6 +3,7 @@ import {
   popMenu,
   popupTargetFromElement,
 } from '@blocksuite/affine-components/context-menu';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { SignalWatcher, WithDisposable } from '@blocksuite/global/lit';
 import {
   DeleteIcon,
@@ -101,7 +102,7 @@ export class RecordField extends SignalWatcher(
     }
 
     .field-content.empty::before {
-      content: 'Empty';
+      content: attr(data-empty-placeholder);
       color: var(--affine-text-disable-color);
       font-size: 14px;
       line-height: 22px;
@@ -124,7 +125,9 @@ export class RecordField extends SignalWatcher(
     popMenu(popupTargetFromElement(ele), {
       options: {
         title: {
-          text: 'Property settings',
+          get text() {
+            return editorText('Property settings');
+          },
         },
         items: [
           menu.group({
@@ -133,7 +136,9 @@ export class RecordField extends SignalWatcher(
           menu.group({
             items: [
               menu.action({
-                name: 'Move Up',
+                get name() {
+                  return editorText('Move Up');
+                },
                 prefix: html` <div
                   style="transform: rotate(90deg);display:flex;align-items:center;"
                 >
@@ -155,7 +160,9 @@ export class RecordField extends SignalWatcher(
                 },
               }),
               menu.action({
-                name: 'Move Down',
+                get name() {
+                  return editorText('Move Down');
+                },
                 prefix: html` <div
                   style="transform: rotate(90deg);display:flex;align-items:center;"
                 >
@@ -183,7 +190,9 @@ export class RecordField extends SignalWatcher(
             name: 'operation',
             items: [
               menu.action({
-                name: 'Duplicate',
+                get name() {
+                  return editorText('Duplicate');
+                },
                 prefix: DuplicateIcon(),
                 hide: () => !this.column.canDuplicate,
                 select: () => {
@@ -191,7 +200,9 @@ export class RecordField extends SignalWatcher(
                 },
               }),
               menu.action({
-                name: 'Delete',
+                get name() {
+                  return editorText('Delete');
+                },
                 prefix: DeleteIcon(),
                 hide: () => !this.column.canDelete,
                 select: () => {
@@ -262,7 +273,11 @@ export class RecordField extends SignalWatcher(
           <div class="filed-name">${column.name$.value}</div>
         </div>
       </div>
-      <div @click="${this._click}" class="${contentClass}">
+      <div
+        @click="${this._click}"
+        class="${contentClass}"
+        data-empty-placeholder=${editorText('Empty')}
+      >
         ${renderUniLit(view, props, {
           ref: this._cell,
           class: 'kanban-cell',

@@ -1,4 +1,5 @@
 import { menu } from '@blocksuite/affine-components/context-menu';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { html } from 'lit/static-html.js';
 
 import { renderUniLit } from '../utils/uni-component/index.js';
@@ -12,7 +13,9 @@ export const inputConfig = (property: Property) => {
       </div>
     `,
     initialValue: property.name$.value,
-    placeholder: 'Property name',
+    get placeholder() {
+      return editorText('Property name');
+    },
     onBlur: text => {
       property.nameSet(text);
     },
@@ -22,7 +25,9 @@ export const typeConfig = (property: Property) => {
   return menu.group({
     items: [
       menu.subMenu({
-        name: 'Type',
+        get name() {
+          return editorText('Type');
+        },
         hide: () => !property.typeCanSet,
         postfix: html` <div
           class="affine-database-column-type-icon"
@@ -37,7 +42,9 @@ export const typeConfig = (property: Property) => {
         </div>`,
         options: {
           title: {
-            text: 'Property type',
+            get text() {
+              return editorText('Property type');
+            },
           },
           items: [
             menu.group({

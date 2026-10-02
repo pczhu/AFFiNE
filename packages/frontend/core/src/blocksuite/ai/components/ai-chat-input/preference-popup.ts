@@ -1,5 +1,6 @@
 import type { AIToolsConfigService } from '@affine/core/modules/ai-button';
 import type { AIModelService } from '@affine/core/modules/ai-button/services/models';
+import { translateUiText } from '@affine/i18n';
 import {
   menu,
   popMenu,
@@ -130,7 +131,7 @@ export class ChatInputPreference extends SignalWatcher(
           middleware: modelSubMenuMiddleware,
           postfix: html`
             <span class="ai-active-model-name">
-              ${this.model.value?.name ?? 'Auto'}
+              ${this.model.value?.name ?? translateUiText('Auto')}
             </span>
           `,
           options: {
@@ -169,7 +170,9 @@ export class ChatInputPreference extends SignalWatcher(
                   select: () => {
                     if (!model.available) {
                       this.notificationService.toast(
-                        'This model requires an AFFiNE AI subscription.'
+                        translateUiText(
+                          'This model requires an AFFiNE AI subscription.'
+                        )
                       );
                       this.onAISubscribe().catch(console.error);
                       return;
@@ -232,7 +235,7 @@ export class ChatInputPreference extends SignalWatcher(
       class="chat-input-preference-trigger"
     >
       <span class="chat-input-preference-trigger-label">
-        ${this.model.value?.category ?? 'Auto'}
+        ${this.model.value?.category ?? translateUiText('Auto')}
       </span>
       <span class="chat-input-preference-trigger-icon">
         ${ArrowDownSmallIcon()}

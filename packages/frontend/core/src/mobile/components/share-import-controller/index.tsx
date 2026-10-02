@@ -1,4 +1,5 @@
 import { Button, Modal, SafeArea, Scrollable } from '@affine/component';
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import { ImageIcon, LinkIcon, TextIcon } from '@blocksuite/icons/rc';
 
 import { PageHeader } from '../page-header';
@@ -81,6 +82,7 @@ export const ShareImportController = ({
 }: {
   provider: ShareInboxProvider;
 }) => {
+  useUiLanguage();
   const {
     entry,
     setEntry,
@@ -119,16 +121,19 @@ export const ShareImportController = ({
           <PageHeader
             suffix={
               <Button variant="plain" onClick={() => setEntry(undefined)}>
-                Not now
+                {translateUiText('Not now\n              ')}
               </Button>
             }
           >
-            <span className={styles.headerTitle}>Update required</span>
+            <span className={styles.headerTitle}>
+              {translateUiText('Update required')}
+            </span>
           </PageHeader>
           <main className={styles.main}>
             <div className={styles.warning}>
-              Update AFFiNE to import this shared item. It will stay in your
-              inbox until then.
+              {translateUiText(
+                'Update AFFiNE to import this shared item. It will stay in your\n              inbox until then.\n            '
+              )}
             </div>
           </main>
         </div>
@@ -153,7 +158,12 @@ export const ShareImportController = ({
       color: tag.color,
     })) ?? [];
   const collectionOptions: SelectionPageOption[] = [
-    { id: '', label: 'No collection' },
+    {
+      id: '',
+      get label() {
+        return translateUiText('No collection');
+      },
+    },
     ...(destinations?.collections.map(collection => ({
       id: collection.id,
       label: collection.name,
@@ -176,7 +186,7 @@ export const ShareImportController = ({
     if (page === 'workspace') {
       return (
         <SelectionPage
-          title="Workspace"
+          title={translateUiText('Workspace')}
           options={workspaceOptions}
           selectedIds={selectedWorkspaceKey ? [selectedWorkspaceKey] : []}
           onBack={() => setPage('main')}
@@ -213,7 +223,7 @@ export const ShareImportController = ({
     if (page === 'tags') {
       return (
         <SelectionPage
-          title="Tags"
+          title={translateUiText('Tags')}
           multiple
           options={tagOptions}
           selectedIds={tagIds}
@@ -233,7 +243,7 @@ export const ShareImportController = ({
     if (page === 'collection') {
       return (
         <SelectionPage
-          title="Collection"
+          title={translateUiText('Collection')}
           options={collectionOptions}
           selectedIds={[collectionId]}
           onBack={() => setPage('main')}
@@ -249,7 +259,7 @@ export const ShareImportController = ({
         <div className={styles.page}>
           <PageHeader back backAction={() => setPage('main')}>
             <span className={styles.headerTitle}>
-              Use local workspace data?
+              {translateUiText('Use local workspace data?\n            ')}
             </span>
           </PageHeader>
           <main className={styles.confirmation}>
@@ -257,9 +267,9 @@ export const ShareImportController = ({
               {selectedWorkspaceName}
             </h2>
             <p className={styles.confirmationText}>
-              AFFiNE could not confirm that this workspace, your permissions,
-              and its destinations are current online. Saving will use the most
-              recent data available on this device.
+              {translateUiText(
+                'AFFiNE could not confirm that this workspace, your permissions,\n              and its destinations are current online. Saving will use the most\n              recent data available on this device.\n            '
+              )}
             </p>
           </main>
           <SafeArea bottom className={styles.footer}>
@@ -269,7 +279,9 @@ export const ShareImportController = ({
               disabled={isSaving}
               onClick={() => void save(true).catch(console.error)}
             >
-              {isSaving ? 'Saving…' : 'Save using local data'}
+              {isSaving
+                ? translateUiText('Saving…')
+                : translateUiText('Save using local data')}
             </Button>
           </SafeArea>
         </div>
@@ -281,11 +293,13 @@ export const ShareImportController = ({
         <PageHeader
           suffix={
             <Button variant="plain" onClick={() => setEntry(undefined)}>
-              Not now
+              {translateUiText('Not now\n            ')}
             </Button>
           }
         >
-          <span className={styles.headerTitle}>Choose where to save</span>
+          <span className={styles.headerTitle}>
+            {translateUiText('Choose where to save')}
+          </span>
         </PageHeader>
 
         <Scrollable.Root className={styles.scrollArea}>
@@ -328,9 +342,11 @@ export const ShareImportController = ({
                   type="button"
                   onClick={() => setPage('workspace')}
                 >
-                  <span className={styles.rowLabel}>Workspace</span>
+                  <span className={styles.rowLabel}>
+                    {translateUiText('Workspace')}
+                  </span>
                   <span className={styles.rowValue}>
-                    {selectedWorkspaceName ?? 'Choose'}
+                    {selectedWorkspaceName ?? translateUiText('Choose')}
                     <span className={styles.rowArrow}>›</span>
                   </span>
                 </button>
@@ -342,12 +358,15 @@ export const ShareImportController = ({
                   onClick={() => setPage('tags')}
                 >
                   <span className={styles.rowLabel}>
-                    Tags <span className={styles.optional}>Optional</span>
+                    {translateUiText('Tags ')}
+                    <span className={styles.optional}>
+                      {translateUiText('Optional')}
+                    </span>
                   </span>
                   <span className={styles.rowValue}>
                     {selectedTagNames.length
-                      ? `${selectedTagNames.length} selected`
-                      : 'None'}
+                      ? `${translateUiText('Selected:')} ${selectedTagNames.length}`
+                      : translateUiText('None')}
                     <span className={styles.rowArrow}>›</span>
                   </span>
                 </button>
@@ -359,7 +378,10 @@ export const ShareImportController = ({
                   onClick={() => setPage('collection')}
                 >
                   <span className={styles.rowLabel}>
-                    Collection <span className={styles.optional}>Optional</span>
+                    {translateUiText('Collection ')}
+                    <span className={styles.optional}>
+                      {translateUiText('Optional')}
+                    </span>
                   </span>
                   <span className={styles.rowValue}>
                     {collectionName}
@@ -369,10 +391,14 @@ export const ShareImportController = ({
               </section>
 
               {isLoadingDestinations ? (
-                <div className={styles.status}>Checking workspace…</div>
+                <div className={styles.status}>
+                  {translateUiText('Checking workspace…')}
+                </div>
               ) : requiresOfflineConfirmation ? (
                 <div className={styles.warning}>
-                  The latest online workspace state could not be confirmed.
+                  {translateUiText(
+                    'The latest online workspace state could not be confirmed.\n                '
+                  )}
                 </div>
               ) : null}
 
@@ -403,7 +429,7 @@ export const ShareImportController = ({
               }
             }}
           >
-            {isSaving ? 'Saving…' : 'Save'}
+            {isSaving ? translateUiText('Saving…') : translateUiText('Save')}
           </Button>
         </SafeArea>
       </div>

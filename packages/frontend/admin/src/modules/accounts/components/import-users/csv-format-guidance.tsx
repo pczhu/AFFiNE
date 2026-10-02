@@ -1,3 +1,4 @@
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import { WarningIcon } from '@blocksuite/icons/rc';
 import type { FC } from 'react';
 
@@ -14,13 +15,16 @@ interface CsvFormatGuidanceProps {
 export const CsvFormatGuidance: FC<CsvFormatGuidanceProps> = ({
   passwordLimits,
 }) => {
+  useUiLanguage();
   return (
     <div className="flex gap-1 rounded-[6px] bg-secondary p-1.5 text-xs text-muted-foreground">
       <div className="flex justify-center py-0.5">
         <WarningIcon fontSize={16} className="text-foreground" />
       </div>
       <div>
-        <p>CSV file includes username, email, and password.</p>
+        <p>
+          {translateUiText('CSV file includes username, email, and password.')}
+        </p>
         <ul>
           {[
             `Username (optional): any text.`,

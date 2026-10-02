@@ -55,6 +55,7 @@ import {
   blockCommentToolbarButton,
 } from '@blocksuite/affine-shared/services';
 import {
+  editorText,
   getMostCommonValue,
   isInsideBlockByFlavour,
 } from '@blocksuite/affine-shared/utils';
@@ -119,8 +120,8 @@ const conversionsActionGroup = {
           .contentPadding="${'8px'}"
           .button=${html`
             <editor-icon-button
-              aria-label="Conversions"
-              .tooltip="${'Turn into'}"
+              aria-label=${editorText('Conversions')}
+              .tooltip="${editorText('Turn into')}"
             >
               ${conversion.icon} ${EditorChevronDown}
             </editor-icon-button>
@@ -136,11 +137,11 @@ const conversionsActionGroup = {
               item => item.name,
               ({ flavour, type, name, icon }) => html`
                 <editor-menu-action
-                  aria-label=${name}
+                  aria-label=${editorText(name)}
                   ?data-selected=${conversion.name === name}
                   @click=${() => update(flavour, type)}
                 >
-                  ${icon}<span class="label">${name}</span>
+                  ${icon}<span class="label">${editorText(name)}</span>
                 </editor-menu-action>
               `
             )}
@@ -184,7 +185,10 @@ const alignActionGroup = {
         <editor-menu-button
           .contentPadding="${'8px'}"
           .button=${html`
-            <editor-icon-button aria-label="Align" .tooltip="${'Align'}">
+            <editor-icon-button
+              aria-label=${editorText('Align')}
+              .tooltip="${editorText('Align')}"
+            >
               ${alignment.icon} ${EditorChevronDown}
             </editor-icon-button>
           `}
@@ -195,10 +199,10 @@ const alignActionGroup = {
               item => item.name,
               ({ textAlign, name, icon }) => html`
                 <editor-menu-action
-                  aria-label=${name}
+                  aria-label=${editorText(name)}
                   @click=${() => update(textAlign)}
                 >
-                  ${icon}<span class="label">${name}</span>
+                  ${icon}<span class="label">${editorText(name)}</span>
                 </editor-menu-action>
               `
             )}
@@ -218,7 +222,9 @@ const inlineTextActionGroup = {
         id,
         icon,
         score,
-        tooltip: name,
+        get tooltip() {
+          return editorText(name);
+        },
         run: ({ host }) => action(host),
         active: ({ host }) => activeWhen(host),
       };
@@ -233,7 +239,9 @@ const inlineTextActionGroup = {
           id: 'inline-latex',
           icon: TeXIcon(),
           score: score + 0.5,
-          tooltip: 'Inline Equation',
+          get tooltip() {
+            return editorText('Inline Equation');
+          },
           run: ({ host }) => {
             host.std.command
               .chain()
@@ -274,7 +282,9 @@ const highlightActionGroup = {
 
 const turnIntoDatabase = {
   id: 'e.convert-to-database',
-  tooltip: 'Create Table',
+  get tooltip() {
+    return editorText('Create Table');
+  },
   icon: DatabaseTableViewIcon(),
   when({ chain }) {
     const middleware = (count = 0) => {
@@ -321,7 +331,9 @@ const turnIntoDatabase = {
 
 const turnIntoLinkedDoc = {
   id: 'f.convert-to-linked-doc',
-  tooltip: 'Create Linked Doc',
+  get tooltip() {
+    return editorText('Create Linked Doc');
+  },
   icon: LinkedPageIcon(),
   when({ chain, std }) {
     const supportFlavours = [
@@ -407,7 +419,9 @@ export const builtinToolbarConfig = {
       actions: [
         {
           id: 'copy',
-          label: 'Copy',
+          get label() {
+            return editorText('Copy');
+          },
           icon: CopyIcon(),
           run({ chain, host }) {
             const [ok] = chain
@@ -418,12 +432,14 @@ export const builtinToolbarConfig = {
 
             if (!ok) return;
 
-            toast(host, 'Copied to clipboard');
+            toast(host, editorText('Copied to clipboard'));
           },
         },
         {
           id: 'duplicate',
-          label: 'Duplicate',
+          get label() {
+            return editorText('Duplicate');
+          },
           icon: DuplicateIcon(),
           run({ chain, store, selection }) {
             store.captureSync();
@@ -468,7 +484,9 @@ export const builtinToolbarConfig = {
       actions: [
         {
           id: 'delete',
-          label: 'Delete',
+          get label() {
+            return editorText('Delete');
+          },
           icon: DeleteIcon(),
           variant: 'destructive',
           run({ chain }) {

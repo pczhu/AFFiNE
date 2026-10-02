@@ -1,3 +1,4 @@
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import type { Edge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge';
 import {
   ArrowDownSmallIcon,
@@ -142,6 +143,7 @@ export const PropertyCollapsibleContent = forwardRef<
     },
     ref
   ) => {
+    useUiLanguage();
     const [propertyCount, setPropertyCount] = useState({ total: 0, hide: 0 });
     const [showAllHide, setShowAllHide] = useState(!defaultCollapsed);
     const finalCollapsible = collapsible ? propertyCount.hide !== 0 : false;
@@ -206,8 +208,8 @@ export const PropertyCollapsibleContent = forwardRef<
                     isCollapsed: !finalShowAllHide,
                   })
                 : !finalShowAllHide
-                  ? 'Show All'
-                  : 'Hide'}
+                  ? translateUiText('Show All')
+                  : translateUiText('Hide')}
             </Button>
           )}
         </PropertyTableContext.Provider>

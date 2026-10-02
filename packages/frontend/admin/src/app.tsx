@@ -1,4 +1,5 @@
 import { Toaster } from '@affine/admin/components/ui/sonner';
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import { lazy, ROUTES } from '@affine/routes';
 import { withSentryReactRouterV7Routing } from '@sentry/react';
 import { useEffect } from 'react';
@@ -45,11 +46,14 @@ const Routes = window.SENTRY_RELEASE
   : ReactRouterRoutes;
 
 function AuthenticatedRoutes() {
+  useUiLanguage();
   const user = useCurrentUser();
 
   useEffect(() => {
     if (user && !isAdmin(user)) {
-      toast.error('You are not an admin, please login the admin account.');
+      toast.error(
+        translateUiText('You are not an admin, please login the admin account.')
+      );
     }
   }, [user]);
 

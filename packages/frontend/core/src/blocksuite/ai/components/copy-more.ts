@@ -1,4 +1,5 @@
 import type { CopilotChatHistoryFragment } from '@affine/graphql';
+import { translateUiText } from '@affine/i18n';
 import { Tooltip } from '@blocksuite/affine/components/tooltip';
 import { WithDisposable } from '@blocksuite/affine/global/lit';
 import { noop } from '@blocksuite/affine/global/utils';
@@ -185,13 +186,13 @@ export class ChatCopyMore extends WithDisposable(LitElement) {
                 @click=${async () => {
                   const success = await copyText(content);
                   if (success) {
-                    this._notifySuccess('Copied to clipboard');
+                    this._notifySuccess(translateUiText('Copied to clipboard'));
                   }
                 }}
                 data-testid="action-copy-button"
               >
                 ${CopyIcon({ width: '20px', height: '20px' })}
-                <affine-tooltip>Copy</affine-tooltip>
+                <affine-tooltip>${translateUiText('Copy')}</affine-tooltip>
               </div>`
             : nothing
         }
@@ -203,7 +204,9 @@ export class ChatCopyMore extends WithDisposable(LitElement) {
                 data-testid="action-retry-button"
               >
                 ${ResetIcon({ width: '20px', height: '20px' })}
-                <affine-tooltip .autoShift=${true}>Retry</affine-tooltip>
+                <affine-tooltip .autoShift=${true}
+                  >${translateUiText('Retry')}</affine-tooltip
+                >
               </div>`
             : nothing
         }

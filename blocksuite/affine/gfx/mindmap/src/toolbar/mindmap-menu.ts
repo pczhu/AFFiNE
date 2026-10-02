@@ -7,6 +7,7 @@ import {
   FeatureFlagService,
   TelemetryProvider,
 } from '@blocksuite/affine-shared/services';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import {
   EdgelessDraggableElementController,
   EdgelessToolbarToolMixin,
@@ -205,7 +206,10 @@ export class EdgelessMindmapMenu extends EdgelessToolbarToolMixin(
           other: 'failed',
           module: 'toolbar',
         });
-        toast(this.edgeless.host, 'Import failed, please try again');
+        toast(
+          this.edgeless.host,
+          editorText('Import failed, please try again')
+        );
         console.error(e);
       })
       .finally(() => {

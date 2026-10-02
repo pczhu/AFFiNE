@@ -83,16 +83,16 @@ export class EdgelessSelectedRectWidget extends WidgetComponent<RootBlockModel> 
       touch-action: none;
     }
 
-    .affine-edgeless-selected-rect .handle[aria-label^='top-'],
-    .affine-edgeless-selected-rect .handle[aria-label^='bottom-'] {
+    .affine-edgeless-selected-rect .handle[data-handle^='top-'],
+    .affine-edgeless-selected-rect .handle[data-handle^='bottom-'] {
       width: 18px;
       height: 18px;
       box-sizing: border-box;
       z-index: 10;
     }
 
-    .affine-edgeless-selected-rect .handle[aria-label^='top-'] .resize,
-    .affine-edgeless-selected-rect .handle[aria-label^='bottom-'] .resize {
+    .affine-edgeless-selected-rect .handle[data-handle^='top-'] .resize,
+    .affine-edgeless-selected-rect .handle[data-handle^='bottom-'] .resize {
       position: absolute;
       width: 12px;
       height: 12px;
@@ -102,8 +102,8 @@ export class EdgelessSelectedRectWidget extends WidgetComponent<RootBlockModel> 
       background: white;
     }
 
-    .affine-edgeless-selected-rect .handle[aria-label^='top-'] .rotate,
-    .affine-edgeless-selected-rect .handle[aria-label^='bottom-'] .rotate {
+    .affine-edgeless-selected-rect .handle[data-handle^='top-'] .rotate,
+    .affine-edgeless-selected-rect .handle[data-handle^='bottom-'] .rotate {
       position: absolute;
       width: 12px;
       height: 12px;
@@ -112,77 +112,77 @@ export class EdgelessSelectedRectWidget extends WidgetComponent<RootBlockModel> 
     }
 
     /* -18 + 6.5 */
-    .affine-edgeless-selected-rect .handle[aria-label='top-left'] {
+    .affine-edgeless-selected-rect .handle[data-handle='top-left'] {
       left: -12px;
       top: -12px;
     }
-    .affine-edgeless-selected-rect .handle[aria-label='top-left'] .resize {
+    .affine-edgeless-selected-rect .handle[data-handle='top-left'] .resize {
       right: 0;
       bottom: 0;
     }
-    .affine-edgeless-selected-rect .handle[aria-label='top-left'] .rotate {
+    .affine-edgeless-selected-rect .handle[data-handle='top-left'] .rotate {
       right: 6px;
       bottom: 6px;
     }
 
-    .affine-edgeless-selected-rect .handle[aria-label='top-right'] {
+    .affine-edgeless-selected-rect .handle[data-handle='top-right'] {
       top: -12px;
       right: -12px;
     }
-    .affine-edgeless-selected-rect .handle[aria-label='top-right'] .resize {
+    .affine-edgeless-selected-rect .handle[data-handle='top-right'] .resize {
       left: 0;
       bottom: 0;
     }
-    .affine-edgeless-selected-rect .handle[aria-label='top-right'] .rotate {
+    .affine-edgeless-selected-rect .handle[data-handle='top-right'] .rotate {
       left: 6px;
       bottom: 6px;
     }
 
-    .affine-edgeless-selected-rect .handle[aria-label='bottom-right'] {
+    .affine-edgeless-selected-rect .handle[data-handle='bottom-right'] {
       right: -12px;
       bottom: -12px;
     }
-    .affine-edgeless-selected-rect .handle[aria-label='bottom-right'] .resize {
+    .affine-edgeless-selected-rect .handle[data-handle='bottom-right'] .resize {
       left: 0;
       top: 0;
     }
-    .affine-edgeless-selected-rect .handle[aria-label='bottom-right'] .rotate {
+    .affine-edgeless-selected-rect .handle[data-handle='bottom-right'] .rotate {
       left: 6px;
       top: 6px;
     }
 
-    .affine-edgeless-selected-rect .handle[aria-label='bottom-left'] {
+    .affine-edgeless-selected-rect .handle[data-handle='bottom-left'] {
       bottom: -12px;
       left: -12px;
     }
-    .affine-edgeless-selected-rect .handle[aria-label='bottom-left'] .resize {
+    .affine-edgeless-selected-rect .handle[data-handle='bottom-left'] .resize {
       right: 0;
       top: 0;
     }
-    .affine-edgeless-selected-rect .handle[aria-label='bottom-left'] .rotate {
+    .affine-edgeless-selected-rect .handle[data-handle='bottom-left'] .rotate {
       right: 6px;
       top: 6px;
     }
 
-    .affine-edgeless-selected-rect .handle[aria-label='top'],
-    .affine-edgeless-selected-rect .handle[aria-label='bottom'],
-    .affine-edgeless-selected-rect .handle[aria-label='left'],
-    .affine-edgeless-selected-rect .handle[aria-label='right'] {
+    .affine-edgeless-selected-rect .handle[data-handle='top'],
+    .affine-edgeless-selected-rect .handle[data-handle='bottom'],
+    .affine-edgeless-selected-rect .handle[data-handle='left'],
+    .affine-edgeless-selected-rect .handle[data-handle='right'] {
       border: 0;
       background: transparent;
       border-color: var('--affine-blue');
     }
 
-    .affine-edgeless-selected-rect .handle[aria-label='left'],
-    .affine-edgeless-selected-rect .handle[aria-label='right'] {
+    .affine-edgeless-selected-rect .handle[data-handle='left'],
+    .affine-edgeless-selected-rect .handle[data-handle='right'] {
       top: 0;
       bottom: 0;
       height: 100%;
       width: 6px;
     }
 
-    .affine-edgeless-selected-rect .handle[aria-label='top'],
-    .affine-edgeless-selected-rect .handle[aria-label='bottom'] {
+    .affine-edgeless-selected-rect .handle[data-handle='top'],
+    .affine-edgeless-selected-rect .handle[data-handle='bottom'] {
       left: 0;
       right: 0;
       width: 100%;
@@ -190,31 +190,31 @@ export class EdgelessSelectedRectWidget extends WidgetComponent<RootBlockModel> 
     }
 
     /* calc(-1px - (6px - 1px) / 2) = -3.5px */
-    .affine-edgeless-selected-rect .handle[aria-label='left'] {
+    .affine-edgeless-selected-rect .handle[data-handle='left'] {
       left: -3.5px;
     }
-    .affine-edgeless-selected-rect .handle[aria-label='right'] {
+    .affine-edgeless-selected-rect .handle[data-handle='right'] {
       right: -3.5px;
     }
-    .affine-edgeless-selected-rect .handle[aria-label='top'] {
+    .affine-edgeless-selected-rect .handle[data-handle='top'] {
       top: -3.5px;
     }
-    .affine-edgeless-selected-rect .handle[aria-label='bottom'] {
+    .affine-edgeless-selected-rect .handle[data-handle='bottom'] {
       bottom: -3.5px;
     }
 
-    .affine-edgeless-selected-rect .handle[aria-label='top'] .resize,
-    .affine-edgeless-selected-rect .handle[aria-label='bottom'] .resize,
-    .affine-edgeless-selected-rect .handle[aria-label='left'] .resize,
-    .affine-edgeless-selected-rect .handle[aria-label='right'] .resize {
+    .affine-edgeless-selected-rect .handle[data-handle='top'] .resize,
+    .affine-edgeless-selected-rect .handle[data-handle='bottom'] .resize,
+    .affine-edgeless-selected-rect .handle[data-handle='left'] .resize,
+    .affine-edgeless-selected-rect .handle[data-handle='right'] .resize {
       width: 100%;
       height: 100%;
     }
 
-    .affine-edgeless-selected-rect .handle[aria-label='top'] .resize:after,
-    .affine-edgeless-selected-rect .handle[aria-label='bottom'] .resize:after,
-    .affine-edgeless-selected-rect .handle[aria-label='left'] .resize:after,
-    .affine-edgeless-selected-rect .handle[aria-label='right'] .resize:after {
+    .affine-edgeless-selected-rect .handle[data-handle='top'] .resize:after,
+    .affine-edgeless-selected-rect .handle[data-handle='bottom'] .resize:after,
+    .affine-edgeless-selected-rect .handle[data-handle='left'] .resize:after,
+    .affine-edgeless-selected-rect .handle[data-handle='right'] .resize:after {
       position: absolute;
       width: 7px;
       height: 7px;
@@ -226,40 +226,40 @@ export class EdgelessSelectedRectWidget extends WidgetComponent<RootBlockModel> 
     }
 
     .affine-edgeless-selected-rect
-      .handle[aria-label='top']
+      .handle[data-handle='top']
       .transparent-handle:after,
     .affine-edgeless-selected-rect
-      .handle[aria-label='bottom']
+      .handle[data-handle='bottom']
       .transparent-handle:after,
     .affine-edgeless-selected-rect
-      .handle[aria-label='left']
+      .handle[data-handle='left']
       .transparent-handle:after,
     .affine-edgeless-selected-rect
-      .handle[aria-label='right']
+      .handle[data-handle='right']
       .transparent-handle:after {
       opacity: 0;
     }
 
-    .affine-edgeless-selected-rect .handle[aria-label='left'] .resize:after,
-    .affine-edgeless-selected-rect .handle[aria-label='right'] .resize:after {
+    .affine-edgeless-selected-rect .handle[data-handle='left'] .resize:after,
+    .affine-edgeless-selected-rect .handle[data-handle='right'] .resize:after {
       top: calc(50% - 6px);
     }
 
-    .affine-edgeless-selected-rect .handle[aria-label='top'] .resize:after,
-    .affine-edgeless-selected-rect .handle[aria-label='bottom'] .resize:after {
+    .affine-edgeless-selected-rect .handle[data-handle='top'] .resize:after,
+    .affine-edgeless-selected-rect .handle[data-handle='bottom'] .resize:after {
       left: calc(50% - 6px);
     }
 
-    .affine-edgeless-selected-rect .handle[aria-label='left'] .resize:after {
+    .affine-edgeless-selected-rect .handle[data-handle='left'] .resize:after {
       left: -0.5px;
     }
-    .affine-edgeless-selected-rect .handle[aria-label='right'] .resize:after {
+    .affine-edgeless-selected-rect .handle[data-handle='right'] .resize:after {
       right: -0.5px;
     }
-    .affine-edgeless-selected-rect .handle[aria-label='top'] .resize:after {
+    .affine-edgeless-selected-rect .handle[data-handle='top'] .resize:after {
       top: -0.5px;
     }
-    .affine-edgeless-selected-rect .handle[aria-label='bottom'] .resize:after {
+    .affine-edgeless-selected-rect .handle[data-handle='bottom'] .resize:after {
       bottom: -0.5px;
     }
 
@@ -274,10 +274,10 @@ export class EdgelessSelectedRectWidget extends WidgetComponent<RootBlockModel> 
       background-repeat: no-repeat;
     }
     .affine-edgeless-selected-rect[data-mode='scale']
-      .handle[aria-label='top-left']
+      .handle[data-handle='top-left']
       .resize:hover::before,
     .affine-edgeless-selected-rect[data-scale-direction='top-left'][data-scale-percent]
-      .handle[aria-label='top-left']
+      .handle[data-handle='top-left']
       .resize::before {
       display: block;
       top: 0px;
@@ -285,10 +285,10 @@ export class EdgelessSelectedRectWidget extends WidgetComponent<RootBlockModel> 
       transform: translate(-100%, -100%);
     }
     .affine-edgeless-selected-rect[data-mode='scale']
-      .handle[aria-label='top-right']
+      .handle[data-handle='top-right']
       .resize:hover::before,
     .affine-edgeless-selected-rect[data-scale-direction='top-right'][data-scale-percent]
-      .handle[aria-label='top-right']
+      .handle[data-handle='top-right']
       .resize::before {
       display: block;
       top: 0px;
@@ -296,10 +296,10 @@ export class EdgelessSelectedRectWidget extends WidgetComponent<RootBlockModel> 
       transform: translate(100%, -100%) rotate(90deg);
     }
     .affine-edgeless-selected-rect[data-mode='scale']
-      .handle[aria-label='bottom-right']
+      .handle[data-handle='bottom-right']
       .resize:hover::before,
     .affine-edgeless-selected-rect[data-scale-direction='bottom-right'][data-scale-percent]
-      .handle[aria-label='bottom-right']
+      .handle[data-handle='bottom-right']
       .resize::before {
       display: block;
       bottom: 0px;
@@ -307,10 +307,10 @@ export class EdgelessSelectedRectWidget extends WidgetComponent<RootBlockModel> 
       transform: translate(100%, 100%) rotate(180deg);
     }
     .affine-edgeless-selected-rect[data-mode='scale']
-      .handle[aria-label='bottom-left']
+      .handle[data-handle='bottom-left']
       .resize:hover::before,
     .affine-edgeless-selected-rect[data-scale-direction='bottom-left'][data-scale-percent]
-      .handle[aria-label='bottom-left']
+      .handle[data-handle='bottom-left']
       .resize::before {
       display: block;
       bottom: 0px;
@@ -773,7 +773,7 @@ export class EdgelessSelectedRectWidget extends WidgetComponent<RootBlockModel> 
 
     return html`
       <style>
-        .affine-edgeless-selected-rect .handle[aria-label='right']::after {
+        .affine-edgeless-selected-rect .handle[data-handle='right']::after {
           content: '';
           display: ${this._isWidthLimit ? 'initial' : 'none'};
           position: absolute;
@@ -785,7 +785,7 @@ export class EdgelessSelectedRectWidget extends WidgetComponent<RootBlockModel> 
           filter: drop-shadow(-6px 0px 12px rgba(235, 67, 53, 0.35));
         }
 
-        .affine-edgeless-selected-rect .handle[aria-label='bottom']::after {
+        .affine-edgeless-selected-rect .handle[data-handle='bottom']::after {
           content: '';
           display: ${this._isHeightLimit ? 'initial' : 'none'};
           position: absolute;

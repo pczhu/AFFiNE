@@ -6,7 +6,7 @@ import {
   UserCopilotQuotaService,
 } from '@affine/core/modules/cloud';
 import { SubscriptionPlan } from '@affine/graphql';
-import { useI18n } from '@affine/i18n';
+import { translateUiText, useI18n } from '@affine/i18n';
 import { track } from '@affine/track';
 import { useLiveData, useService } from '@toeverything/infra';
 import { cssVar } from '@toeverything/theme';
@@ -62,7 +62,7 @@ export const AIUsagePanel = ({
           spreadCol={false}
         >
           {/* TODO(@catsjuice): i18n */}
-          <ErrorMessage>Load error</ErrorMessage>
+          <ErrorMessage>{translateUiText('Load error')}</ErrorMessage>
         </SettingRow>
       );
     }

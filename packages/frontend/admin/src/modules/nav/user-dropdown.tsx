@@ -12,6 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@affine/admin/components/ui/dropdown-menu';
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import { MoreVerticalIcon } from '@blocksuite/icons/rc';
 import { CircleUser } from 'lucide-react';
 import { useCallback } from 'react';
@@ -36,6 +37,7 @@ const UserInfo = ({
   avatarUrl: string | null;
   name?: string;
 }) => {
+  useUiLanguage();
   return (
     <>
       <Avatar className="w-8 h-8">
@@ -46,7 +48,7 @@ const UserInfo = ({
       </Avatar>
       <div className="flex flex-col font-medium gap-1">
         {name ?? email.split('@')[0]}
-        <span className={adminBadgeClass}>Admin</span>
+        <span className={adminBadgeClass}>{translateUiText('Admin')}</span>
       </div>
     </>
   );
@@ -82,13 +84,14 @@ const UserName = ({
 };
 
 export function UserDropdown({ isCollapsed }: UserDropdownProps) {
+  useUiLanguage();
   const currentUser = useCurrentUser();
   const relative = useRevalidateCurrentUser();
 
   const handleLogout = useCallback(() => {
     affineFetch('/api/auth/sign-out', { method: 'POST' })
       .then(() => {
-        toast.success('Logged out successfully');
+        toast.success(translateUiText('Logged out successfully'));
         return relative();
       })
       .catch(err => {
@@ -120,7 +123,9 @@ export function UserDropdown({ isCollapsed }: UserDropdownProps) {
             ) : null}
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onSelect={handleLogout}>Logout</DropdownMenuItem>
+          <DropdownMenuItem onSelect={handleLogout}>
+            {translateUiText('Logout')}
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     );
@@ -136,7 +141,7 @@ export function UserDropdown({ isCollapsed }: UserDropdownProps) {
           </AvatarFallback>
         </Avatar>
         <UserName name={currentUser?.name} email={currentUser?.email} />
-        <span className={adminBadgeClass}>Admin</span>
+        <span className={adminBadgeClass}>{translateUiText('Admin')}</span>
       </div>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
@@ -159,7 +164,9 @@ export function UserDropdown({ isCollapsed }: UserDropdownProps) {
             ) : null}
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onSelect={handleLogout}>Logout</DropdownMenuItem>
+          <DropdownMenuItem onSelect={handleLogout}>
+            {translateUiText('Logout')}
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>

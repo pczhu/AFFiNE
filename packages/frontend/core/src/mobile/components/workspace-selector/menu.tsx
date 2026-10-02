@@ -18,7 +18,7 @@ import {
   type WorkspaceMetadata,
   WorkspacesService,
 } from '@affine/core/modules/workspace';
-import { useI18n } from '@affine/i18n';
+import { translateUiText, useI18n, useUiLanguage } from '@affine/i18n';
 import {
   AccountIcon,
   CloseIcon,
@@ -144,7 +144,7 @@ const WorkspaceServerInfo = ({
       <div className={styles.serverName}>{name}</div>
       {isCloud ? (
         <div className={styles.serverAccount}>
-          - {account ? account.email : 'Not signed in'}
+          - {account ? account.email : translateUiText('Not signed in')}
         </div>
       ) : null}
       <div className={styles.spaceX} />
@@ -278,6 +278,7 @@ const AddServer = () => {
 };
 
 export const SelectorMenu = ({ onClose }: { onClose?: () => void }) => {
+  useUiLanguage();
   const workspacesService = useService(WorkspacesService);
   const workspaces = useLiveData(workspacesService.list.workspaces$);
   const serversService = useService(ServersService);
@@ -347,7 +348,7 @@ export const SelectorMenu = ({ onClose }: { onClose?: () => void }) => {
   return (
     <div className={styles.root}>
       <header className={styles.head}>
-        Workspace
+        {translateUiText('Workspace\n        ')}
         <div className={styles.headActions}>
           <AddServer />
           <IconButton onClick={onClose} size="24" icon={<CloseIcon />} />

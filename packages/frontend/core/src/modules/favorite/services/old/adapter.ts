@@ -1,5 +1,6 @@
 // the adapter is to bridge the workspace rootdoc & native js bindings
 import type { WorkspaceService } from '@affine/core/modules/workspace';
+import { translateUiText } from '@affine/i18n';
 import { createYProxy } from '@blocksuite/affine/store';
 import { LiveData, Service } from '@toeverything/infra';
 import { defaultsDeep } from 'lodash-es';
@@ -77,13 +78,17 @@ class WorkspacePropertiesAdapter {
           system: {
             journal: {
               id: PageSystemPropertyId.Journal,
-              name: 'Journal',
+              get name() {
+                return translateUiText('Journal');
+              },
               source: 'system',
               type: PagePropertyType.Date,
             },
             tags: {
               id: PageSystemPropertyId.Tags,
-              name: 'Tags',
+              get name() {
+                return translateUiText('Tags');
+              },
               source: 'system',
               type: PagePropertyType.Tags,
               options:

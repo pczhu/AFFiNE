@@ -1,3 +1,4 @@
+import { translateUiText } from '@affine/i18n';
 import { propertyType, t } from '@blocksuite/affine/blocks/database';
 import zod from 'zod';
 
@@ -20,7 +21,9 @@ export type FileCellJsonValueType = zod.TypeOf<
   typeof FileCellJsonValueTypeSchema
 >;
 export const filePropertyModelConfig = fileColumnType.modelConfig({
-  name: 'Attachment',
+  get name() {
+    return translateUiText('Attachment');
+  },
   propertyData: {
     schema: zod.object({}),
     default: () => ({}),

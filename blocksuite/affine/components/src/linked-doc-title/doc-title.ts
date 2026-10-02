@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { PropTypes, requiredProperties } from '@blocksuite/std';
 import { css, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -42,7 +43,7 @@ export class DocTitle extends LitElement {
 
     return html`
       <editor-icon-button
-        aria-label="Doc title"
+        aria-label=${editorText('Doc title')}
         .hover=${false}
         .labelHeight="${'20px'}"
         .tooltip=${title}

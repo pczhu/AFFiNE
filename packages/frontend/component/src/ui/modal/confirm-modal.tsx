@@ -1,3 +1,4 @@
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import { DialogTrigger } from '@radix-ui/react-dialog';
 import clsx from 'clsx';
 import {
@@ -44,7 +45,7 @@ export const ConfirmModal = ({
   customConfirmButton: CustomConfirmButton,
   // FIXME: we need i18n
   confirmText,
-  cancelText = 'Cancel',
+  cancelText = translateUiText('Cancel'),
   cancelButtonOptions,
   reverseFooter,
   onConfirm,
@@ -58,6 +59,8 @@ export const ConfirmModal = ({
   rowFooter = false,
   ...props
 }: ConfirmModalProps) => {
+  useUiLanguage();
+
   const onConfirmClick = useCallback(() => {
     Promise.resolve(onConfirm?.()).catch(err => {
       console.error(err);

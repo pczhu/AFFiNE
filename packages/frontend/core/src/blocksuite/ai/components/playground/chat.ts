@@ -16,6 +16,7 @@ import { unsafeCSSVarV2 } from '@blocksuite/affine/shared/theme';
 import type { EditorHost } from '@blocksuite/affine/std';
 import { ShadowlessElement } from '@blocksuite/affine/std';
 import type { ExtensionType, Store } from '@blocksuite/affine/store';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { DeleteIcon, NewPageIcon } from '@blocksuite/icons/lit';
 import { css, html, type PropertyValues } from 'lit';
 import { property, state } from 'lit/decorators.js';
@@ -334,14 +335,14 @@ export class PlaygroundChat extends SignalWatcher(
           ${
             isSynchronizing
               ? html`<span data-testid="chat-panel-embedding-progress"
-                  >Synchronizing sources</span
+                  >${editorText('Synchronizing sources')}</span
                 >`
               : 'AFFiNE AI'
           }
         </div>
         <div class="chat-panel-add" @click=${this.addChat}>
           ${NewPageIcon()}
-          <affine-tooltip>Add chat</affine-tooltip>
+          <affine-tooltip>${editorText('Add chat')}</affine-tooltip>
         </div>
         <ai-history-clear
           .doc=${this.doc}

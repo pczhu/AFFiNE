@@ -8,7 +8,7 @@ import { WorkspaceQuotaService } from '@affine/core/modules/quota';
 import { ShareInfoService } from '@affine/core/modules/share-doc';
 import type { WorkspaceMetadata } from '@affine/core/modules/workspace';
 import { ServerDeploymentType, SubscriptionPlan } from '@affine/graphql';
-import { useI18n } from '@affine/i18n';
+import { translateUiText, useI18n } from '@affine/i18n';
 import type { Store } from '@blocksuite/affine/store';
 import { LockIcon, PublishIcon } from '@blocksuite/icons/rc';
 import { useLiveData, useService } from '@toeverything/infra';
@@ -174,7 +174,7 @@ export const ShareMenuContent = (props: ShareMenuProps) => {
             value={ShareMenuTab.Members}
             style={{ display: 'none' }}
           >
-            members
+            {translateUiText('members\n          ')}
           </Tabs.Trigger>
         </Tabs.List>
         <Tabs.Content value={ShareMenuTab.Share}>

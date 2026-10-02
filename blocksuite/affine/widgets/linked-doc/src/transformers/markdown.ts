@@ -11,6 +11,7 @@ import {
   normalizeFilePathReference,
   titleMiddleware,
 } from '@blocksuite/affine-shared/adapters';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { Container } from '@blocksuite/global/di';
 import { BlockSuiteError, ErrorCode } from '@blocksuite/global/exceptions';
 import { sha } from '@blocksuite/global/utils';
@@ -593,7 +594,7 @@ async function exportDoc(doc: Store) {
   });
 
   let downloadBlob: Blob;
-  const docTitle = doc.meta?.title || 'Untitled';
+  const docTitle = doc.meta?.title || editorText('Untitled');
   let name: string;
   const contentBlob = new Blob([markdownResult.file], { type: 'plain/text' });
   if (markdownResult.assetsIds.length > 0) {

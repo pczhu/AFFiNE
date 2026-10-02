@@ -4,6 +4,7 @@ import {
   DocModeProvider,
   EditPropsStore,
 } from '@blocksuite/affine-shared/services';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { DisposableGroup } from '@blocksuite/global/disposable';
 import { Bound } from '@blocksuite/global/gfx';
 import { SignalWatcher, WithDisposable } from '@blocksuite/global/lit';
@@ -249,7 +250,7 @@ export class FramePanelBody extends SignalWatcher(
   private _renderEmptyContent() {
     const emptyContent = html` <div class="no-frame-container">
       <div class="no-frame-placeholder">
-        Add frames to organize and present your Edgeless
+        ${editorText('\n        Add frames to organize and present your Edgeless\n      ')}
       </div>
     </div>`;
 

@@ -6,6 +6,7 @@ import {
   type ToolbarModuleConfig,
   ToolbarModuleExtension,
 } from '@blocksuite/affine-shared/services';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import {
   BookmarkIcon,
   CaptionIcon,
@@ -33,7 +34,9 @@ const builtinToolbarConfig = {
   actions: [
     {
       id: 'a.download',
-      tooltip: 'Download',
+      get tooltip() {
+        return editorText('Download');
+      },
       icon: DownloadIcon(),
       run(ctx) {
         const block = ctx.getCurrentBlockByType(ImageBlockComponent);
@@ -42,7 +45,9 @@ const builtinToolbarConfig = {
     },
     {
       id: 'b.caption',
-      tooltip: 'Caption',
+      get tooltip() {
+        return editorText('Caption');
+      },
       icon: CaptionIcon(),
       run(ctx) {
         const block = ctx.getCurrentBlockByType(ImageBlockComponent);
@@ -56,7 +61,9 @@ const builtinToolbarConfig = {
     },
     {
       id: 'c.1.align-left',
-      tooltip: 'Align left',
+      get tooltip() {
+        return editorText('Align left');
+      },
       icon: TextAlignLeftIcon(),
       run(ctx) {
         const block = ctx.getCurrentBlockByType(ImageBlockComponent);
@@ -72,7 +79,9 @@ const builtinToolbarConfig = {
     },
     {
       id: 'c.2.align-center',
-      tooltip: 'Align center',
+      get tooltip() {
+        return editorText('Align center');
+      },
       icon: TextAlignCenterIcon(),
       run(ctx) {
         const block = ctx.getCurrentBlockByType(ImageBlockComponent);
@@ -88,7 +97,9 @@ const builtinToolbarConfig = {
     },
     {
       id: 'c.3.align-right',
-      tooltip: 'Align right',
+      get tooltip() {
+        return editorText('Align right');
+      },
       icon: TextAlignRightIcon(),
       run(ctx) {
         const block = ctx.getCurrentBlockByType(ImageBlockComponent);
@@ -112,7 +123,9 @@ const builtinToolbarConfig = {
       actions: [
         {
           id: 'a.copy',
-          label: 'Copy',
+          get label() {
+            return editorText('Copy');
+          },
           icon: CopyIcon(),
           run(ctx) {
             const block = ctx.getCurrentBlockByType(ImageBlockComponent);
@@ -121,7 +134,9 @@ const builtinToolbarConfig = {
         },
         {
           id: 'b.duplicate',
-          label: 'Duplicate',
+          get label() {
+            return editorText('Duplicate');
+          },
           icon: DuplicateIcon(),
           run(ctx) {
             const block = ctx.getCurrentBlockByType(ImageBlockComponent);
@@ -138,7 +153,9 @@ const builtinToolbarConfig = {
       actions: [
         {
           id: 'a.turn-into-card-view',
-          label: 'Turn into card view',
+          get label() {
+            return editorText('Turn into card view');
+          },
           icon: BookmarkIcon(),
           when(ctx) {
             const supported =
@@ -158,7 +175,9 @@ const builtinToolbarConfig = {
     {
       placement: ActionPlacement.More,
       id: 'c.delete',
-      label: 'Delete',
+      get label() {
+        return editorText('Delete');
+      },
       icon: DeleteIcon(),
       variant: 'destructive',
       run(ctx) {
@@ -177,7 +196,9 @@ const builtinSurfaceToolbarConfig = {
   actions: [
     {
       id: 'a.download',
-      tooltip: 'Download',
+      get tooltip() {
+        return editorText('Download');
+      },
       icon: DownloadIcon(),
       run(ctx) {
         const block = ctx.getCurrentBlockByType(ImageEdgelessBlockComponent);
@@ -186,7 +207,9 @@ const builtinSurfaceToolbarConfig = {
     },
     {
       id: 'b.caption',
-      tooltip: 'Caption',
+      get tooltip() {
+        return editorText('Caption');
+      },
       icon: CaptionIcon(),
       run(ctx) {
         const block = ctx.getCurrentBlockByType(ImageEdgelessBlockComponent);

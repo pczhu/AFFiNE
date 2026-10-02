@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import zod from 'zod';
 
 import { t } from '../../core/logical/type-presets.js';
@@ -20,7 +21,9 @@ const FALSE_VALUES = new Set([
 ]);
 
 export const checkboxPropertyModelConfig = checkboxPropertyType.modelConfig({
-  name: 'Checkbox',
+  get name() {
+    return editorText('Checkbox');
+  },
   kanbanGroup: {
     enabled: true,
     mutable: true,

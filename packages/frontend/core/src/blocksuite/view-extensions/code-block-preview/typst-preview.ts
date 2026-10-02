@@ -1,4 +1,5 @@
 import { renderTypstSvg } from '@affine/core/modules/code-block-preview-renderer/bridge';
+import { translateUiText } from '@affine/i18n';
 import { CodeBlockPreviewExtension } from '@blocksuite/affine/blocks/code';
 import { SignalWatcher, WithDisposable } from '@blocksuite/affine/global/lit';
 import type { CodeBlockModel } from '@blocksuite/affine/model';
@@ -188,11 +189,11 @@ export class TypstPreview extends SignalWatcher(
   private get _errorMessageDetail() {
     return this.errorMessage
       ? html`<details class="typst-error-details">
-          <summary>Error details</summary>
+          <summary>${translateUiText('Error details')}</summary>
           <pre
             class="typst-error-text"
             tabindex="0"
-            aria-label="Typst error message"
+            aria-label=${translateUiText('Typst error message')}
           >
 ${this.errorMessage}</pre>
           <div class="typst-copy-row">
@@ -220,7 +221,7 @@ ${this.errorMessage}</pre>
     } else if (this.copyState === 'failed') {
       return 'Copy failed';
     } else {
-      return 'Copy';
+      return translateUiText('Copy');
     }
   }
 
@@ -231,21 +232,21 @@ ${this.errorMessage}</pre>
             <button
               class="typst-control-button"
               @click=${this._zoomOut}
-              title="Zoom out"
+              title=${translateUiText('Zoom out')}
             >
               −
             </button>
             <button
               class="typst-control-button"
               @click=${this._resetView}
-              title="Reset view"
+              title=${translateUiText('Reset view')}
             >
               ⟳
             </button>
             <button
               class="typst-control-button"
               @click=${this._zoomIn}
-              title="Zoom in"
+              title=${translateUiText('Zoom in')}
             >
               +
             </button>
@@ -405,7 +406,7 @@ ${this.errorMessage}</pre>
             'loading',
             () =>
               html`<div class="typst-preview-loading">
-                Rendering Typst code...
+                ${translateUiText('\n                Rendering Typst code...\n              ')}
               </div>`,
           ],
           [
@@ -419,7 +420,8 @@ ${this.errorMessage}</pre>
             'syntax-error',
             () =>
               html`<div class="typst-preview-error">
-                Typst code has errors: ${this.errorMessage ?? 'Unknown error.'}
+                Typst code has errors:
+                ${this.errorMessage ?? translateUiText('Unknown error.')}
                 ${this._errorMessageDetail}
               </div>`,
           ],
@@ -427,7 +429,7 @@ ${this.errorMessage}</pre>
             'fallback',
             () =>
               html`<div class="typst-preview-fallback">
-                Enter Typst code to preview.
+                ${translateUiText('\n                Enter Typst code to preview.\n              ')}
               </div>`,
           ],
         ])}

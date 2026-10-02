@@ -13,7 +13,7 @@ import { PublicUserLabel } from '@affine/core/modules/cloud/views/public-user';
 import { GlobalDialogService } from '@affine/core/modules/dialogs';
 import type { AudioAttachmentBlock } from '@affine/core/modules/media/entities/audio-attachment-block';
 import { AudioAttachmentService } from '@affine/core/modules/media/services/audio-attachment';
-import { Trans, useI18n } from '@affine/i18n';
+import { Trans, translateUiText, useI18n } from '@affine/i18n';
 import track from '@affine/track';
 import type { AttachmentBlockModel } from '@blocksuite/affine/model';
 import { ResetIcon } from '@blocksuite/icons/rc';
@@ -26,6 +26,8 @@ import * as styles from './audio-block.css';
 import { TranscriptionBlock } from './transcription-block';
 
 const AttachmentAudioPlayer = ({ block }: { block: AudioAttachmentBlock }) => {
+  const uiI18n = useI18n();
+
   const audioMedia = block.audioMedia;
   const playbackState = useLiveData(audioMedia.playbackState$);
   const stats = useLiveData(audioMedia.stats$);
@@ -123,8 +125,11 @@ const AttachmentAudioPlayer = ({ block }: { block: AudioAttachmentBlock }) => {
         title: t['com.affine.audio.transcribe.non-owner.confirm.title'](),
         description: (
           <Trans i18nKey="com.affine.audio.transcribe.non-owner.confirm.message">
-            Please contact <PublicUserLabel id={result.userId} /> to upgrade AI
-            rights or resend the attachment.
+            {translateUiText('Please contact ')}
+            <PublicUserLabel id={result.userId} />{' '}
+            {translateUiText(
+              'to upgrade AI\n            rights or resend the attachment.\n          '
+            )}
           </Trans>
         ),
         onCancel: false,
@@ -194,7 +199,7 @@ const AttachmentAudioPlayer = ({ block }: { block: AudioAttachmentBlock }) => {
           <div className={styles.error}>{loadingError.message}</div>
           <button className={styles.reloadButton} onClick={reload}>
             <ResetIcon className={styles.reloadButtonIcon} />
-            Reload
+            {uiI18n.uiText('Reload\n          ')}
           </button>
         </>
       );
@@ -205,7 +210,7 @@ const AttachmentAudioPlayer = ({ block }: { block: AudioAttachmentBlock }) => {
     }
 
     return <>{bytes(block.props.props.size)}</>;
-  }, [loading, loadingError, error, reload, block.props.props.size]);
+  }, [loading, loadingError, error, reload, block.props.props.size, uiI18n]);
 
   return (
     <AudioPlayer

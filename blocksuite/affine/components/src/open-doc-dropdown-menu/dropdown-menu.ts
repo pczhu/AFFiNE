@@ -4,6 +4,7 @@ import {
   ToolbarContext,
 } from '@blocksuite/affine-shared/services';
 import { unsafeCSSVarV2 } from '@blocksuite/affine-shared/theme';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { SignalWatcher, WithDisposable } from '@blocksuite/global/lit';
 import { PropTypes, requiredProperties } from '@blocksuite/std';
 import { computed, type ReadonlySignal } from '@preact/signals-core';
@@ -86,13 +87,13 @@ export class OpenDocDropdownMenu extends SignalWatcher(
         @click=${() => currentAction.run?.(context)}
       >
         ${currentAction.icon}
-        <span class="label">Open</span>
+        <span class="label">${editorText('Open')}</span>
       </editor-icon-button>
       <editor-menu-button
-        aria-label="Open doc menu"
+        aria-label=${editorText('Open doc menu')}
         .contentPadding="${'8px'}"
         .button=${html`
-          <editor-icon-button aria-label="Open doc with">
+          <editor-icon-button aria-label=${editorText('Open doc with')}>
             ${EditorChevronDown}
           </editor-icon-button>
         `}

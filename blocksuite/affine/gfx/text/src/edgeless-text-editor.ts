@@ -9,7 +9,7 @@ import {
 import { DefaultTheme, TextElementModel } from '@blocksuite/affine-model';
 import type { RichText } from '@blocksuite/affine-rich-text';
 import { ThemeProvider } from '@blocksuite/affine-shared/services';
-import { getSelectedRect } from '@blocksuite/affine-shared/utils';
+import { editorText, getSelectedRect } from '@blocksuite/affine-shared/utils';
 import { Bound, toRadian, Vec } from '@blocksuite/global/gfx';
 import { WithDisposable } from '@blocksuite/global/lit';
 import {
@@ -107,7 +107,7 @@ export class EdgelessTextEditor extends WithDisposable(ShadowlessElement) {
 
   static PADDING_VERTICAL = 6;
 
-  static PLACEHOLDER_TEXT = 'Type from here';
+  static PLACEHOLDER_TEXT = editorText('Type from here');
 
   static override styles = css`
     .edgeless-text-editor {
@@ -469,9 +469,9 @@ export class EdgelessTextEditor extends WithDisposable(ShadowlessElement) {
       ></rich-text>
       ${
         isEmpty
-          ? html`<span class="edgeless-text-editor-placeholder">
-              Type from here
-            </span>`
+          ? html`<span class="edgeless-text-editor-placeholder"
+              >${editorText('\n              Type from here\n            ')}</span
+            >`
           : nothing
       }
     </div>`;

@@ -5,6 +5,7 @@ import {
   type PopupTarget,
   popupTargetFromElement,
 } from '@blocksuite/affine-components/context-menu';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { SignalWatcher } from '@blocksuite/global/lit';
 import {
   ArrowDownSmallIcon,
@@ -143,7 +144,9 @@ export class FilterConditionView extends SignalWatcher(ShadowlessElement) {
           menu.group({
             items: [
               menu.action({
-                name: 'Delete',
+                get name() {
+                  return editorText('Delete');
+                },
                 class: { 'delete-item': true },
                 prefix: DeleteIcon(),
                 select: () => {

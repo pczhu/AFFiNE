@@ -1,5 +1,6 @@
 import { Separator } from '@affine/admin/components/ui/separator';
 import { adminWorkspaceQuery } from '@affine/graphql';
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import { useMemo } from 'react';
 
 import { useQuery } from '../../../use-query';
@@ -13,6 +14,7 @@ export function WorkspaceSharedLinksPanel({
   workspaceId: string;
   onClose: () => void;
 }) {
+  useUiLanguage();
   const { data } = useQuery({
     query: adminWorkspaceQuery,
     variables: {
@@ -38,13 +40,13 @@ export function WorkspaceSharedLinksPanel({
     return (
       <div className="flex flex-col h-full">
         <RightPanelHeader
-          title="Shared Links"
+          title={translateUiText('Shared Links')}
           handleClose={onClose}
           handleConfirm={onClose}
           canSave={false}
         />
         <div className="p-6 text-sm text-muted-foreground">
-          Workspace not found.
+          {translateUiText('Workspace not found.\n        ')}
         </div>
       </div>
     );
@@ -53,14 +55,16 @@ export function WorkspaceSharedLinksPanel({
   return (
     <div className="flex h-full flex-col bg-background">
       <RightPanelHeader
-        title="Shared Links"
+        title={translateUiText('Shared Links')}
         handleClose={onClose}
         handleConfirm={onClose}
         canSave={false}
       />
       <div className="flex flex-col gap-3 overflow-y-auto p-4">
         {sharedLinks.length === 0 ? (
-          <div className="text-sm text-muted-foreground">No shared links.</div>
+          <div className="text-sm text-muted-foreground">
+            {translateUiText('No shared links.')}
+          </div>
         ) : (
           <div className="flex flex-col divide-y rounded-xl border border-border/60 bg-card shadow-sm">
             {sharedLinks.map(link => (
@@ -74,6 +78,7 @@ export function WorkspaceSharedLinksPanel({
 }
 
 function SharedLinkItem({ link }: { link: WorkspaceSharedLink }) {
+  useUiLanguage();
   const title = link.title || link.docId;
   const sharedDate = formatSharedDate(link.publishedAt);
 
@@ -82,7 +87,10 @@ function SharedLinkItem({ link }: { link: WorkspaceSharedLink }) {
       <div className="text-sm font-medium truncate">{title}</div>
       <div className="flex items-center gap-2 text-xs">
         <Separator className="h-3" orientation="vertical" />
-        <span className="text-muted-foreground">Shared on {sharedDate}</span>
+        <span className="text-muted-foreground">
+          {translateUiText('Shared on ')}
+          {sharedDate}
+        </span>
       </div>
     </div>
   );

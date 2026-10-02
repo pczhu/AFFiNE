@@ -1,6 +1,7 @@
 import { Divider, Loading, toast } from '@affine/component';
 import { Button, IconButton } from '@affine/component/ui/button';
 import { useAsyncCallback } from '@affine/core/components/hooks/affine-async-hooks';
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import type { ImageBlockModel } from '@blocksuite/affine/model';
 import type { BlockModel, Workspace } from '@blocksuite/affine/store';
 import {
@@ -63,7 +64,7 @@ async function copyImageToClipboard(url: string) {
   try {
     await navigator.clipboard.write([new ClipboardItem({ [blob.type]: blob })]);
     console.log('Image copied to clipboard');
-    toast('Copied to clipboard.');
+    toast(translateUiText('Copied to clipboard.'));
   } catch (error) {
     console.error('Error copying image to clipboard', error);
   }
@@ -86,6 +87,7 @@ export const GenericImagePreviewModal = ({
   onClose,
   blobId,
 }: ImagePreviewProps): ReactElement => {
+  useUiLanguage();
   const zoomRef = useRef<HTMLDivElement | null>(null);
   const imageRef = useRef<HTMLImageElement | null>(null);
   const {
@@ -187,7 +189,7 @@ export const GenericImagePreviewModal = ({
         <div className={styles.imagePreviewActionBarStyle}>
           <IconButton
             data-testid="previous-image-button"
-            tooltip="Previous"
+            tooltip={translateUiText('Previous')}
             icon={<ArrowLeftSmallIcon />}
             disabled={!image.previous}
             onClick={image.previous}
@@ -199,7 +201,7 @@ export const GenericImagePreviewModal = ({
           )}
           <IconButton
             data-testid="next-image-button"
-            tooltip="Next"
+            tooltip={translateUiText('Next')}
             icon={<ArrowRightSmallIcon />}
             disabled={!image.next}
             onClick={image.next}
@@ -207,19 +209,19 @@ export const GenericImagePreviewModal = ({
           <Divider size="thinner" orientation="vertical" />
           <IconButton
             data-testid="fit-to-screen-button"
-            tooltip="Fit to screen"
+            tooltip={translateUiText('Fit to screen')}
             icon={<ViewBarIcon />}
             onClick={() => resetZoom()}
           />
           <IconButton
             data-testid="zoom-out-button"
-            tooltip="Zoom out"
+            tooltip={translateUiText('Zoom out')}
             icon={<MinusIcon />}
             onClick={zoomOut}
           />
           <Button
             data-testid="reset-scale-button"
-            tooltip="Reset scale"
+            tooltip={translateUiText('Reset scale')}
             onClick={resetScale}
             variant="plain"
           >
@@ -227,20 +229,20 @@ export const GenericImagePreviewModal = ({
           </Button>
           <IconButton
             data-testid="zoom-in-button"
-            tooltip="Zoom in"
+            tooltip={translateUiText('Zoom in')}
             icon={<PlusIcon />}
             onClick={zoomIn}
           />
           <Divider size="thinner" orientation="vertical" />
           <IconButton
             data-testid="download-button"
-            tooltip="Download"
+            tooltip={translateUiText('Download')}
             icon={<DownloadIcon />}
             onClick={downloadHandler}
           />
           <IconButton
             data-testid="copy-to-clipboard-button"
-            tooltip="Copy to clipboard"
+            tooltip={translateUiText('Copy to clipboard')}
             icon={<CopyIcon />}
             onClick={copyHandler}
           />
@@ -249,7 +251,7 @@ export const GenericImagePreviewModal = ({
               <Divider size="thinner" orientation="vertical" />
               <IconButton
                 data-testid="delete-button"
-                tooltip="Delete"
+                tooltip={translateUiText('Delete')}
                 icon={<DeleteIcon />}
                 onClick={image.onDelete}
                 variant="danger"

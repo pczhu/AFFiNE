@@ -1,4 +1,5 @@
 import { useCatchEventCallback } from '@affine/core/components/hooks/use-catch-event-hook';
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import { track } from '@affine/track';
 import { CloseIcon, DownloadIcon } from '@blocksuite/icons/rc';
 import clsx from 'clsx';
@@ -13,6 +14,7 @@ export function AppDownloadButton({
   className?: string;
   style?: React.CSSProperties;
 }) {
+  useUiLanguage();
   const [show, setShow] = useState(true);
 
   const handleClose = useCatchEventCallback(() => {
@@ -37,7 +39,9 @@ export function AppDownloadButton({
     >
       <div className={clsx([styles.label])}>
         <DownloadIcon className={styles.icon} />
-        <span className={styles.ellipsisTextOverflow}>Download App</span>
+        <span className={styles.ellipsisTextOverflow}>
+          {translateUiText('Download App')}
+        </span>
       </div>
       <div className={styles.closeIcon} onClick={handleClose}>
         <CloseIcon />

@@ -1,6 +1,7 @@
 import { Button } from '@affine/admin/components/ui/button';
 import { Input } from '@affine/admin/components/ui/input';
 import { AdminWorkspaceSort } from '@affine/graphql';
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import type { Table } from '@tanstack/react-table';
 import {
   type ChangeEvent,
@@ -30,13 +31,48 @@ interface DataTableToolbarProps<TData> {
 }
 
 const sortOptions: { value: AdminWorkspaceSort; label: string }[] = [
-  { value: AdminWorkspaceSort.CreatedAt, label: 'Created time' },
-  { value: AdminWorkspaceSort.BlobCount, label: 'Blob count' },
-  { value: AdminWorkspaceSort.BlobSize, label: 'Blob size' },
-  { value: AdminWorkspaceSort.SnapshotCount, label: 'Snapshot count' },
-  { value: AdminWorkspaceSort.SnapshotSize, label: 'Snapshot size' },
-  { value: AdminWorkspaceSort.MemberCount, label: 'Member count' },
-  { value: AdminWorkspaceSort.PublicPageCount, label: 'Public pages' },
+  {
+    value: AdminWorkspaceSort.CreatedAt,
+    get label() {
+      return translateUiText('Created time');
+    },
+  },
+  {
+    value: AdminWorkspaceSort.BlobCount,
+    get label() {
+      return translateUiText('Blob count');
+    },
+  },
+  {
+    value: AdminWorkspaceSort.BlobSize,
+    get label() {
+      return translateUiText('Blob size');
+    },
+  },
+  {
+    value: AdminWorkspaceSort.SnapshotCount,
+    get label() {
+      return translateUiText('Snapshot count');
+    },
+  },
+  {
+    value: AdminWorkspaceSort.SnapshotSize,
+    get label() {
+      return translateUiText('Snapshot size');
+    },
+  },
+  {
+    value: AdminWorkspaceSort.MemberCount,
+    get label() {
+      return translateUiText('Member count');
+    },
+  },
+  {
+    value: AdminWorkspaceSort.PublicPageCount,
+    get label() {
+      return translateUiText('Public pages');
+    },
+  },
 ];
 
 export function DataTableToolbar<TData>({
@@ -48,6 +84,7 @@ export function DataTableToolbar<TData>({
   onSortChange,
   disabled = false,
 }: DataTableToolbarProps<TData>) {
+  useUiLanguage();
   const [value, setValue] = useState(keyword);
   const debouncedValue = useDebouncedValue(value, 400);
 
@@ -78,11 +115,36 @@ export function DataTableToolbar<TData>({
   );
 
   const flagOptions: { key: keyof WorkspaceFlagFilter; label: string }[] = [
-    { key: 'public', label: 'Public' },
-    { key: 'enableSharing', label: 'Enable sharing' },
-    { key: 'enableAi', label: 'Enable AI' },
-    { key: 'enableUrlPreview', label: 'Enable URL preview' },
-    { key: 'enableDocEmbedding', label: 'Enable doc embedding' },
+    {
+      key: 'public',
+      get label() {
+        return translateUiText('Public');
+      },
+    },
+    {
+      key: 'enableSharing',
+      get label() {
+        return translateUiText('Enable sharing');
+      },
+    },
+    {
+      key: 'enableAi',
+      get label() {
+        return translateUiText('Enable AI');
+      },
+    },
+    {
+      key: 'enableUrlPreview',
+      get label() {
+        return translateUiText('Enable URL preview');
+      },
+    },
+    {
+      key: 'enableDocEmbedding',
+      get label() {
+        return translateUiText('Enable doc embedding');
+      },
+    },
   ];
 
   const flagLabel = (value: boolean | undefined) => {
@@ -117,7 +179,8 @@ export function DataTableToolbar<TData>({
               className="h-8 px-2 lg:px-3"
               disabled={disabled}
             >
-              Sort: {selectedSortLabel}
+              {translateUiText('Sort: ')}
+              {selectedSortLabel}
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-[220px] p-2">
@@ -145,7 +208,7 @@ export function DataTableToolbar<TData>({
               className="h-8 px-2 lg:px-3"
               disabled={disabled}
             >
-              Flags
+              {translateUiText('Flags\n            ')}
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-[260px] p-2">
@@ -170,7 +233,7 @@ export function DataTableToolbar<TData>({
         </Popover>
         <div className="flex">
           <Input
-            placeholder="Search Workspace / Owner"
+            placeholder={translateUiText('Search Workspace / Owner')}
             value={value}
             onChange={onValueChange}
             className="h-8 w-[150px] lg:w-[250px]"

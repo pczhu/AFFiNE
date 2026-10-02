@@ -1,4 +1,5 @@
 import { IconButton, Input, Menu, MenuItem } from '@affine/component';
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import { MoreHorizontalIcon } from '@blocksuite/icons/rc';
 import { cssVar } from '@toeverything/theme';
 import { useCallback, useState } from 'react';
@@ -15,6 +16,7 @@ export const ColorCell = ({
   custom?: string;
   onValueChange?: (color?: string) => void;
 }) => {
+  useUiLanguage();
   const [inputValue, setInputValue] = useState(value);
 
   const onInput = useCallback(
@@ -56,11 +58,11 @@ export const ColorCell = ({
             <Input
               value={inputValue}
               onChange={onInput}
-              placeholder="Input color"
+              placeholder={translateUiText('Input color')}
             />
             {custom ? (
               <MenuItem type="danger" onClick={() => onValueChange?.()}>
-                Recover
+                {translateUiText('Recover\n              ')}
               </MenuItem>
             ) : null}
           </ul>

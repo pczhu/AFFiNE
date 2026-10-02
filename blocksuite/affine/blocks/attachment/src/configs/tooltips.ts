@@ -1,6 +1,7 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { html } from 'lit';
 // prettier-ignore
-export const AttachmentTooltip = html`<svg width="170" height="68" viewBox="0 0 170 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+export const AttachmentTooltip = () => html`<svg width="170" height="68" viewBox="0 0 170 68" fill="none" xmlns="http://www.w3.org/2000/svg">
 <rect width="170" height="68" rx="2" fill="white"/>
 <mask id="mask0_16460_1013" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="170" height="68">
 <rect width="170" height="68" rx="2" fill="white"/>
@@ -20,7 +21,7 @@ export const AttachmentTooltip = html`<svg width="170" height="68" viewBox="0 0 
 </g>
 <text fill="#121212" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="10" font-weight="600" letter-spacing="0em"><tspan x="30" y="43.6364">Rickroll.mp3</tspan></text>
 </g>
-<text fill="#8E8D91" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="10" letter-spacing="0px"><tspan x="10" y="18.6364">Attach a file.</tspan></text>
+<text fill="#8E8D91" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="10" letter-spacing="0px"><tspan x="10" y="18.6364">${editorText("Attach a file.")}</tspan></text>
 </g>
 <defs>
 <filter id="filter0_d_16460_1013" x="118.277" y="34.2783" width="48.7936" height="55.3602" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
@@ -41,7 +42,7 @@ export const AttachmentTooltip = html`<svg width="170" height="68" viewBox="0 0 
 `;
 
 // prettier-ignore
-export const PDFTooltip = html`<svg width="170" height="68" viewBox="0 0 170 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+export const PDFTooltip = () => html`<svg width="170" height="68" viewBox="0 0 170 68" fill="none" xmlns="http://www.w3.org/2000/svg">
 <rect width="170" height="68" rx="2" fill="white"/>
 <mask id="mask0_689_35293" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="170" height="68">
 <rect width="170" height="68" rx="2" fill="white"/>
@@ -59,7 +60,7 @@ export const PDFTooltip = html`<svg width="170" height="68" viewBox="0 0 170 68"
 <path fill-rule="evenodd" clip-rule="evenodd" d="M18 35.125C17.2406 35.125 16.625 35.7406 16.625 36.5V38C16.625 38.2071 16.7929 38.375 17 38.375C17.2071 38.375 17.375 38.2071 17.375 38V36.5C17.375 36.1548 17.6548 35.875 18 35.875H20.5H21.7609C21.9538 35.875 22.1359 35.964 22.2543 36.1163L23.4933 37.7094C23.5787 37.8191 23.625 37.9541 23.625 38.0931V40V43C23.625 43.3452 23.3452 43.625 23 43.625H18C17.6548 43.625 17.375 43.3452 17.375 43V42.25C17.375 42.0429 17.2071 41.875 17 41.875C16.7929 41.875 16.625 42.0429 16.625 42.25V43C16.625 43.7594 17.2406 44.375 18 44.375H23C23.7594 44.375 24.375 43.7594 24.375 43V40V38.0931C24.375 37.7873 24.2731 37.4903 24.0854 37.2489L22.8463 35.6558C22.5858 35.3209 22.1852 35.125 21.7609 35.125H20.5H18ZM15.3965 40.9614C15.3965 41.1694 15.5093 41.2866 15.707 41.2866C15.9048 41.2866 16.0176 41.1694 16.0176 40.9614V40.6729H16.3193C16.813 40.6729 17.1484 40.3726 17.1484 39.9067C17.1484 39.4365 16.832 39.1362 16.3618 39.1362H15.707C15.5093 39.1362 15.3965 39.2534 15.3965 39.4614V40.9614ZM16.1919 40.2144H16.0176V39.6035H16.1963C16.3984 39.6035 16.5215 39.7075 16.5215 39.9082C16.5215 40.1104 16.3984 40.2144 16.1919 40.2144ZM17.3682 40.9248C17.3682 41.1328 17.481 41.25 17.6787 41.25H18.272C18.9121 41.25 19.29 40.8545 19.29 40.1777C19.29 39.501 18.9136 39.1362 18.272 39.1362H17.6787C17.481 39.1362 17.3682 39.2534 17.3682 39.4614V40.9248ZM18.1841 40.7563H17.9893V39.6299H18.1841C18.4814 39.6299 18.6572 39.8218 18.6572 40.1777C18.6572 40.5674 18.4946 40.7563 18.1841 40.7563ZM19.5332 40.9614C19.5332 41.1694 19.646 41.2866 19.8438 41.2866C20.0415 41.2866 20.1543 41.1694 20.1543 40.9614V40.5015H20.7109C20.8691 40.5015 20.9658 40.4165 20.9658 40.2686C20.9658 40.1206 20.8662 40.0356 20.7109 40.0356H20.1543V39.6313H20.7739C20.938 39.6313 21.0479 39.542 21.0479 39.3838C21.0479 39.2256 20.9409 39.1362 20.7739 39.1362H19.8438C19.646 39.1362 19.5332 39.2534 19.5332 39.4614V40.9614Z" fill="#7A7A7A"/>
 <text fill="#121212" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="10" font-weight="600" letter-spacing="0em"><tspan x="30" y="43.6364">Rickroll.pdf</tspan></text>
 </g>
-<text fill="#8E8D91" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="10" letter-spacing="0px"><tspan x="10" y="18.6364">Upload a pdf to document.</tspan></text>
+<text fill="#8E8D91" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="10" letter-spacing="0px"><tspan x="10" y="18.6364">${editorText("Upload a pdf to document.")}</tspan></text>
 </g>
 <defs>
 <filter id="filter0_d_689_35293" x="118.277" y="34.2783" width="48.7936" height="55.3604" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">

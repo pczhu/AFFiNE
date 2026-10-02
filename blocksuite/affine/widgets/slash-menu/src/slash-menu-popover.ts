@@ -11,6 +11,7 @@ import {
 import type { AffineInlineEditor } from '@blocksuite/affine-shared/types';
 import {
   createKeydownObserver,
+  editorText,
   getCurrentNativeRange,
   getPopperPosition,
   isControlledKeyboardEvent,
@@ -151,7 +152,9 @@ export class SlashMenu extends WithDisposable(LitElement) {
 
       this._filteredItems = this._filteredItems.concat(
         queue.filter(({ name, searchAlias = [] }) =>
-          [name, ...searchAlias].some(str => isFuzzyMatch(str, searchStr))
+          [name, editorText(name), ...searchAlias].some(str =>
+            isFuzzyMatch(str, searchStr)
+          )
         )
       );
 
@@ -433,7 +436,8 @@ export class InnerSlashMenu extends WithDisposable(LitElement) {
       width="100%"
       height="44px"
       text=${name}
-      subText=${ifDefined(description)}
+      .displayText=${editorText(name)}
+      subText=${ifDefined(description ? editorText(description) : undefined)}
       data-testid="${name}"
       hover=${hover}
       @mousemove=${() => {
@@ -455,7 +459,7 @@ export class InnerSlashMenu extends WithDisposable(LitElement) {
           }}
         >
           <div class="tooltip-figure">${tooltip.figure}</div>
-          <div class="tooltip-caption">${tooltip.caption}</div>
+          <div class="tooltip-caption">${editorText(tooltip.caption)}</div>
         </affine-tooltip>`
       }
     </icon-button>`;
@@ -468,7 +472,10 @@ export class InnerSlashMenu extends WithDisposable(LitElement) {
     return html`<div class="slash-menu-group">
       ${when(
         !this.context.searching,
-        () => html`<div class="slash-menu-group-name">${groupName}</div>`
+        () =>
+          html`<div class="slash-menu-group-name">
+            ${editorText(groupName)}
+          </div>`
       )}
       ${items.map(this._renderItem)}
     </div>`;
@@ -490,7 +497,8 @@ export class InnerSlashMenu extends WithDisposable(LitElement) {
       width="100%"
       height="44px"
       text=${name}
-      subText=${ifDefined(description)}
+      .displayText=${editorText(name)}
+      subText=${ifDefined(description ? editorText(description) : undefined)}
       data-testid="${name}"
       hover=${hover}
       @mousemove=${() => {

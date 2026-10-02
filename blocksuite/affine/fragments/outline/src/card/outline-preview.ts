@@ -10,6 +10,7 @@ import type {
 } from '@blocksuite/affine-model';
 import { DocDisplayMetaProvider } from '@blocksuite/affine-shared/services';
 import type { AffineTextAttributes } from '@blocksuite/affine-shared/types';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { SignalWatcher, WithDisposable } from '@blocksuite/global/lit';
 import { noop } from '@blocksuite/global/utils';
 import { LinkedPageIcon } from '@blocksuite/icons/lit';
@@ -76,7 +77,7 @@ export class OutlineBlockPreview extends SignalWatcher(
               [styles.linkedDocText]: true,
               [styles.linkedDocTextUnavailable]: unavailable,
             })}
-            >${title.length ? title : 'Untitled'}</span
+            >${title.length ? title : editorText('Untitled')}</span
           ></span
         >`;
       } else {

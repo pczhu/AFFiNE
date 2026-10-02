@@ -1,4 +1,5 @@
 import { Avatar, notify } from '@affine/component';
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import {
   type ExistedUserInfo,
   type UserListService,
@@ -85,8 +86,12 @@ class MemberManager {
     if (this.ops.multiple) {
       if (this.selectedMembers.value.includes(memberId)) {
         notify.error({
-          title: 'Member already exists',
-          message: 'The member has already been selected',
+          get title() {
+            return translateUiText('Member already exists');
+          },
+          get message() {
+            return translateUiText('The member has already been selected');
+          },
         });
         return;
       }
@@ -233,6 +238,7 @@ export const MemberPreview = ({
   memberManager: MemberManager;
   onDelete?: () => void;
 }) => {
+  useUiLanguage();
   const userInfo = useMemberInfo(memberId, memberManager.userService);
   if (!userInfo) {
     return null;
@@ -246,7 +252,9 @@ export const MemberPreview = ({
         size={16}
       />
       <div className={styles.memberName}>
-        {userInfo.removed ? 'Deleted user' : userInfo.name || 'Unnamed'}
+        {userInfo.removed
+          ? translateUiText('Deleted user')
+          : userInfo.name || translateUiText('Unnamed')}
       </div>
       {onDelete && (
         <div className={styles.memberDeleteIcon} onClick={onDelete}>
@@ -258,6 +266,7 @@ export const MemberPreview = ({
 };
 
 export const MultiMemberSelect: React.FC<MemberManagerOptions> = props => {
+  useUiLanguage();
   const inputRef = useRef<HTMLInputElement>(null);
   const memberListRef = useRef<HTMLDivElement>(null);
   const memberManager = useMemo(
@@ -333,7 +342,11 @@ export const MultiMemberSelect: React.FC<MemberManagerOptions> = props => {
         <input
           ref={inputRef}
           className={styles.memberSearchInput}
-          placeholder={selectedMembers.length > 0 ? '' : 'Search members...'}
+          placeholder={
+            selectedMembers.length > 0
+              ? ''
+              : translateUiText('Search members...')
+          }
           value={memberManager.userListService.searchText$.value}
           onChange={handleInputChange}
         />
@@ -342,10 +355,12 @@ export const MultiMemberSelect: React.FC<MemberManagerOptions> = props => {
         {isLoading ? (
           <div className={styles.loadingContainer}>
             <Spinner />
-            Loading...
+            {translateUiText('Loading...\n          ')}
           </div>
         ) : filteredMemberList.length === 0 ? (
-          <div className={styles.noResultContainer}>No results</div>
+          <div className={styles.noResultContainer}>
+            {translateUiText('No results')}
+          </div>
         ) : (
           filteredMemberList.map(member => (
             <MemberListItem

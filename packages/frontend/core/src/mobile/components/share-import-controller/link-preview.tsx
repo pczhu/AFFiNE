@@ -1,5 +1,6 @@
 import type { Server } from '@affine/core/modules/cloud';
 import type { WorkspaceMetadata } from '@affine/core/modules/workspace';
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import { LinkIcon, WaveRectangleIcon } from '@blocksuite/icons/rc';
 import { useEffect, useRef, useState } from 'react';
 
@@ -34,6 +35,7 @@ export const LinkPreview = ({
   workspace: WorkspaceMetadata | undefined;
   servers: Server[];
 }) => {
+  useUiLanguage();
   const [state, setState] = useState<PreviewState>({ status: 'idle' });
   const activeRequest = useRef<Promise<Preview> | undefined>(undefined);
 
@@ -84,7 +86,7 @@ export const LinkPreview = ({
     return (
       <section
         className={styles.linkPreview}
-        aria-label="Link preview"
+        aria-label={translateUiText('Link preview')}
         aria-busy="true"
       >
         <div className={styles.previewMediaSkeleton} />
@@ -94,11 +96,13 @@ export const LinkPreview = ({
           <div className={styles.previewSkeletonDescription} />
         </div>
         <span className={styles.srOnly} aria-live="polite">
-          Loading link preview
+          {translateUiText('Loading link preview\n        ')}
         </span>
         {item.content.text ? (
           <blockquote className={styles.selectedText}>
-            <span className={styles.selectedTextLabel}>Selected text</span>
+            <span className={styles.selectedTextLabel}>
+              {translateUiText('Selected text')}
+            </span>
             {item.content.text}
           </blockquote>
         ) : null}
@@ -108,7 +112,10 @@ export const LinkPreview = ({
 
   if (state.status !== 'loaded') {
     return (
-      <section className={styles.linkPreview} aria-label="Link preview">
+      <section
+        className={styles.linkPreview}
+        aria-label={translateUiText('Link preview')}
+      >
         <div className={styles.previewContent}>
           <div className={styles.previewFallbackRow}>
             <div className={styles.previewFallbackIcon}>
@@ -121,7 +128,7 @@ export const LinkPreview = ({
               <div className={styles.previewSite}>{hostname}</div>
               {state.status === 'failed' ? (
                 <div className={styles.previewSite} aria-live="polite">
-                  Preview unavailable
+                  {translateUiText('Preview unavailable\n                ')}
                 </div>
               ) : null}
             </div>
@@ -129,7 +136,9 @@ export const LinkPreview = ({
         </div>
         {item.content.text ? (
           <blockquote className={styles.selectedText}>
-            <span className={styles.selectedTextLabel}>Selected text</span>
+            <span className={styles.selectedTextLabel}>
+              {translateUiText('Selected text')}
+            </span>
             {item.content.text}
           </blockquote>
         ) : null}
@@ -152,7 +161,10 @@ export const LinkPreview = ({
     .join(' · ');
   const transcript = transcriptPreviewText(preview.transcript);
   return (
-    <section className={styles.linkPreview} aria-label="Link preview">
+    <section
+      className={styles.linkPreview}
+      aria-label={translateUiText('Link preview')}
+    >
       {preview.images?.[0] ? (
         <img className={styles.previewMedia} src={preview.images[0]} alt="" />
       ) : (
@@ -184,11 +196,11 @@ export const LinkPreview = ({
           <div
             className={styles.transcriptPreview}
             role="group"
-            aria-label={`Transcript preview: ${transcript}`}
+            aria-label={`${translateUiText('Transcript preview:')} ${transcript}`}
           >
             <div className={styles.transcriptLabel} aria-hidden="true">
               <WaveRectangleIcon className={styles.transcriptIcon} />
-              Transcript
+              {translateUiText('Transcript\n            ')}
             </div>
             <div
               className={
@@ -205,7 +217,9 @@ export const LinkPreview = ({
       </div>
       {item.content.text ? (
         <blockquote className={styles.selectedText}>
-          <span className={styles.selectedTextLabel}>Selected text</span>
+          <span className={styles.selectedTextLabel}>
+            {translateUiText('Selected text')}
+          </span>
           {item.content.text}
         </blockquote>
       ) : null}

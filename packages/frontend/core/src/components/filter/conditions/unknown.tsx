@@ -1,4 +1,5 @@
 import type { FilterParams } from '@affine/core/modules/collection-rules';
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import { WarningIcon } from '@blocksuite/icons/rc';
 import { useEffect } from 'react';
 
@@ -14,6 +15,7 @@ export const UnknownFilterCondition = ({
   isDraft?: boolean;
   onDraftCompleted?: () => void;
 }) => {
+  useUiLanguage();
   useEffect(() => {
     if (isDraft) {
       // should not reach here
@@ -25,7 +27,11 @@ export const UnknownFilterCondition = ({
     <Condition
       filter={filter}
       icon={<WarningIcon className={styles.filterTypeIconUnknownStyle} />}
-      name={<span className={styles.filterTypeUnknownNameStyle}>Unknown</span>}
+      name={
+        <span className={styles.filterTypeUnknownNameStyle}>
+          {translateUiText('Unknown')}
+        </span>
+      }
     />
   );
 };

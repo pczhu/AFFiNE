@@ -6,7 +6,7 @@ import {
 } from '@affine/component';
 import { DocsService } from '@affine/core/modules/doc';
 import { WorkspacePropertyService } from '@affine/core/modules/workspace-property';
-import { Trans, useI18n } from '@affine/i18n';
+import { Trans, translateUiText, useI18n } from '@affine/i18n';
 import { useLiveData, useService } from '@toeverything/infra';
 import { cssVarV2 } from '@toeverything/theme/v2';
 import { memo, useCallback, useContext, useEffect, useMemo } from 'react';
@@ -279,7 +279,7 @@ export const DocsExplorer = ({
               <div style={{ color: cssVarV2.text.secondary }}>
                 {{ count: selectedDocIds.length } as any}
               </div>
-              selected
+              {translateUiText('selected\n            ')}
             </Trans>
           }
         />

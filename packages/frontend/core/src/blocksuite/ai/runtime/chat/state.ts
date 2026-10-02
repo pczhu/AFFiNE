@@ -1,5 +1,6 @@
 import type { AIToolsConfig } from '@affine/core/modules/ai-button';
 import type { CopilotChatHistoryFragment } from '@affine/graphql';
+import { translateUiText } from '@affine/i18n';
 
 export type AIChatScope =
   | {
@@ -208,7 +209,7 @@ export function sessionToTab(session: CopilotChatHistoryFragment): AIChatTab {
     kind: 'session',
     id: session.sessionId,
     sessionId: session.sessionId,
-    title: session.title || 'New chat',
+    title: session.title || translateUiText('New chat'),
     docId: session.docId ?? null,
     pinned: !!session.pinned,
     hasMessages: !!session.messages?.length,
@@ -219,7 +220,9 @@ export function createDraftTab(scope: AIChatScope): AIChatTab {
   return {
     kind: 'draft',
     id: `draft:${scope.kind}:${'docId' in scope ? (scope.docId ?? '') : ''}`,
-    title: 'New chat',
+    get title() {
+      return translateUiText('New chat');
+    },
     scope,
     hasMessages: false,
   };

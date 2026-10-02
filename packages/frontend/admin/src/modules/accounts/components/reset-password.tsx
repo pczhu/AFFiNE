@@ -8,6 +8,7 @@ import {
   DialogTitle,
 } from '@affine/admin/components/ui/dialog';
 import { Input } from '@affine/admin/components/ui/input';
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import { CopyIcon } from 'lucide-react';
 
 export const ResetPasswordDialog = ({
@@ -21,14 +22,18 @@ export const ResetPasswordDialog = ({
   onCopy: () => void;
   onOpenChange: (open: boolean) => void;
 }) => {
+  useUiLanguage();
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:w-[460px]">
         <DialogHeader>
-          <DialogTitle className="leading-7">Account Recovery Link</DialogTitle>
+          <DialogTitle className="leading-7">
+            {translateUiText('Account Recovery Link')}
+          </DialogTitle>
           <DialogDescription className="leading-6">
-            Please send this recovery link to the user and instruct them to
-            complete it.
+            {translateUiText(
+              'Please send this recovery link to the user and instruct them to\n            complete it.\n          '
+            )}
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="mt-4">
@@ -36,12 +41,13 @@ export const ResetPasswordDialog = ({
             <Input
               type="text"
               value={link}
-              placeholder="Please type email to confirm"
+              placeholder={translateUiText('Please type email to confirm')}
               className="placeholder:opacity-50 text-ellipsis overflow-hidden whitespace-nowrap"
               readOnly
             />
             <Button type="button" onClick={onCopy} className="space-x-[10px]">
-              <CopyIcon size={20} /> <span>Copy and Close</span>
+              <CopyIcon size={20} />{' '}
+              <span>{translateUiText('Copy and Close')}</span>
             </Button>
           </div>
         </DialogFooter>

@@ -2,6 +2,7 @@ import type { AIToolsConfigService } from '@affine/core/modules/ai-button';
 import type { PeekViewService } from '@affine/core/modules/peek-view';
 import type { AppThemeService } from '@affine/core/modules/theme';
 import type { CopilotChatHistoryFragment } from '@affine/graphql';
+import { translateUiText } from '@affine/i18n';
 import { WithDisposable } from '@blocksuite/affine/global/lit';
 import {
   DocModeProvider,
@@ -355,10 +356,10 @@ export class AIChatMessages extends WithDisposable(ShadowlessElement) {
                   ${
                     this.isHistoryLoading
                       ? html`<span data-testid="chat-panel-loading-state"
-                          >AFFiNE AI is loading history...</span
+                          >${translateUiText('AFFiNE AI is loading history...')}</span
                         >`
                       : html`<span data-testid="chat-panel-empty-state"
-                          >What can I help you with?</span
+                          >${translateUiText('What can I help you with?')}</span
                         >`
                   }
                 </div>

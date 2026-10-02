@@ -2,7 +2,7 @@ import { notify } from '@affine/component';
 import { ServerService } from '@affine/core/modules/cloud';
 import { toDocSearchParams } from '@affine/core/modules/navigation';
 import { copyTextToClipboard } from '@affine/core/utils/clipboard';
-import { useI18n } from '@affine/i18n';
+import { translateUiText, useI18n } from '@affine/i18n';
 import { track } from '@affine/track';
 import type { SerializedXYWH } from '@blocksuite/affine/global/gfx';
 import { type DocMode } from '@blocksuite/affine/model';
@@ -167,7 +167,11 @@ export const useSharingUrl = ({ workspaceId, pageId }: UseSharingUrl) => {
           });
         track.$.sharePanel.$.copyShareLink({ type });
       } else {
-        notify.error({ title: 'Network not available' });
+        notify.error({
+          get title() {
+            return translateUiText('Network not available');
+          },
+        });
       }
     },
     [pageId, serverService, t, workspaceId]

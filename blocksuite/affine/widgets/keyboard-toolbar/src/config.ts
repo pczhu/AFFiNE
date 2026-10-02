@@ -51,6 +51,7 @@ import { TelemetryProvider } from '@blocksuite/affine-shared/services';
 import type { AffineTextStyleAttributes } from '@blocksuite/affine-shared/types';
 import {
   createDefaultDoc,
+  editorText,
   isInsideBlockByFlavour,
   openSingleFileWith,
   type Signal,
@@ -189,7 +190,9 @@ export type DynamicKeyboardToolPanelGroup = (
 
 const textToolActionItems: KeyboardToolbarActionItem[] = [
   {
-    name: 'Text',
+    get name() {
+      return editorText('Text');
+    },
     icon: TextIcon(),
     showWhen: ({ std }) =>
       std.store.schema.flavourSchemaMap.has('affine:paragraph'),
@@ -213,7 +216,9 @@ const textToolActionItems: KeyboardToolbarActionItem[] = [
     },
   })),
   {
-    name: 'CodeBlock',
+    get name() {
+      return editorText('CodeBlock');
+    },
     showWhen: ({ std }) => std.store.schema.flavourSchemaMap.has('affine:code'),
     icon: CodeBlockIcon(),
     action: ({ std }) => {
@@ -223,7 +228,9 @@ const textToolActionItems: KeyboardToolbarActionItem[] = [
     },
   },
   {
-    name: 'Equation',
+    get name() {
+      return editorText('Equation');
+    },
     showWhen: ({ std }) =>
       std.store.schema.flavourSchemaMap.has('affine:latex'),
     icon: TeXIcon(),
@@ -234,7 +241,9 @@ const textToolActionItems: KeyboardToolbarActionItem[] = [
     },
   },
   {
-    name: 'Quote',
+    get name() {
+      return editorText('Quote');
+    },
     showWhen: ({ std }) =>
       std.store.schema.flavourSchemaMap.has('affine:paragraph'),
     icon: QuoteIcon(),
@@ -246,7 +255,9 @@ const textToolActionItems: KeyboardToolbarActionItem[] = [
     },
   },
   {
-    name: 'Divider',
+    get name() {
+      return editorText('Divider');
+    },
     icon: DividerIcon(),
     showWhen: ({ std }) =>
       std.store.schema.flavourSchemaMap.has('affine:divider'),
@@ -258,7 +269,9 @@ const textToolActionItems: KeyboardToolbarActionItem[] = [
     },
   },
   {
-    name: 'Inline equation',
+    get name() {
+      return editorText('Inline equation');
+    },
     icon: TeXIcon(),
     showWhen: ({ std }) =>
       std.store.schema.flavourSchemaMap.has('affine:paragraph'),
@@ -271,7 +284,9 @@ const textToolActionItems: KeyboardToolbarActionItem[] = [
     },
   },
   {
-    name: 'Table',
+    get name() {
+      return editorText('Table');
+    },
     icon: TableIcon(),
     showWhen: ({ std, rootComponent: { model } }) =>
       std.store.schema.flavourSchemaMap.has('affine:table') &&
@@ -296,7 +311,9 @@ const textToolActionItems: KeyboardToolbarActionItem[] = [
     },
   },
   {
-    name: 'Callout',
+    get name() {
+      return editorText('Callout');
+    },
     icon: FontIcon(),
     showWhen: ({ rootComponent: { model } }) => {
       return !isInsideBlockByFlavour(
@@ -331,7 +348,9 @@ const textToolActionItems: KeyboardToolbarActionItem[] = [
 
 const listToolActionItems: KeyboardToolbarActionItem[] = [
   {
-    name: 'BulletedList',
+    get name() {
+      return editorText('BulletedList');
+    },
     icon: BulletedListIcon(),
     showWhen: ({ std }) => std.store.schema.flavourSchemaMap.has('affine:list'),
     action: ({ std }) => {
@@ -344,7 +363,9 @@ const listToolActionItems: KeyboardToolbarActionItem[] = [
     },
   },
   {
-    name: 'NumberedList',
+    get name() {
+      return editorText('NumberedList');
+    },
     icon: NumberedListIcon(),
     showWhen: ({ std }) => std.store.schema.flavourSchemaMap.has('affine:list'),
     action: ({ std }) => {
@@ -357,7 +378,9 @@ const listToolActionItems: KeyboardToolbarActionItem[] = [
     },
   },
   {
-    name: 'CheckBox',
+    get name() {
+      return editorText('CheckBox');
+    },
     icon: CheckBoxCheckLinearIcon(),
     showWhen: ({ std }) => std.store.schema.flavourSchemaMap.has('affine:list'),
     action: ({ std }) => {
@@ -372,10 +395,14 @@ const listToolActionItems: KeyboardToolbarActionItem[] = [
 ];
 
 const pageToolGroup: KeyboardToolPanelGroup = {
-  name: 'Page',
+  get name() {
+    return editorText('Page');
+  },
   items: [
     {
-      name: 'NewPage',
+      get name() {
+        return editorText('NewPage');
+      },
       icon: NewPageIcon(),
       showWhen: ({ std }) =>
         std.store.schema.flavourSchemaMap.has('affine:embed-linked-doc'),
@@ -397,7 +424,9 @@ const pageToolGroup: KeyboardToolPanelGroup = {
       },
     },
     {
-      name: 'LinkedPage',
+      get name() {
+        return editorText('LinkedPage');
+      },
       icon: LinkedPageIcon(),
       showWhen: ({ std, rootComponent }) => {
         const linkedDocWidget = std.view.getWidget(
@@ -428,10 +457,14 @@ const pageToolGroup: KeyboardToolPanelGroup = {
 };
 
 const contentMediaToolGroup: KeyboardToolPanelGroup = {
-  name: 'Content & Media',
+  get name() {
+    return editorText('Content & Media');
+  },
   items: [
     {
-      name: 'Image',
+      get name() {
+        return editorText('Image');
+      },
       icon: ImageIcon(),
       showWhen: ({ std }) =>
         std.store.schema.flavourSchemaMap.has('affine:image'),
@@ -444,7 +477,9 @@ const contentMediaToolGroup: KeyboardToolPanelGroup = {
       },
     },
     {
-      name: 'Link',
+      get name() {
+        return editorText('Link');
+      },
       icon: LinkIcon(),
       showWhen: ({ std }) =>
         std.store.schema.flavourSchemaMap.has('affine:bookmark'),
@@ -477,7 +512,9 @@ const contentMediaToolGroup: KeyboardToolPanelGroup = {
       },
     },
     {
-      name: 'Attachment',
+      get name() {
+        return editorText('Attachment');
+      },
       icon: AttachmentIcon(),
       showWhen: () => false,
       action: async ({ std }) => {
@@ -497,7 +534,9 @@ const contentMediaToolGroup: KeyboardToolPanelGroup = {
       },
     },
     {
-      name: 'Equation',
+      get name() {
+        return editorText('Equation');
+      },
       icon: TeXIcon(),
       showWhen: ({ std }) =>
         std.store.schema.flavourSchemaMap.has('affine:latex'),
@@ -516,10 +555,14 @@ const contentMediaToolGroup: KeyboardToolPanelGroup = {
 };
 
 const embedToolGroup: KeyboardToolPanelGroup = {
-  name: 'Embeds',
+  get name() {
+    return editorText('Embeds');
+  },
   items: [
     {
-      name: 'Embed',
+      get name() {
+        return editorText('Embed');
+      },
       icon: EmbedIcon({ style: `color: black` }),
       showWhen: ({ std }) => {
         return std.store.schema.flavourSchemaMap.has('affine:embed-iframe');
@@ -676,7 +719,9 @@ const embedToolGroup: KeyboardToolPanelGroup = {
       },
     },
     {
-      name: 'Equation',
+      get name() {
+        return editorText('Equation');
+      },
       icon: TeXIcon(),
       showWhen: ({ std }) =>
         std.store.schema.flavourSchemaMap.has('affine:latex'),
@@ -746,16 +791,22 @@ const documentGroupFrameToolGroup: DynamicKeyboardToolPanelGroup = ({
   if (items.length === 0) return null;
 
   return {
-    name: 'Document Group&Frame',
+    get name() {
+      return editorText('Document Group&Frame');
+    },
     items,
   };
 };
 
 const dateToolGroup: KeyboardToolPanelGroup = {
-  name: 'Date',
+  get name() {
+    return editorText('Date');
+  },
   items: [
     {
-      name: 'Today',
+      get name() {
+        return editorText('Today');
+      },
       icon: TodayIcon(),
       action: ({ std }) => {
         const [_, { selectedModels }] = std.command.exec(
@@ -768,7 +819,9 @@ const dateToolGroup: KeyboardToolPanelGroup = {
       },
     },
     {
-      name: 'Tomorrow',
+      get name() {
+        return editorText('Tomorrow');
+      },
       icon: TomorrowIcon(),
       action: ({ std }) => {
         const [_, { selectedModels }] = std.command.exec(
@@ -783,7 +836,9 @@ const dateToolGroup: KeyboardToolPanelGroup = {
       },
     },
     {
-      name: 'Yesterday',
+      get name() {
+        return editorText('Yesterday');
+      },
       icon: YesterdayIcon(),
       action: ({ std }) => {
         const [_, { selectedModels }] = std.command.exec(
@@ -798,7 +853,9 @@ const dateToolGroup: KeyboardToolPanelGroup = {
       },
     },
     {
-      name: 'Now',
+      get name() {
+        return editorText('Now');
+      },
       icon: NowIcon(),
       action: ({ std }) => {
         const [_, { selectedModels }] = std.command.exec(
@@ -814,10 +871,14 @@ const dateToolGroup: KeyboardToolPanelGroup = {
 };
 
 const databaseToolGroup: KeyboardToolPanelGroup = {
-  name: 'Database',
+  get name() {
+    return editorText('Database');
+  },
   items: [
     {
-      name: 'Table view',
+      get name() {
+        return editorText('Table view');
+      },
       icon: DatabaseTableViewIcon(),
       showWhen: ({ std }) =>
         std.store.schema.flavourSchemaMap.has('affine:database'),
@@ -834,7 +895,9 @@ const databaseToolGroup: KeyboardToolPanelGroup = {
       },
     },
     {
-      name: 'Kanban view',
+      get name() {
+        return editorText('Kanban view');
+      },
       icon: DatabaseKanbanViewIcon(),
       showWhen: ({ std }) =>
         std.store.schema.flavourSchemaMap.has('affine:database'),
@@ -860,8 +923,18 @@ const moreToolPanel: KeyboardToolPanelConfig = {
   }),
   activeBackground: cssVarV2('edgeless/selection/selectionMarqueeBackground'),
   groups: [
-    { name: 'Basic', items: textToolActionItems },
-    { name: 'List', items: listToolActionItems },
+    {
+      get name() {
+        return editorText('Basic');
+      },
+      items: textToolActionItems,
+    },
+    {
+      get name() {
+        return editorText('List');
+      },
+      items: listToolActionItems,
+    },
     pageToolGroup,
     contentMediaToolGroup,
     embedToolGroup,
@@ -875,7 +948,9 @@ const textToolPanel: KeyboardToolPanelConfig = {
   icon: TextIcon(),
   groups: [
     {
-      name: 'Turn into',
+      get name() {
+        return editorText('Turn into');
+      },
       items: textToolActionItems,
     },
   ],
@@ -883,7 +958,9 @@ const textToolPanel: KeyboardToolPanelConfig = {
 
 const textStyleToolItems: KeyboardToolbarItem[] = [
   {
-    name: 'Bold',
+    get name() {
+      return editorText('Bold');
+    },
     icon: BoldIcon(),
     background: ({ std }) => {
       const [_, { textAttributes }] = std.command.exec(getTextAttributes);
@@ -894,7 +971,9 @@ const textStyleToolItems: KeyboardToolbarItem[] = [
     },
   },
   {
-    name: 'Italic',
+    get name() {
+      return editorText('Italic');
+    },
     icon: ItalicIcon(),
     background: ({ std }) => {
       const [_, { textAttributes }] = std.command.exec(getTextAttributes);
@@ -905,7 +984,9 @@ const textStyleToolItems: KeyboardToolbarItem[] = [
     },
   },
   {
-    name: 'UnderLine',
+    get name() {
+      return editorText('UnderLine');
+    },
     icon: UnderLineIcon(),
     background: ({ std }) => {
       const [_, { textAttributes }] = std.command.exec(getTextAttributes);
@@ -916,7 +997,9 @@ const textStyleToolItems: KeyboardToolbarItem[] = [
     },
   },
   {
-    name: 'StrikeThrough',
+    get name() {
+      return editorText('StrikeThrough');
+    },
     icon: StrikeThroughIcon(),
     background: ({ std }) => {
       const [_, { textAttributes }] = std.command.exec(getTextAttributes);
@@ -927,7 +1010,9 @@ const textStyleToolItems: KeyboardToolbarItem[] = [
     },
   },
   {
-    name: 'Code',
+    get name() {
+      return editorText('Code');
+    },
     icon: CodeIcon(),
     background: ({ std }) => {
       const [_, { textAttributes }] = std.command.exec(getTextAttributes);
@@ -938,7 +1023,9 @@ const textStyleToolItems: KeyboardToolbarItem[] = [
     },
   },
   {
-    name: 'Link',
+    get name() {
+      return editorText('Link');
+    },
     icon: LinkIcon(),
     background: ({ std }) => {
       const [_, { textAttributes }] = std.command.exec(getTextAttributes);
@@ -961,10 +1048,14 @@ const highlightToolPanel: KeyboardToolPanelConfig = {
   },
   groups: [
     {
-      name: 'Color',
+      get name() {
+        return editorText('Color');
+      },
       items: [
         {
-          name: 'Default Color',
+          get name() {
+            return editorText('Default Color');
+          },
           icon: TextColorIcon(cssVarV2('text/highlight/fg/orange')),
         },
         ...(
@@ -1004,10 +1095,14 @@ const highlightToolPanel: KeyboardToolPanelConfig = {
       ],
     },
     {
-      name: 'Background',
+      get name() {
+        return editorText('Background');
+      },
       items: [
         {
-          name: 'Default Color',
+          get name() {
+            return editorText('Default Color');
+          },
           icon: TextBackgroundDuotoneIcon(cssVarV2('text/highlight/bg/orange')),
         },
         ...(
@@ -1057,7 +1152,9 @@ const textSubToolbarConfig: KeyboardSubToolbarConfig = {
     textToolPanel,
     ...textStyleToolItems,
     {
-      name: 'InlineTex',
+      get name() {
+        return editorText('InlineTex');
+      },
       icon: TeXIcon(),
       action: ({ std }) => {
         std.command
@@ -1086,7 +1183,9 @@ export const defaultKeyboardToolbarConfig: KeyboardToolbarConfig = {
     // { icon: AiIcon(iconStyle) },
     textSubToolbarConfig,
     {
-      name: 'Image',
+      get name() {
+        return editorText('Image');
+      },
       icon: ImageIcon(),
       showWhen: ({ std }) =>
         std.store.schema.flavourSchemaMap.has('affine:image'),
@@ -1099,7 +1198,9 @@ export const defaultKeyboardToolbarConfig: KeyboardToolbarConfig = {
       },
     },
     {
-      name: 'Attachment',
+      get name() {
+        return editorText('Attachment');
+      },
       icon: AttachmentIcon(),
       showWhen: () => false,
       action: async ({ std }) => {
@@ -1119,7 +1220,9 @@ export const defaultKeyboardToolbarConfig: KeyboardToolbarConfig = {
       },
     },
     {
-      name: 'Undo',
+      get name() {
+        return editorText('Undo');
+      },
       icon: UndoIcon(),
       disableWhen: ({ std }) => !std.store.canUndo,
       action: ({ std }) => {
@@ -1127,7 +1230,9 @@ export const defaultKeyboardToolbarConfig: KeyboardToolbarConfig = {
       },
     },
     {
-      name: 'Redo',
+      get name() {
+        return editorText('Redo');
+      },
       icon: RedoIcon(),
       disableWhen: ({ std }) => !std.store.canRedo,
       action: ({ std }) => {
@@ -1135,7 +1240,9 @@ export const defaultKeyboardToolbarConfig: KeyboardToolbarConfig = {
       },
     },
     {
-      name: 'RightTab',
+      get name() {
+        return editorText('RightTab');
+      },
       icon: RightTabIcon(),
       disableWhen: ({ std }) => {
         const [success] = std.command
@@ -1160,7 +1267,9 @@ export const defaultKeyboardToolbarConfig: KeyboardToolbarConfig = {
     ...listToolActionItems,
     ...textToolActionItems.filter(({ name }) => name === 'Divider'),
     {
-      name: 'CollapseTab',
+      get name() {
+        return editorText('CollapseTab');
+      },
       icon: CollapseTabIcon(),
       disableWhen: ({ std }) => {
         const [success] = std.command
@@ -1183,7 +1292,9 @@ export const defaultKeyboardToolbarConfig: KeyboardToolbarConfig = {
       },
     },
     {
-      name: 'Copy',
+      get name() {
+        return editorText('Copy');
+      },
       icon: CopyIcon(),
       action: ({ std }) => {
         std.command
@@ -1191,7 +1302,7 @@ export const defaultKeyboardToolbarConfig: KeyboardToolbarConfig = {
           .pipe(getSelectedModelsCommand)
           .with({
             onCopy: () => {
-              toast(std.host, 'Copied to clipboard');
+              toast(std.host, editorText('Copied to clipboard'));
             },
           })
           .pipe(draftSelectedModelsCommand)
@@ -1200,7 +1311,9 @@ export const defaultKeyboardToolbarConfig: KeyboardToolbarConfig = {
       },
     },
     {
-      name: 'Duplicate',
+      get name() {
+        return editorText('Duplicate');
+      },
       icon: DuplicateIcon(),
       action: ({ std }) => {
         std.command
@@ -1211,7 +1324,9 @@ export const defaultKeyboardToolbarConfig: KeyboardToolbarConfig = {
       },
     },
     {
-      name: 'Delete',
+      get name() {
+        return editorText('Delete');
+      },
       icon: DeleteIcon(),
       action: ({ std }) => {
         std.command

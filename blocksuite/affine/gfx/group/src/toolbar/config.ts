@@ -11,7 +11,7 @@ import {
   type ToolbarModuleConfig,
   ToolbarModuleExtension,
 } from '@blocksuite/affine-shared/services';
-import { matchModels } from '@blocksuite/affine-shared/utils';
+import { editorText, matchModels } from '@blocksuite/affine-shared/utils';
 import { getRootBlock } from '@blocksuite/affine-widget-edgeless-toolbar';
 import { Bound } from '@blocksuite/global/gfx';
 import {
@@ -28,8 +28,12 @@ export const groupToolbarConfig = {
   actions: [
     {
       id: 'a.insert-into-page',
-      label: 'Insert into Page',
-      tooltip: 'Insert into Page',
+      get label() {
+        return editorText('Insert into Page');
+      },
+      get tooltip() {
+        return editorText('Insert into Page');
+      },
       icon: InsertIntoPageIcon(),
       when: ctx => ctx.getSurfaceModelsByType(GroupElementModel).length === 1,
       run(ctx) {
@@ -64,12 +68,14 @@ export const groupToolbarConfig = {
           lastNoteId
         );
 
-        toast(ctx.host, 'Group has been inserted into doc');
+        toast(ctx.host, editorText('Group has been inserted into doc'));
       },
     },
     {
       id: 'b.rename',
-      tooltip: 'Rename',
+      get tooltip() {
+        return editorText('Rename');
+      },
       icon: EditIcon(),
       when: ctx => ctx.getSurfaceModelsByType(GroupElementModel).length === 1,
       run(ctx) {
@@ -84,7 +90,9 @@ export const groupToolbarConfig = {
     },
     {
       id: 'b.ungroup',
-      tooltip: 'Ungroup',
+      get tooltip() {
+        return editorText('Ungroup');
+      },
       icon: UngroupIcon(),
       run(ctx) {
         const models = ctx.getSurfaceModelsByType(GroupElementModel);

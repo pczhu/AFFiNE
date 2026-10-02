@@ -1,4 +1,5 @@
 import { PAGE_HEADER_HEIGHT } from '@blocksuite/affine-shared/consts';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { WithDisposable } from '@blocksuite/global/lit';
 import { DoneIcon, SearchIcon } from '@blocksuite/icons/lit';
 import { autoPlacement, offset, type Placement, size } from '@floating-ui/dom';
@@ -140,7 +141,7 @@ export class FilterableListComponent<Props = unknown> extends WithDisposable(
           <input
             id="filter-input"
             type="text"
-            placeholder=${this.options?.placeholder ?? 'Search'}
+            placeholder=${this.options?.placeholder ?? editorText('Search')}
             @input="${() => {
               this._filterText = this._filterInput?.value;
               this._curFocusIndex = 0;

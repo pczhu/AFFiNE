@@ -1,3 +1,4 @@
+import { translateUiText } from '@affine/i18n';
 import {
   EditorHostKey,
   propertyType,
@@ -23,7 +24,9 @@ export type MemberCellJsonValueType = zod.TypeOf<
   typeof MemberCellJsonValueTypeSchema
 >;
 export const memberPropertyModelConfig = memberColumnType.modelConfig({
-  name: 'Member',
+  get name() {
+    return translateUiText('Member');
+  },
   kanbanGroup: {
     enabled: true,
     mutable: true,

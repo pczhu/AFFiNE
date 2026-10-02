@@ -26,7 +26,7 @@ import {
   linkCalendarAccountMutation,
   unlinkCalendarAccountMutation,
 } from '@affine/graphql';
-import { useI18n } from '@affine/i18n';
+import { translateUiText, useI18n } from '@affine/i18n';
 import { GoogleIcon, LinkIcon, TodayIcon } from '@blocksuite/icons/rc';
 import { useService } from '@toeverything/infra';
 import {
@@ -55,7 +55,9 @@ type CalendarCalDAVProvider = NonNullable<
 
 const providerMeta = {
   [CalendarProviderType.Google]: {
-    label: 'Google Calendar',
+    get label() {
+      return translateUiText('Google Calendar');
+    },
     icon: <GoogleIcon />,
   },
   [CalendarProviderType.CalDAV]: {

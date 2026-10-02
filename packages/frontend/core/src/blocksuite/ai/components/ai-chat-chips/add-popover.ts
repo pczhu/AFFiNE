@@ -1,5 +1,6 @@
 import type { TagMeta } from '@affine/core/components/page-list';
 import type { CollectionMeta } from '@affine/core/modules/collection';
+import { translateUiText } from '@affine/i18n';
 import track, { type EventArgs } from '@affine/track';
 import { SignalWatcher, WithDisposable } from '@blocksuite/affine/global/lit';
 import { scrollbarStyle } from '@blocksuite/affine/shared/styles';
@@ -339,7 +340,7 @@ export class ChatPanelAddPopover extends SignalWatcher(
   }
 
   private _renderNoResult() {
-    return html`<div class="no-result">No Result</div>`;
+    return html`<div class="no-result">${translateUiText('No Result')}</div>`;
   }
 
   private _renderMenuGroup(groups: MenuGroup[]) {

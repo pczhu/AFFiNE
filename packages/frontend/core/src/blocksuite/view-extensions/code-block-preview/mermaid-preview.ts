@@ -1,5 +1,6 @@
 import { renderMermaidSvg } from '@affine/core/modules/code-block-preview-renderer/bridge';
 import type { MermaidRenderTheme } from '@affine/core/modules/mermaid/renderer';
+import { translateUiText } from '@affine/i18n';
 import { CodeBlockPreviewExtension } from '@blocksuite/affine/blocks/code';
 import { SignalWatcher, WithDisposable } from '@blocksuite/affine/global/lit';
 import type { CodeBlockModel } from '@blocksuite/affine/model';
@@ -440,9 +441,11 @@ export class MermaidPreview extends SignalWatcher(
               html`<div class="mermaid-preview-loading">
                 <div style="text-align: center; padding: 20px;">
                   <div style="margin-bottom: 8px;">
-                    Rendering Mermaid diagram...
+                    ${translateUiText('\n                    Rendering Mermaid diagram...\n                  ')}
                   </div>
-                  <div style="font-size: 10px; opacity: 0.6;">Please wait</div>
+                  <div style="font-size: 10px; opacity: 0.6;">
+                    ${translateUiText('Please wait')}
+                  </div>
                 </div>
               </div>`,
           ],
@@ -452,10 +455,10 @@ export class MermaidPreview extends SignalWatcher(
               html`<div class="mermaid-preview-error">
                 <div style="text-align: center; padding: 20px;">
                   <div style="margin-bottom: 8px;">
-                    Failed to render diagram
+                    ${translateUiText('\n                    Failed to render diagram\n                  ')}
                   </div>
                   <div style="font-size: 10px; opacity: 0.6;">
-                    Please check if your Mermaid code has syntax errors
+                    ${translateUiText('\n                    Please check if your Mermaid code has syntax errors\n                  ')}
                   </div>
                 </div>
               </div>`,
@@ -465,9 +468,11 @@ export class MermaidPreview extends SignalWatcher(
             () =>
               html`<div class="mermaid-preview-fallback">
                 <div style="text-align: center; padding: 20px;">
-                  <div style="margin-bottom: 8px;">Mermaid preview feature</div>
+                  <div style="margin-bottom: 8px;">
+                    ${translateUiText('Mermaid preview feature')}
+                  </div>
                   <div style="font-size: 10px; opacity: 0.6;">
-                    This feature is not supported in your browser
+                    ${translateUiText('\n                    This feature is not supported in your browser\n                  ')}
                   </div>
                 </div>
               </div>`,
@@ -498,21 +503,21 @@ export class MermaidPreview extends SignalWatcher(
                     <button
                       class="mermaid-control-button"
                       @click=${this._zoomIn}
-                      title="Zoom in"
+                      title=${translateUiText('Zoom in')}
                     >
                       +
                     </button>
                     <button
                       class="mermaid-control-button"
                       @click=${this._zoomOut}
-                      title="Zoom out"
+                      title=${translateUiText('Zoom out')}
                     >
                       −
                     </button>
                     <button
                       class="mermaid-control-button"
                       @click=${this._resetTransform}
-                      title="Reset view"
+                      title=${translateUiText('Reset view')}
                     >
                       ⟳
                     </button>

@@ -5,7 +5,7 @@ import { WorkspacePropertyManager } from '@affine/core/components/properties/man
 import { CreatePropertyMenuItems } from '@affine/core/components/properties/menu/create-doc-property';
 import type { DocCustomPropertyInfo } from '@affine/core/modules/db';
 import { WorkspaceService } from '@affine/core/modules/workspace';
-import { Trans, useI18n } from '@affine/i18n';
+import { Trans, translateUiText, useI18n } from '@affine/i18n';
 import track from '@affine/track';
 import { FrameworkScope, useService } from '@toeverything/infra';
 import { useCallback } from 'react';
@@ -67,7 +67,8 @@ export const WorkspaceSettingProperties = () => {
             }}
             i18nKey="com.affine.settings.workspace.properties.header.subtitle"
           >
-            Manage workspace <strong>name</strong> properties
+            {translateUiText('Manage workspace ')}
+            <strong>name</strong> properties
           </Trans>
         }
       />

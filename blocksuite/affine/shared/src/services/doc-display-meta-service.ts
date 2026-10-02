@@ -23,6 +23,7 @@ import {
 } from '@preact/signals-core';
 import type { TemplateResult } from 'lit';
 
+import { editorText } from '../utils/editor-i18n';
 import { referenceToNode } from '../utils/reference.js';
 import { DocModeProvider } from './doc-mode-service.js';
 
@@ -166,11 +167,11 @@ export class DocDisplayMetaService
 
     let title$ = this.titleMap.get(store);
     if (!title$) {
-      title$ = signal(doc.meta?.title || 'Untitled');
+      title$ = signal(doc.meta?.title || editorText('Untitled'));
 
       const disposable = this.std.workspace.slots.docListUpdated.subscribe(
         () => {
-          title$!.value = doc.meta?.title || 'Untitled';
+          title$!.value = doc.meta?.title || editorText('Untitled');
         }
       );
 

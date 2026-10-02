@@ -3,6 +3,7 @@ import {
   popFilterableSimpleMenu,
   type PopupTarget,
 } from '@blocksuite/affine-components/context-menu';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import {
   CopyIcon,
   DeleteIcon,
@@ -48,7 +49,9 @@ export const popRowMenu = (
         name: '',
         items: [
           menu.action({
-            name: 'Copy',
+            get name() {
+              return editorText('Copy');
+            },
             prefix: html` <div
               style="transform: rotate(90deg);display:flex;align-items:center;"
             >
@@ -64,7 +67,9 @@ export const popRowMenu = (
         name: '',
         items: [
           menu.action({
-            name: 'Delete Rows',
+            get name() {
+              return editorText('Delete Rows');
+            },
             class: {
               'delete-item': true,
             },
@@ -83,7 +88,9 @@ export const popRowMenu = (
   if (!row) return;
   popFilterableSimpleMenu(ele, [
     menu.action({
-      name: 'Expand Row',
+      get name() {
+        return editorText('Expand Row');
+      },
       prefix: ExpandFullIcon(),
       select: () => {
         openDetail(tableViewLogic, row.id, selectionController);
@@ -93,7 +100,9 @@ export const popRowMenu = (
       name: '',
       items: [
         menu.action({
-          name: 'Insert Before',
+          get name() {
+            return editorText('Insert Before');
+          },
           prefix: html` <div
             style="transform: rotate(90deg);display:flex;align-items:center;"
           >
@@ -104,7 +113,9 @@ export const popRowMenu = (
           },
         }),
         menu.action({
-          name: 'Insert After',
+          get name() {
+            return editorText('Insert After');
+          },
           prefix: html` <div
             style="transform: rotate(90deg);display:flex;align-items:center;"
           >
@@ -119,7 +130,9 @@ export const popRowMenu = (
     menu.group({
       items: [
         menu.action({
-          name: 'Delete Row',
+          get name() {
+            return editorText('Delete Row');
+          },
           class: { 'delete-item': true },
           prefix: DeleteIcon(),
           select: () => {

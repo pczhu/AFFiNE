@@ -1,3 +1,5 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
+
 import { t } from '../../logical/type-presets.js';
 import { createFilter } from './create.js';
 
@@ -6,7 +8,9 @@ export const unknownFilter = [
     name: 'isNotEmpty',
     self: t.unknown.instance(),
     args: [] as const,
-    label: 'Is not empty',
+    get label() {
+      return editorText('Is not empty');
+    },
     shortString: () => ': Is not empty',
     impl: self => {
       if (Array.isArray(self)) {
@@ -22,7 +26,9 @@ export const unknownFilter = [
     name: 'isEmpty',
     self: t.unknown.instance(),
     args: [] as const,
-    label: 'Is empty',
+    get label() {
+      return editorText('Is empty');
+    },
     shortString: () => ': Is empty',
     impl: self => {
       if (Array.isArray(self)) {

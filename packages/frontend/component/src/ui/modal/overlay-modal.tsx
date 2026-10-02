@@ -1,3 +1,4 @@
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import { DialogTrigger } from '@radix-ui/react-dialog';
 import { cssVar } from '@toeverything/theme';
 import { memo, useCallback } from 'react';
@@ -50,10 +51,12 @@ export const OverlayModal = memo(function OverlayModal({
   contentOptions = defaultContentOptions,
   overlayOptions = defaultOverlayOptions,
   // FIXME: we need i18n
-  cancelText = 'Cancel',
-  confirmText = 'Confirm',
+  cancelText = translateUiText('Cancel'),
+  confirmText = translateUiText('Confirm'),
   width = 400,
 }: OverlayModalProps) {
+  useUiLanguage();
+
   const handleConfirm = useCallback(() => {
     onOpenChange?.(false);
     onConfirm?.();

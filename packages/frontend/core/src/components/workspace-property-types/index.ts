@@ -4,6 +4,7 @@ import type {
   WorkspacePropertyType,
 } from '@affine/core/modules/workspace-property';
 import type { I18nString } from '@affine/i18n';
+import { translateUiText } from '@affine/i18n';
 import {
   CheckBoxCheckLinearIcon,
   DateTimeIcon,
@@ -370,7 +371,9 @@ export const WorkspacePropertyTypes = {
   },
   unknown: {
     icon: PropertyIcon,
-    name: 'Unknown',
+    get name() {
+      return translateUiText('Unknown');
+    },
     renameable: false,
   },
 } as {

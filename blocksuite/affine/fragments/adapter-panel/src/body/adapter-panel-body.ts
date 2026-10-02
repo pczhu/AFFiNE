@@ -1,5 +1,6 @@
 import { scrollbarStyle } from '@blocksuite/affine-shared/styles';
 import { unsafeCSSVarV2 } from '@blocksuite/affine-shared/theme';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { SignalWatcher } from '@blocksuite/global/lit';
 import { consume } from '@lit/context';
 import { css, html, LitElement } from 'lit';
@@ -149,13 +150,13 @@ export class AdapterPanelBody extends SignalWatcher(LitElement) {
             class="html-toggle-item"
             ?active=${!this.isHtmlPreview}
             @click=${() => (this._context.isHtmlPreview$.value = false)}
-            >Source</span
+            >${editorText('Source')}</span
           >
           <span
             class="html-toggle-item"
             ?active=${this.isHtmlPreview}
             @click=${() => (this._context.isHtmlPreview$.value = true)}
-            >Preview</span
+            >${editorText('Preview')}</span
           >
         </div>
       </div>

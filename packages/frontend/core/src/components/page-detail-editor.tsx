@@ -1,5 +1,6 @@
 import './page-detail-editor.css';
 
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import { useLiveData, useService } from '@toeverything/infra';
 import clsx from 'clsx';
 import { useEffect } from 'react';
@@ -33,6 +34,7 @@ export const PageDetailEditor = ({
   onLoad,
   readonly,
 }: PageDetailEditorProps) => {
+  useUiLanguage();
   const editor = useService(EditorService).editor;
   const mode = useLiveData(editor.mode$);
   const defaultOpenProperty = useLiveData(editor.defaultOpenProperty$);
@@ -63,7 +65,7 @@ export const PageDetailEditor = ({
       {docMeta?.headerImage && (
         <img
           src={docMeta.headerImage}
-          alt="Document header"
+          alt={translateUiText('Document header')}
           style={{
             width: '100%',
             maxHeight: 240,

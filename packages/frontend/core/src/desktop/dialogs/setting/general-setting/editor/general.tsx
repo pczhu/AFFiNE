@@ -34,7 +34,7 @@ import {
   type FontData,
   SystemFontFamilyService,
 } from '@affine/core/modules/system-font-family';
-import { Trans, useI18n } from '@affine/i18n';
+import { Trans, translateUiText, useI18n, useUiLanguage } from '@affine/i18n';
 import { DoneIcon, SearchIcon } from '@blocksuite/icons/rc';
 import { useLiveData, useService, useServices } from '@toeverything/infra';
 import clsx from 'clsx';
@@ -155,6 +155,7 @@ const Scroller = forwardRef<
 Scroller.displayName = 'Scroller';
 
 const FontMenuItems = ({ onSelect }: { onSelect: (font: string) => void }) => {
+  useUiLanguage();
   const { systemFontFamilyService, editorSettingService } = useServices({
     SystemFontFamilyService,
     EditorSettingService,
@@ -198,7 +199,7 @@ const FontMenuItems = ({ onSelect }: { onSelect: (font: string) => void }) => {
           onKeyDown={onInputKeyDown}
           autoFocus
           className={styles.searchInput}
-          placeholder="Fonts"
+          placeholder={translateUiText('Fonts')}
         />
       </div>
       <MenuSeparator />
@@ -223,7 +224,9 @@ const FontMenuItems = ({ onSelect }: { onSelect: (font: string) => void }) => {
                 )}
               />
             ) : (
-              <div className={styles.notFound}>No results found.</div>
+              <div className={styles.notFound}>
+                {translateUiText('No results found.')}
+              </div>
             )}
           </Scrollable.Viewport>
           <Scrollable.Scrollbar />
@@ -304,7 +307,7 @@ const CustomFontFamilySettings = () => {
         }}
       >
         <MenuTrigger className={styles.menuTrigger} style={{ fontFamily }}>
-          {settings.customFontFamily || 'Select a font'}
+          {settings.customFontFamily || translateUiText('Select a font')}
         </MenuTrigger>
       </Menu>
     </SettingRow>
@@ -626,12 +629,14 @@ const SpellCheckSettings = () => {
         requireRestart ? (
           <div className={styles.spellCheckSettingDescription}>
             <Trans i18nKey="com.affine.settings.editorSettings.general.spell-check.restart-hint">
-              Settings changed; please restart the app.
+              {translateUiText(
+                'Settings changed; please restart the app.\n              '
+              )}
               <button
                 onClick={onRestart}
                 className={styles.spellCheckSettingDescriptionButton}
               >
-                Restart
+                {translateUiText('Restart\n              ')}
               </button>
             </Trans>
           </div>

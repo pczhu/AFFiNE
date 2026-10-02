@@ -6,6 +6,7 @@ import type {
 } from '@blocksuite/std/gfx';
 import { BlockModel, type Store } from '@blocksuite/store';
 
+import { editorText } from '../../utils/editor-i18n';
 import type { ToolbarAction } from '../toolbar-service';
 import { type CommentId, CommentProviderIdentifier } from './comment-provider';
 
@@ -52,7 +53,9 @@ export function findCommentedElements(store: Store, commentId: CommentId) {
 }
 
 export const blockCommentToolbarButton: Omit<ToolbarAction, 'id'> = {
-  tooltip: 'Comment',
+  get tooltip() {
+    return editorText('Comment');
+  },
   when: ({ std }) => !!std.getOptional(CommentProviderIdentifier),
   icon: CommentIcon(),
   run: ctx => {

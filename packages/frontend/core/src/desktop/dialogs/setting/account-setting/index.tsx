@@ -12,7 +12,7 @@ import { useCatchEventCallback } from '@affine/core/components/hooks/use-catch-e
 import { Upload } from '@affine/core/components/pure/file-upload';
 import { GlobalDialogService } from '@affine/core/modules/dialogs';
 import { SubscriptionPlan } from '@affine/graphql';
-import { useI18n } from '@affine/i18n';
+import { translateUiText, useI18n } from '@affine/i18n';
 import { track } from '@affine/track';
 import { ArrowRightSmallIcon, CameraIcon } from '@blocksuite/icons/rc';
 import { useLiveData, useService, useServices } from '@toeverything/infra';
@@ -40,11 +40,17 @@ export const UserAvatar = () => {
       try {
         track.$.settingsPanel.accountSettings.uploadAvatar();
         await session.uploadAvatar(file);
-        notify.success({ title: 'Update user avatar success' });
+        notify.success({
+          get title() {
+            return translateUiText('Update user avatar success');
+          },
+        });
       } catch (e) {
         // TODO(@catsjuice): i18n
         notify.error({
-          title: 'Update user avatar failed',
+          get title() {
+            return translateUiText('Update user avatar failed');
+          },
           message: String(e),
         });
       }
@@ -100,7 +106,9 @@ export const AvatarAndName = () => {
       await session.updateLabel(input);
     } catch (e) {
       notify.error({
-        title: 'Failed to update user name.',
+        get title() {
+          return translateUiText('Failed to update user name.');
+        },
         message: String(e),
       });
     }

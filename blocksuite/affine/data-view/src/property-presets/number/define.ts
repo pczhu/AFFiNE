@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import zod from 'zod';
 
 import { t } from '../../core/logical/type-presets.js';
@@ -7,7 +8,9 @@ import { parseNumber } from './utils/formatter.js';
 export const numberPropertyType = propertyType('number');
 
 export const numberPropertyModelConfig = numberPropertyType.modelConfig({
-  name: 'Number',
+  get name() {
+    return editorText('Number');
+  },
   propertyData: {
     schema: NumberPropertySchema,
     default: () => ({ decimal: 0, format: 'number' }) as const,

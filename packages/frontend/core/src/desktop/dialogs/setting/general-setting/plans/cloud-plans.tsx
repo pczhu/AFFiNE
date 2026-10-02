@@ -1,7 +1,7 @@
 import { Switch } from '@affine/component';
 import { AuthService, SubscriptionService } from '@affine/core/modules/cloud';
 import { SubscriptionPlan, SubscriptionRecurring } from '@affine/graphql';
-import { Trans, useI18n } from '@affine/i18n';
+import { Trans, translateUiText, useI18n } from '@affine/i18n';
 import { AfFiNeIcon } from '@blocksuite/icons/rc';
 import { useLiveData, useServices } from '@toeverything/infra';
 import {
@@ -281,13 +281,16 @@ export const CloudPlans = () => {
           i18nKey="com.affine.payment.subtitle-active"
           values={{ currentPlan }}
         >
-          You are currently on the {{ currentPlan }} plan. If you have any
-          questions, please contact our&nbsp;
+          {translateUiText('You are currently on the ')}
+          {{ currentPlan }}{' '}
+          {translateUiText(
+            'plan. If you have any\n          questions, please contact our&nbsp;\n          '
+          )}
           <a
             href="mailto:support@toeverything.info"
             style={{ color: 'var(--affine-link-color)' }}
           >
-            customer support
+            {translateUiText('customer support\n          ')}
           </a>
           .
         </Trans>

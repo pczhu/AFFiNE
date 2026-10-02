@@ -4,6 +4,7 @@ import {
   popupTargetFromElement,
 } from '@blocksuite/affine-components/context-menu';
 import type { UniComponent } from '@blocksuite/affine-shared/types';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { SignalWatcher, WithDisposable } from '@blocksuite/global/lit';
 import {
   ArrowDownBigIcon,
@@ -113,7 +114,9 @@ export class RecordDetail extends SignalWatcher(
     popMenu(popupTargetFromElement(this.addPropertyButton), {
       options: {
         title: {
-          text: 'Add property',
+          get text() {
+            return editorText('Add property');
+          },
         },
         items: [
           menu.group({
@@ -263,7 +266,7 @@ export class RecordDetail extends SignalWatcher(
                   @click="${this._clickAddProperty}"
                 >
                   <div class="icon">${PlusIcon()}</div>
-                  Add Property
+                  ${editorText('\n                  Add Property\n                ')}
                 </div>`
               : nothing
           }

@@ -7,7 +7,7 @@ import {
   ParagraphBlockModel,
 } from '@blocksuite/affine-model';
 import { NotificationProvider } from '@blocksuite/affine-shared/services';
-import { matchModels } from '@blocksuite/affine-shared/utils';
+import { editorText, matchModels } from '@blocksuite/affine-shared/utils';
 import type { BlockStdScope } from '@blocksuite/std';
 import {
   type BlockModel,
@@ -129,19 +129,33 @@ export function promptDocTitle(std: BlockStdScope, autofill?: string) {
   if (!notification) return Promise.resolve(undefined);
 
   return notification.prompt({
-    title: 'Create linked doc',
-    message: 'Enter a title for the new doc.',
-    placeholder: 'Untitled',
+    get title() {
+      return editorText('Create linked doc');
+    },
+    get message() {
+      return editorText('Enter a title for the new doc.');
+    },
+    get placeholder() {
+      return editorText('Untitled');
+    },
     autofill,
-    confirmText: 'Confirm',
-    cancelText: 'Cancel',
+    get confirmText() {
+      return editorText('Confirm');
+    },
+    get cancelText() {
+      return editorText('Cancel');
+    },
   });
 }
 
 export function notifyDocCreated(std: BlockStdScope) {
   std.getOptional(NotificationProvider)?.notifyWithUndoAction({
-    title: 'Linked doc created',
-    message: 'You can click undo to recovery block content',
+    get title() {
+      return editorText('Linked doc created');
+    },
+    get message() {
+      return editorText('You can click undo to recovery block content');
+    },
     accent: 'info',
     duration: 10 * 1000,
   });

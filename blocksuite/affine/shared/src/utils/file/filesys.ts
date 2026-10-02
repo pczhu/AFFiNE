@@ -3,6 +3,8 @@
 // See also https://caniuse.com/?search=showOpenFilePicker
 import { BlockSuiteError, ErrorCode } from '@blocksuite/global/exceptions';
 
+import { editorText } from '../editor-i18n';
+
 interface OpenFilePickerOptions {
   types?:
     | {
@@ -64,7 +66,9 @@ interface FileSystemFileHandle {
 // See [Common MIME types](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types)
 const FileTypes: NonNullable<OpenFilePickerOptions['types']> = [
   {
-    description: 'Images',
+    get description() {
+      return editorText('Images');
+    },
     accept: {
       'image/*': [
         '.avif',
@@ -81,7 +85,9 @@ const FileTypes: NonNullable<OpenFilePickerOptions['types']> = [
     },
   },
   {
-    description: 'Videos',
+    get description() {
+      return editorText('Videos');
+    },
     accept: {
       'video/*': [
         '.avi',
@@ -96,7 +102,9 @@ const FileTypes: NonNullable<OpenFilePickerOptions['types']> = [
     },
   },
   {
-    description: 'Audios',
+    get description() {
+      return editorText('Audios');
+    },
     accept: {
       'audio/*': [
         '.aac',
@@ -144,7 +152,9 @@ const FileTypes: NonNullable<OpenFilePickerOptions['types']> = [
     },
   },
   {
-    description: 'MindMap',
+    get description() {
+      return editorText('MindMap');
+    },
     accept: {
       'text/xml': ['.mm', '.opml', '.xml'],
     },

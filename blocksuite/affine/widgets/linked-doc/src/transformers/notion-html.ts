@@ -2,6 +2,7 @@ import {
   defaultImageProxyMiddleware,
   NotionHtmlAdapter,
 } from '@blocksuite/affine-shared/adapters';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { Container } from '@blocksuite/global/di';
 import { sha } from '@blocksuite/global/utils';
 import {
@@ -310,8 +311,11 @@ async function planNotionHtmlZip({
       if (index === 0 && fileName.endsWith('.csv')) {
         warnings.push({
           code: 'notion-csv-export',
-          message:
-            'The imported Notion export appears to be CSV instead of HTML.',
+          get message() {
+            return editorText(
+              'The imported Notion export appears to be CSV instead of HTML.'
+            );
+          },
           sourcePath: path,
         });
         continue;

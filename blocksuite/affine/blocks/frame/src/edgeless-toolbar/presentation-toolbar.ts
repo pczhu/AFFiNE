@@ -9,6 +9,7 @@ import {
   EditPropsStore,
   ViewportElementProvider,
 } from '@blocksuite/affine-shared/services';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { EdgelessToolbarToolMixin } from '@blocksuite/affine-widget-edgeless-toolbar';
 import { Bound, clamp } from '@blocksuite/global/gfx';
 import { SignalWatcher } from '@blocksuite/global/lit';
@@ -246,7 +247,7 @@ export class PresentationToolbar extends EdgelessToolbarToolMixin(
     const min = 0;
     const max = frames.length - 1;
     if (this._currentFrameIndex === frames.length - 1) {
-      toast(this.host, 'You have reached the last frame');
+      toast(this.host, editorText('You have reached the last frame'));
     } else {
       this._currentFrameIndex = clamp(this._currentFrameIndex + 1, min, max);
     }
@@ -257,7 +258,7 @@ export class PresentationToolbar extends EdgelessToolbarToolMixin(
     const min = 0;
     const max = frames.length - 1;
     if (this._currentFrameIndex === 0) {
-      toast(this.host, 'You have reached the first frame');
+      toast(this.host, editorText('You have reached the first frame'));
     } else {
       this._currentFrameIndex = clamp(this._currentFrameIndex - 1, min, max);
     }
@@ -325,7 +326,9 @@ export class PresentationToolbar extends EdgelessToolbarToolMixin(
             if (!store.getStorage('presentNoFrameToastShown')) {
               toast(
                 this.host,
-                'The presentation requires at least 1 frame. You can firstly create a frame.',
+                editorText(
+                  'The presentation requires at least 1 frame. You can firstly create a frame.'
+                ),
                 5000
               );
               store.setStorage('presentNoFrameToastShown', true);
@@ -399,7 +402,7 @@ export class PresentationToolbar extends EdgelessToolbarToolMixin(
       </style>
       <edgeless-tool-icon-button
         .iconContainerPadding=${0}
-        .tooltip=${'Previous'}
+        .tooltip=${editorText('Previous')}
         .iconSize=${'24px'}
         @click=${() => this._previousFrame()}
       >
@@ -415,7 +418,7 @@ export class PresentationToolbar extends EdgelessToolbarToolMixin(
                 class="edgeless-frame-navigator-title"
                 @click=${() => this._moveToCurrentFrame()}
               >
-                ${frame?.props.title ?? 'no frame'}
+                ${frame?.props.title ?? editorText('no frame')}
               </span>`
         }
 
@@ -425,7 +428,7 @@ export class PresentationToolbar extends EdgelessToolbarToolMixin(
       </div>
 
       <edgeless-tool-icon-button
-        .tooltip=${'Next'}
+        .tooltip=${editorText('Next')}
         @click=${() => this._nextFrame()}
         .iconContainerPadding=${0}
         .iconSize=${'24px'}
@@ -439,8 +442,8 @@ export class PresentationToolbar extends EdgelessToolbarToolMixin(
         <edgeless-tool-icon-button
           .tooltip=${
             document.fullscreenElement
-              ? 'Exit Full Screen'
-              : 'Enter Full Screen'
+              ? editorText('Exit Full Screen')
+              : editorText('Enter Full Screen')
           }
           @click=${() => this._toggleFullScreen()}
           .iconContainerPadding=${0}

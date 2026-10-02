@@ -1,3 +1,4 @@
+import { translateUiText } from '@affine/i18n';
 import { LoadingIcon } from '@blocksuite/affine/components/icons';
 import { css, html, LitElement, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -34,7 +35,7 @@ export class ChatImage extends LitElement {
         'loading',
         () =>
           html`<image-placeholder
-            .text=${'Loading image'}
+            .text=${translateUiText('Loading image')}
             .icon=${LoadingIcon()}
           ></image-placeholder>`,
       ],
@@ -42,7 +43,7 @@ export class ChatImage extends LitElement {
         'error',
         () =>
           html`<image-placeholder
-            .text=${'Image Loading Failed'}
+            .text=${translateUiText('Image Loading Failed')}
             .icon=${ImageLoadingFailedIcon}
           ></image-placeholder>`,
       ],

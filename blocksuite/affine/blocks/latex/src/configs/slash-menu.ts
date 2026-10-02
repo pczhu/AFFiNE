@@ -3,6 +3,7 @@ import {
   getSelectedModelsCommand,
   getTextSelectionCommand,
 } from '@blocksuite/affine-shared/commands';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { type SlashMenuConfig } from '@blocksuite/affine-widget-slash-menu';
 import { TeXIcon } from '@blocksuite/icons/lit';
 
@@ -14,7 +15,9 @@ export const latexSlashMenuConfig: SlashMenuConfig = {
     {
       name: 'Inline equation',
       group: '0_Basic@8',
-      description: 'Create a inline equation.',
+      get description() {
+        return editorText('Create a inline equation.');
+      },
       icon: TeXIcon(),
       tooltip: {
         figure: LatexTooltip(
@@ -22,7 +25,9 @@ export const latexSlashMenuConfig: SlashMenuConfig = {
           'E=mc^2',
           false
         ),
-        caption: 'Inline equation',
+        get caption() {
+          return editorText('Inline equation');
+        },
       },
       searchAlias: ['inlineMath, inlineEquation', 'inlineLatex'],
       action: ({ std }) => {
@@ -35,7 +40,9 @@ export const latexSlashMenuConfig: SlashMenuConfig = {
     },
     {
       name: 'Equation',
-      description: 'Create a equation block.',
+      get description() {
+        return editorText('Create a equation block.');
+      },
       icon: TeXIcon(),
       tooltip: {
         figure: LatexTooltip(
@@ -43,7 +50,9 @@ export const latexSlashMenuConfig: SlashMenuConfig = {
           String.raw`\frac{a}{b} \pm \frac{c}{d} = \frac{ad \pm bc}{bd}`,
           true
         ),
-        caption: 'Equation',
+        get caption() {
+          return editorText('Equation');
+        },
       },
       searchAlias: ['mathBlock, equationBlock', 'latexBlock'],
       group: '4_Content & Media@10',

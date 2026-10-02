@@ -1,5 +1,5 @@
 import { WorkspaceService } from '@affine/core/modules/workspace';
-import { Trans } from '@affine/i18n';
+import { Trans, translateUiText, useUiLanguage } from '@affine/i18n';
 import { useLiveData, useService } from '@toeverything/infra';
 import { useCallback, useMemo, useRef, useState } from 'react';
 
@@ -23,6 +23,7 @@ export const VirtualizedCollectionList = ({
   handleCreateCollection: () => void;
   setHideHeaderCreateNewCollection: (hide: boolean) => void;
 }) => {
+  useUiLanguage();
   const listRef = useRef<ItemListHandle>(null);
   const [showFloatingToolbar, setShowFloatingToolbar] = useState(false);
   const [selectedCollectionIds, setSelectedCollectionIds] = useState<string[]>(
@@ -95,7 +96,7 @@ export const VirtualizedCollectionList = ({
             <div style={{ color: 'var(--affine-text-secondary-color)' }}>
               {{ count: selectedCollectionIds.length } as any}
             </div>
-            selected
+            {translateUiText('selected\n          ')}
           </Trans>
         }
         onClose={hideFloatingToolbar}

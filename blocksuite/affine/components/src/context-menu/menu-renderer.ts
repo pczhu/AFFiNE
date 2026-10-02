@@ -1,4 +1,5 @@
 import { unsafeCSSVar, unsafeCSSVarV2 } from '@blocksuite/affine-shared/theme';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { IS_MOBILE } from '@blocksuite/global/env';
 import { SignalWatcher, WithDisposable } from '@blocksuite/global/lit';
 import {
@@ -167,7 +168,7 @@ export class MenuComponent
       <div class="affine-menu-body">
         ${
           result.length === 0 && this.menu.enableSearch
-            ? html` <div class="no-results">No Results</div>`
+            ? html` <div class="no-results">${editorText('No Results')}</div>`
             : ''
         }
         ${result}
@@ -373,7 +374,7 @@ export class MobileMenuComponent
           margin-right: 10px;
          "
         >
-          Done
+          ${editorText('\n          Done\n        ')}
         </div>
       </div>
     `;

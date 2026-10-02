@@ -1,3 +1,4 @@
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import { DialogTrigger } from '@radix-ui/react-dialog';
 import clsx from 'clsx';
 import type { PropsWithChildren } from 'react';
@@ -48,7 +49,7 @@ export const PromptModal = ({
   confirmButtonOptions,
   // FIXME: we need i18n
   confirmText,
-  cancelText = 'Cancel',
+  cancelText = translateUiText('Cancel'),
   cancelButtonOptions,
   reverseFooter,
   onConfirm,
@@ -64,6 +65,8 @@ export const PromptModal = ({
   contentOptions,
   ...props
 }: PromptModalProps) => {
+  useUiLanguage();
+
   const { dynamicKeyboardHeight } = useContext(ModalConfigContext);
   const [value, setValue] = useState(defaultValue ?? '');
   const onConfirmClick = useCallback(() => {

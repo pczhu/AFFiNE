@@ -1,3 +1,4 @@
+import { translateUiText } from '@affine/i18n';
 import { WithDisposable } from '@blocksuite/affine/global/lit';
 import { unsafeCSSVar, unsafeCSSVarV2 } from '@blocksuite/affine/shared/theme';
 import type { EditorHost } from '@blocksuite/affine/std';
@@ -156,7 +157,7 @@ export class ActionWrapper extends WithDisposable(LitElement) {
         this.promptShow
           ? html`
               <div class="answer-prompt" data-testid="answer-prompt">
-                <div class="subtitle">Answer</div>
+                <div class="subtitle">${translateUiText('Answer')}</div>
                 ${
                   HISTORY_IMAGE_ACTIONS.includes(item.action)
                     ? images &&
@@ -177,7 +178,9 @@ export class ActionWrapper extends WithDisposable(LitElement) {
                 }
                 ${
                   originalText
-                    ? html`<div class="subtitle prompt">Prompt</div>
+                    ? html`<div class="subtitle prompt">
+                          ${translateUiText('Prompt')}
+                        </div>
                         ${createTextRenderer({
                           customHeading: true,
                           testId: 'chat-message-action-prompt',

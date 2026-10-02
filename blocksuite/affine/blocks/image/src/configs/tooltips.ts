@@ -1,10 +1,11 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { html } from 'lit';
 // prettier-ignore
-export const PhotoTooltip = html`<svg width="170" height="106" viewBox="0 0 170 106" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+export const PhotoTooltip = () => html`<svg width="170" height="106" viewBox="0 0 170 106" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g clip-path="url(#clip0_24732_2238)">
 <path d="M168 0H2C0.89543 0 0 0.89543 0 2V104C0 105.105 0.89543 106 2 106H168C169.105 106 170 105.105 170 104V2C170 0.89543 169.105 0 168 0Z" fill="white"/>
 <path d="M168 0H2C0.89543 0 0 0.89543 0 2V104C0 105.105 0.89543 106 2 106H168C169.105 106 170 105.105 170 104V2C170 0.89543 169.105 0 168 0Z" fill="white"/>
-<text fill="#8E8D91" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="10" y="18.2727">Insert a photo.</tspan></text>
+<text fill="#8E8D91" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="10" letter-spacing="0em"><tspan x="10" y="18.2727">${editorText("Insert a photo.")}</tspan></text>
 <path d="M191 28H10C8.89543 28 8 28.8954 8 30V113C8 114.105 8.89543 115 10 115H191C192.105 115 193 114.105 193 113V30C193 28.8954 192.105 28 191 28Z" fill="url(#pattern0_24732_2238)"/>
 </g>
 <defs>

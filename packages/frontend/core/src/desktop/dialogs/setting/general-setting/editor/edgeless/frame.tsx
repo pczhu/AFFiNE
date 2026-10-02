@@ -45,11 +45,11 @@ export const FrameSettings = () => {
           selected={isSelected}
           prefix={<Point color={resolvedValue} />}
         >
-          {key}
+          {t.uiText(String(key))}
         </MenuItem>
       );
     });
-  }, [editorSetting, background, palettes]);
+  }, [editorSetting, background, palettes, t]);
 
   const getElements = useCallback((doc: Store) => {
     return doc.getBlocksByFlavour('affine:frame') || [];
@@ -77,7 +77,7 @@ export const FrameSettings = () => {
                 className={menuTrigger}
                 prefix={<Point color={currentColor.resolvedValue} />}
               >
-                {currentColor.key}
+                {t.uiText(currentColor.key)}
               </MenuTrigger>
             }
           />

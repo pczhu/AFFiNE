@@ -1,5 +1,6 @@
 import { DefaultTool } from '@blocksuite/affine-block-surface';
 import { toggleEmbedCardCreateModal } from '@blocksuite/affine-components/embed-card-modal';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import type { SlashMenuConfig } from '@blocksuite/affine-widget-slash-menu';
 import { GithubDuotoneIcon } from '@blocksuite/icons/lit';
 import { GfxControllerIdentifier } from '@blocksuite/std/gfx';
@@ -10,11 +11,17 @@ export const embedGithubSlashMenuConfig: SlashMenuConfig = {
   items: [
     {
       name: 'GitHub',
-      description: 'Link to a GitHub repository.',
+      get description() {
+        return editorText('Link to a GitHub repository.');
+      },
       icon: GithubDuotoneIcon(),
       tooltip: {
-        figure: GithubRepoTooltip,
-        caption: 'GitHub Repo',
+        get figure() {
+          return GithubRepoTooltip();
+        },
+        get caption() {
+          return editorText('GitHub Repo');
+        },
       },
       group: '4_Content & Media@7',
       when: ({ model }) =>

@@ -1,5 +1,6 @@
 import { MenuItem } from '@affine/component';
 import type { FilterParams } from '@affine/core/modules/collection-rules';
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 
 import { FilterValueMenu } from '../filter/filter-value-menu';
 
@@ -14,6 +15,7 @@ export const SharedFilterValue = ({
   onDraftCompleted?: () => void;
   onChange?: (filter: FilterParams) => void;
 }) => {
+  useUiLanguage();
   return (
     <FilterValueMenu
       isDraft={isDraft}
@@ -29,7 +31,7 @@ export const SharedFilterValue = ({
             }}
             selected={filter.value === 'true'}
           >
-            {'True'}
+            {translateUiText('True')}
           </MenuItem>
           <MenuItem
             onClick={() => {
@@ -40,12 +42,16 @@ export const SharedFilterValue = ({
             }}
             selected={filter.value !== 'true'}
           >
-            {'False'}
+            {translateUiText('False')}
           </MenuItem>
         </>
       }
     >
-      <span>{filter.value === 'true' ? 'True' : 'False'}</span>
+      <span>
+        {filter.value === 'true'
+          ? translateUiText('True')
+          : translateUiText('False')}
+      </span>
     </FilterValueMenu>
   );
 };

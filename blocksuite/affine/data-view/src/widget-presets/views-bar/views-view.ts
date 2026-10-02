@@ -5,6 +5,7 @@ import {
   type PopupTarget,
   popupTargetFromElement,
 } from '@blocksuite/affine-components/context-menu';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import {
   DeleteIcon,
   DuplicateIcon,
@@ -170,7 +171,9 @@ export class DataViewHeaderViews extends WidgetBase {
         items: [
           menu.input({
             initialValue: view.name$.value,
-            placeholder: 'View name',
+            get placeholder() {
+              return editorText('View name');
+            },
             onChange: text => {
               view.nameSet(text);
             },
@@ -178,7 +181,9 @@ export class DataViewHeaderViews extends WidgetBase {
           menu.group({
             items: [
               menu.action({
-                name: 'Edit View',
+                get name() {
+                  return editorText('Edit View');
+                },
                 prefix: InfoIcon(),
                 select: () => {
                   this.closest('affine-data-view-renderer')
@@ -187,7 +192,9 @@ export class DataViewHeaderViews extends WidgetBase {
                 },
               }),
               menu.action({
-                name: 'Move Left',
+                get name() {
+                  return editorText('Move Left');
+                },
                 hide: () => index === 0,
                 prefix: MoveLeftIcon(),
                 select: () => {
@@ -199,7 +206,9 @@ export class DataViewHeaderViews extends WidgetBase {
                 },
               }),
               menu.action({
-                name: 'Move Right',
+                get name() {
+                  return editorText('Move Right');
+                },
                 prefix: MoveRightIcon(),
                 hide: () => index === views.length - 1,
                 select: () => {
@@ -215,14 +224,18 @@ export class DataViewHeaderViews extends WidgetBase {
           menu.group({
             items: [
               menu.action({
-                name: 'Duplicate',
+                get name() {
+                  return editorText('Duplicate');
+                },
                 prefix: DuplicateIcon(),
                 select: () => {
                   this.viewManager.viewDuplicate(id);
                 },
               }),
               menu.action({
-                name: 'Delete',
+                get name() {
+                  return editorText('Delete');
+                },
                 prefix: DeleteIcon(),
                 select: () => {
                   view.delete();

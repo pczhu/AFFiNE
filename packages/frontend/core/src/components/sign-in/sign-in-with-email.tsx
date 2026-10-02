@@ -12,7 +12,7 @@ import { AuthService, CaptchaService } from '@affine/core/modules/cloud';
 import type { AuthSessionStatus } from '@affine/core/modules/cloud/entities/session';
 import { Unreachable } from '@affine/env/constant';
 import { UserFriendlyError } from '@affine/error';
-import { Trans, useI18n } from '@affine/i18n';
+import { Trans, translateUiText, useI18n } from '@affine/i18n';
 import { useLiveData, useService } from '@toeverything/infra';
 import {
   type Dispatch,
@@ -96,7 +96,9 @@ export const SignInWithEmailStep = ({
       console.error(err);
       const error = UserFriendlyError.fromAny(err);
       notify.error({
-        title: 'Failed to sign in',
+        get title() {
+          return translateUiText('Failed to sign in');
+        },
         message: t[`error.${error.name}`](error.data),
       });
       captchaService.revalidate();

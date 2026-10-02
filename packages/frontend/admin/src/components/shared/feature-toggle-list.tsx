@@ -3,6 +3,7 @@ import { Label } from '@affine/admin/components/ui/label';
 import { Separator } from '@affine/admin/components/ui/separator';
 import { Switch } from '@affine/admin/components/ui/switch';
 import type { FeatureType } from '@affine/graphql';
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import { useCallback } from 'react';
 
 import { cn } from '../../utils';
@@ -26,6 +27,7 @@ export const FeatureToggleList = ({
   showSeparators = false,
   className,
 }: FeatureToggleListProps) => {
+  useUiLanguage();
   const Control = control === 'switch' ? Switch : Checkbox;
 
   const handleToggle = useCallback(
@@ -42,7 +44,7 @@ export const FeatureToggleList = ({
   if (!features.length) {
     return (
       <div className={cn(className, 'px-3 py-2 text-xs text-muted-foreground')}>
-        No configurable features.
+        {translateUiText('No configurable features.\n      ')}
       </div>
     );
   }
@@ -65,12 +67,15 @@ export const FeatureToggleList = ({
                   checked={selected.includes(feature)}
                   onCheckedChange={checked => handleToggle(feature, !!checked)}
                 />
-                <span className="truncate">{feature}</span>
+                <span className="truncate">{translateUiText(feature)}</span>
               </>
             ) : (
               <>
-                <span className="overflow-hidden text-ellipsis" title={feature}>
-                  {feature}
+                <span
+                  className="overflow-hidden text-ellipsis"
+                  title={translateUiText(feature)}
+                >
+                  {translateUiText(feature)}
                 </span>
                 <Control
                   checked={selected.includes(feature)}

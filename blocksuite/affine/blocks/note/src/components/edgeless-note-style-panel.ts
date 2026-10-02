@@ -17,6 +17,7 @@ import { ThemeProvider } from '@blocksuite/affine-shared/services';
 import { unsafeCSSVarV2 } from '@blocksuite/affine-shared/theme';
 import {
   type ColorEvent,
+  editorText,
   getMostCommonResolvedValue,
   stopPropagation,
 } from '@blocksuite/affine-shared/utils';
@@ -292,7 +293,9 @@ export class EdgelessNoteStylePanel extends SignalWatcher(
   private _renderStylePanel() {
     return html`<div class="edgeless-note-style-panel">
       <div class="edgeless-note-style-section">
-        <div class="edgeless-note-style-section-title">Fill color</div>
+        <div class="edgeless-note-style-section-title">
+          ${editorText('Fill color')}
+        </div>
         <edgeless-color-panel
           role="listbox"
           .value=${this._background}
@@ -309,7 +312,9 @@ export class EdgelessNoteStylePanel extends SignalWatcher(
         </edgeless-color-panel>
       </div>
       <div class="edgeless-note-style-section">
-        <div class="edgeless-note-style-section-title">Shadow</div>
+        <div class="edgeless-note-style-section-title">
+          ${editorText('Shadow')}
+        </div>
         <edgeless-note-shadow-menu
           .background=${this._background}
           .theme=${this._theme}
@@ -321,7 +326,9 @@ export class EdgelessNoteStylePanel extends SignalWatcher(
         class="edgeless-note-style-section"
         data-testid="affine-note-border-style-panel"
       >
-        <div class="edgeless-note-style-section-title">Border</div>
+        <div class="edgeless-note-style-section-title">
+          ${editorText('Border')}
+        </div>
         <edgeless-line-styles-panel
           .lineSize=${this._borderSize}
           .lineStyle=${this._borderStyle}
@@ -332,7 +339,9 @@ export class EdgelessNoteStylePanel extends SignalWatcher(
         class="edgeless-note-style-section"
         data-testid="affine-note-corner-radius-panel"
       >
-        <div class="edgeless-note-style-section-title">Corner Radius</div>
+        <div class="edgeless-note-style-section-title">
+          ${editorText('Corner Radius')}
+        </div>
         <div class="edgeless-note-corner-radius-panel">
           <affine-slider
             .value=${this._borderRadius}
@@ -377,13 +386,12 @@ export class EdgelessNoteStylePanel extends SignalWatcher(
     return html`<div class="edgeless-note-style-custom-color-panel">
       <div class="edgeless-note-style-section-title">
         <editor-icon-button
-          aria-label="Back"
+          aria-label=${editorText('Back')}
           .iconSize=${'16px'}
           @click=${this._switchToStyleTab}
         >
-          ${ArrowLeftSmallIcon()}
-        </editor-icon-button>
-        Custom color
+          ${ArrowLeftSmallIcon()} </editor-icon-button
+        >${editorText('\n        Custom color\n      ')}
       </div>
       <edgeless-color-picker
         class="edgeless-note-custom-color-picker"
@@ -406,7 +414,10 @@ export class EdgelessNoteStylePanel extends SignalWatcher(
       <editor-menu-button
         .contentPadding=${'8px'}
         .button=${html`
-          <editor-icon-button aria-label="Note Style" .tooltip=${'Note Style'}>
+          <editor-icon-button
+            aria-label=${editorText('Note Style')}
+            .tooltip=${editorText('Note Style')}
+          >
             ${PaletteIcon()}
           </editor-icon-button>
         `}

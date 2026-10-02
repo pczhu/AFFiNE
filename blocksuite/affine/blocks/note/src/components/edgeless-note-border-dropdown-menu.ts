@@ -1,5 +1,6 @@
 import { EditorChevronDown } from '@blocksuite/affine-components/toolbar';
 import { LineWidth, type StrokeStyle } from '@blocksuite/affine-model';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { LineStyleIcon } from '@blocksuite/icons/lit';
 import { ShadowlessElement } from '@blocksuite/std';
 import { html } from 'lit';
@@ -13,8 +14,8 @@ export class EdgelessNoteBorderDropdownMenu extends ShadowlessElement {
       <editor-menu-button
         .button=${html`
           <editor-icon-button
-            aria-label="Border style"
-            .tooltip="${'Border style'}"
+            aria-label=${editorText('Border style')}
+            .tooltip="${editorText('Border style')}"
           >
             ${LineStyleIcon()} ${EditorChevronDown}
           </editor-icon-button>

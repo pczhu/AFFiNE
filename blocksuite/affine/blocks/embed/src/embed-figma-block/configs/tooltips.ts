@@ -1,16 +1,17 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { html } from 'lit';
 
 // prettier-ignore
-export const FigmaTooltip = html`<svg width="170" height="106" viewBox="0 0 170 106" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+export const FigmaTooltip = () => html`<svg width="170" height="106" viewBox="0 0 170 106" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect width="170" height="106" rx="2" fill="white"/>
 <mask id="mask0_16460_1083" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="170" height="106">
 <rect width="170" height="106" rx="2" fill="white"/>
 </mask>
 <g mask="url(#mask0_16460_1083)">
-<text fill="#8E8D91" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="10" letter-spacing="0px"><tspan x="10" y="18.6364">Embed a Figma document.</tspan></text>
+<text fill="#8E8D91" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="10" letter-spacing="0px"><tspan x="10" y="18.6364">${editorText("Embed a Figma document.")}</tspan></text>
 <rect x="8.5" y="28.5" width="169" height="121" rx="3.5" fill="white" stroke="#E3E2E4"/>
-<text fill="#121212" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="9" font-weight="500" letter-spacing="0em"><tspan x="18" y="44.7727">AFFiNE Design System - Jul 2077</tspan></text>
-<text fill="#8E8D91" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="9" letter-spacing="0em"><tspan x="18" y="57.7727">Edited just now</tspan></text>
+<text fill="#121212" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="9" font-weight="500" letter-spacing="0em"><tspan x="18" y="44.7727">${editorText("AFFiNE Design System - Jul 2077")}</tspan></text>
+<text fill="#8E8D91" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="9" letter-spacing="0em"><tspan x="18" y="57.7727">${editorText("Edited just now")}</tspan></text>
 <rect x="16" y="66" width="154" height="58" rx="2" fill="url(#pattern0_16460_1083)"/>
 </g>
 <defs>

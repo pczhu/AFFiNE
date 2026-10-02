@@ -1,5 +1,6 @@
 import { useBlockSuiteDocMeta } from '@affine/core/components/hooks/use-block-suite-page-meta';
 import { WorkspaceService } from '@affine/core/modules/workspace';
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import { useService } from '@toeverything/infra';
 import { useMemo } from 'react';
 
@@ -8,6 +9,7 @@ import { CollapsibleSection } from '../../components/navigation/layouts/collapsi
 import * as styles from './styles.css';
 
 export const RecentDocs = ({ max = 5 }: { max?: number }) => {
+  useUiLanguage();
   const workspace = useService(WorkspaceService).workspace;
   const allPageMetas = useBlockSuiteDocMeta(workspace.docCollection);
 
@@ -25,7 +27,7 @@ export const RecentDocs = ({ max = 5 }: { max?: number }) => {
   return (
     <CollapsibleSection
       path={['recent']}
-      title="Recent"
+      title={translateUiText('Recent')}
       headerClassName={styles.header}
       className={styles.recentSection}
       testId="recent-docs"

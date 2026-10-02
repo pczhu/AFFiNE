@@ -24,6 +24,7 @@ import {
   TelemetryProvider,
 } from '@blocksuite/affine-shared/services';
 import {
+  editorText,
   formatSize,
   openSingleFileWith,
 } from '@blocksuite/affine-shared/utils';
@@ -110,7 +111,7 @@ export class AttachmentBlockComponent extends CaptionedBlockComponent<Attachment
   copy = () => {
     const slice = Slice.fromModels(this.store, [this.model]);
     this.std.clipboard.copySlice(slice).catch(console.error);
-    toast(this.host, 'Copied to clipboard');
+    toast(this.host, editorText('Copied to clipboard'));
   };
 
   download = () => {

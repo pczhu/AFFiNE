@@ -230,11 +230,11 @@ export const ShapeSettings = () => {
           selected={isSelected}
           prefix={<Point color={resolvedValue} />}
         >
-          {key}
+          {t.uiText(String(key))}
         </MenuItem>
       );
     });
-  }, [editorSetting, settings, currentShape, fillColorPalettes]);
+  }, [editorSetting, settings, currentShape, fillColorPalettes, t]);
 
   const strokeColorItems = useMemo(() => {
     const { strokeColor } = settings[`shape:${currentShape}`];
@@ -250,11 +250,11 @@ export const ShapeSettings = () => {
           selected={isSelected}
           prefix={<Point color={resolvedValue} />}
         >
-          {key}
+          {t.uiText(String(key))}
         </MenuItem>
       );
     });
-  }, [editorSetting, settings, currentShape, strokeColorPalettes]);
+  }, [editorSetting, settings, currentShape, strokeColorPalettes, t]);
 
   const borderThickness = settings[`shape:${currentShape}`].strokeWidth;
   const setBorderThickness = useCallback(
@@ -275,11 +275,11 @@ export const ShapeSettings = () => {
       const isSelected = fontFamily === value;
       return (
         <MenuItem key={name} onSelect={handler} selected={isSelected}>
-          {name}
+          {t.uiText(String(name))}
         </MenuItem>
       );
     });
-  }, [editorSetting, settings, currentShape]);
+  }, [editorSetting, settings, currentShape, t]);
 
   const fontStyleItems = useMemo(() => {
     const { fontStyle } = settings[`shape:${currentShape}`];
@@ -290,11 +290,11 @@ export const ShapeSettings = () => {
       const isSelected = fontStyle === value;
       return (
         <MenuItem key={name} onSelect={handler} selected={isSelected}>
-          {name}
+          {t.uiText(String(name))}
         </MenuItem>
       );
     });
-  }, [editorSetting, settings, currentShape]);
+  }, [editorSetting, settings, currentShape, t]);
 
   const fontWeightItems = useMemo(() => {
     const { fontWeight } = settings[`shape:${currentShape}`];
@@ -305,11 +305,11 @@ export const ShapeSettings = () => {
       const isSelected = fontWeight === value;
       return (
         <MenuItem key={name} onSelect={handler} selected={isSelected}>
-          {name}
+          {t.uiText('Font weight ' + name)}
         </MenuItem>
       );
     });
-  }, [editorSetting, settings, currentShape]);
+  }, [editorSetting, settings, currentShape, t]);
 
   const fontSizeItems = useMemo(() => {
     const { fontSize } = settings[`shape:${currentShape}`];
@@ -320,11 +320,11 @@ export const ShapeSettings = () => {
       const isSelected = fontSize === Number(value);
       return (
         <MenuItem key={name} onSelect={handler} selected={isSelected}>
-          {name}
+          {t.uiText(String(name))}
         </MenuItem>
       );
     });
-  }, [editorSetting, settings, currentShape]);
+  }, [editorSetting, settings, currentShape, t]);
 
   const textColorItems = useMemo(() => {
     const { color } = settings[`shape:${currentShape}`];
@@ -340,11 +340,11 @@ export const ShapeSettings = () => {
           selected={isSelected}
           prefix={<Point color={resolvedValue} />}
         >
-          {key}
+          {t.uiText(String(key))}
         </MenuItem>
       );
     });
-  }, [editorSetting, settings, currentShape, textColorPalettes]);
+  }, [editorSetting, settings, currentShape, textColorPalettes, t]);
 
   const getElements = useCallback(
     (doc: Store) => {
@@ -455,7 +455,7 @@ export const ShapeSettings = () => {
                 className={menuTrigger}
                 prefix={<Point color={fillColor.resolvedValue} />}
               >
-                {fillColor.key}
+                {t.uiText(fillColor.key)}
               </MenuTrigger>
             }
           />
@@ -475,7 +475,7 @@ export const ShapeSettings = () => {
                 className={menuTrigger}
                 prefix={<Point color={strokeColor.resolvedValue} />}
               >
-                {strokeColor.key}
+                {t.uiText(strokeColor.key)}
               </MenuTrigger>
             }
           />
@@ -525,7 +525,7 @@ export const ShapeSettings = () => {
                 className={menuTrigger}
                 prefix={<Point color={textColor.resolvedValue} />}
               >
-                {textColor.key}
+                {t.uiText(textColor.key)}
               </MenuTrigger>
             }
           />
@@ -541,7 +541,11 @@ export const ShapeSettings = () => {
           items={fontFamilyItems}
           trigger={
             <MenuTrigger className={menuTrigger}>
-              {FontFamilyMap[settings[`shape:${currentShape}`].fontFamily]}
+              {t.uiText(
+                String(
+                  FontFamilyMap[settings[`shape:${currentShape}`].fontFamily]
+                )
+              )}
             </MenuTrigger>
           }
         />
@@ -571,7 +575,7 @@ export const ShapeSettings = () => {
           items={fontStyleItems}
           trigger={
             <MenuTrigger className={menuTrigger}>
-              {settings[`shape:${currentShape}`].fontStyle}
+              {t.uiText(String(settings[`shape:${currentShape}`].fontStyle))}
             </MenuTrigger>
           }
         />
@@ -586,7 +590,12 @@ export const ShapeSettings = () => {
           items={fontWeightItems}
           trigger={
             <MenuTrigger className={menuTrigger}>
-              {FontWeightMap[settings[`shape:${currentShape}`].fontWeight]}
+              {t.uiText(
+                'Font weight ' +
+                  String(
+                    FontWeightMap[settings[`shape:${currentShape}`].fontWeight]
+                  )
+              )}
             </MenuTrigger>
           }
         />

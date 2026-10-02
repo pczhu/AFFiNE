@@ -22,6 +22,7 @@ import {
   ToolbarModuleExtension,
 } from '@blocksuite/affine-shared/services';
 import {
+  editorText,
   getMostCommonResolvedValue,
   matchModels,
 } from '@blocksuite/affine-shared/utils';
@@ -50,8 +51,12 @@ const builtinSurfaceToolbarConfig = {
   actions: [
     {
       id: 'a.insert-into-page',
-      label: 'Insert into Page',
-      tooltip: 'Insert into Page',
+      get label() {
+        return editorText('Insert into Page');
+      },
+      get tooltip() {
+        return editorText('Insert into Page');
+      },
       icon: InsertIntoPageIcon(),
       when: ctx => ctx.getSurfaceModelsByType(FrameBlockModel).length === 1,
       run(ctx) {
@@ -90,18 +95,24 @@ const builtinSurfaceToolbarConfig = {
         const notification = ctx.std.getOptional(NotificationProvider);
         if (notification) {
           notification.notifyWithUndoAction({
-            title: 'Frame inserted into Page.',
-            message: 'Frame has been inserted into doc',
+            get title() {
+              return editorText('Frame inserted into Page.');
+            },
+            get message() {
+              return editorText('Frame has been inserted into doc');
+            },
             accent: 'success',
           });
         } else {
-          toast(ctx.host, 'Frame has been inserted into doc');
+          toast(ctx.host, editorText('Frame has been inserted into doc'));
         }
       },
     },
     {
       id: 'b.rename',
-      tooltip: 'Rename',
+      get tooltip() {
+        return editorText('Rename');
+      },
       icon: EditIcon(),
       when: ctx => ctx.getSurfaceModelsByType(FrameBlockModel).length === 1,
       run(ctx) {
@@ -116,7 +127,9 @@ const builtinSurfaceToolbarConfig = {
     },
     {
       id: 'b.ungroup',
-      tooltip: 'Ungroup',
+      get tooltip() {
+        return editorText('Ungroup');
+      },
       icon: UngroupIcon(),
       run(ctx) {
         const models = ctx.getSurfaceModelsByType(FrameBlockModel);
@@ -188,7 +201,7 @@ const builtinSurfaceToolbarConfig = {
         return html`
           <edgeless-color-picker-button
             class="background"
-            .label="${'Background'}"
+            .label="${editorText('Background')}"
             .pick=${onPick}
             .color=${background}
             .theme=${theme}

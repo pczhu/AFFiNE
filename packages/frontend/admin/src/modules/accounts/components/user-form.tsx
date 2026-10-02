@@ -3,6 +3,7 @@ import { Input } from '@affine/admin/components/ui/input';
 import { Label } from '@affine/admin/components/ui/label';
 import { Separator } from '@affine/admin/components/ui/separator';
 import type { FeatureType } from '@affine/graphql';
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import { ChevronRightIcon } from 'lucide-react';
 import type { ChangeEvent } from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
@@ -36,6 +37,7 @@ function UserForm({
   showOption,
   onDirtyChange,
 }: UserFormProps) {
+  useUiLanguage();
   const serverConfig = useServerConfig();
 
   const defaultUser: Partial<UserInput> = useMemo(
@@ -123,30 +125,30 @@ function UserForm({
       <div className="flex-grow space-y-3 overflow-y-auto p-4">
         <div className="flex flex-col rounded-xl border border-border bg-card shadow-sm">
           <InputItem
-            label="User name"
+            label={translateUiText('User name')}
             field="name"
             value={changes.name}
             onChange={setField}
-            placeholder="Enter user name"
+            placeholder={translateUiText('Enter user name')}
           />
           <Separator />
           <InputItem
-            label="Email"
+            label={translateUiText('Email')}
             field="email"
             value={changes.email}
             onChange={setField}
-            placeholder="Enter email address"
+            placeholder={translateUiText('Enter email address')}
           />
           {showOption && (
             <>
               <Separator />
               <InputItem
-                label="Password"
+                label={translateUiText('Password')}
                 field="password"
                 value={changes.password}
                 onChange={setField}
                 optional
-                placeholder="Enter password"
+                placeholder={translateUiText('Enter password')}
               />
             </>
           )}
@@ -182,6 +184,7 @@ function InputItem({
   onChange: (field: keyof UserInput, value: string) => void;
   placeholder?: string;
 }) {
+  useUiLanguage();
   const onValueChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
       onChange(field, e.target.value);
@@ -195,7 +198,7 @@ function InputItem({
         {label}
         {optional && (
           <span className="ml-1 font-normal text-muted-foreground">
-            (optional)
+            {translateUiText('(optional)\n          ')}
           </span>
         )}
       </Label>
@@ -225,6 +228,7 @@ export function CreateUserForm({
   onComplete: () => void;
   onDirtyChange?: (dirty: boolean) => void;
 }) {
+  useUiLanguage();
   const { create, creating } = useCreateUser();
   const serverConfig = useServerConfig();
   const passwordLimits = serverConfig.credentialsRequirement.password;
@@ -256,7 +260,7 @@ export function CreateUserForm({
 
   return (
     <UserForm
-      title="Create User"
+      title={translateUiText('Create User')}
       onClose={onComplete}
       onConfirm={handleCreateUser}
       onValidate={validateCreateUser}
@@ -279,6 +283,7 @@ export function UpdateUserForm({
   onComplete: () => void;
   onDirtyChange?: (dirty: boolean) => void;
 }) {
+  useUiLanguage();
   const { update, updating } = useUpdateUser();
 
   const onUpdateUser = useCallback(
@@ -302,7 +307,7 @@ export function UpdateUserForm({
 
   return (
     <UserForm
-      title="Update User"
+      title={translateUiText('Update User')}
       defaultValue={user}
       onClose={onComplete}
       onConfirm={onUpdateUser}
@@ -315,7 +320,7 @@ export function UpdateUserForm({
             variant="outline"
             onClick={onResetPassword}
           >
-            <span>Reset Password</span>
+            <span>{translateUiText('Reset Password')}</span>
             <ChevronRightIcon size={16} className="text-muted-foreground" />
           </Button>
           <Button
@@ -323,7 +328,7 @@ export function UpdateUserForm({
             variant="outline"
             onClick={onDeleteAccount}
           >
-            <span>Delete Account</span>
+            <span>{translateUiText('Delete Account')}</span>
             <ChevronRightIcon size={16} />
           </Button>
         </div>

@@ -6,7 +6,7 @@ import {
 import { ServerService } from '@affine/core/modules/cloud';
 import { EditorService } from '@affine/core/modules/editor';
 import { copyLinkToBlockStdScopeClipboard } from '@affine/core/utils/clipboard';
-import { I18n } from '@affine/i18n';
+import { I18n, translateUiText } from '@affine/i18n';
 import { track } from '@affine/track';
 import {
   menu,
@@ -33,7 +33,9 @@ function createCopyLinkToBlockMenuItem(
   model: DatabaseBlockModel
 ) {
   return menu.action({
-    name: 'Copy link to block',
+    get name() {
+      return translateUiText('Copy link to block');
+    },
     prefix: LinkIcon({ width: '20', height: '20' }),
     hide: () => {
       const { editor } = framework.get(EditorService);

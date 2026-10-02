@@ -4,6 +4,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@affine/admin/components/ui/dialog';
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import { useEffect, useRef } from 'react';
 
 import { useServerConfig } from '../../../common';
@@ -28,6 +29,7 @@ export function ImportUsersDialog({
   open,
   onOpenChange,
 }: ImportUsersDialogProps) {
+  useUiLanguage();
   const fileUploadRef = useRef<FileUploadAreaRef>(null);
   const serverConfig = useServerConfig();
   const passwordLimits = serverConfig.credentialsRequirement.password;
@@ -67,12 +69,12 @@ export function ImportUsersDialog({
         <DialogHeader>
           <DialogTitle>
             {isFormatError
-              ? 'Incorrect import format'
+              ? translateUiText('Incorrect import format')
               : isPreviewMode
                 ? isImported
-                  ? 'Import results'
-                  : 'Confirm import'
-                : 'Import'}
+                  ? translateUiText('Import results')
+                  : translateUiText('Confirm import')
+                : translateUiText('Import')}
           </DialogTitle>
         </DialogHeader>
         <div className="text-[15px] mt-3">

@@ -1,4 +1,5 @@
 import type { CopilotChatHistoryFragment } from '@affine/graphql';
+import { translateUiText } from '@affine/i18n';
 import type { ImageSelection } from '@blocksuite/affine/shared/selection';
 import type {
   BlockSelection,
@@ -126,7 +127,7 @@ export class ChatActionList extends LitElement {
               class="action"
               @click=${async () => {
                 if (
-                  action.title === 'Insert below' &&
+                  action.title === translateUiText('Insert below') &&
                   this._selectionValue.length === 1 &&
                   this._selectionValue[0].type === 'database'
                 ) {

@@ -3,6 +3,7 @@ import {
   TelemetryProvider,
 } from '@blocksuite/affine-shared/services';
 import { unsafeCSSVar, unsafeCSSVarV2 } from '@blocksuite/affine-shared/theme';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { SignalWatcher } from '@blocksuite/global/lit';
 import { DoneIcon } from '@blocksuite/icons/lit';
 import { css, html } from 'lit';
@@ -89,7 +90,7 @@ export class EmbedIframeLinkEditPopup extends SignalWatcher(
     return html`
       <div class="embed-iframe-link-edit-popup">
         <div class="input-container">
-          <span class="input-label">Link</span>
+          <span class="input-label">${editorText('Link')}</span>
           <input
             class="link-input"
             type="text"

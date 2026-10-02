@@ -1,4 +1,5 @@
 import type { WorkspaceDialogService } from '@affine/core/modules/dialogs';
+import { translateUiText } from '@affine/i18n';
 import { SignalWatcher } from '@blocksuite/affine/global/lit';
 import { unsafeCSSVar } from '@blocksuite/affine/shared/theme';
 import { css, html, LitElement } from 'lit';
@@ -59,14 +60,14 @@ export class AIChatEmbeddingStatusTooltip extends SignalWatcher(LitElement) {
         data-testid="ai-chat-embedding-status-tooltip"
       >
         <div class="embedding-status-text">
-          Better results after embedding finished.
+          ${translateUiText('\n          Better results after embedding finished.\n        ')}
         </div>
         <div
           class="check-status"
           data-testid="ai-chat-embedding-status-tooltip-check"
           @click=${this._handleCheckStatusClick}
         >
-          Check status
+          ${translateUiText('\n          Check status\n        ')}
         </div>
       </div>
     `;

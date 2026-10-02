@@ -18,7 +18,7 @@ import {
   WorkspaceService,
 } from '@affine/core/modules/workspace';
 import { DebugLogger } from '@affine/debug';
-import { useI18n } from '@affine/i18n';
+import { translateUiText, useI18n } from '@affine/i18n';
 import track from '@affine/track';
 import { openDirectory, openFilesWith } from '@blocksuite/affine/shared/utils';
 import type { Workspace } from '@blocksuite/affine/store';
@@ -117,7 +117,9 @@ function toImportErrorState(error: unknown): ImportErrorState {
   if (error instanceof DOMException && error.name === 'AbortError') {
     return {
       code: 'cancelled',
-      message: 'Import cancelled',
+      get message() {
+        return translateUiText('Import cancelled');
+      },
       sourcePath,
     };
   }
@@ -130,7 +132,9 @@ function toImportErrorState(error: unknown): ImportErrorState {
   }
   return {
     code: 'unknown',
-    message: 'Unknown error occurred',
+    get message() {
+      return translateUiText('Unknown error occurred');
+    },
     sourcePath,
   };
 }
@@ -617,7 +621,7 @@ const ErrorStatus = ({
         {t['com.affine.import.status.failed.title']()}
       </div>
       <p className={style.importStatusContent}>
-        {error?.message || 'Unknown error occurred'}
+        {error?.message || translateUiText('Unknown error occurred')}
       </p>
       {error?.sourcePath ? (
         <div className={style.importErrorDetail}>{error.sourcePath}</div>

@@ -9,6 +9,7 @@ import type {
 } from '@affine/core/modules/cloud';
 import type { FeatureFlagService } from '@affine/core/modules/feature-flag';
 import type { CopilotChatHistoryFragment } from '@affine/graphql';
+import { translateUiText } from '@affine/i18n';
 import track, { type EventArgs } from '@affine/track';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
@@ -577,7 +578,7 @@ export class AIChatInput extends SignalWatcher(
       ${
         this.isDragOver
           ? html`<div class="chat-panel-input-drop-overlay">
-              Drop to attach
+              ${translateUiText('\n              Drop to attach\n            ')}
             </div>`
           : nothing
       }
@@ -615,7 +616,7 @@ export class AIChatInput extends SignalWatcher(
       }
       <textarea
         rows="1"
-        placeholder="What are your thoughts?"
+        placeholder=${translateUiText('What are your thoughts?')}
         @input=${this._handleInput}
         @keydown=${this._handleKeyDown}
         @focus=${() => {

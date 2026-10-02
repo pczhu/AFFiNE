@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import type { DocSnapshot } from '@blocksuite/store';
 import { createContext } from '@lit/context';
 import type { Signal } from '@preact/signals-core';
@@ -9,9 +10,19 @@ export type AdapterItem = {
 
 export const ADAPTERS: AdapterItem[] = [
   { id: 'markdown', label: 'Markdown' },
-  { id: 'plaintext', label: 'PlainText' },
+  {
+    id: 'plaintext',
+    get label() {
+      return editorText('PlainText');
+    },
+  },
   { id: 'html', label: 'HTML' },
-  { id: 'snapshot', label: 'Snapshot' },
+  {
+    id: 'snapshot',
+    get label() {
+      return editorText('Snapshot');
+    },
+  },
 ];
 
 export type AdapterPanelContext = {

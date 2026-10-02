@@ -7,6 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@affine/admin/components/ui/dialog';
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import type { ReactNode } from 'react';
 
 interface ConfirmDialogProps {
@@ -26,12 +27,14 @@ export const ConfirmDialog = ({
   onOpenChange,
   title,
   description,
-  cancelText = 'Cancel',
-  confirmText = 'Confirm',
+  cancelText = translateUiText('Cancel'),
+  confirmText = translateUiText('Confirm'),
   confirmButtonVariant = 'default',
   onConfirm,
   onClose,
 }: ConfirmDialogProps) => {
+  useUiLanguage();
+
   const handleClose = () => {
     onOpenChange(false);
     onClose?.();

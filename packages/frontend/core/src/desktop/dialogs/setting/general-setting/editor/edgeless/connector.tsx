@@ -177,11 +177,11 @@ export const ConnectorSettings = () => {
           selected={isSelected}
           prefix={<Point color={resolvedValue} />}
         >
-          {key}
+          {t.uiText(String(key))}
         </MenuItem>
       );
     });
-  }, [editorSetting, settings, StrokeColorShortPalettes]);
+  }, [editorSetting, settings, StrokeColorShortPalettes, t]);
 
   const startEndPointItems = useMemo(() => {
     const { frontEndpointStyle } = settings.connector;
@@ -192,11 +192,11 @@ export const ConnectorSettings = () => {
       const isSelected = frontEndpointStyle === value;
       return (
         <MenuItem key={name} onSelect={handler} selected={isSelected}>
-          {name}
+          {t.uiText(String(name))}
         </MenuItem>
       );
     });
-  }, [editorSetting, settings]);
+  }, [editorSetting, settings, t]);
 
   const endEndPointItems = useMemo(() => {
     const { rearEndpointStyle } = settings.connector;
@@ -207,11 +207,11 @@ export const ConnectorSettings = () => {
       const isSelected = rearEndpointStyle === value;
       return (
         <MenuItem key={name} onSelect={handler} selected={isSelected}>
-          {name}
+          {t.uiText(String(name))}
         </MenuItem>
       );
     });
-  }, [editorSetting, settings]);
+  }, [editorSetting, settings, t]);
 
   const alignItems = useMemo<RadioItem[]>(
     () => [
@@ -265,11 +265,11 @@ export const ConnectorSettings = () => {
       const isSelected = fontFamily === value;
       return (
         <MenuItem key={name} onSelect={handler} selected={isSelected}>
-          {name}
+          {t.uiText(String(name))}
         </MenuItem>
       );
     });
-  }, [editorSetting, settings]);
+  }, [editorSetting, settings, t]);
 
   const fontStyleItems = useMemo(() => {
     const { fontStyle } = settings.connector.labelStyle;
@@ -284,11 +284,11 @@ export const ConnectorSettings = () => {
       const isSelected = fontStyle === value;
       return (
         <MenuItem key={name} onSelect={handler} selected={isSelected}>
-          {name}
+          {t.uiText(String(name))}
         </MenuItem>
       );
     });
-  }, [editorSetting, settings]);
+  }, [editorSetting, settings, t]);
 
   const fontWeightItems = useMemo(() => {
     const { fontWeight } = settings.connector.labelStyle;
@@ -303,11 +303,11 @@ export const ConnectorSettings = () => {
       const isSelected = fontWeight === value;
       return (
         <MenuItem key={name} onSelect={handler} selected={isSelected}>
-          {name}
+          {t.uiText('Font weight ' + name)}
         </MenuItem>
       );
     });
-  }, [editorSetting, settings]);
+  }, [editorSetting, settings, t]);
 
   const fontSizeItems = useMemo(() => {
     const { fontSize } = settings.connector.labelStyle;
@@ -322,11 +322,11 @@ export const ConnectorSettings = () => {
       const isSelected = fontSize === Number(value);
       return (
         <MenuItem key={name} onSelect={handler} selected={isSelected}>
-          {name}
+          {t.uiText(String(name))}
         </MenuItem>
       );
     });
-  }, [editorSetting, settings]);
+  }, [editorSetting, settings, t]);
 
   const textColorItems = useMemo(() => {
     const { color } = settings.connector.labelStyle;
@@ -346,11 +346,11 @@ export const ConnectorSettings = () => {
           selected={isSelected}
           prefix={<Point color={resolvedValue} />}
         >
-          {key}
+          {t.uiText(String(key))}
         </MenuItem>
       );
     });
-  }, [editorSetting, settings, textColorPalettes]);
+  }, [editorSetting, settings, textColorPalettes, t]);
 
   const textColor = useMemo(() => {
     const { color } = settings.connector.labelStyle;
@@ -384,7 +384,7 @@ export const ConnectorSettings = () => {
                 className={menuTrigger}
                 prefix={<Point color={currentColor.resolvedValue} />}
               >
-                {currentColor.key}
+                {t.uiText(currentColor.key)}
               </MenuTrigger>
             }
           />
@@ -455,7 +455,7 @@ export const ConnectorSettings = () => {
           items={startEndPointItems}
           trigger={
             <MenuTrigger className={menuTrigger}>
-              {String(settings.connector.frontEndpointStyle)}
+              {t.uiText(String(settings.connector.frontEndpointStyle))}
             </MenuTrigger>
           }
         />
@@ -470,7 +470,7 @@ export const ConnectorSettings = () => {
           items={endEndPointItems}
           trigger={
             <MenuTrigger className={menuTrigger}>
-              {String(settings.connector.rearEndpointStyle)}
+              {t.uiText(String(settings.connector.rearEndpointStyle))}
             </MenuTrigger>
           }
         />
@@ -489,7 +489,7 @@ export const ConnectorSettings = () => {
                 className={menuTrigger}
                 prefix={<Point color={textColor.resolvedValue} />}
               >
-                {textColor.key}
+                {t.uiText(textColor.key)}
               </MenuTrigger>
             }
           />
@@ -505,7 +505,9 @@ export const ConnectorSettings = () => {
           items={fontFamilyItems}
           trigger={
             <MenuTrigger className={menuTrigger}>
-              {FontFamilyMap[settings.connector.labelStyle.fontFamily]}
+              {t.uiText(
+                String(FontFamilyMap[settings.connector.labelStyle.fontFamily])
+              )}
             </MenuTrigger>
           }
         />
@@ -535,7 +537,7 @@ export const ConnectorSettings = () => {
           items={fontStyleItems}
           trigger={
             <MenuTrigger className={menuTrigger}>
-              {settings.connector.labelStyle.fontStyle}
+              {t.uiText(String(settings.connector.labelStyle.fontStyle))}
             </MenuTrigger>
           }
         />
@@ -550,7 +552,12 @@ export const ConnectorSettings = () => {
           items={fontWeightItems}
           trigger={
             <MenuTrigger className={menuTrigger}>
-              {FontWeightMap[settings.connector.labelStyle.fontWeight]}
+              {t.uiText(
+                'Font weight ' +
+                  String(
+                    FontWeightMap[settings.connector.labelStyle.fontWeight]
+                  )
+              )}
             </MenuTrigger>
           }
         />

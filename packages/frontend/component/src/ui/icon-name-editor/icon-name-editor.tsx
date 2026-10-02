@@ -1,3 +1,4 @@
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import clsx from 'clsx';
 import { type ReactNode, useCallback, useState } from 'react';
 
@@ -47,6 +48,7 @@ export const IconEditor = ({
   sideOffset?: number;
   triggerVariant?: ButtonProps['variant'];
 }) => {
+  useUiLanguage();
   const [isPickerOpen, setIsPickerOpen] = useState(false);
 
   const handleSelect = useCallback(
@@ -83,8 +85,12 @@ export const IconEditor = ({
         variant={triggerVariant}
         className={clsx(styles.iconPicker, triggerClassName)}
         data-icon-type={icon?.type}
-        aria-label={icon ? 'Change Icon' : 'Select Icon'}
-        title={icon ? 'Change Icon' : 'Select Icon'}
+        aria-label={
+          icon ? translateUiText('Change Icon') : translateUiText('Select Icon')
+        }
+        title={
+          icon ? translateUiText('Change Icon') : translateUiText('Select Icon')
+        }
         contentClassName={styles.iconContent}
       >
         <IconRenderer data={icon} fallback={iconPlaceholder} />

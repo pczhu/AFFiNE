@@ -7,6 +7,7 @@ import {
   type ToolbarActionGroup,
   type ToolbarModuleConfig,
 } from '@blocksuite/affine-shared/services';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import {
   CopyIcon,
   DeleteIcon,
@@ -48,7 +49,9 @@ export const builtinInlineLinkToolbarConfig = {
       actions: [
         {
           id: 'copy-link',
-          tooltip: 'Copy link',
+          get tooltip() {
+            return editorText('Copy link');
+          },
           icon: CopyIcon(),
           run(ctx) {
             const target = ctx.message$.peek()?.element;
@@ -62,7 +65,7 @@ export const builtinInlineLinkToolbarConfig = {
             ctx.reset();
 
             navigator.clipboard.writeText(link).catch(console.error);
-            toast(ctx.host, 'Copied link to clipboard');
+            toast(ctx.host, editorText('Copied link to clipboard'));
 
             ctx.track('CopiedLink', {
               ...trackBaseProps,
@@ -72,7 +75,9 @@ export const builtinInlineLinkToolbarConfig = {
         },
         {
           id: 'edit',
-          tooltip: 'Edit Description',
+          get tooltip() {
+            return editorText('Edit Description');
+          },
           icon: EditIcon(),
           run(ctx) {
             const target = ctx.message$.peek()?.element;
@@ -105,12 +110,16 @@ export const builtinInlineLinkToolbarConfig = {
       actions: [
         {
           id: 'inline',
-          label: 'Inline view',
+          get label() {
+            return editorText('Inline view');
+          },
           disabled: true,
         },
         {
           id: 'card',
-          label: 'Card view',
+          get label() {
+            return editorText('Card view');
+          },
           run(ctx) {
             const target = ctx.message$.peek()?.element;
             if (!(target instanceof AffineLink)) return;
@@ -177,7 +186,9 @@ export const builtinInlineLinkToolbarConfig = {
         },
         {
           id: 'embed',
-          label: 'Embed view',
+          get label() {
+            return editorText('Embed view');
+          },
           when(ctx) {
             const target = ctx.message$.peek()?.element;
             if (!(target instanceof AffineLink)) return false;
@@ -329,7 +340,9 @@ export const builtinInlineLinkToolbarConfig = {
     {
       placement: ActionPlacement.More,
       id: 'b.remove-link',
-      label: 'Remove link',
+      get label() {
+        return editorText('Remove link');
+      },
       icon: UnlinkIcon(),
       run(ctx) {
         const target = ctx.message$.peek()?.element;
@@ -346,7 +359,9 @@ export const builtinInlineLinkToolbarConfig = {
     {
       placement: ActionPlacement.More,
       id: 'c.delete',
-      label: 'Delete',
+      get label() {
+        return editorText('Delete');
+      },
       icon: DeleteIcon(),
       variant: 'destructive',
       run(ctx) {

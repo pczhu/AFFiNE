@@ -3,6 +3,8 @@ import { CenterPeekIcon, ExpandFullIcon } from '@blocksuite/icons/lit';
 import { type ExtensionType } from '@blocksuite/store';
 import type { TemplateResult } from 'lit';
 
+import { editorText } from '../utils/editor-i18n';
+
 export type OpenDocMode =
   | 'open-in-active-view'
   | 'open-in-new-view'
@@ -33,12 +35,16 @@ const defaultConfig: OpenDocConfig = {
   items: [
     {
       type: 'open-in-active-view',
-      label: 'Open this doc',
+      get label() {
+        return editorText('Open this doc');
+      },
       icon: ExpandFullIcon(),
     },
     {
       type: 'open-in-center-peek',
-      label: 'Open in center peek',
+      get label() {
+        return editorText('Open in center peek');
+      },
       icon: CenterPeekIcon(),
     },
   ],

@@ -1,3 +1,5 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
+
 import { ct } from '../../logical/composite-type.js';
 import { t } from '../../logical/type-presets.js';
 import { tRef, tVar } from '../../logical/type-variable.js';
@@ -11,7 +13,9 @@ export const multiTagFilter = [
     vars: [tVar(optionName, t.tag.instance())] as const,
     self: ct.array.instance(tRef(optionName)),
     args: [ct.array.instance(tRef(optionName))] as const,
-    label: 'Contains one of',
+    get label() {
+      return editorText('Contains one of');
+    },
     shortString: v =>
       v ? `: ${tagToString(v.value, v.type.element)}` : undefined,
     impl: (self, value) => {
@@ -36,7 +40,9 @@ export const multiTagFilter = [
     vars: [tVar(optionName, t.tag.instance())] as const,
     self: ct.array.instance(tRef(optionName)),
     args: [ct.array.instance(tRef(optionName))] as const,
-    label: 'Does not contains one of',
+    get label() {
+      return editorText('Does not contains one of');
+    },
     shortString: v =>
       v ? `: Not ${tagToString(v.value, v.type.element)}` : undefined,
     impl: (self, value) => {
@@ -54,7 +60,9 @@ export const multiTagFilter = [
     vars: [tVar(optionName, t.tag.instance())] as const,
     self: ct.array.instance(tRef(optionName)),
     args: [ct.array.instance(tRef(optionName))] as const,
-    label: 'Contains all',
+    get label() {
+      return editorText('Contains all');
+    },
     shortString: v =>
       v ? `: ${tagToString(v.value, v.type.element)}` : undefined,
     impl: (self, value) => {
@@ -73,7 +81,9 @@ export const multiTagFilter = [
     vars: [tVar(optionName, t.tag.instance())] as const,
     self: ct.array.instance(tRef(optionName)),
     args: [ct.array.instance(tRef(optionName))] as const,
-    label: 'Does not contains all',
+    get label() {
+      return editorText('Does not contains all');
+    },
     shortString: v =>
       v ? `: Not ${tagToString(v.value, v.type.element)}` : undefined,
     impl: (self, value) => {

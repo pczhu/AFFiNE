@@ -6,6 +6,7 @@ import { MAX_IMAGE_WIDTH } from '@blocksuite/affine-model';
 import { TelemetryProvider } from '@blocksuite/affine-shared/services';
 import type { NoteChildrenFlavour } from '@blocksuite/affine-shared/types';
 import {
+  editorText,
   getImageFilesFromLocal,
   openSingleFileWith,
 } from '@blocksuite/affine-shared/utils';
@@ -115,7 +116,7 @@ export class EdgelessNoteMenu extends EdgelessToolbarToolMixin(LitElement) {
           <div class="button-group-container">
             <edgeless-tool-icon-button
               .activeMode=${'background'}
-              .tooltip=${'Image'}
+              .tooltip=${editorText('Image')}
               @click=${this._addImages}
               .disabled=${this._imageLoading}
             >
@@ -137,7 +138,7 @@ export class EdgelessNoteMenu extends EdgelessToolbarToolMixin(LitElement) {
 
             <edgeless-tool-icon-button
               .activeMode=${'background'}
-              .tooltip=${'File'}
+              .tooltip=${editorText('File')}
               @click=${async () => {
                 const file = await openSingleFileWith();
                 if (!file) return;

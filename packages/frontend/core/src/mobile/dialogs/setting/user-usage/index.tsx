@@ -5,6 +5,7 @@ import {
   UserCopilotQuotaService,
   UserQuotaService,
 } from '@affine/core/modules/cloud';
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import { useLiveData, useService } from '@toeverything/infra';
 import { cssVar } from '@toeverything/theme';
 import { cssVarV2 } from '@toeverything/theme/v2';
@@ -71,11 +72,15 @@ const Loading = () => {
 };
 
 const UsagePanel = () => {
+  useUiLanguage();
   const serverService = useService(ServerService);
   const serverFeatures = useLiveData(serverService.server.features$);
 
   return (
-    <SettingGroup title="Storage" contentStyle={{ padding: '10px 16px' }}>
+    <SettingGroup
+      title={translateUiText('Storage')}
+      contentStyle={{ padding: '10px 16px' }}
+    >
       <CloudUsage />
       {serverFeatures?.copilot ? <AiUsage /> : null}
     </SettingGroup>

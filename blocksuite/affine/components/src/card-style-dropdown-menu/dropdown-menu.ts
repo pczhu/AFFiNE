@@ -3,6 +3,7 @@ import {
   type ToolbarAction,
   ToolbarContext,
 } from '@blocksuite/affine-shared/services';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { SignalWatcher } from '@blocksuite/global/lit';
 import { PaletteIcon } from '@blocksuite/icons/lit';
 import { PropTypes, requiredProperties } from '@blocksuite/std';
@@ -77,8 +78,8 @@ export class CardStyleDropdownMenu extends SignalWatcher(LitElement) {
         .contentPadding="${'8px'}"
         .button=${html`
           <editor-icon-button
-            aria-label="Card style"
-            .tooltip="${'Card style'}"
+            aria-label=${editorText('Card style')}
+            .tooltip="${editorText('Card style')}"
           >
             ${PaletteIcon()}
           </editor-icon-button>

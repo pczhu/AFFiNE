@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { propertyType, t } from '@blocksuite/data-view';
 import { Text } from '@blocksuite/store';
 import { Doc } from 'yjs';
@@ -9,7 +10,9 @@ import { isLinkedDoc } from '../../utils/title-doc.js';
 export const titleColumnType = propertyType('title');
 
 export const titlePropertyModelConfig = titleColumnType.modelConfig({
-  name: 'Title',
+  get name() {
+    return editorText('Title');
+  },
   propertyData: {
     schema: zod.object({}),
     default: () => ({}),

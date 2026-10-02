@@ -1,5 +1,8 @@
 import { focusBlockEnd } from '@blocksuite/affine-shared/commands';
-import { isInsideBlockByFlavour } from '@blocksuite/affine-shared/utils';
+import {
+  editorText,
+  isInsideBlockByFlavour,
+} from '@blocksuite/affine-shared/utils';
 import { type SlashMenuConfig } from '@blocksuite/affine-widget-slash-menu';
 import { FontIcon } from '@blocksuite/icons/lit';
 
@@ -9,11 +12,17 @@ export const calloutSlashMenuConfig: SlashMenuConfig = {
   items: [
     {
       name: 'Callout',
-      description: 'Let your words stand out.',
+      get description() {
+        return editorText('Let your words stand out.');
+      },
       icon: FontIcon(),
       tooltip: {
-        figure: calloutTooltip,
-        caption: 'Callout',
+        get figure() {
+          return calloutTooltip();
+        },
+        get caption() {
+          return editorText('Callout');
+        },
       },
       searchAlias: ['callout'],
       group: '0_Basic@9',

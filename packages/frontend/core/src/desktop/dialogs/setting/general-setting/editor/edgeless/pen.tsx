@@ -43,11 +43,11 @@ export const PenSettings = () => {
           selected={isSelected}
           prefix={<Point color={resolvedValue} />}
         >
-          {key}
+          {t.uiText(key)}
         </MenuItem>
       );
     });
-  }, [editorSetting, settings.brush, palettes]);
+  }, [editorSetting, settings.brush, palettes, t]);
 
   const borderThickness = settings.brush.lineWidth;
   const setBorderThickness = useCallback(
@@ -84,7 +84,7 @@ export const PenSettings = () => {
                 className={menuTrigger}
                 prefix={<Point color={currentColor.resolvedValue} />}
               >
-                {currentColor.key}
+                {t.uiText(currentColor.key)}
               </MenuTrigger>
             }
           />

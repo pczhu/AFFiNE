@@ -1,3 +1,4 @@
+import { translateUiText } from '@affine/i18n';
 import {
   ImageIcon,
   LanguageIcon,
@@ -16,7 +17,9 @@ import TidyMindMapV3 from './templates/TidyMindMapV3.zip';
 export const AIPreloadConfig = [
   {
     icon: LanguageIcon(),
-    text: 'Read a foreign language article with AI',
+    get text() {
+      return translateUiText('Read a foreign language article with AI');
+    },
     testId: 'read-foreign-language-article-with-ai',
     handler: () => {
       AIAppEvents.requestInsertTemplate.next({
@@ -27,7 +30,9 @@ export const AIPreloadConfig = [
   },
   {
     icon: MindmapIcon(),
-    text: 'Tidy an article with AI MindMap Action',
+    get text() {
+      return translateUiText('Tidy an article with AI MindMap Action');
+    },
     testId: 'tidy-an-article-with-ai-mindmap-action',
     handler: () => {
       AIAppEvents.requestInsertTemplate.next({
@@ -38,7 +43,9 @@ export const AIPreloadConfig = [
   },
   {
     icon: ImageIcon(),
-    text: 'Add illustrations to the article',
+    get text() {
+      return translateUiText('Add illustrations to the article');
+    },
     testId: 'add-illustrations-to-the-article',
     handler: () => {
       AIAppEvents.requestInsertTemplate.next({
@@ -49,7 +56,9 @@ export const AIPreloadConfig = [
   },
   {
     icon: PenIcon(),
-    text: 'Complete writing with AI',
+    get text() {
+      return translateUiText('Complete writing with AI');
+    },
     testId: 'complete-writing-with-ai',
     handler: () => {
       AIAppEvents.requestInsertTemplate.next({
@@ -60,7 +69,9 @@ export const AIPreloadConfig = [
   },
   {
     icon: SendIcon(),
-    text: 'Freely communicate with AI',
+    get text() {
+      return translateUiText('Freely communicate with AI');
+    },
     testId: 'freely-communicate-with-ai',
     handler: () => {
       AIAppEvents.requestInsertTemplate.next({

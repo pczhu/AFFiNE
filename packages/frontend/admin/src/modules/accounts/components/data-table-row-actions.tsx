@@ -6,6 +6,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@affine/admin/components/ui/dropdown-menu';
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import {
   AccountBanIcon,
   DeleteIcon,
@@ -36,6 +37,7 @@ interface DataTableRowActionsProps {
 }
 
 export function DataTableRowActions({ user }: DataTableRowActionsProps) {
+  useUiLanguage();
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [resetPasswordDialogOpen, setResetPasswordDialogOpen] = useState(false);
   const [disableDialogOpen, setDisableDialogOpen] = useState(false);
@@ -67,7 +69,7 @@ export function DataTableRowActions({ user }: DataTableRowActionsProps) {
     navigator.clipboard
       .writeText(resetPasswordLink)
       .then(() => {
-        toast('Reset password link copied to clipboard');
+        toast(translateUiText('Reset password link copied to clipboard'));
         setResetPasswordDialogOpen(false);
       })
       .catch(e => {
@@ -172,7 +174,7 @@ export function DataTableRowActions({ user }: DataTableRowActionsProps) {
             size="icon"
           >
             <MoreHorizontalIcon fontSize={20} />
-            <span className="sr-only">Open menu</span>
+            <span className="sr-only">{translateUiText('Open menu')}</span>
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-[214px] p-1.5">
@@ -181,14 +183,16 @@ export function DataTableRowActions({ user }: DataTableRowActionsProps) {
             className="px-2 py-[6px] text-sm font-normal gap-2 cursor-pointer"
           >
             <EditIcon fontSize={20} />
-            Edit
+            {translateUiText('Edit\n          ')}
           </DropdownMenuItem>
           <DropdownMenuItem
             className="px-2 py-[6px] text-sm font-normal gap-2 cursor-pointer"
             onSelect={openResetPasswordDialog}
           >
             <LockIcon fontSize={20} />
-            {user.hasPassword ? 'Reset Password' : 'Setup Account'}
+            {user.hasPassword
+              ? translateUiText('Reset Password')
+              : translateUiText('Setup Account')}
           </DropdownMenuItem>
           {user.disabled && (
             <DropdownMenuItem
@@ -196,7 +200,7 @@ export function DataTableRowActions({ user }: DataTableRowActionsProps) {
               onSelect={openEnableDialog}
             >
               <AccountBanIcon fontSize={20} />
-              Enable Email
+              {translateUiText('Enable Email\n            ')}
             </DropdownMenuItem>
           )}
           <DropdownMenuSeparator />
@@ -206,7 +210,7 @@ export function DataTableRowActions({ user }: DataTableRowActionsProps) {
               onSelect={openDisableDialog}
             >
               <AccountBanIcon fontSize={20} />
-              Disable & Delete data
+              {translateUiText('Disable & Delete data\n            ')}
             </DropdownMenuItem>
           )}
           <DropdownMenuItem
@@ -214,7 +218,7 @@ export function DataTableRowActions({ user }: DataTableRowActionsProps) {
             onSelect={openDeleteDialog}
           >
             <DeleteIcon fontSize={20} />
-            Delete
+            {translateUiText('Delete\n          ')}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

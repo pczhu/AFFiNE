@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { repeat } from 'lit-html/directives/repeat.js';
@@ -50,7 +51,7 @@ export class TooltipContentWithShortcut extends LitElement {
 
     return html`
       <div class="tooltip-with-shortcut">
-        <span class="tooltip__label">${tip}</span>
+        <span class="tooltip__label">${editorText(tip)}</span>
         <div class="tooltip__shortcuts">
           ${repeat(
             shortcuts,

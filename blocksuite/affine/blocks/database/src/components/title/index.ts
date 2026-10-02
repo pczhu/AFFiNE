@@ -1,5 +1,5 @@
 import { unsafeCSSVarV2 } from '@blocksuite/affine-shared/theme';
-import { stopPropagation } from '@blocksuite/affine-shared/utils';
+import { editorText, stopPropagation } from '@blocksuite/affine-shared/utils';
 import type { DataViewUILogicBase } from '@blocksuite/data-view';
 import { SignalWatcher, WithDisposable } from '@blocksuite/global/lit';
 import { ShadowlessElement } from '@blocksuite/std';
@@ -64,7 +64,7 @@ export class DatabaseTitle extends SignalWatcher(
     }
 
     .affine-database-title [data-title-empty='true']::before {
-      content: 'Untitled';
+      content: attr(data-empty-placeholder);
       position: absolute;
       pointer-events: none;
       color: var(--affine-text-primary-color);
@@ -150,9 +150,10 @@ export class DatabaseTitle extends SignalWatcher(
     return html` <div
       class="${classList}"
       data-title-empty="${isEmpty}"
+      data-empty-placeholder=${editorText('Untitled')}
       data-title-focus="${this.isFocus$.value}"
     >
-      <div class="text" style="${untitledStyle}">Untitled</div>
+      <div class="text" style="${untitledStyle}">${editorText('Untitled')}</div>
       <div class="text">${this.text$.value}</div>
       <textarea
         .disabled="${this.readonly$.value}"
@@ -163,7 +164,7 @@ export class DatabaseTitle extends SignalWatcher(
         @focus="${this.onFocus}"
         @blur="${this.onBlur}"
         @compositionend="${this.compositionEnd}"
-        data-block-is-database-title="true"
+        data-block-is-database-title=${'true'}
         title="${this.titleText.toString()}"
       ></textarea>
     </div>`;

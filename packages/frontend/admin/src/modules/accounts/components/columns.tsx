@@ -5,6 +5,7 @@ import {
 } from '@affine/admin/components/ui/avatar';
 import { cn } from '@affine/admin/utils';
 import { FeatureType } from '@affine/graphql';
+import { useI18n, useUiLanguage } from '@affine/i18n';
 import {
   AccountIcon,
   EmailIcon,
@@ -62,6 +63,9 @@ export const useColumns = ({
 }: {
   setSelectedUserIds: Dispatch<SetStateAction<Set<string>>>;
 }) => {
+  const uiI18n = useI18n();
+
+  useUiLanguage();
   const columns: ColumnDef<UserType>[] = useMemo(() => {
     return [
       {
@@ -103,7 +107,7 @@ export const useColumns = ({
 
               table.toggleAllPageRowsSelected(!!value);
             }}
-            aria-label="Select all"
+            aria-label={uiI18n.uiText('Select all')}
             className="translate-y-[2px]"
           />
         ),
@@ -121,7 +125,7 @@ export const useColumns = ({
               }
               row.toggleSelected(!!value);
             }}
-            aria-label="Select row"
+            aria-label={uiI18n.uiText('Select row')}
             className="translate-y-[2px]"
           />
         ),
@@ -137,7 +141,7 @@ export const useColumns = ({
           <DataTableColumnHeader
             className="text-xs"
             column={column}
-            title="Name"
+            title={uiI18n.uiText('Name')}
           />
         ),
         cell: ({ row }) => (
@@ -153,12 +157,12 @@ export const useColumns = ({
                 <span>{row.original.name}</span>
                 {row.original.features.includes(FeatureType.Admin) && (
                   <span className="ml-2 inline-flex h-5 items-center rounded-md border border-border/60 bg-chip-blue px-2 py-0.5 text-xxs font-medium text-chip-text">
-                    Admin
+                    {uiI18n.uiText('Admin\n                  ')}
                   </span>
                 )}
                 {row.original.disabled && (
                   <span className="ml-2 inline-flex h-5 items-center rounded-md border border-border/60 bg-chip-white px-2 py-0.5 text-xxs font-medium">
-                    Disabled
+                    {uiI18n.uiText('Disabled\n                  ')}
                   </span>
                 )}
               </div>
@@ -177,7 +181,7 @@ export const useColumns = ({
           <DataTableColumnHeader
             className="text-xs max-md:hidden"
             column={column}
-            title="User Detail"
+            title={uiI18n.uiText('User Detail')}
           />
         ),
         cell: ({ row: { original: user } }) => (
@@ -193,8 +197,8 @@ export const useColumns = ({
                   IconFalse={
                     <UnlockIcon fontSize={16} className="text-destructive" />
                   }
-                  textTrue="Password Set"
-                  textFalse="No Password"
+                  textTrue={uiI18n.uiText('Password Set')}
+                  textFalse={uiI18n.uiText('No Password')}
                 />
                 <StatusItem
                   condition={user.emailVerified}
@@ -210,8 +214,8 @@ export const useColumns = ({
                       className="text-destructive"
                     />
                   }
-                  textTrue="Email Verified"
-                  textFalse="Email Not Verified"
+                  textTrue={uiI18n.uiText('Email Verified')}
+                  textFalse={uiI18n.uiText('Email Not Verified')}
                 />
               </div>
               <div className="flex flex-wrap gap-2 items-center">
@@ -221,11 +225,13 @@ export const useColumns = ({
                       key={feature}
                       className="inline-flex h-5 items-center rounded-md border border-border/60 bg-chip-white px-2 py-0.5 text-xxs font-medium"
                     >
-                      {feature}
+                      {uiI18n.uiText(feature)}
                     </span>
                   ))
                 ) : (
-                  <span className="text-muted-foreground">No features</span>
+                  <span className="text-muted-foreground">
+                    {uiI18n.uiText('No features')}
+                  </span>
                 )}
               </div>
             </div>
@@ -241,7 +247,7 @@ export const useColumns = ({
           <DataTableColumnHeader
             className="text-xs"
             column={column}
-            title="Actions"
+            title={uiI18n.uiText('Actions')}
           />
         ),
         cell: ({ row: { original: user } }) => (
@@ -249,6 +255,6 @@ export const useColumns = ({
         ),
       },
     ];
-  }, [setSelectedUserIds]);
+  }, [setSelectedUserIds, uiI18n]);
   return columns;
 };

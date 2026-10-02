@@ -47,7 +47,7 @@ import {
   EditPropsStore,
   TelemetryProvider,
 } from '@blocksuite/affine-shared/services';
-import { matchModels } from '@blocksuite/affine-shared/utils';
+import { editorText, matchModels } from '@blocksuite/affine-shared/utils';
 import { IS_MAC } from '@blocksuite/global/env';
 import { Bound, getCommonBound } from '@blocksuite/global/gfx';
 import { SurfaceSelection, TextSelection } from '@blocksuite/std';
@@ -301,7 +301,7 @@ export class EdgelessPageKeyboardManager extends PageKeyboardManager {
             return;
           }
 
-          toast(this.rootComponent.host, 'Zoom to selection');
+          toast(this.rootComponent.host, editorText('Zoom to selection'));
 
           this.gfx.viewport.setViewportByBound(
             bound,

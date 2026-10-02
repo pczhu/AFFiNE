@@ -1,4 +1,5 @@
 import { Button } from '@affine/component';
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 
 import * as styles from './animate-in-tooltip.css';
 
@@ -11,16 +12,18 @@ export const AnimateInTooltip = ({
   onNext,
   visible,
 }: AnimateInTooltipProps) => {
+  useUiLanguage();
   return (
     <>
       <div className={styles.tooltip}>
-        AFFiNE is a workspace with fully merged docs, <br />
-        whiteboards and databases
+        {translateUiText('AFFiNE is a workspace with fully merged docs, ')}
+        <br />
+        {translateUiText('whiteboards and databases\n      ')}
       </div>
       <div className={styles.next}>
         {visible ? (
           <Button variant="primary" size="extraLarge" onClick={onNext}>
-            Next
+            {translateUiText('Next\n          ')}
           </Button>
         ) : null}
       </div>

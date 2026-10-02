@@ -25,7 +25,7 @@ import {
 import { buildShowcaseWorkspace } from '@affine/core/utils/first-app-data';
 import { UNTITLED_WORKSPACE_NAME } from '@affine/env/constant';
 import { SubscriptionPlan, SubscriptionRecurring } from '@affine/graphql';
-import { type I18nString, Trans, useI18n } from '@affine/i18n';
+import { type I18nString, Trans, translateUiText, useI18n } from '@affine/i18n';
 import { DoneIcon, NewPageIcon, SignOutIcon } from '@blocksuite/icons/rc';
 import { useLiveData, useService } from '@toeverything/infra';
 import { useCallback, useEffect, useMemo, useState } from 'react';
@@ -383,7 +383,9 @@ const CreateWorkspaceDialog = ({
       name
     );
     notify.success({
-      title: 'Workspace Created',
+      get title() {
+        return translateUiText('Workspace Created');
+      },
     });
     onSelect(newWorkspace.meta);
     onOpenChange(false);

@@ -15,6 +15,7 @@ import {
   deleteAuthSigningKeyMutation,
   rotateAuthSigningKeyMutation,
 } from '@affine/graphql';
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import { useMemo, useState } from 'react';
 
 import { ConfirmDialog } from '../../../components/shared/confirm-dialog';
@@ -24,6 +25,7 @@ type PendingAction =
   | { type: 'delete'; keyId: string };
 
 export function AuthSigningKeys() {
+  useUiLanguage();
   const { data, mutate } = useQuery({ query: authSigningKeysQuery });
   const { trigger: rotate, isMutating: rotating } = useMutation({
     mutation: rotateAuthSigningKeyMutation,
@@ -48,14 +50,24 @@ export function AuthSigningKeys() {
       if (pending.type === 'rotate') {
         await rotate({ expectedActiveKeyId: pending.keyId });
         notify.success({
-          title: 'Signing key rotated',
-          message: 'New access tokens now use the replacement key.',
+          get title() {
+            return translateUiText('Signing key rotated');
+          },
+          get message() {
+            return translateUiText(
+              'New access tokens now use the replacement key.'
+            );
+          },
         });
       } else {
         await remove({ id: pending.keyId });
         notify.success({
-          title: 'Signing key deleted',
-          message: 'The expired signing key was removed.',
+          get title() {
+            return translateUiText('Signing key deleted');
+          },
+          get message() {
+            return translateUiText('The expired signing key was removed.');
+          },
         });
       }
       setPending(undefined);
@@ -63,7 +75,9 @@ export function AuthSigningKeys() {
     } catch (error) {
       const friendly = error as UserFriendlyError;
       notify.error({
-        title: 'Signing key update failed',
+        get title() {
+          return translateUiText('Signing key update failed');
+        },
         message: friendly.message,
       });
     }
@@ -73,11 +87,13 @@ export function AuthSigningKeys() {
     <Card className="border-border/60 shadow-none">
       <CardHeader className="flex-row items-start justify-between gap-4 space-y-0">
         <div className="space-y-1">
-          <CardTitle className="text-sm">Access token signing keys</CardTitle>
+          <CardTitle className="text-sm">
+            {translateUiText('Access token signing keys')}
+          </CardTitle>
           <p className="text-xs leading-5 text-muted-foreground">
-            This server generated and stored its signing key automatically.
-            Rotate it here when needed; key material is never shown in the admin
-            panel.
+            {translateUiText(
+              'This server generated and stored its signing key automatically.\n            Rotate it here when needed; key material is never shown in the admin\n            panel.\n          '
+            )}
           </p>
         </div>
         <Button
@@ -88,14 +104,15 @@ export function AuthSigningKeys() {
             if (active) setPending({ type: 'rotate', keyId: active.id });
           }}
         >
-          Rotate key
+          {translateUiText('Rotate key\n        ')}
         </Button>
       </CardHeader>
       <CardContent className="space-y-3">
         {keys.length === 0 ? (
           <div className="rounded-md border border-destructive/30 bg-destructive/5 p-3 text-sm text-destructive">
-            No active signing key is available. Restart the server to retry
-            automatic initialization.
+            {translateUiText(
+              'No active signing key is available. Restart the server to retry\n            automatic initialization.\n          '
+            )}
           </div>
         ) : (
           keys.map(key => {
@@ -112,19 +129,24 @@ export function AuthSigningKeys() {
                         key.status === 'active' ? 'default' : 'secondary'
                       }
                     >
-                      {key.status === 'active' ? 'Active' : 'Retiring'}
+                      {key.status === 'active'
+                        ? translateUiText('Active')
+                        : translateUiText('Retiring')}
                     </Badge>
                     {key.source === 'auto' ? (
-                      <Badge variant="outline">Auto-generated</Badge>
+                      <Badge variant="outline">
+                        {translateUiText('Auto-generated')}
+                      </Badge>
                     ) : null}
                   </div>
                   <div className="text-xs text-muted-foreground">
-                    Created {formatDate(key.createdAt)}
+                    {translateUiText('Created ')}
+                    {formatDate(key.createdAt)}
                     {key.verifyUntil
-                      ? ` · Verifiable until ${formatDate(key.verifyUntil)}`
+                      ? ` · ${translateUiText('Verifiable until')} ${formatDate(key.verifyUntil)}`
                       : ''}
                     {key.retiredAt
-                      ? ` · Retired ${formatDate(key.retiredAt)}`
+                      ? ` · ${translateUiText('Retired')} ${formatDate(key.retiredAt)}`
                       : ''}
                   </div>
                 </div>
@@ -136,14 +158,16 @@ export function AuthSigningKeys() {
                     disabled={!key.canDelete || mutating}
                     title={
                       key.canDelete
-                        ? 'Delete expired key'
-                        : 'This key can be deleted after its verification window ends.'
+                        ? translateUiText('Delete expired key')
+                        : translateUiText(
+                            'This key can be deleted after its verification window ends.'
+                          )
                     }
                     onClick={() =>
                       setPending({ type: 'delete', keyId: key.id })
                     }
                   >
-                    Delete
+                    {translateUiText('Delete\n                  ')}
                   </Button>
                 ) : null}
               </div>
@@ -159,13 +183,15 @@ export function AuthSigningKeys() {
         }}
         title={
           pending?.type === 'delete'
-            ? 'Delete signing key?'
-            : 'Rotate signing key?'
+            ? translateUiText('Delete signing key?')
+            : translateUiText('Rotate signing key?')
         }
         description={
           pending?.type === 'delete'
-            ? 'The expired key will be permanently removed.'
-            : 'A new key will become active immediately. The current key remains available only long enough to verify access tokens already issued.'
+            ? translateUiText('The expired key will be permanently removed.')
+            : translateUiText(
+                'A new key will become active immediately. The current key remains available only long enough to verify access tokens already issued.'
+              )
         }
         confirmText={pending?.type === 'delete' ? 'Delete key' : 'Rotate key'}
         confirmButtonVariant={

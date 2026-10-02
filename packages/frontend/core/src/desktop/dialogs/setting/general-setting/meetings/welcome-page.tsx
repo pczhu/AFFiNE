@@ -1,6 +1,6 @@
 import { Button } from '@affine/component';
 import { MeetingSettingsService } from '@affine/core/modules/media/services/meeting-settings';
-import { Trans, useI18n } from '@affine/i18n';
+import { Trans, translateUiText, useI18n } from '@affine/i18n';
 import { DualLinkIcon } from '@blocksuite/icons/rc';
 import { useService } from '@toeverything/infra';
 import { useTheme } from 'next-themes';
@@ -27,7 +27,7 @@ export const MeetingsWelcomePage = () => {
       <div className={styles.titleWrapper}>
         <div className={styles.title}>
           {t['com.affine.settings.meetings.setting.welcome']()}
-          <div className={styles.beta}>Beta</div>
+          <div className={styles.beta}>{translateUiText('Beta')}</div>
         </div>
         <div className={styles.subtitle}>
           {t['com.affine.settings.meetings.setting.prompt']()}

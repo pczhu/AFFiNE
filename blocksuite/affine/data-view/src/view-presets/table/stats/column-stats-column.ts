@@ -4,6 +4,7 @@ import {
   popMenu,
   popupTargetFromElement,
 } from '@blocksuite/affine-components/context-menu';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { SignalWatcher, WithDisposable } from '@blocksuite/global/lit';
 import { ArrowDownSmallIcon } from '@blocksuite/icons/lit';
 import { ShadowlessElement } from '@blocksuite/std';
@@ -133,7 +134,9 @@ export class DatabaseColumnStatsCell extends SignalWatcher(
         items: [
           menu.action({
             isSelected: !this.column.statCalcOp$.value,
-            name: 'None',
+            get name() {
+              return editorText('None');
+            },
             select: () => {
               this.column.updateStatCalcOp();
             },

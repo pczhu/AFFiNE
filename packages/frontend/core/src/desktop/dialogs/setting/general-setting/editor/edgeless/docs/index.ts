@@ -1,5 +1,6 @@
 import { getAFFiNEWorkspaceSchema } from '@affine/core/modules/workspace';
 import { WorkspaceImpl } from '@affine/core/modules/workspace/impls/workspace';
+import { translateUiText } from '@affine/i18n';
 import type { DocSnapshot, Store } from '@blocksuite/affine/store';
 import { Transformer } from '@blocksuite/affine/store';
 import { Doc as YDoc } from 'yjs';
@@ -28,7 +29,7 @@ export type DocName =
   | 'mindmap'
   | 'frame';
 
-const docMap = new Map<DocName, Promise<Store | undefined>>();
+const docMap = new Map<string, Promise<Store | undefined>>();
 
 async function loadNote() {
   return (await import('./note.json')).default;
@@ -73,18 +74,29 @@ const loaders = {
   mindmap: loadMindmap,
 };
 
-export async function getDocByName(name: DocName) {
-  if (docMap.get(name)) {
-    return docMap.get(name);
+export async function getDocByName(name: DocName, language: string) {
+  const cacheKey = `${name}:${language}`;
+  if (docMap.get(cacheKey)) {
+    return docMap.get(cacheKey);
   }
 
-  const promise = initDoc(name);
-  docMap.set(name, promise);
+  const promise = initDoc(name, language);
+  docMap.set(cacheKey, promise);
   return promise;
 }
 
-async function initDoc(name: DocName) {
-  const snapshot = (await loaders[name]()) as DocSnapshot;
+async function initDoc(name: DocName, language: string) {
+  // 只翻译设置面板自带的示例，不修改用户的文档。
+  const snapshot = JSON.parse(
+    JSON.stringify(await loaders[name]()),
+    (key, value: unknown) => {
+      return ['insert', 'title', 'text'].includes(key) &&
+        typeof value === 'string'
+        ? translateUiText(value, language)
+        : value;
+    }
+  ) as DocSnapshot;
+  snapshot.meta.id += '-' + language;
   const collection = getCollection();
   const transformer = new Transformer({
     schema: getAFFiNEWorkspaceSchema(),

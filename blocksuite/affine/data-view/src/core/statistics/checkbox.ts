@@ -1,3 +1,5 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
+
 import { t } from '../logical/index.js';
 import { createStatisticConfig } from './create.js';
 import type { StatisticsConfig } from './types.js';
@@ -18,7 +20,9 @@ export const checkboxTypeStatsFunctions: StatisticsConfig[] = [
     type: 'count-empty',
     dataType: t.boolean.instance(),
     menuName: 'Count Unchecked',
-    displayName: 'Unchecked',
+    get displayName() {
+      return editorText('Unchecked');
+    },
     impl: data => {
       const emptyList = data.filter(value => !value);
       return emptyList.length.toString();
@@ -29,7 +33,9 @@ export const checkboxTypeStatsFunctions: StatisticsConfig[] = [
     type: 'count-not-empty',
     dataType: t.boolean.instance(),
     menuName: 'Count Checked',
-    displayName: 'Checked',
+    get displayName() {
+      return editorText('Checked');
+    },
     impl: data => {
       const notEmptyList = data.filter(value => !!value);
       return notEmptyList.length.toString();
@@ -40,7 +46,9 @@ export const checkboxTypeStatsFunctions: StatisticsConfig[] = [
     type: 'percent-empty',
     dataType: t.boolean.instance(),
     menuName: 'Percent Unchecked',
-    displayName: 'Unchecked',
+    get displayName() {
+      return editorText('Unchecked');
+    },
     impl: data => {
       if (data.length === 0) return '';
       const emptyList = data.filter(value => !value);
@@ -52,7 +60,9 @@ export const checkboxTypeStatsFunctions: StatisticsConfig[] = [
     type: 'percent-not-empty',
     dataType: t.boolean.instance(),
     menuName: 'Percent Checked',
-    displayName: 'Checked',
+    get displayName() {
+      return editorText('Checked');
+    },
     impl: data => {
       if (data.length === 0) return '';
       const notEmptyList = data.filter(value => !!value);

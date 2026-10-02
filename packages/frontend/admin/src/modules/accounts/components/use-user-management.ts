@@ -16,6 +16,7 @@ import {
   updateAccountFeaturesMutation,
   updateAccountMutation,
 } from '@affine/graphql';
+import { translateUiText } from '@affine/i18n';
 import { useCallback, useMemo, useState } from 'react';
 import { toast } from 'sonner';
 
@@ -60,7 +61,7 @@ export const useCreateUser = () => {
           features,
         });
         await revalidate(listUsersQuery);
-        toast('Account updated successfully');
+        toast(translateUiText('Account updated successfully'));
       } catch (e) {
         toast.error('Failed to update account: ' + (e as Error).message);
       }
@@ -106,7 +107,7 @@ export const useUpdateUser = () => {
           features,
         });
         await revalidate(listUsersQuery);
-        toast('Account updated successfully');
+        toast(translateUiText('Account updated successfully'));
       } catch (e) {
         toast.error('Failed to update account: ' + (e as Error).message);
       }
@@ -161,7 +162,7 @@ export const useDeleteUser = () => {
       await deleteUserById({ id })
         .then(async () => {
           await revalidate(listUsersQuery);
-          toast('User deleted successfully');
+          toast(translateUiText('User deleted successfully'));
           callback?.();
         })
         .catch(e => {
@@ -257,7 +258,7 @@ export const useExportUsers = () => {
         .map(field => field.id);
 
       if (selectedFields.length === 0) {
-        alert('Please select at least one field to export');
+        alert(translateUiText('Please select at least one field to export'));
         return;
       }
 

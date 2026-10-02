@@ -15,7 +15,7 @@ import {
   type ToolbarModuleConfig,
   ToolbarModuleExtension,
 } from '@blocksuite/affine-shared/services';
-import { getBlockProps } from '@blocksuite/affine-shared/utils';
+import { editorText, getBlockProps } from '@blocksuite/affine-shared/utils';
 import { Bound } from '@blocksuite/global/gfx';
 import {
   CaptionIcon,
@@ -48,7 +48,9 @@ export const attachmentViewDropdownMenu = {
   actions: [
     {
       id: 'card',
-      label: 'Card view',
+      get label() {
+        return editorText('Card view');
+      },
       run(ctx) {
         const model = ctx.getCurrentModelByType(AttachmentBlockModel);
         if (!model) return;
@@ -69,7 +71,9 @@ export const attachmentViewDropdownMenu = {
     },
     {
       id: 'embed',
-      label: 'Embed view',
+      get label() {
+        return editorText('Embed view');
+      },
       disabled: ctx => {
         const block = ctx.getCurrentBlockByType(AttachmentBlockComponent);
         return block ? !block.embedded() : true;
@@ -151,7 +155,9 @@ export const attachmentViewDropdownMenu = {
 
 const replaceAction = {
   id: 'c.replace',
-  tooltip: 'Replace attachment',
+  get tooltip() {
+    return editorText('Replace attachment');
+  },
   icon: ReplaceIcon(),
   disabled(ctx) {
     const block = ctx.getCurrentBlockByType(AttachmentBlockComponent);
@@ -169,7 +175,9 @@ const replaceAction = {
 
 const downloadAction = {
   id: 'd.download',
-  tooltip: 'Download',
+  get tooltip() {
+    return editorText('Download');
+  },
   icon: DownloadIcon(),
   run(ctx) {
     const block = ctx.getCurrentBlockByType(AttachmentBlockComponent);
@@ -185,7 +193,9 @@ const downloadAction = {
 
 const captionAction = {
   id: 'e.caption',
-  tooltip: 'Caption',
+  get tooltip() {
+    return editorText('Caption');
+  },
   icon: CaptionIcon(),
   run(ctx) {
     const block = ctx.getCurrentBlockByType(AttachmentBlockComponent);
@@ -211,8 +221,8 @@ const builtinToolbarConfig = {
 
         return html`
           <editor-icon-button
-            aria-label="Rename"
-            .tooltip="${'Rename'}"
+            aria-label=${editorText('Rename')}
+            .tooltip="${editorText('Rename')}"
             @click=${() => {
               ctx.hide();
 
@@ -246,7 +256,9 @@ const builtinToolbarConfig = {
       actions: [
         {
           id: 'copy',
-          label: 'Copy',
+          get label() {
+            return editorText('Copy');
+          },
           icon: CopyIcon(),
           run(ctx) {
             // TODO(@fundon): unify `clone` method
@@ -256,7 +268,9 @@ const builtinToolbarConfig = {
         },
         {
           id: 'duplicate',
-          label: 'Duplicate',
+          get label() {
+            return editorText('Duplicate');
+          },
           icon: DuplicateIcon(),
           run(ctx) {
             const model = ctx.getCurrentModelByType(AttachmentBlockModel);
@@ -276,7 +290,9 @@ const builtinToolbarConfig = {
     {
       placement: ActionPlacement.More,
       id: 'b.refresh',
-      label: 'Reload',
+      get label() {
+        return editorText('Reload');
+      },
       icon: ResetIcon(),
       run(ctx) {
         const block = ctx.getCurrentBlockByType(AttachmentBlockComponent);
@@ -292,7 +308,9 @@ const builtinToolbarConfig = {
     {
       placement: ActionPlacement.More,
       id: 'c.delete',
-      label: 'Delete',
+      get label() {
+        return editorText('Delete');
+      },
       icon: DeleteIcon(),
       variant: 'destructive',
       run(ctx) {
@@ -317,11 +335,15 @@ const builtinSurfaceToolbarConfig = {
       actions: [
         {
           id: 'horizontalThin',
-          label: 'Horizontal style',
+          get label() {
+            return editorText('Horizontal style');
+          },
         },
         {
           id: 'cubeThick',
-          label: 'Vertical style',
+          get label() {
+            return editorText('Vertical style');
+          },
         },
       ],
       content(ctx) {

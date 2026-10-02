@@ -12,6 +12,7 @@ import {
   adminWorkspaceQuery,
   adminWorkspacesQuery,
 } from '@affine/graphql';
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import { AccountIcon } from '@blocksuite/icons/rc';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { toast } from 'sonner';
@@ -30,6 +31,7 @@ export function WorkspacePanel({
   workspaceId: string;
   onClose: () => void;
 }) {
+  useUiLanguage();
   const { data } = useQuery({
     query: adminWorkspaceQuery,
     variables: {
@@ -44,13 +46,13 @@ export function WorkspacePanel({
     return (
       <div className="flex flex-col h-full">
         <RightPanelHeader
-          title="Workspace"
+          title={translateUiText('Workspace')}
           handleClose={onClose}
           handleConfirm={onClose}
           canSave={false}
         />
         <div className="p-6 text-sm text-muted-foreground">
-          Workspace not found.
+          {translateUiText('Workspace not found.\n        ')}
         </div>
       </div>
     );
@@ -66,6 +68,7 @@ function WorkspacePanelContent({
   workspace: WorkspaceDetail;
   onClose: () => void;
 }) {
+  useUiLanguage();
   const { setHasDirtyChanges } = useRightPanel();
   const revalidate = useMutateQueryResource();
   const { trigger: updateWorkspace, isMutating } = useMutation({
@@ -127,7 +130,7 @@ function WorkspacePanelContent({
           revalidate(adminWorkspacesQuery),
           revalidate(adminWorkspaceQuery, vars => vars?.id === workspace.id),
         ]);
-        toast.success('Workspace updated successfully');
+        toast.success(translateUiText('Workspace updated successfully'));
         setBaseline({
           flags: { ...flags },
         });
@@ -153,31 +156,37 @@ function WorkspacePanelContent({
   return (
     <div className="flex h-full flex-col bg-background">
       <RightPanelHeader
-        title="Update Workspace"
+        title={translateUiText('Update Workspace')}
         handleClose={onClose}
         handleConfirm={handleSave}
         canSave={hasChanges && !isMutating}
       />
       <div className="flex flex-col gap-4 overflow-y-auto p-4">
         <div className="space-y-2 rounded-xl border border-border/60 bg-card p-3 shadow-sm">
-          <div className="text-xs text-muted-foreground">Workspace ID</div>
+          <div className="text-xs text-muted-foreground">
+            {translateUiText('Workspace ID')}
+          </div>
           <div className="text-sm font-mono break-all">{workspace.id}</div>
           <div className="flex flex-col gap-1">
-            <Label className="text-xs text-muted-foreground">Name</Label>
+            <Label className="text-xs text-muted-foreground">
+              {translateUiText('Name')}
+            </Label>
             <Input
               value={flags.name}
               onChange={e =>
                 setFlags(prev => ({ ...prev, name: e.target.value }))
               }
-              placeholder="Workspace name"
+              placeholder={translateUiText('Workspace name')}
             />
           </div>
         </div>
 
         <div className="rounded-xl border border-border/60 bg-card shadow-sm">
           <FlagItem
-            label="Public"
-            description="Allow public access to workspace pages"
+            label={translateUiText('Public')}
+            description={translateUiText(
+              'Allow public access to workspace pages'
+            )}
             checked={flags.public}
             onCheckedChange={value =>
               setFlags(prev => ({ ...prev, public: value }))
@@ -185,8 +194,8 @@ function WorkspacePanelContent({
           />
           <Separator />
           <FlagItem
-            label="Enable AI"
-            description="Allow AI features in this workspace"
+            label={translateUiText('Enable AI')}
+            description={translateUiText('Allow AI features in this workspace')}
             checked={flags.enableAi}
             onCheckedChange={value =>
               setFlags(prev => ({ ...prev, enableAi: value }))
@@ -194,8 +203,8 @@ function WorkspacePanelContent({
           />
           <Separator />
           <FlagItem
-            label="Enable URL Preview"
-            description="Allow URL previews in shared pages"
+            label={translateUiText('Enable URL Preview')}
+            description={translateUiText('Allow URL previews in shared pages')}
             checked={flags.enableUrlPreview}
             onCheckedChange={value =>
               setFlags(prev => ({ ...prev, enableUrlPreview: value }))
@@ -203,8 +212,10 @@ function WorkspacePanelContent({
           />
           <Separator />
           <FlagItem
-            label="Allow Workspace Sharing"
-            description="Allow pages in this workspace to be shared publicly"
+            label={translateUiText('Allow Workspace Sharing')}
+            description={translateUiText(
+              'Allow pages in this workspace to be shared publicly'
+            )}
             checked={flags.enableSharing}
             onCheckedChange={value =>
               setFlags(prev => ({ ...prev, enableSharing: value }))
@@ -212,8 +223,8 @@ function WorkspacePanelContent({
           />
           <Separator />
           <FlagItem
-            label="Enable Doc Embedding"
-            description="Allow document embedding for search"
+            label={translateUiText('Enable Doc Embedding')}
+            description={translateUiText('Allow document embedding for search')}
             checked={flags.enableDocEmbedding}
             onCheckedChange={value =>
               setFlags(prev => ({ ...prev, enableDocEmbedding: value }))
@@ -223,37 +234,40 @@ function WorkspacePanelContent({
 
         <div className="grid grid-cols-2 gap-3">
           <MetricCard
-            label="Snapshot Size"
+            label={translateUiText('Snapshot Size')}
             value={formatBytes(workspace.snapshotSize)}
           />
           <MetricCard
-            label="Snapshot Count"
+            label={translateUiText('Snapshot Count')}
             value={`${workspace.snapshotCount}`}
           />
           <MetricCard
-            label="Blob Size"
+            label={translateUiText('Blob Size')}
             value={formatBytes(workspace.blobSize)}
           />
-          <MetricCard label="Blob Count" value={`${workspace.blobCount}`} />
           <MetricCard
-            label="Active Members"
+            label={translateUiText('Blob Count')}
+            value={`${workspace.blobCount}`}
+          />
+          <MetricCard
+            label={translateUiText('Active Members')}
             value={`${workspace.memberCount}`}
           />
           <MetricCard
-            label="Shared Pages"
+            label={translateUiText('Shared Pages')}
             value={`${workspace.publicPageCount}`}
           />
         </div>
 
         <div className="rounded-xl border border-border/60 bg-card shadow-sm">
           <div className="px-3 py-2 text-sm font-medium">
-            Members and Invitations
+            {translateUiText('Members and Invitations\n          ')}
           </div>
           <Separator />
           <div className="flex flex-col divide-y">
             {memberList.length === 0 ? (
               <div className="px-3 py-3 text-xs text-muted-foreground">
-                No members or invitations.
+                {translateUiText('No members or invitations.\n              ')}
               </div>
             ) : (
               memberList.map(member => (

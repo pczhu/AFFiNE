@@ -7,7 +7,7 @@ import {
 } from '@affine/component';
 import { SettingRow } from '@affine/component/setting-components';
 import { EditorSettingService } from '@affine/core/modules/editor-setting';
-import { useI18n } from '@affine/i18n';
+import { translateUiText, useI18n } from '@affine/i18n';
 import {
   createEnumMap,
   DefaultTheme,
@@ -37,11 +37,36 @@ enum CornerSize {
 const CornerSizeMap = createEnumMap(CornerSize);
 
 const CORNER_SIZE = [
-  { name: 'None', value: CornerSize.None },
-  { name: 'Small', value: CornerSize.Small },
-  { name: 'Medium', value: CornerSize.Medium },
-  { name: 'Large', value: CornerSize.Large },
-  { name: 'Huge', value: CornerSize.Huge },
+  {
+    get name() {
+      return translateUiText('None');
+    },
+    value: CornerSize.None,
+  },
+  {
+    get name() {
+      return translateUiText('Small');
+    },
+    value: CornerSize.Small,
+  },
+  {
+    get name() {
+      return translateUiText('Medium');
+    },
+    value: CornerSize.Medium,
+  },
+  {
+    get name() {
+      return translateUiText('Large');
+    },
+    value: CornerSize.Large,
+  },
+  {
+    get name() {
+      return translateUiText('Huge');
+    },
+    value: CornerSize.Huge,
+  },
 ] as const;
 
 export const NoteSettings = () => {
@@ -117,11 +142,11 @@ export const NoteSettings = () => {
           selected={isSelected}
           prefix={<Point color={resolvedValue} />}
         >
-          {key}
+          {t.uiText(String(key))}
         </MenuItem>
       );
     });
-  }, [editorSetting, settings, palettes]);
+  }, [editorSetting, settings, palettes, t]);
 
   const cornerItems = useMemo(() => {
     const { borderRadius } = settings['affine:note'].edgeless.style;
@@ -138,11 +163,11 @@ export const NoteSettings = () => {
       const isSelected = borderRadius === value;
       return (
         <MenuItem key={name} onSelect={handler} selected={isSelected}>
-          {name}
+          {t.uiText(String(name))}
         </MenuItem>
       );
     });
-  }, [editorSetting, settings]);
+  }, [editorSetting, settings, t]);
 
   const shadowItems = useMemo(() => {
     const { shadowType } = settings['affine:note'].edgeless.style;
@@ -159,11 +184,11 @@ export const NoteSettings = () => {
       const isSelected = shadowType === value;
       return (
         <MenuItem key={name} onSelect={handler} selected={isSelected}>
-          {name}
+          {t.uiText(String(name))}
         </MenuItem>
       );
     });
-  }, [editorSetting, settings]);
+  }, [editorSetting, settings, t]);
 
   const currentColor = useMemo(() => {
     const { background } = settings['affine:note'];
@@ -197,7 +222,7 @@ export const NoteSettings = () => {
                 className={menuTrigger}
                 prefix={<Point color={currentColor.resolvedValue} />}
               >
-                {currentColor.key}
+                {t.uiText(currentColor.key)}
               </MenuTrigger>
             }
           />
@@ -211,12 +236,14 @@ export const NoteSettings = () => {
           items={cornerItems}
           trigger={
             <MenuTrigger className={menuTrigger}>
-              {
-                CornerSizeMap[
-                  settings['affine:note'].edgeless.style
-                    .borderRadius as CornerSize
-                ]
-              }
+              {t.uiText(
+                String(
+                  CornerSizeMap[
+                    settings['affine:note'].edgeless.style
+                      .borderRadius as CornerSize
+                  ]
+                )
+              )}
             </MenuTrigger>
           }
         />
@@ -229,7 +256,13 @@ export const NoteSettings = () => {
           items={shadowItems}
           trigger={
             <MenuTrigger className={menuTrigger}>
-              {NoteShadowMap[settings['affine:note'].edgeless.style.shadowType]}
+              {t.uiText(
+                String(
+                  NoteShadowMap[
+                    settings['affine:note'].edgeless.style.shadowType
+                  ]
+                )
+              )}
             </MenuTrigger>
           }
         />

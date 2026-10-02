@@ -1,4 +1,5 @@
 import { IconButton } from '@affine/component';
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 
 import * as styles from './sidebar-header.css';
 
@@ -47,12 +48,13 @@ function Container({
 }
 
 const ToggleButton = ({ onToggle }: { onToggle?: () => void }) => {
+  useUiLanguage();
   return (
     <IconButton
       size="24"
       onClick={onToggle}
       data-testid="right-sidebar-close"
-      tooltip="Close sidebar"
+      tooltip={translateUiText('Close sidebar')}
     >
       <RightSidebarOpenIcon />
     </IconButton>

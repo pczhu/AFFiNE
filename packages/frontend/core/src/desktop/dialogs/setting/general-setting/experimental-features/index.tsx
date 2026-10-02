@@ -6,7 +6,7 @@ import {
   FeatureFlagService,
   type Flag,
 } from '@affine/core/modules/feature-flag';
-import { useI18n } from '@affine/i18n';
+import { translateUiText, useI18n } from '@affine/i18n';
 import {
   ArrowRightSmallIcon,
   DiscordIcon,
@@ -149,7 +149,7 @@ const ExperimentalFeaturesItem = ({
           rel="noreferrer"
         >
           <FeedbackIcon type={flag.feedbackType} />
-          <span>Discussion about this feature</span>
+          <span>{translateUiText('Discussion about this feature')}</span>
           <ArrowRightSmallIcon
             fontSize={20}
             className={styles.arrowRightIcon}

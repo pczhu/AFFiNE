@@ -1,3 +1,4 @@
+import { translateUiText } from '@affine/i18n';
 import { Peekable } from '@blocksuite/affine/components/peek';
 import { ViewExtensionManagerIdentifier } from '@blocksuite/affine/ext-loader';
 import { BlockComponent } from '@blocksuite/affine/std';
@@ -57,7 +58,7 @@ export class AIChatBlockComponent extends BlockComponent<AIChatBlockModel> {
         ></ai-chat-block-messages>
       </div>
       <div class="ai-chat-block-button">
-        ${ChatWithAIIcon} <span>AI chat block</span>
+        ${ChatWithAIIcon} <span>${translateUiText('AI chat block')}</span>
       </div>
     </div> `;
   }

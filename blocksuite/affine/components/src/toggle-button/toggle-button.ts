@@ -1,4 +1,5 @@
 import { unsafeCSSVarV2 } from '@blocksuite/affine-shared/theme';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { WithDisposable } from '@blocksuite/global/lit';
 import { ToggleDownIcon, ToggleRightIcon } from '@blocksuite/icons/lit';
 import { ShadowlessElement } from '@blocksuite/std';
@@ -69,7 +70,7 @@ export class ToggleButton extends WithDisposable(ShadowlessElement) {
         contenteditable="false"
         class="toggle-icon"
         data-collapsed=${this.collapsed}
-        aria-label=${this.collapsed ? 'Expand content' : 'Collapse content'}
+        aria-label=${this.collapsed ? editorText('Expand content') : editorText('Collapse content')}
         aria-expanded=${!this.collapsed}
         aria-controls=${this.controls}
         @click=${() => this.updateCollapsed(!this.collapsed)}

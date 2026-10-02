@@ -9,6 +9,7 @@ import {
   TelemetryProvider,
 } from '@blocksuite/affine-shared/services';
 import { unsafeCSSVarV2 } from '@blocksuite/affine-shared/theme';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { SignalWatcher, WithDisposable } from '@blocksuite/global/lit';
 import { noop } from '@blocksuite/global/utils';
 import { css, LitElement, nothing } from 'lit';
@@ -68,7 +69,9 @@ export class LanguageListButton extends WithDisposable(
     this.onActiveStatusChange(true);
 
     const options: FilterableListOptions = {
-      placeholder: 'Search for a language',
+      get placeholder() {
+        return editorText('Search for a language');
+      },
       onSelect: item => {
         const sortedBundledLanguages = this._sortedBundledLanguages;
         const index = sortedBundledLanguages.indexOf(item);
@@ -120,7 +123,9 @@ export class LanguageListButton extends WithDisposable(
     super.connectedCallback();
 
     const plainTextItem: FilterableListItem = {
-      label: 'Plain Text',
+      get label() {
+        return editorText('Plain Text');
+      },
       name: PLAIN_TEXT_ID,
       aliases: ['plain', 'text', 'plaintext', 'txt', 'none'],
     };

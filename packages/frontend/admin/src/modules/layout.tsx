@@ -5,6 +5,7 @@ import {
 import { Separator } from '@affine/admin/components/ui/separator';
 import { TooltipProvider } from '@affine/admin/components/ui/tooltip';
 import { cn } from '@affine/admin/utils';
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import { AlignJustifyIcon } from 'lucide-react';
 import type { PropsWithChildren, ReactNode, RefObject } from 'react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -190,6 +191,7 @@ export const LeftPanel = ({
   onExpand,
   onCollapse,
 }: ResizablePanelProps) => {
+  useUiLanguage();
   const isSmallScreen = useMediaQuery('(max-width: 768px)');
   const isCollapsed = panelRef.current?.isCollapsed();
 
@@ -208,7 +210,9 @@ export const LeftPanel = ({
         <SheetHeader className="hidden">
           <SheetTitle>AFFiNE</SheetTitle>
           <SheetDescription>
-            Admin panel for managing accounts, AI, config, and settings
+            {translateUiText(
+              'Admin panel for managing accounts, AI, config, and settings\n          '
+            )}
           </SheetDescription>
         </SheetHeader>
         <SheetContent
@@ -277,6 +281,7 @@ export const RightPanel = ({
   onExpand,
   onCollapse,
 }: ResizablePanelProps) => {
+  useUiLanguage();
   const isSmallScreen = useMediaQuery('(max-width: 768px)');
   const { panelContent, isOpen } = useRightPanel();
   const onOpenChange = useCallback(
@@ -294,9 +299,11 @@ export const RightPanel = ({
     return (
       <Sheet open={isOpen} onOpenChange={onOpenChange}>
         <SheetHeader className="hidden">
-          <SheetTitle>Right Panel</SheetTitle>
+          <SheetTitle>{translateUiText('Right Panel')}</SheetTitle>
           <SheetDescription>
-            For displaying additional information
+            {translateUiText(
+              'For displaying additional information\n          '
+            )}
           </SheetDescription>
         </SheetHeader>
         <SheetContent

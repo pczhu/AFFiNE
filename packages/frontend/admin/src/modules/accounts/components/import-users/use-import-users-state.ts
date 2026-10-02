@@ -1,4 +1,5 @@
 import { useAsyncCallback } from '@affine/core/components/hooks/affine-async-hooks';
+import { translateUiText } from '@affine/i18n';
 import { useCallback, useState } from 'react';
 import { toast } from 'sonner';
 
@@ -140,7 +141,7 @@ export function useImportUsersState({
       await importUsers({ users: validUsersToImport }, importUsersCallback);
     } catch (error) {
       console.error('Failed to import users', error);
-      toast.error('Failed to import users');
+      toast.error(translateUiText('Failed to import users'));
       setIsImporting(false);
     }
   }, [importUsers, importUsersCallback, parsedUsers]);

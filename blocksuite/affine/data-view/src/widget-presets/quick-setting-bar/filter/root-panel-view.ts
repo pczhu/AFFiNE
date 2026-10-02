@@ -4,6 +4,7 @@ import {
   type PopupTarget,
   popupTargetFromElement,
 } from '@blocksuite/affine-components/context-menu';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { SignalWatcher } from '@blocksuite/global/lit';
 import {
   ArrowDownSmallIcon,
@@ -226,7 +227,9 @@ export class FilterRootView extends SignalWatcher(ShadowlessElement) {
             },
           }),
           menu.action({
-            name: 'Duplicate',
+            get name() {
+              return editorText('Duplicate');
+            },
             prefix: DuplicateIcon(),
             select: () => {
               const conditions = [...this.filterGroup.value.conditions];
@@ -245,7 +248,9 @@ export class FilterRootView extends SignalWatcher(ShadowlessElement) {
             name: '',
             items: [
               menu.action({
-                name: 'Delete',
+                get name() {
+                  return editorText('Delete');
+                },
                 prefix: DeleteIcon(),
                 class: { 'delete-item': true },
                 select: () => {
@@ -386,7 +391,9 @@ export const popFilterRoot = (
     middleware,
     options: {
       title: {
-        text: 'Filters',
+        get text() {
+          return editorText('Filters');
+        },
         onBack: props.onBack,
         onClose: props.onClose,
       },
@@ -406,7 +413,9 @@ export const popFilterRoot = (
         menu.group({
           items: [
             menu.action({
-              name: 'Add',
+              get name() {
+                return editorText('Add');
+              },
               prefix: PlusIcon(),
               select: ele => {
                 const value = filterTrait.filter$.value;

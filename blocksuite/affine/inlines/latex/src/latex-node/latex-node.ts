@@ -1,6 +1,7 @@
 import { createLitPortal } from '@blocksuite/affine-components/portal';
 import { unsafeCSSVar, unsafeCSSVarV2 } from '@blocksuite/affine-shared/theme';
 import type { AffineTextAttributes } from '@blocksuite/affine-shared/types';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { SignalWatcher, WithDisposable } from '@blocksuite/global/lit';
 import {
   type BlockComponent,
@@ -135,7 +136,9 @@ export class AffineLatexNode extends SignalWatcher(
 
             if (latex.length === 0) {
               render(
-                html`<span class="placeholder">Equation</span>`,
+                html`<span class="placeholder"
+                  >${editorText('Equation')}</span
+                >`,
                 latexContainer
               );
             } else {
@@ -148,7 +151,9 @@ export class AffineLatexNode extends SignalWatcher(
                 // @ts-expect-error lit hack won't fix
                 delete latexContainer['_$litPart$'];
                 render(
-                  html`<span class="error-placeholder">Error equation</span>`,
+                  html`<span class="error-placeholder"
+                    >${editorText('Error equation')}</span
+                  >`,
                   latexContainer
                 );
               }

@@ -4,6 +4,7 @@ import {
   useMobileMenuController,
 } from '@affine/component';
 import { EditorService } from '@affine/core/modules/editor';
+import { translateUiText } from '@affine/i18n';
 import track from '@affine/track';
 import type { DocMode } from '@blocksuite/affine/model';
 import { useLiveData, useService } from '@toeverything/infra';
@@ -13,12 +14,16 @@ import * as styles from './mode-switch.css';
 
 const EdgelessRadioItem: RadioItem = {
   value: 'edgeless',
-  label: 'Edgeless',
+  get label() {
+    return translateUiText('Edgeless');
+  },
   testId: 'switch-edgeless-mode-button',
 };
 const PageRadioItem: RadioItem = {
   value: 'page',
-  label: 'Page',
+  get label() {
+    return translateUiText('Page');
+  },
   testId: 'switch-page-mode-button',
 };
 const items = [PageRadioItem, EdgelessRadioItem];

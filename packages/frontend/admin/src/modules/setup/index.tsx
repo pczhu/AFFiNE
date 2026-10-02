@@ -1,3 +1,4 @@
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import { Navigate } from 'react-router-dom';
 
 import { useServerConfig } from '../common';
@@ -5,6 +6,7 @@ import { Form } from './form';
 import logo from './logo.svg';
 
 export function Setup() {
+  useUiLanguage();
   const config = useServerConfig();
 
   if (config.initialized) {
@@ -19,7 +21,7 @@ export function Setup() {
       <div className="hidden lg:block relative overflow-hidden ">
         <img
           src={logo}
-          alt="Image"
+          alt={translateUiText('Image')}
           className="absolute object-right-bottom bottom-0 right-0 h-3/4"
         />
       </div>

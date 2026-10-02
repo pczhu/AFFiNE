@@ -41,7 +41,7 @@ import { NbstoreService } from '@affine/core/modules/storage';
 import { AppThemeService } from '@affine/core/modules/theme';
 import { WorkbenchService } from '@affine/core/modules/workbench';
 import { WorkspaceService } from '@affine/core/modules/workspace';
-import { useI18n } from '@affine/i18n';
+import { translateUiText, useI18n } from '@affine/i18n';
 import { RefNodeSlotsProvider } from '@blocksuite/affine/inlines/reference';
 import { DocModeProvider } from '@blocksuite/affine/shared/services';
 import { createSignalFromObservable } from '@blocksuite/affine/shared/utils';
@@ -499,7 +499,7 @@ export const EditorChatPanel = ({
             <div className={styles.title}>
               {isSynchronizing ? (
                 <span data-testid="chat-panel-embedding-progress">
-                  Synchronizing sources
+                  {translateUiText('Synchronizing sources\n                ')}
                 </span>
               ) : (
                 t['com.affine.ai.chat-panel.title']()

@@ -1,4 +1,5 @@
 import type { ParagraphBlockModel } from '@blocksuite/affine-model';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import {
   AttachmentIcon,
   BlockIcon,
@@ -59,7 +60,9 @@ const paragraphPlaceholderMap: Record<
   string
 > = {
   quote: 'Quote',
-  text: 'Text Block',
+  get text() {
+    return editorText('Text Block');
+  },
   h1: 'Heading 1',
   h2: 'Heading 2',
   h3: 'Heading 3',

@@ -2,7 +2,7 @@ import { Button } from '@affine/component/ui/button';
 import { ConfirmModal } from '@affine/component/ui/modal';
 import { DocService } from '@affine/core/modules/doc';
 import { WorkspaceService } from '@affine/core/modules/workspace';
-import { useI18n } from '@affine/i18n';
+import { translateUiText, useI18n } from '@affine/i18n';
 import { DeleteIcon, ResetIcon } from '@blocksuite/icons/rc';
 import { useService } from '@toeverything/infra';
 import { useCallback, useState } from 'react';
@@ -29,7 +29,7 @@ export const TrashPageFooter = () => {
       .then(() => {
         toast(
           t['com.affine.toastMessage.restored']({
-            title: doc.meta$.value.title || 'Untitled',
+            title: doc.meta$.value.title || translateUiText('Untitled'),
           })
         );
       })

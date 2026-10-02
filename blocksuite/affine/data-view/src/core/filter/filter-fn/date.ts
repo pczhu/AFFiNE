@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { addDays } from 'date-fns/addDays';
 import { format } from 'date-fns/format';
 import { subDays } from 'date-fns/subDays';
@@ -10,7 +11,9 @@ export const dateFilter = [
     name: 'before',
     self: t.date.instance(),
     args: [t.date.instance()] as const,
-    label: 'Before',
+    get label() {
+      return editorText('Before');
+    },
     shortString: v => (v ? ` < ${format(v.value, 'yyyy/MM/dd')}` : undefined),
     impl: (self, value) => {
       if (self == null) {
@@ -24,7 +27,9 @@ export const dateFilter = [
     name: 'after',
     self: t.date.instance(),
     args: [t.date.instance()] as const,
-    label: 'After',
+    get label() {
+      return editorText('After');
+    },
     shortString: v => (v ? ` > ${format(v.value, 'yyyy/MM/dd')}` : undefined),
     impl: (self, value) => {
       if (self == null) {

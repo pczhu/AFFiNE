@@ -1,5 +1,5 @@
 import { Button, ErrorMessage, Skeleton, Tooltip } from '@affine/component';
-import { useI18n } from '@affine/i18n';
+import { translateUiText, useI18n } from '@affine/i18n';
 import { useLiveData, useService } from '@toeverything/infra';
 import { cssVar } from '@toeverything/theme';
 import { useEffect, useMemo } from 'react';
@@ -64,7 +64,7 @@ export const StorageProgress = ({ onUpgrade }: StorageProgressProgress) => {
   if (loading) {
     if (loadError) {
       // TODO(@catsjuice): i18n
-      return <ErrorMessage>Load error</ErrorMessage>;
+      return <ErrorMessage>{translateUiText('Load error')}</ErrorMessage>;
     }
     return <Skeleton height={42} />;
   }

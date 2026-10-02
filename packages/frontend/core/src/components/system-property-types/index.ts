@@ -1,6 +1,7 @@
 import type { FilterParams } from '@affine/core/modules/collection-rules';
 import type { DocRecord } from '@affine/core/modules/doc';
 import type { I18nString } from '@affine/i18n';
+import { translateUiText } from '@affine/i18n';
 import {
   CloudWorkspaceIcon,
   DateTimeIcon,
@@ -58,12 +59,16 @@ import {
 export const SystemPropertyTypes = {
   title: {
     icon: TitleIcon,
-    name: 'Title',
+    get name() {
+      return translateUiText('Title');
+    },
     allowInOrderBy: true,
   },
   tags: {
     icon: TagIcon,
-    name: 'Tags',
+    get name() {
+      return translateUiText('Tags');
+    },
     filterMethod: {
       'include-all': 'com.affine.filter.contains all',
       'include-any-of': 'com.affine.filter.contains one of',
@@ -146,7 +151,9 @@ export const SystemPropertyTypes = {
   },
   shared: {
     icon: CloudWorkspaceIcon,
-    name: 'Shared',
+    get name() {
+      return translateUiText('Shared');
+    },
     filterMethod: {
       is: 'com.affine.filter.is',
     },

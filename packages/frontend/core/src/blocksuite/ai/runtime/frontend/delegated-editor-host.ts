@@ -1,4 +1,5 @@
 import type { NbstoreService } from '@affine/core/modules/storage';
+import { translateUiText } from '@affine/i18n';
 import type {
   DelegatedToolCancel,
   DelegatedToolName,
@@ -367,7 +368,11 @@ export class DelegatedEditorHost {
       ...this.identity(request),
       error: {
         code,
-        message: 'The focused editor changed before the read completed.',
+        get message() {
+          return translateUiText(
+            'The focused editor changed before the read completed.'
+          );
+        },
         retryable: true,
       },
     });
@@ -381,7 +386,11 @@ export class DelegatedEditorHost {
     if (!error || typeof error !== 'object' || !('code' in error)) return null;
     return {
       code: String(error.code),
-      message: 'The requested live editor view is not available.',
+      get message() {
+        return translateUiText(
+          'The requested live editor view is not available.'
+        );
+      },
       retryable: false,
     };
   }

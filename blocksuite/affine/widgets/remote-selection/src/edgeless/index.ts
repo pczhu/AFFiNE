@@ -1,6 +1,7 @@
 import { EdgelessCRUDIdentifier } from '@blocksuite/affine-block-surface';
 import type { RootBlockModel } from '@blocksuite/affine-model';
 import {
+  editorText,
   getSelectedRect,
   isTopLevelBlock,
   requestThrottledConnectedFrame,
@@ -263,7 +264,7 @@ export class EdgelessRemoteSelectionWidget extends WidgetComponent<RootBlockMode
               backgroundColor: _remoteColorManager.get(id),
             })}
           >
-            ${cursor.user?.name ?? 'Unknown'}
+            ${cursor.user?.name ?? editorText('Unknown')}
           </div>
         </div>`;
       }

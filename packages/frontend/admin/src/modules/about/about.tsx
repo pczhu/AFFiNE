@@ -1,6 +1,7 @@
 import { buttonVariants } from '@affine/admin/components/ui/button';
 import { Separator } from '@affine/admin/components/ui/separator';
 import { cn } from '@affine/admin/utils';
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import {
   AlbumIcon,
   ChevronRightIcon,
@@ -23,30 +24,41 @@ const links = [
   {
     href: BUILD_CONFIG.githubUrl,
     icon: <GithubIcon size={20} />,
-    label: 'Star AFFiNE on GitHub',
+    get label() {
+      return translateUiText('Star AFFiNE on GitHub');
+    },
   },
   {
     href: BUILD_CONFIG.githubUrl,
     icon: <MailWarningIcon size={20} />,
-    label: 'Report an Issue',
+    get label() {
+      return translateUiText('Report an Issue');
+    },
   },
   {
     href: 'https://docs.affine.pro/docs/self-host-affine',
     icon: <AlbumIcon size={20} />,
-    label: 'Self-host Document',
+    get label() {
+      return translateUiText('Self-host Document');
+    },
   },
   {
     href: 'https://affine.pro/pricing/?type=selfhost#table',
     icon: <UploadCloudIcon size={20} />,
-    label: 'Upgrade to Team',
+    get label() {
+      return translateUiText('Upgrade to Team');
+    },
   },
 ];
 
 export function AboutAFFiNE() {
+  useUiLanguage();
   return (
     <div className="flex flex-col h-full gap-3 py-5 px-6 w-full">
       <div className="flex items-center">
-        <span className="text-xl font-semibold">About AFFiNE</span>
+        <span className="text-xl font-semibold">
+          {translateUiText('About AFFiNE')}
+        </span>
       </div>
       <div className="overflow-y-auto space-y-[10px]">
         <div className="flex flex-col rounded-md border">
@@ -75,8 +87,8 @@ export function AboutAFFiNE() {
         </div>
       </div>
       <div className="space-y-3 text-sm font-normal text-muted-foreground">
-        <div>{`App Version: ${appName} ${BUILD_CONFIG.appVersion}`}</div>
-        <div>{`Editor Version: ${BUILD_CONFIG.editorVersion}`}</div>
+        <div>{`${translateUiText('App Version:')} ${appName} ${BUILD_CONFIG.appVersion}`}</div>
+        <div>{`${translateUiText('Editor Version:')} ${BUILD_CONFIG.editorVersion}`}</div>
       </div>
     </div>
   );

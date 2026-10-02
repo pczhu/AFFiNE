@@ -1,3 +1,4 @@
+import { translateUiText } from '@affine/i18n';
 import { z } from 'zod';
 
 export const appSchemes = z.enum([
@@ -49,5 +50,9 @@ export const appSchemaUrl = z.custom<string>(
       return false;
     }
   },
-  { message: 'Invalid URL or protocol' }
+  {
+    get message() {
+      return translateUiText('Invalid URL or protocol');
+    },
+  }
 );

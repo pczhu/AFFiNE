@@ -1,5 +1,6 @@
 import { menu } from '@blocksuite/affine-components/context-menu';
 import { unsafeCSSVarV2 } from '@blocksuite/affine-shared/theme';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { CheckBoxCheckSolidIcon, CheckBoxUnIcon } from '@blocksuite/icons/lit';
 import { html } from 'lit';
 
@@ -55,7 +56,9 @@ export const allLiteralConfig: LiteralItemsConfig[] = [
         menu.input({
           initialValue: value.value ?? '',
           onChange: onChange,
-          placeholder: 'Type a value...',
+          get placeholder() {
+            return editorText('Type a value...');
+          },
         }),
       ];
     },
@@ -66,7 +69,9 @@ export const allLiteralConfig: LiteralItemsConfig[] = [
       return [
         menu.input({
           initialValue: value.value?.toString(10) ?? '',
-          placeholder: 'Type a value...',
+          get placeholder() {
+            return editorText('Type a value...');
+          },
           onChange: text => {
             const number = Number.parseFloat(text);
             if (Number.isNaN(number)) {

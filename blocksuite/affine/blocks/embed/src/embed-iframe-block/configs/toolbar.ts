@@ -16,7 +16,7 @@ import {
   type ToolbarModuleConfig,
   ToolbarModuleExtension,
 } from '@blocksuite/affine-shared/services';
-import { getBlockProps } from '@blocksuite/affine-shared/utils';
+import { editorText, getBlockProps } from '@blocksuite/affine-shared/utils';
 import { Bound } from '@blocksuite/global/gfx';
 import {
   CaptionIcon,
@@ -62,7 +62,9 @@ const openLinkAction = (id: string): ToolbarAction => {
   return {
     id,
     when: showWhenUrlExists,
-    tooltip: 'Original',
+    get tooltip() {
+      return editorText('Original');
+    },
     icon: OpenInNewIcon(),
     run(ctx) {
       const component = ctx.getCurrentBlockByType(EmbedIframeBlockComponent);
@@ -80,7 +82,9 @@ const captionAction = (id: string): ToolbarAction => {
   return {
     id,
     when: showWhenUrlExists,
-    tooltip: 'Caption',
+    get tooltip() {
+      return editorText('Caption');
+    },
     icon: CaptionIcon(),
     run(ctx) {
       const component = ctx.getCurrentBlockByType(EmbedIframeBlockComponent);
@@ -103,7 +107,9 @@ export const builtinToolbarConfig = {
       actions: [
         {
           id: 'inline',
-          label: 'Inline view',
+          get label() {
+            return editorText('Inline view');
+          },
           run(ctx) {
             const model = ctx.getCurrentModelByType(EmbedIframeBlockModel);
             if (!model) return;
@@ -138,7 +144,9 @@ export const builtinToolbarConfig = {
         },
         {
           id: 'card',
-          label: 'Card view',
+          get label() {
+            return editorText('Card view');
+          },
           run(ctx) {
             const model = ctx.getCurrentModelByType(EmbedIframeBlockModel);
             if (!model) return;
@@ -177,7 +185,9 @@ export const builtinToolbarConfig = {
         },
         {
           id: 'embed',
-          label: 'Embed view',
+          get label() {
+            return editorText('Embed view');
+          },
           disabled: true,
         },
       ],
@@ -210,7 +220,9 @@ export const builtinToolbarConfig = {
     captionAction('d.caption'),
     {
       id: 'e.convert-to-linked-doc',
-      tooltip: 'Create Linked Doc',
+      get tooltip() {
+        return editorText('Create Linked Doc');
+      },
       icon: LinkedPageIcon(),
       run(ctx) {
         const model = ctx.getCurrentModelByType(EmbedIframeBlockModel);
@@ -257,7 +269,9 @@ export const builtinToolbarConfig = {
       actions: [
         {
           id: 'copy',
-          label: 'Copy',
+          get label() {
+            return editorText('Copy');
+          },
           icon: CopyIcon(),
           run(ctx) {
             const model = ctx.getCurrentModelByType(EmbedIframeBlockModel);
@@ -266,7 +280,7 @@ export const builtinToolbarConfig = {
             const slice = Slice.fromModels(ctx.store, [model]);
             ctx.clipboard
               .copySlice(slice)
-              .then(() => toast(ctx.host, 'Copied to clipboard'))
+              .then(() => toast(ctx.host, editorText('Copied to clipboard')))
               .catch(console.error);
 
             ctx.track('CopiedLink', {
@@ -277,7 +291,9 @@ export const builtinToolbarConfig = {
         },
         {
           id: 'duplicate',
-          label: 'Duplicate',
+          get label() {
+            return editorText('Duplicate');
+          },
           icon: DuplicateIcon(),
           run(ctx) {
             const model = ctx.getCurrentModelByType(EmbedIframeBlockModel);
@@ -295,7 +311,9 @@ export const builtinToolbarConfig = {
     {
       placement: ActionPlacement.More,
       id: 'b.reload',
-      label: 'Reload',
+      get label() {
+        return editorText('Reload');
+      },
       icon: ResetIcon(),
       run(ctx) {
         const component = ctx.getCurrentBlockByType(EmbedIframeBlockComponent);
@@ -317,7 +335,9 @@ export const builtinToolbarConfig = {
     {
       placement: ActionPlacement.More,
       id: 'c.delete',
-      label: 'Delete',
+      get label() {
+        return editorText('Delete');
+      },
       icon: DeleteIcon(),
       variant: 'destructive',
       run(ctx) {
@@ -343,7 +363,9 @@ export const builtinSurfaceToolbarConfig = {
       actions: [
         {
           id: 'card',
-          label: 'Card view',
+          get label() {
+            return editorText('Card view');
+          },
           run(ctx) {
             const model = ctx.getCurrentModelByType(EmbedIframeBlockModel);
             if (!model) return;
@@ -384,7 +406,9 @@ export const builtinSurfaceToolbarConfig = {
         },
         {
           id: 'embed',
-          label: 'Embed view',
+          get label() {
+            return editorText('Embed view');
+          },
           disabled: true,
         },
       ],

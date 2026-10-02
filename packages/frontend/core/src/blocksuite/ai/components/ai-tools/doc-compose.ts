@@ -1,5 +1,6 @@
 import { getStoreManager } from '@affine/core/blocksuite/manager/store';
 import { getAFFiNEWorkspaceSchema } from '@affine/core/modules/workspace';
+import { translateUiText } from '@affine/i18n';
 import { getEmbedLinkedDocIcons } from '@blocksuite/affine/blocks/embed-doc';
 import { RefNodeSlotsProvider } from '@blocksuite/affine/inlines/reference';
 import type { ColorScheme } from '@blocksuite/affine/model';
@@ -151,7 +152,9 @@ export class DocComposeTool extends ArtifactTool<
       await navigator.clipboard
         .writeText(successResult.markdown)
         .catch(console.error);
-      this.notificationService.toast('Copied markdown to clipboard');
+      this.notificationService.toast(
+        translateUiText('Copied markdown to clipboard')
+      );
     };
 
     const saveAsDoc = async () => {
@@ -170,10 +173,20 @@ export class DocComposeTool extends ArtifactTool<
         });
         if (docId) {
           const open = await this.notificationService.confirm({
-            title: 'Open the doc you just created',
-            message: 'Doc saved successfully! Would you like to open it now?',
-            cancelText: 'Cancel',
-            confirmText: 'Open',
+            get title() {
+              return translateUiText('Open the doc you just created');
+            },
+            get message() {
+              return translateUiText(
+                'Doc saved successfully! Would you like to open it now?'
+              );
+            },
+            get cancelText() {
+              return translateUiText('Cancel');
+            },
+            get confirmText() {
+              return translateUiText('Open');
+            },
           });
           if (open) {
             refNodeSlots?.docLinkClicked.next({
@@ -183,11 +196,15 @@ export class DocComposeTool extends ArtifactTool<
             });
           }
         } else {
-          this.notificationService.toast('Failed to create document');
+          this.notificationService.toast(
+            translateUiText('Failed to create document')
+          );
         }
       } catch (e) {
         console.error(e);
-        this.notificationService.toast('Failed to create document');
+        this.notificationService.toast(
+          translateUiText('Failed to create document')
+        );
       }
     };
 
@@ -202,7 +219,10 @@ export class DocComposeTool extends ArtifactTool<
             })}
             Save as doc
           </button>
-          <icon-button @click=${copyMarkdown} title="Copy markdown">
+          <icon-button
+            @click=${copyMarkdown}
+            title=${translateUiText('Copy markdown')}
+          >
             ${CopyIcon({ width: '20', height: '20' })}
           </icon-button>
         `;

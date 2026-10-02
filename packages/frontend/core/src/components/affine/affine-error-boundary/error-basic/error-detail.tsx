@@ -1,6 +1,6 @@
 import { Scrollable, ThemedImg } from '@affine/component';
 import { useAsyncCallback } from '@affine/core/components/hooks/affine-async-hooks';
-import { Trans, useI18n } from '@affine/i18n';
+import { Trans, translateUiText, useI18n } from '@affine/i18n';
 import { ArrowDownSmallIcon } from '@blocksuite/icons/rc';
 import type { FC, PropsWithChildren, ReactNode } from 'react';
 import { useCallback, useState } from 'react';
@@ -100,7 +100,8 @@ export const ErrorDetail: FC<ErrorDetailProps> = props => {
           data-show-stack={showStack}
         >
           <Scrollable.Viewport>
-            {error?.stack || 'No detailed error stack is provided.'}
+            {error?.stack ||
+              translateUiText('No detailed error stack is provided.')}
           </Scrollable.Viewport>
           <Scrollable.Scrollbar />
         </Scrollable.Root>

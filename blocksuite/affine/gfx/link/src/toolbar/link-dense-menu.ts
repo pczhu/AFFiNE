@@ -2,11 +2,14 @@ import { insertLinkByQuickSearchCommand } from '@blocksuite/affine-block-bookmar
 import { menu } from '@blocksuite/affine-components/context-menu';
 import { LinkIcon } from '@blocksuite/affine-components/icons';
 import { TelemetryProvider } from '@blocksuite/affine-shared/services';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import type { DenseMenuBuilder } from '@blocksuite/affine-widget-edgeless-toolbar';
 
 export const buildLinkDenseMenu: DenseMenuBuilder = edgeless =>
   menu.action({
-    name: 'Link',
+    get name() {
+      return editorText('Link');
+    },
     prefix: LinkIcon,
     select: () => {
       const [_, { insertedLinkType }] = edgeless.std.command.exec(

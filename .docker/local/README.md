@@ -47,3 +47,22 @@ docker compose --env-file .docker/local/.env -f .docker/local/compose.yml stop
 ```
 
 源码更新后重新运行部署脚本即可重新构建。升级前备份 Docker 数据卷，尤其是数据库、文件存储和配置。
+
+## 只更新网页时的快速构建
+
+本机已有从源码生成的 `affine-local:builder` 和 `affine-local:runtime-base` 时，可以使用 [Dockerfile.frontend](./Dockerfile.frontend) 编译网页、管理后台和手机网页，复用已编译的服务端。它会按源码中的译文重新生成语言资源。
+
+```powershell
+docker build --file .docker/local/Dockerfile.frontend --tag affine-local:zh-hans .
+if ($LASTEXITCODE -ne 0) { throw '网页构建失败，停止部署。' }
+docker tag affine-local:zh-hans affine-local:source
+pwsh -File .docker/local/deploy.ps1 -SkipBuild
+```
+
+`builder` 来自本目录完整 Dockerfile 的 `backend` 阶段；`runtime-base` 来自完整源码构建的运行镜像。准备这两个镜像时，要使用完整构建中相同的公钥和构建类型。新机器没有这两个镜像，或服务端、依赖、构建配置发生变化时，请使用前面的完整构建命令。
+
+## 中文界面修改与验证
+
+补充的固定文案放在 `packages/frontend/i18n/src/resources/en.json` 和 `zh-Hans.json` 中。网页通过 `translateUiText` 翻译固定文案，编辑器通过 `editorText` 接入应用的当前语言。命令内部名称、颜色值和文档数据保留原值，在显示菜单、按钮和说明时翻译。
+
+修改后检查编译和代码规则，再部署镜像并刷新浏览器。切换一次英文和简体中文，检查文档插入菜单及中文搜索、画布工具与对象菜单、编辑器设置和管理后台。设置面板中的内置示例单独翻译；用户文档、工作区名称、字体名称、代码示例中的语言关键字和品牌名称保留原文。

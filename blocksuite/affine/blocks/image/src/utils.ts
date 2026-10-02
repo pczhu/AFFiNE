@@ -12,6 +12,7 @@ import {
 } from '@blocksuite/affine-shared/services';
 import {
   convertToPng,
+  editorText,
   formatSize,
   getBlockProps,
   isInsidePageEditor,
@@ -66,18 +67,18 @@ export async function downloadImageBlob(
   const { host, blobUrl, resourceController } = block;
 
   if (!blobUrl) {
-    toast(host, 'Failed to download image!');
+    toast(host, editorText('Failed to download image!'));
     return;
   }
 
   if (resourceController.state$.peek().downloading) {
-    toast(host, 'Download in progress...');
+    toast(host, editorText('Download in progress...'));
     return;
   }
 
   resourceController.updateState({ downloading: true });
 
-  toast(host, 'Downloading image...');
+  toast(host, editorText('Downloading image...'));
 
   const tmpLink = document.createElement('a');
   const event = new MouseEvent('click');
@@ -160,7 +161,7 @@ export async function copyImageBlob(
       ]);
     }
 
-    toast(host, 'Copied image to clipboard');
+    toast(host, editorText('Copied image to clipboard'));
   } catch (error) {
     console.error(error);
   }
@@ -235,7 +236,10 @@ async function buildPropsWith(std: BlockStdScope, file: File) {
   ]);
 
   if (!(imageSize.width * imageSize.height)) {
-    toast(std.host, 'Failed to read image size, please try another image');
+    toast(
+      std.host,
+      editorText('Failed to read image size, please try another image')
+    );
     throw new Error('Failed to read image size');
   }
 

@@ -1,4 +1,7 @@
-import { createButtonPopper } from '@blocksuite/affine-shared/utils';
+import {
+  createButtonPopper,
+  editorText,
+} from '@blocksuite/affine-shared/utils';
 import { SignalWatcher, WithDisposable } from '@blocksuite/global/lit';
 import { SettingsIcon, SortIcon } from '@blocksuite/icons/lit';
 import { ShadowlessElement } from '@blocksuite/std';
@@ -40,11 +43,11 @@ export class OutlinePanelHeader extends SignalWatcher(
 
     return html`<div class=${styles.container}>
         <div class=${styles.noteSettingContainer}>
-          <span class=${styles.label}>Table of Contents</span>
+          <span class=${styles.label}>${editorText('Table of Contents')}</span>
           <edgeless-tool-icon-button
             data-testid="toggle-toc-setting-button"
             class="${showSettingPopper ? 'active' : ''}"
-            .tooltip=${showSettingPopper ? '' : 'Preview Settings'}
+            .tooltip=${showSettingPopper ? '' : editorText('Preview Settings')}
             .tipPosition=${'bottom'}
             .active=${showSettingPopper}
             .activeMode=${'background'}
@@ -56,7 +59,7 @@ export class OutlinePanelHeader extends SignalWatcher(
         <edgeless-tool-icon-button
           data-testid="toggle-notes-sorting-button"
           class="${sortingEnabled ? 'active' : ''}"
-          .tooltip=${'Visibility and sort'}
+          .tooltip=${editorText('Visibility and sort')}
           .tipPosition=${'left'}
           .iconContainerPadding=${0}
           .active=${sortingEnabled}

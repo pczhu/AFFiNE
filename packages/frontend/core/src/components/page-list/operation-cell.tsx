@@ -16,7 +16,7 @@ import {
 } from '@affine/core/modules/favorite';
 import { WorkbenchService } from '@affine/core/modules/workbench';
 import { WorkspaceService } from '@affine/core/modules/workspace';
-import { useI18n } from '@affine/i18n';
+import { translateUiText, useI18n } from '@affine/i18n';
 import { track } from '@affine/track';
 import type { DocMeta } from '@blocksuite/affine/store';
 import {
@@ -94,7 +94,7 @@ const PageOperationCellMenuItem = ({
 
   const onDisablePublicSharing = useCallback(() => {
     // TODO(@EYHN): implement disable public sharing
-    toast('Successfully disabled', {
+    toast(translateUiText('Successfully disabled'), {
       portal: document.body,
     });
   }, []);

@@ -1,5 +1,6 @@
 import { EditorChevronDown } from '@blocksuite/affine-components/toolbar';
 import { NoteDisplayMode } from '@blocksuite/affine-model';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { ShadowlessElement } from '@blocksuite/std';
 import { html } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -23,13 +24,13 @@ export class EdgelessNoteDisplayModeDropdownMenu extends ShadowlessElement {
     const { displayMode, mode } = this;
 
     return html`
-      <span class="display-mode-button-label">Show in</span>
+      <span class="display-mode-button-label">${editorText('Show in')}</span>
       <editor-menu-button
         .contentPadding=${'8px'}
         .button=${html`
           <editor-icon-button
-            aria-label="Mode"
-            .tooltip="${'Display mode'}"
+            aria-label=${editorText('Mode')}
+            .tooltip="${editorText('Display mode')}"
             .justify="${'space-between'}"
             .labelHeight="${'20px'}"
           >

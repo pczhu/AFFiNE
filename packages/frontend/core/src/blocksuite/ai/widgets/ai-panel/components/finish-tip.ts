@@ -1,3 +1,4 @@
+import { translateUiText } from '@affine/i18n';
 import {
   AIDoneIcon,
   CopyIcon,
@@ -70,7 +71,9 @@ export class AIFinishTip extends WithDisposable(LitElement) {
   override render() {
     return html`<div class="finish-tip">
       ${WarningIcon}
-      <div class="text">AI outputs can be misleading or wrong</div>
+      <div class="text">
+        ${translateUiText('AI outputs can be misleading or wrong')}
+      </div>
       ${
         this.copy?.allowed
           ? html`<div class="right">
@@ -87,12 +90,14 @@ export class AIFinishTip extends WithDisposable(LitElement) {
                         if (this.copied) {
                           this.host.std
                             .getOptional(NotificationProvider)
-                            ?.toast('Copied to clipboard');
+                            ?.toast(translateUiText('Copied to clipboard'));
                         }
                       }}
                     >
                       ${CopyIcon}
-                      <affine-tooltip>Copy</affine-tooltip>
+                      <affine-tooltip
+                        >${translateUiText('Copy')}</affine-tooltip
+                      >
                     </div>`
               }
             </div>`

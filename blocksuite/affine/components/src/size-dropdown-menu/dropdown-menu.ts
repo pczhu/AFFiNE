@@ -1,4 +1,4 @@
-import { stopPropagation } from '@blocksuite/affine-shared/utils';
+import { editorText, stopPropagation } from '@blocksuite/affine-shared/utils';
 import { SignalWatcher, WithDisposable } from '@blocksuite/global/lit';
 import { DoneIcon } from '@blocksuite/icons/lit';
 import { PropTypes, requiredProperties } from '@blocksuite/std';
@@ -80,7 +80,7 @@ export class SizeDropdownMenu extends SignalWatcher(
   accessor format: ((e: number) => string) | undefined;
 
   @property({ attribute: false })
-  accessor label: string = 'Scale';
+  accessor label: string = editorText('Scale');
 
   @property({ attribute: false })
   accessor icon: TemplateResult | undefined;
@@ -155,8 +155,8 @@ export class SizeDropdownMenu extends SignalWatcher(
         .contentPadding="${'8px'}"
         .button=${html`
           <editor-icon-button
-            aria-label="${label}"
-            .tooltip="${label}"
+            aria-label="${editorText(label)}"
+            .tooltip="${editorText(label)}"
             .justify="${'space-between'}"
             .labelHeight="${'20px'}"
             .iconContainerWidth="${icon ? 'unset' : '65px'}"

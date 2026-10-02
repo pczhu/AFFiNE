@@ -8,6 +8,7 @@ import {
 } from '@blocksuite/affine-shared/services';
 import {
   cloneReferenceInfoWithoutAliases,
+  editorText,
   isInsideBlockByFlavour,
 } from '@blocksuite/affine-shared/utils';
 import { DeleteIcon } from '@blocksuite/icons/lit';
@@ -51,12 +52,16 @@ export const builtinInlineReferenceToolbarConfig = {
       actions: [
         {
           id: 'inline',
-          label: 'Inline view',
+          get label() {
+            return editorText('Inline view');
+          },
           disabled: true,
         },
         {
           id: 'card',
-          label: 'Card view',
+          get label() {
+            return editorText('Card view');
+          },
           run(ctx) {
             const target = ctx.message$.peek()?.element;
             if (!(target instanceof AffineReference)) return;
@@ -105,7 +110,9 @@ export const builtinInlineReferenceToolbarConfig = {
         },
         {
           id: 'embed',
-          label: 'Embed view',
+          get label() {
+            return editorText('Embed view');
+          },
           disabled(ctx) {
             const target = ctx.message$.peek()?.element;
             if (!(target instanceof AffineReference)) return true;
@@ -228,7 +235,9 @@ export const builtinInlineReferenceToolbarConfig = {
     {
       placement: ActionPlacement.More,
       id: 'c.delete',
-      label: 'Delete',
+      get label() {
+        return editorText('Delete');
+      },
       icon: DeleteIcon(),
       variant: 'destructive',
       run(ctx) {

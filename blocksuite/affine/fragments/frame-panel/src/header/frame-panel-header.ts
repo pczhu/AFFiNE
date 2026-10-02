@@ -7,7 +7,10 @@ import {
   DocModeProvider,
   EditPropsStore,
 } from '@blocksuite/affine-shared/services';
-import { createButtonPopper } from '@blocksuite/affine-shared/utils';
+import {
+  createButtonPopper,
+  editorText,
+} from '@blocksuite/affine-shared/utils';
 import { DisposableGroup } from '@blocksuite/global/disposable';
 import { WithDisposable } from '@blocksuite/global/lit';
 import { PresentationIcon, SettingsIcon } from '@blocksuite/icons/lit';
@@ -189,12 +192,14 @@ export class FramePanelHeader extends WithDisposable(LitElement) {
   override render() {
     return html`<div class="frame-panel-header">
       <div class="all-frames-setting">
-        <span class="all-frames-setting-label">All frames</span>
+        <span class="all-frames-setting-label"
+          >${editorText('All frames')}</span
+        >
         <edgeless-tool-icon-button
           class="all-frames-setting-button ${
             this._settingPopperShow ? 'active' : ''
           }"
-          .tooltip=${this._settingPopperShow ? '' : 'All Frames Settings'}
+          .tooltip=${this._settingPopperShow ? '' : editorText('All Frames Settings')}
           .tipPosition=${'top'}
           .active=${this._settingPopperShow}
           .activeMode=${'background'}
@@ -211,7 +216,7 @@ export class FramePanelHeader extends WithDisposable(LitElement) {
       <div class="presentation-button" @click=${this._enterPresentationMode}>
         ${PresentationIcon({ width: '16px', height: '16px' })}<span
           class="presentation-button-label"
-          >Presentation</span
+          >${editorText('Presentation')}</span
         >
       </div>
     </div>`;

@@ -1,3 +1,5 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
+
 import { t } from '../logical/index.js';
 import { createStatisticConfig } from './create.js';
 import type { StatisticsConfig } from './types.js';
@@ -7,7 +9,9 @@ export const numberStatsFunctions: StatisticsConfig[] = [
     group: 'More options',
     menuName: 'Sum',
     type: 'sum',
-    displayName: 'Sum',
+    get displayName() {
+      return editorText('Sum');
+    },
     dataType: t.number.instance(),
     impl: data => {
       const numbers = withoutNull(data);
@@ -22,7 +26,9 @@ export const numberStatsFunctions: StatisticsConfig[] = [
   createStatisticConfig({
     group: 'More options',
     menuName: 'Average',
-    displayName: 'Average',
+    get displayName() {
+      return editorText('Average');
+    },
     type: 'average',
     dataType: t.number.instance(),
     impl: data => {
@@ -38,7 +44,9 @@ export const numberStatsFunctions: StatisticsConfig[] = [
   createStatisticConfig({
     group: 'More options',
     menuName: 'Median',
-    displayName: 'Median',
+    get displayName() {
+      return editorText('Median');
+    },
     type: 'median',
     dataType: t.number.instance(),
     impl: data => {
@@ -59,7 +67,9 @@ export const numberStatsFunctions: StatisticsConfig[] = [
   createStatisticConfig({
     group: 'More options',
     menuName: 'Min',
-    displayName: 'Min',
+    get displayName() {
+      return editorText('Min');
+    },
     type: 'min',
     dataType: t.number.instance(),
     impl: data => {
@@ -79,7 +89,9 @@ export const numberStatsFunctions: StatisticsConfig[] = [
   createStatisticConfig({
     group: 'More options',
     menuName: 'Max',
-    displayName: 'Max',
+    get displayName() {
+      return editorText('Max');
+    },
     type: 'max',
     dataType: t.number.instance(),
     impl: data => {
@@ -99,7 +111,9 @@ export const numberStatsFunctions: StatisticsConfig[] = [
   createStatisticConfig({
     group: 'More options',
     menuName: 'Range',
-    displayName: 'Range',
+    get displayName() {
+      return editorText('Range');
+    },
     type: 'range',
     dataType: t.number.instance(),
     impl: data => {

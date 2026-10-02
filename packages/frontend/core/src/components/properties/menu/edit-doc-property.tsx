@@ -6,7 +6,7 @@ import {
 } from '@affine/component';
 import type { DocCustomPropertyInfo } from '@affine/core/modules/db';
 import { WorkspacePropertyService } from '@affine/core/modules/workspace-property';
-import { Trans, useI18n } from '@affine/i18n';
+import { Trans, translateUiText, useI18n } from '@affine/i18n';
 import { DeleteIcon, InvisibleIcon, ViewIcon } from '@blocksuite/icons/rc';
 import { useLiveData, useService } from '@toeverything/infra';
 import {
@@ -221,8 +221,11 @@ export const EditWorkspacePropertyMenuItems = ({
                 }}
                 i18nKey="com.affine.settings.workspace.properties.delete-property-desc"
               >
-                The <strong>{{ name: name } as any}</strong> property will be
-                removed from count doc(s). This action cannot be undone.
+                {translateUiText('The ')}
+                <strong>{{ name: name } as any}</strong>{' '}
+                {translateUiText(
+                  'property will be\n                removed from count doc(s). This action cannot be undone.\n              '
+                )}
               </Trans>
             ),
             confirmText: t['Confirm'](),

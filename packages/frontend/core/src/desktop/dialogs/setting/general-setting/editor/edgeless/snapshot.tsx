@@ -2,6 +2,7 @@ import { Skeleton } from '@affine/component';
 import { getViewManager } from '@affine/core/blocksuite/manager/view';
 import type { EditorSettingSchema } from '@affine/core/modules/editor-setting';
 import { EditorSettingService } from '@affine/core/modules/editor-setting';
+import { useI18n } from '@affine/i18n';
 import { EdgelessCRUDIdentifier } from '@blocksuite/affine/blocks/surface';
 import { Bound } from '@blocksuite/affine/global/gfx';
 import { ViewportElementExtension } from '@blocksuite/affine/shared/services';
@@ -50,6 +51,7 @@ export const EdgelessSnapshot = (props: Props) => {
     firstUpdate,
     children,
   } = props;
+  const { language } = useI18n();
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const docRef = useRef<Store | null>(null);
   const editorHostRef = useRef<EditorHost | null>(null);
@@ -85,7 +87,7 @@ export const EdgelessSnapshot = (props: Props) => {
 
   const renderEditor = useCallback(async () => {
     if (!wrapperRef.current) return;
-    const doc = await getDocByName(docName);
+    const doc = await getDocByName(docName, language);
     if (!doc) return;
 
     const editorHost = new BlockStdScope({
@@ -127,7 +129,7 @@ export const EdgelessSnapshot = (props: Props) => {
 
     // append to dom node
     wrapperRef.current.append(editorHost);
-  }, [docName, extensions, firstUpdate, updateElements]);
+  }, [docName, extensions, firstUpdate, language, updateElements]);
 
   useEffect(() => {
     // oxlint-disable-next-line typescript/no-floating-promises

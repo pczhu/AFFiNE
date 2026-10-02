@@ -1,6 +1,6 @@
 import { Checkbox, MenuItem, PropertyValue } from '@affine/component';
 import type { FilterParams } from '@affine/core/modules/collection-rules';
-import { useI18n } from '@affine/i18n';
+import { translateUiText, useI18n, useUiLanguage } from '@affine/i18n';
 import { CheckBoxCheckLinearIcon } from '@blocksuite/icons/rc';
 import { useCallback } from 'react';
 
@@ -50,6 +50,7 @@ export const CheckboxFilterValue = ({
   onDraftCompleted?: () => void;
   onChange?: (filter: FilterParams) => void;
 }) => {
+  useUiLanguage();
   return (
     <FilterValueMenu
       isDraft={isDraft}
@@ -65,7 +66,7 @@ export const CheckboxFilterValue = ({
             }}
             selected={filter.value === 'true'}
           >
-            {'True'}
+            {translateUiText('True')}
           </MenuItem>
           <MenuItem
             onClick={() => {
@@ -76,12 +77,16 @@ export const CheckboxFilterValue = ({
             }}
             selected={filter.value !== 'true'}
           >
-            {'False'}
+            {translateUiText('False')}
           </MenuItem>
         </>
       }
     >
-      <span>{filter.value === 'true' ? 'True' : 'False'}</span>
+      <span>
+        {filter.value === 'true'
+          ? translateUiText('True')
+          : translateUiText('False')}
+      </span>
     </FilterValueMenu>
   );
 };

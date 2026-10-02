@@ -1,0 +1,23 @@
+# syntax=docker/dockerfile:1.7
+
+# 使用本机源码生成的构建环境和运行镜像，只更新网页资源。
+FROM affine-local:builder AS frontend
+WORKDIR /source
+COPY blocksuite /source/blocksuite
+COPY packages/frontend /source/packages/frontend
+ENV PUBLIC_PATH=/
+RUN yarn workspace @affine/i18n build \
+    && affine-build-checked packages/frontend/apps/web/dist/index.html yarn affine @affine/web build
+
+FROM frontend AS admin
+ENV PUBLIC_PATH=/admin/
+RUN affine-build-checked packages/frontend/admin/dist/index.html yarn affine @affine/admin build
+
+FROM admin AS mobile
+ENV PUBLIC_PATH=/mobile/
+RUN affine-build-checked packages/frontend/apps/mobile/dist/index.html yarn affine @affine/mobile build
+
+FROM affine-local:runtime-base AS runtime
+COPY --from=frontend /source/packages/frontend/apps/web/dist /app/static
+COPY --from=admin /source/packages/frontend/admin/dist /app/static/admin
+COPY --from=mobile /source/packages/frontend/apps/mobile/dist /app/static/mobile

@@ -1,4 +1,5 @@
 import type { EmbedHtmlModel, EmbedHtmlStyles } from '@blocksuite/affine-model';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { BlockSelection } from '@blocksuite/std';
 import { html } from 'lit';
 import { query } from 'lit/decorators.js';
@@ -62,7 +63,9 @@ export class EmbedHtmlBlockComponent extends EmbedBlockComponent<EmbedHtmlModel>
 
     return this.renderEmbed(() => {
       if (!this.model.props.html) {
-        return html` <div class="affine-html-empty">Empty</div>`;
+        return html` <div class="affine-html-empty">
+          ${editorText('Empty')}
+        </div>`;
       }
       return html`
         <div

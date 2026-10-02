@@ -1,6 +1,9 @@
 import { EdgelessLegacySlotIdentifier } from '@blocksuite/affine-block-surface';
 import { EditPropsStore } from '@blocksuite/affine-shared/services';
-import { createButtonPopper } from '@blocksuite/affine-shared/utils';
+import {
+  createButtonPopper,
+  editorText,
+} from '@blocksuite/affine-shared/utils';
 import { WithDisposable } from '@blocksuite/global/lit';
 import { SettingsIcon } from '@blocksuite/icons/lit';
 import type { BlockComponent } from '@blocksuite/std';
@@ -108,7 +111,7 @@ export class EdgelessNavigatorSettingButton extends WithDisposable(LitElement) {
     return html`
       <edgeless-tool-icon-button
         class="navigator-setting-button"
-        .tooltip=${this.popperShow ? '' : 'Settings'}
+        .tooltip=${this.popperShow ? '' : editorText('Settings')}
         .iconSize=${'24px'}
         @click=${() => {
           this._navigatorSettingPopper?.toggle();
@@ -125,11 +128,11 @@ export class EdgelessNavigatorSettingButton extends WithDisposable(LitElement) {
         }}
       >
         <div class="item-container header">
-          <div class="text title">Playback Settings</div>
+          <div class="text title">${editorText('Playback Settings')}</div>
         </div>
 
         <div class="item-container">
-          <div class="text">Black background</div>
+          <div class="text">${editorText('Black background')}</div>
 
           <toggle-switch
             .on=${this.blackBackground}
@@ -139,7 +142,7 @@ export class EdgelessNavigatorSettingButton extends WithDisposable(LitElement) {
         </div>
 
         <div class="item-container">
-          <div class="text">Hide toolbar</div>
+          <div class="text">${editorText('Hide toolbar')}</div>
 
           <toggle-switch
             .on=${this.hideToolbar}
@@ -154,7 +157,7 @@ export class EdgelessNavigatorSettingButton extends WithDisposable(LitElement) {
           this.includeFrameOrder
             ? html` <div class="divider"></div>
                 <div class="item-container header">
-                  <div class="text title">Frame Order</div>
+                  <div class="text title">${editorText('Frame Order')}</div>
                 </div>
 
                 <edgeless-frame-order-menu

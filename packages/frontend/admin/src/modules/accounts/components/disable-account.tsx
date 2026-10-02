@@ -1,3 +1,5 @@
+import { translateUiText, useUiLanguage } from '@affine/i18n';
+
 import { TypeConfirmDialog } from '../../../components/shared/type-confirm-dialog';
 
 export const DisableAccountDialog = ({
@@ -13,21 +15,24 @@ export const DisableAccountDialog = ({
   onDisable: () => void;
   onOpenChange: (open: boolean) => void;
 }) => {
+  useUiLanguage();
   return (
     <TypeConfirmDialog
       open={open}
       onOpenChange={onOpenChange}
-      title="Disable Account ?"
+      title={translateUiText('Disable Account ?')}
       description={
         <>
-          The data associated with <span className="font-bold">{email}</span>{' '}
-          will be deleted and cannot be used for logging in. This operation is
-          irreversible. Please proceed with caution.
+          {translateUiText('The data associated with ')}
+          <span className="font-bold">{email}</span>{' '}
+          {translateUiText(
+            'will be deleted and cannot be used for logging in. This operation is\n          irreversible. Please proceed with caution.\n        '
+          )}
         </>
       }
       targetText={email}
-      inputPlaceholder="Please type email to confirm"
-      confirmText="Disable"
+      inputPlaceholder={translateUiText('Please type email to confirm')}
+      confirmText={translateUiText('Disable')}
       confirmButtonVariant="destructive"
       onConfirm={onDisable}
       onClose={onClose}

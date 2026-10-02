@@ -6,6 +6,7 @@ export * from './dnd';
 export * from './dom';
 export * from './drag-helper';
 export * from './edgeless';
+export * from './editor-i18n';
 export * from './event';
 export { getSvgPath as getFigmaSquircleSvgPath } from './figma-squircle';
 export * from './file';

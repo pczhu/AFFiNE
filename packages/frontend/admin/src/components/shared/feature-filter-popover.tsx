@@ -6,6 +6,7 @@ import {
   PopoverTrigger,
 } from '@affine/admin/components/ui/popover';
 import type { FeatureType } from '@affine/graphql';
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import { useCallback } from 'react';
 
 type FeatureFilterPopoverProps = {
@@ -22,9 +23,10 @@ export const FeatureFilterPopover = ({
   availableFeatures,
   onChange,
   align = 'start',
-  buttonLabel = 'Features',
+  buttonLabel = translateUiText('Features'),
   disabled = false,
 }: FeatureFilterPopoverProps) => {
+  useUiLanguage();
   const handleFeatureToggle = useCallback(
     (feature: FeatureType, checked: boolean) => {
       if (disabled) {
@@ -55,7 +57,7 @@ export const FeatureFilterPopover = ({
           className="h-8 px-2 lg:px-3 space-x-1"
           disabled={disabled}
         >
-          <span>{buttonLabel}</span>
+          <span>{translateUiText(buttonLabel)}</span>
           {selectedFeatures.length > 0 ? (
             <span className="text-xs text-muted-foreground">
               ({selectedFeatures.length})
@@ -67,7 +69,9 @@ export const FeatureFilterPopover = ({
         align={align}
         className="w-[240px] p-2 flex flex-col gap-2"
       >
-        <div className="text-xs font-medium px-1">Filter by feature</div>
+        <div className="text-xs font-medium px-1">
+          {translateUiText('Filter by feature')}
+        </div>
         <div className="flex flex-col gap-1 max-h-64 overflow-auto">
           {availableFeatures.map(feature => (
             <label
@@ -81,7 +85,9 @@ export const FeatureFilterPopover = ({
                 }
                 disabled={disabled}
               />
-              <span className="text-sm truncate">{feature}</span>
+              <span className="text-sm truncate">
+                {translateUiText(feature)}
+              </span>
             </label>
           ))}
         </div>
@@ -92,7 +98,7 @@ export const FeatureFilterPopover = ({
             onClick={handleClearFeatures}
             disabled={disabled || selectedFeatures.length === 0}
           >
-            Clear
+            {translateUiText('Clear\n          ')}
           </Button>
         </div>
       </PopoverContent>

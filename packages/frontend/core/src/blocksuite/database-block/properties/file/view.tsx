@@ -2,6 +2,7 @@ import { Popover, uniReactRoot } from '@affine/component';
 import { Button } from '@affine/component/ui/button';
 import { Menu, MenuItem } from '@affine/component/ui/menu';
 import { PeekViewService } from '@affine/core/modules/peek-view/services/peek-view';
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import {
   type Cell,
   type CellRenderProps,
@@ -360,6 +361,7 @@ const FileCellComponent: ForwardRefRenderFunction<
   DataViewCellLifeCycle,
   CellRenderProps<{}, FileCellRawValueType, FileCellJsonValueType>
 > = (props, ref): ReactNode => {
+  useUiLanguage();
   const peekView = useService(PeekViewService);
   const manager = useMemo(
     () => new FileCellManager(props, peekView), // oxlint-disable-line react-hooks-js/preserve-manual-memoization
@@ -417,15 +419,17 @@ const FileCellComponent: ForwardRefRenderFunction<
             variant="primary"
             className={styles.uploadButton}
           >
-            Choose a file
+            {translateUiText('Choose a file\n          ')}
           </Button>
 
           <div className={styles.fileInfoContainer}>
             <div className={styles.fileSizeInfo}>
-              The maximum size per file is 100MB
+              {translateUiText(
+                'The maximum size per file is 100MB\n            '
+              )}
             </div>
             <a className={styles.upgradeLink} onClick={jumpToPricePlan}>
-              Upgrade to Pro
+              {translateUiText('Upgrade to Pro\n            ')}
             </a>
           </div>
         </div>
@@ -462,7 +466,7 @@ const FileCellComponent: ForwardRefRenderFunction<
             className={styles.uploadButtonStyle}
           >
             <PlusIcon className={styles.iconPrimary} width={20} height={20} />
-            <span>Add a file or image</span>
+            <span>{translateUiText('Add a file or image')}</span>
           </div>
         </div>
       </div>
@@ -563,6 +567,7 @@ export const FileListItem = (props: {
   handleRemoveFile: (file: FileItemRenderType, e?: MouseEvent) => void;
   manager: FileCellManager;
 }) => {
+  useUiLanguage();
   const { file, handleRemoveFile, manager } = props;
   const { preview, fileType, onPreview } = useFilePreview(file, manager);
   const fileUploadManager = manager.fileUploadManager;
@@ -603,7 +608,7 @@ export const FileListItem = (props: {
           onClick={onPreview}
           prefixIcon={<FileIcon width={20} height={20} />}
         >
-          Preview
+          {translateUiText('Preview\n        ')}
         </MenuItem>
       )}
       {(fileType === 'file' || fileType === 'image') && (
@@ -615,7 +620,7 @@ export const FileListItem = (props: {
           }}
           prefixIcon={<DownloadIcon width={20} height={20} />}
         >
-          Download
+          {translateUiText('Download\n        ')}
         </MenuItem>
       )}
       <MenuItem
@@ -625,7 +630,7 @@ export const FileListItem = (props: {
         type={'danger'}
         prefixIcon={<DeleteIcon width={20} height={20} />}
       >
-        Delete
+        {translateUiText('Delete\n      ')}
       </MenuItem>
     </>
   );

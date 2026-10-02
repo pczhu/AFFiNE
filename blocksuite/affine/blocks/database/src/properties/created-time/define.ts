@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { propertyType, t } from '@blocksuite/data-view';
 import { format } from 'date-fns/format';
 import zod from 'zod';
@@ -5,7 +6,9 @@ import zod from 'zod';
 export const createdTimeColumnType = propertyType('created-time');
 export const createdTimePropertyModelConfig = createdTimeColumnType.modelConfig(
   {
-    name: 'Created Time',
+    get name() {
+      return editorText('Created Time');
+    },
     propertyData: {
       schema: zod.object({}),
       default: () => ({}),

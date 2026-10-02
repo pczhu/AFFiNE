@@ -1,39 +1,56 @@
 import { cssVarV2 } from '@blocksuite/affine-shared/theme';
+import { editorText } from '@blocksuite/affine-shared/utils';
 type Color = {
   name: string;
   color: string;
 };
 export const colorList: Color[] = [
   {
-    name: 'Blue',
+    get name() {
+      return editorText('Blue');
+    },
     color: cssVarV2.table.headerBackground.blue,
   },
   {
-    name: 'Green',
+    get name() {
+      return editorText('Green');
+    },
     color: cssVarV2.table.headerBackground.green,
   },
   {
-    name: 'Grey',
+    get name() {
+      return editorText('Grey');
+    },
     color: cssVarV2.table.headerBackground.grey,
   },
   {
-    name: 'Orange',
+    get name() {
+      return editorText('Orange');
+    },
     color: cssVarV2.table.headerBackground.orange,
   },
   {
-    name: 'Purple',
+    get name() {
+      return editorText('Purple');
+    },
     color: cssVarV2.table.headerBackground.purple,
   },
   {
-    name: 'Red',
+    get name() {
+      return editorText('Red');
+    },
     color: cssVarV2.table.headerBackground.red,
   },
   {
-    name: 'Teal',
+    get name() {
+      return editorText('Teal');
+    },
     color: cssVarV2.table.headerBackground.teal,
   },
   {
-    name: 'Yellow',
+    get name() {
+      return editorText('Yellow');
+    },
     color: cssVarV2.table.headerBackground.yellow,
   },
 ];

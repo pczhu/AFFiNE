@@ -17,7 +17,10 @@ import {
   FeatureFlagService,
   TelemetryProvider,
 } from '@blocksuite/affine-shared/services';
-import { openSingleFileWith } from '@blocksuite/affine-shared/utils';
+import {
+  editorText,
+  openSingleFileWith,
+} from '@blocksuite/affine-shared/utils';
 import { Bound, type IVec } from '@blocksuite/global/gfx';
 import type { BlockComponent } from '@blocksuite/std';
 import type { TemplateResult } from 'lit';
@@ -79,7 +82,9 @@ export const getMindmapRender =
 
     const root: MindMapNode = {
       children: [],
-      text: 'Mind Map',
+      get text() {
+        return editorText('Mind Map');
+      },
       xywh: `[${rootX},${rootY},${rootW},${rootH}]`,
     };
 
@@ -88,7 +93,9 @@ export const getMindmapRender =
       const nodeY = centerVertical - nodeH / 2 + (i - 1) * 50;
       root.children.push({
         children: [],
-        text: 'Text',
+        get text() {
+          return editorText('Text');
+        },
         xywh: `[${nodeX},${nodeY},${nodeW},${nodeH}]`,
       });
     }

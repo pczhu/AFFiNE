@@ -1,4 +1,5 @@
 import { unsafeCSSVarV2 } from '@blocksuite/affine-shared/theme';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import {
   EmbedIcon,
   FrameIcon,
@@ -20,23 +21,33 @@ const BLOCK_PREVIEW_ICON_MAP: Record<
 > = {
   shape: {
     icon: ShapeIcon,
-    name: 'Edgeless shape',
+    get name() {
+      return editorText('Edgeless shape');
+    },
   },
   'affine:image': {
     icon: ImageIcon,
-    name: 'Image block',
+    get name() {
+      return editorText('Image block');
+    },
   },
   'affine:note': {
     icon: PageIcon,
-    name: 'Note block',
+    get name() {
+      return editorText('Note block');
+    },
   },
   'affine:frame': {
     icon: FrameIcon,
-    name: 'Frame block',
+    get name() {
+      return editorText('Frame block');
+    },
   },
   'affine:embed-': {
     icon: EmbedIcon,
-    name: 'Embed block',
+    get name() {
+      return editorText('Embed block');
+    },
   },
 };
 
@@ -108,7 +119,9 @@ export class EdgelessDndPreviewElement extends LitElement {
 
     return {
       icon: ShapeIcon,
-      name: 'Edgeless content',
+      get name() {
+        return editorText('Edgeless content');
+      },
     };
   }
 

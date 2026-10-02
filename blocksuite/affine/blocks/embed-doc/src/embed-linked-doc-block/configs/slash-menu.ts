@@ -1,7 +1,7 @@
 import { EmbedLinkedDocBlockSchema } from '@blocksuite/affine-model';
 import { insertContent } from '@blocksuite/affine-rich-text';
 import { REFERENCE_NODE } from '@blocksuite/affine-shared/consts';
-import { createDefaultDoc } from '@blocksuite/affine-shared/utils';
+import { createDefaultDoc, editorText } from '@blocksuite/affine-shared/utils';
 import {
   type SlashMenuConfig,
   SlashMenuConfigIdentifier,
@@ -15,11 +15,17 @@ const linkedDocSlashMenuConfig: SlashMenuConfig = {
   items: [
     {
       name: 'New Doc',
-      description: 'Start a new document.',
+      get description() {
+        return editorText('Start a new document.');
+      },
       icon: PlusIcon(),
       tooltip: {
-        figure: NewDocTooltip,
-        caption: 'New Doc',
+        get figure() {
+          return NewDocTooltip();
+        },
+        get caption() {
+          return editorText('New Doc');
+        },
       },
       group: '3_Page@0',
       when: ({ model }) =>
@@ -36,11 +42,17 @@ const linkedDocSlashMenuConfig: SlashMenuConfig = {
     },
     {
       name: 'Linked Doc',
-      description: 'Link to another document.',
+      get description() {
+        return editorText('Link to another document.');
+      },
       icon: LinkedPageIcon(),
       tooltip: {
-        figure: LinkDocTooltip,
-        caption: 'Link Doc',
+        get figure() {
+          return LinkDocTooltip();
+        },
+        get caption() {
+          return editorText('Link Doc');
+        },
       },
       searchAlias: ['dual link'],
       group: '3_Page@1',

@@ -8,7 +8,7 @@ import { InvoicesService } from '@affine/core/modules/cloud';
 import { UrlService } from '@affine/core/modules/url';
 import { UserFriendlyError } from '@affine/error';
 import { type InvoicesQuery, InvoiceStatus } from '@affine/graphql';
-import { useI18n } from '@affine/i18n';
+import { translateUiText, useI18n } from '@affine/i18n';
 import { useLiveData, useService } from '@toeverything/infra';
 import { cssVar } from '@toeverything/theme';
 import { useCallback, useEffect } from 'react';
@@ -45,7 +45,7 @@ export const BillingHistory = () => {
         <span style={{ color: cssVar('errorColor') }}>
           {error
             ? UserFriendlyError.fromAny(error).message
-            : 'Failed to load invoices'}
+            : translateUiText('Failed to load invoices')}
         </span>
       );
     }

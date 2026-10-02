@@ -42,6 +42,8 @@ export const PasswordInput: FC<
     onPrevent: () => void;
   }
 > = ({ passwordLimits, onPass, onPrevent, ...inputProps }) => {
+  const uiI18n = useI18n();
+
   const t = useI18n();
 
   const [status, setStatus] = useState<Status | null>(null);
@@ -78,14 +80,16 @@ export const PasswordInput: FC<
 
       ctx.addIssue({
         code: ZodIssueCode.custom,
-        message: 'password strength',
+        get message() {
+          return uiI18n.uiText('password strength');
+        },
         path: ['strength'],
         params: {
           status,
         },
       });
     });
-  }, [passwordLimits]);
+  }, [passwordLimits, uiI18n]);
 
   const validatePasswords = useCallback(
     (password: string, confirmPassword: string) => {

@@ -9,6 +9,7 @@ import {
   LinkPreviewServiceIdentifier,
   ThemeProvider,
 } from '@blocksuite/affine-shared/services';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { BlockSelection, isGfxBlockComponent } from '@blocksuite/std';
 import { html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
@@ -157,7 +158,7 @@ export class EmbedYoutubeBlockComponent extends EmbedBlockComponent<
                             hide: !this._showImage,
                           })}
                           src=${`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
-                          alt="YouTube Video"
+                          alt=${editorText('YouTube Video')}
                           loading="lazy"
                         />
                       </div>

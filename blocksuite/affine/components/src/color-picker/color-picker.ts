@@ -1,5 +1,10 @@
 import type { Color } from '@blocksuite/affine-model';
-import { on, once, stopPropagation } from '@blocksuite/affine-shared/utils';
+import {
+  editorText,
+  on,
+  once,
+  stopPropagation,
+} from '@blocksuite/affine-shared/utils';
 import { SignalWatcher, WithDisposable } from '@blocksuite/global/lit';
 import { batch, computed, signal } from '@preact/signals-core';
 import { html, LitElement } from 'lit';
@@ -40,8 +45,18 @@ import {
 } from './utils.js';
 
 const TABS: NavTab<NavType>[] = [
-  { type: 'colors', name: 'Colors' },
-  { type: 'custom', name: 'Custom' },
+  {
+    type: 'colors',
+    get name() {
+      return editorText('Colors');
+    },
+  },
+  {
+    type: 'custom',
+    get name() {
+      return editorText('Custom');
+    },
+  },
 ];
 
 export class EdgelessColorPicker extends SignalWatcher(
@@ -645,9 +660,27 @@ export class EdgelessColorPicker extends SignalWatcher(
   });
 
   accessor modes$ = signal<ModeTab<ModeType>[]>([
-    { type: 'normal', name: 'Normal', hsva: defaultHsva() },
-    { type: 'light', name: 'Light', hsva: defaultHsva() },
-    { type: 'dark', name: 'Dark', hsva: defaultHsva() },
+    {
+      type: 'normal',
+      get name() {
+        return editorText('Normal');
+      },
+      hsva: defaultHsva(),
+    },
+    {
+      type: 'light',
+      get name() {
+        return editorText('Light');
+      },
+      hsva: defaultHsva(),
+    },
+    {
+      type: 'dark',
+      get name() {
+        return editorText('Dark');
+      },
+      hsva: defaultHsva(),
+    },
   ]);
 
   accessor modeType$ = signal<ModeType>('normal');

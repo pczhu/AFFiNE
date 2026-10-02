@@ -23,6 +23,7 @@ import {
   type ToolbarContext,
   type ToolbarModuleConfig,
 } from '@blocksuite/affine-shared/services';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { Bound } from '@blocksuite/global/gfx';
 import {
   AlignLeftIcon,
@@ -48,7 +49,9 @@ export const builtinMiscToolbarConfig = {
     {
       placement: ActionPlacement.Start,
       id: 'a.release-from-group',
-      tooltip: 'Release from group',
+      get tooltip() {
+        return editorText('Release from group');
+      },
       icon: ReleaseFromGroupIcon(),
       when(ctx) {
         const models = ctx.getSurfaceModels();
@@ -78,9 +81,13 @@ export const builtinMiscToolbarConfig = {
     {
       placement: ActionPlacement.Start,
       id: 'b.add-frame',
-      label: 'Frame',
+      get label() {
+        return editorText('Frame');
+      },
       showLabel: true,
-      tooltip: 'Frame',
+      get tooltip() {
+        return editorText('Frame');
+      },
       icon: FrameIcon(),
       when(ctx) {
         const models = ctx.getSurfaceModels();
@@ -121,9 +128,13 @@ export const builtinMiscToolbarConfig = {
     {
       placement: ActionPlacement.Start,
       id: 'c.add-group',
-      label: 'Group',
+      get label() {
+        return editorText('Group');
+      },
       showLabel: true,
-      tooltip: 'Group',
+      get tooltip() {
+        return editorText('Group');
+      },
       icon: GroupingIcon(),
       when(ctx) {
         const models = ctx.getSurfaceModels();
@@ -172,16 +183,24 @@ export const builtinMiscToolbarConfig = {
 
         return renderAlignmentMenu(ctx, models, {
           icon: AlignLeftIcon(),
-          label: 'Align objects',
-          tooltip: 'Align objects',
+          get label() {
+            return editorText('Align objects');
+          },
+          get tooltip() {
+            return editorText('Align objects');
+          },
         });
       },
     },
     {
       placement: ActionPlacement.End,
       id: 'a.draw-connector',
-      label: 'Draw connector',
-      tooltip: 'Draw connector',
+      get label() {
+        return editorText('Draw connector');
+      },
+      get tooltip() {
+        return editorText('Draw connector');
+      },
       icon: ConnectorCIcon(),
       when(ctx) {
         const models = ctx.getSurfaceModels();
@@ -222,7 +241,9 @@ export const builtinMiscToolbarConfig = {
     {
       placement: ActionPlacement.End,
       id: 'b.lock',
-      tooltip: 'Lock',
+      get tooltip() {
+        return editorText('Lock');
+      },
       icon: LockIcon(),
       run(ctx) {
         const models = ctx.getSurfaceModels();
@@ -335,7 +356,9 @@ export const builtinLockedToolbarConfig = {
     {
       placement: ActionPlacement.End,
       id: 'b.unlock',
-      label: 'Click to unlock',
+      get label() {
+        return editorText('Click to unlock');
+      },
       showLabel: true,
       icon: UnlockIcon(),
       run(ctx) {

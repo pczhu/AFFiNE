@@ -1,6 +1,9 @@
 import { getSelectedModelsCommand } from '@blocksuite/affine-shared/commands';
 import { TelemetryProvider } from '@blocksuite/affine-shared/services';
-import { isInsideBlockByFlavour } from '@blocksuite/affine-shared/utils';
+import {
+  editorText,
+  isInsideBlockByFlavour,
+} from '@blocksuite/affine-shared/utils';
 import { type SlashMenuConfig } from '@blocksuite/affine-widget-slash-menu';
 import { viewPresets } from '@blocksuite/data-view/view-presets';
 import {
@@ -17,12 +20,18 @@ export const databaseSlashMenuConfig: SlashMenuConfig = {
   items: [
     {
       name: 'Table View',
-      description: 'Display items in a table format.',
+      get description() {
+        return editorText('Display items in a table format.');
+      },
       searchAlias: ['database'],
       icon: DatabaseTableViewIcon(),
       tooltip: {
-        figure: TableViewTooltip,
-        caption: 'Table View',
+        get figure() {
+          return TableViewTooltip();
+        },
+        get caption() {
+          return editorText('Table View');
+        },
       },
       group: '7_Database@0',
       when: ({ model }) =>
@@ -50,7 +59,9 @@ export const databaseSlashMenuConfig: SlashMenuConfig = {
 
     {
       name: 'Calendar View',
-      description: 'Display items by date in a calendar.',
+      get description() {
+        return editorText('Display items by date in a calendar.');
+      },
       searchAlias: ['database', 'calendar'],
       icon: TodayIcon(),
       group: '7_Database@1',
@@ -79,12 +90,18 @@ export const databaseSlashMenuConfig: SlashMenuConfig = {
 
     {
       name: 'Kanban View',
-      description: 'Visualize data in a dashboard.',
+      get description() {
+        return editorText('Visualize data in a dashboard.');
+      },
       searchAlias: ['database'],
       icon: DatabaseKanbanViewIcon(),
       tooltip: {
-        figure: KanbanViewTooltip,
-        caption: 'Kanban View',
+        get figure() {
+          return KanbanViewTooltip();
+        },
+        get caption() {
+          return editorText('Kanban View');
+        },
       },
       group: '7_Database@2',
       when: ({ model }) =>

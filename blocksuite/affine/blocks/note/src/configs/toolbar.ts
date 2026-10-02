@@ -8,6 +8,7 @@ import {
   type ToolbarModuleConfig,
   ToolbarModuleExtension,
 } from '@blocksuite/affine-shared/services';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { Bound } from '@blocksuite/global/gfx';
 import {
   AutoHeightIcon,
@@ -105,7 +106,7 @@ const builtinSurfaceToolbarConfig = {
           content: html`<editor-icon-button
             aria-label="${label$.value}"
             .showTooltip="${shouldShowTooltip$.value}"
-            .tooltip="${'This note is part of Page Mode. Click to remove it from the page.'}"
+            .tooltip="${editorText('This note is part of Page Mode. Click to remove it from the page.')}"
             data-testid="display-in-page"
             @click=${() => onSelect()}
           >
@@ -146,7 +147,9 @@ const builtinSurfaceToolbarConfig = {
     },
     {
       id: 'e.slicer',
-      label: 'Slicer',
+      get label() {
+        return editorText('Slicer');
+      },
       icon: ScissorsIcon(),
       tooltip: html`<affine-tooltip-content-with-shortcut
         data-tip="${'Cutting mode'}"
@@ -165,7 +168,9 @@ const builtinSurfaceToolbarConfig = {
     },
     {
       id: 'f.auto-height',
-      label: 'Size',
+      get label() {
+        return editorText('Size');
+      },
       when(ctx) {
         const elements = ctx.getSurfaceModelsByType(NoteBlockModel);
         return (
@@ -183,11 +188,15 @@ const builtinSurfaceToolbarConfig = {
         const { collapse } = firstModel.props.edgeless$.value;
         const options: Pick<ToolbarAction, 'tooltip' | 'icon'> = collapse
           ? {
-              tooltip: 'Auto height',
+              get tooltip() {
+                return editorText('Auto height');
+              },
               icon: AutoHeightIcon(),
             }
           : {
-              tooltip: 'Customized height',
+              get tooltip() {
+                return editorText('Customized height');
+              },
               icon: CustomizedHeightIcon(),
             };
 
@@ -303,12 +312,20 @@ function setDisplayMode(
   const data =
     newMode === NoteDisplayMode.EdgelessOnly
       ? {
-          title: 'Note removed from Page Mode',
-          message: 'Content removed from your page.',
+          get title() {
+            return editorText('Note removed from Page Mode');
+          },
+          get message() {
+            return editorText('Content removed from your page.');
+          },
         }
       : {
-          title: 'Note displayed in Page Mode',
-          message: 'Content added to your page.',
+          get title() {
+            return editorText('Note displayed in Page Mode');
+          },
+          get message() {
+            return editorText('Content added to your page.');
+          },
         };
 
   const notification = ctx.std.getOptional(NotificationProvider);
@@ -320,7 +337,9 @@ function setDisplayMode(
     actions: [
       {
         key: 'view-in-toc',
-        label: 'View in Toc',
+        get label() {
+          return editorText('View in Toc');
+        },
         onClick: () => {
           const sidebar = ctx.std.getOptional(SidebarExtensionIdentifier);
           sidebar?.open('outline');

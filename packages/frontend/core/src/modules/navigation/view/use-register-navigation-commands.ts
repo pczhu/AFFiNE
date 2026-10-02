@@ -2,6 +2,7 @@ import {
   PreconditionStrategy,
   registerAffineCommand,
 } from '@affine/core/commands';
+import { translateUiText } from '@affine/i18n';
 import { track } from '@affine/track';
 import { useService } from '@toeverything/infra';
 import { useEffect } from 'react';
@@ -19,7 +20,9 @@ export function useRegisterNavigationCommands() {
         category: 'affine:general',
         preconditionStrategy: PreconditionStrategy.Never,
         icon: 'none',
-        label: 'go back',
+        get label() {
+          return translateUiText('go back');
+        },
         keyBinding: {
           binding: '$mod+[',
         },
@@ -36,7 +39,9 @@ export function useRegisterNavigationCommands() {
         category: 'affine:general',
         preconditionStrategy: PreconditionStrategy.Never,
         icon: 'none',
-        label: 'go forward',
+        get label() {
+          return translateUiText('go forward');
+        },
         keyBinding: {
           binding: '$mod+]',
         },

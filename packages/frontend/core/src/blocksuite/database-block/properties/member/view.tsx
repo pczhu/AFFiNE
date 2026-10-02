@@ -1,4 +1,5 @@
 import { Avatar, Popover, uniReactRoot } from '@affine/component';
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import {
   type Cell,
   type CellRenderProps,
@@ -69,6 +70,7 @@ const MemberCellComponent: ForwardRefRenderFunction<
   DataViewCellLifeCycle,
   CellRenderProps<{}, MemberCellRawValueType, MemberCellJsonValueType>
 > = (props, ref): ReactNode => {
+  useUiLanguage();
   const manager = useMemo(
     () => new MemberManager(props), // oxlint-disable-line react-hooks-js/preserve-manual-memoization
     [] // oxlint-disable-line react/exhaustive-deps
@@ -96,7 +98,7 @@ const MemberCellComponent: ForwardRefRenderFunction<
     if (!manager.userService || !manager.userListService) {
       return (
         <div className={styles.memberPopoverContainer}>
-          member list only works in cloud
+          {translateUiText('member list only works in cloud\n        ')}
         </div>
       );
     }
@@ -149,6 +151,7 @@ const MemberPreview = ({
   memberId: string;
   memberManager: MemberManager;
 }) => {
+  useUiLanguage();
   const userInfo = useMemberInfo(memberId, memberManager.userService);
   if (!userInfo) {
     return null;
@@ -162,7 +165,9 @@ const MemberPreview = ({
         size={24}
       />
       <div className={styles.memberName}>
-        {userInfo.removed ? 'Deleted user' : userInfo.name || 'Unnamed'}
+        {userInfo.removed
+          ? translateUiText('Deleted user')
+          : userInfo.name || translateUiText('Unnamed')}
       </div>
     </div>
   );

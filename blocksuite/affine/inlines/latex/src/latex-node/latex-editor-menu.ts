@@ -3,6 +3,7 @@ import type { RichText } from '@blocksuite/affine-rich-text';
 import { ThemeProvider } from '@blocksuite/affine-shared/services';
 import { unsafeCSSVar } from '@blocksuite/affine-shared/theme';
 import type { AffineTextAttributes } from '@blocksuite/affine-shared/types';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { SignalWatcher, WithDisposable } from '@blocksuite/global/lit';
 import { noop } from '@blocksuite/global/utils';
 import { DoneIcon } from '@blocksuite/icons/lit';
@@ -195,7 +196,9 @@ export class LatexEditorMenu extends SignalWatcher(
           })}</span
         >
       </div>
-      <div class="latex-editor-hint">Shift Enter to line break</div>
+      <div class="latex-editor-hint">
+        ${editorText('Shift Enter to line break')}
+      </div>
     </div>`;
   }
 

@@ -1,4 +1,5 @@
 import { IconButton, Menu, MenuItem } from '@affine/component';
+import { translateUiText } from '@affine/i18n';
 import type { AttachmentBlockModel } from '@blocksuite/affine/model';
 import {
   //EditIcon,
@@ -22,7 +23,9 @@ const items = [
   },
   */
   {
-    name: 'Download',
+    get name() {
+      return translateUiText('Download');
+    },
     icon: <LocalDataIcon />,
     action: download,
   },

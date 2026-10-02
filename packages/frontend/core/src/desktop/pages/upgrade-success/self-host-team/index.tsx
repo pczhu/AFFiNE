@@ -3,7 +3,7 @@ import { AuthPageContainer } from '@affine/component/auth-components';
 import { SelfhostGenerateLicenseService } from '@affine/core/modules/cloud';
 import { OpenInAppService } from '@affine/core/modules/open-in-app';
 import { copyTextToClipboard } from '@affine/core/utils/clipboard';
-import { Trans, useI18n } from '@affine/i18n';
+import { Trans, translateUiText, useI18n, useUiLanguage } from '@affine/i18n';
 import { CopyIcon } from '@blocksuite/icons/rc';
 import { useLiveData, useService } from '@toeverything/infra';
 import { useCallback, useEffect } from 'react';
@@ -18,6 +18,7 @@ import * as styles from './styles.css';
  * only on web
  */
 export const Component = () => {
+  useUiLanguage();
   const [params] = useSearchParams();
   const sessionId = params.get('session_id');
   const selfhostGenerateLicenseService = useService(
@@ -44,7 +45,7 @@ export const Component = () => {
   } else {
     return (
       <AuthPageContainer
-        title={'failed to generate license key'}
+        title={translateUiText('failed to generate license key')}
         subtitle={error?.message}
       ></AuthPageContainer>
     );
@@ -61,7 +62,11 @@ const Success = ({ licenseKey }: { licenseKey: string | null }) => {
 
   const onCopy = useCallback(() => {
     if (!licenseKey) {
-      notify.error({ title: 'Copy failed, please try again later' });
+      notify.error({
+        get title() {
+          return translateUiText('Copy failed, please try again later');
+        },
+      });
       return;
     }
     copyTextToClipboard(licenseKey)
@@ -74,7 +79,11 @@ const Success = ({ licenseKey }: { licenseKey: string | null }) => {
       })
       .catch(err => {
         console.error(err);
-        notify.error({ title: 'Copy failed, please try again later' });
+        notify.error({
+          get title() {
+            return translateUiText('Copy failed, please try again later');
+          },
+        });
       });
   }, [licenseKey, t]);
 

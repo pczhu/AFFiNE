@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { nanoid } from '@blocksuite/store';
 import zod from 'zod';
 
@@ -10,7 +11,9 @@ export const SelectPropertySchema = zod.object({
 });
 export type SelectPropertyData = zod.infer<typeof SelectPropertySchema>;
 export const selectPropertyModelConfig = selectPropertyType.modelConfig({
-  name: 'Select',
+  get name() {
+    return editorText('Select');
+  },
   kanbanGroup: {
     enabled: true,
     mutable: true,

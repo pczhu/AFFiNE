@@ -7,7 +7,7 @@ import {
   type RootBlockModel,
 } from '@blocksuite/affine-model';
 import { focusTextModel, type RichText } from '@blocksuite/affine-rich-text';
-import { matchModels } from '@blocksuite/affine-shared/utils';
+import { editorText, matchModels } from '@blocksuite/affine-shared/utils';
 import { WithDisposable } from '@blocksuite/global/lit';
 import { ShadowlessElement } from '@blocksuite/std';
 import type { Store } from '@blocksuite/store';
@@ -62,7 +62,7 @@ export class DocTitle extends WithDisposable(ShadowlessElement) {
     }
 
     .doc-title-container-empty::before {
-      content: 'Title';
+      content: attr(data-title-placeholder);
       color: var(--affine-placeholder-color);
       position: absolute;
       opacity: 0.5;
@@ -216,7 +216,8 @@ export class DocTitle extends WithDisposable(ShadowlessElement) {
         class="doc-title-container ${
           isEmpty ? 'doc-title-container-empty' : ''
         }"
-        data-block-is-title="true"
+        data-block-is-title=${editorText('true')}
+        data-title-placeholder=${editorText('Title')}
       >
         <rich-text
           .yText=${this._rootModel?.props.title.yText}

@@ -1,4 +1,5 @@
 import { getSelectedModelsCommand } from '@blocksuite/affine-shared/commands';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { type SlashMenuConfig } from '@blocksuite/affine-widget-slash-menu';
 import { ImageIcon } from '@blocksuite/icons/lit';
 
@@ -9,11 +10,17 @@ export const imageSlashMenuConfig: SlashMenuConfig = {
   items: [
     {
       name: 'Image',
-      description: 'Insert an image.',
+      get description() {
+        return editorText('Insert an image.');
+      },
       icon: ImageIcon(),
       tooltip: {
-        figure: PhotoTooltip,
-        caption: 'Photo',
+        get figure() {
+          return PhotoTooltip();
+        },
+        get caption() {
+          return editorText('Photo');
+        },
       },
       group: '4_Content & Media@1',
       when: ({ model }) =>

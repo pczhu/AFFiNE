@@ -1,3 +1,4 @@
+import { translateUiText } from '@affine/i18n';
 import {
   EditorHostKey,
   propertyType,
@@ -11,7 +12,9 @@ import zod from 'zod';
 
 export const createdByColumnType = propertyType('created-by');
 export const createdByPropertyModelConfig = createdByColumnType.modelConfig({
-  name: 'Created By',
+  get name() {
+    return translateUiText('Created By');
+  },
   kanbanGroup: {
     enabled: true,
     mutable: false,

@@ -1,3 +1,4 @@
+import { translateUiText } from '@affine/i18n';
 import { LoadingIcon } from '@blocksuite/affine/components/icons';
 import { WarningIcon } from '@blocksuite/icons/lit';
 import { type TemplateResult } from 'lit';
@@ -25,7 +26,7 @@ export function getChipTooltip(
     return 'Click to add doc';
   }
   if (state === 'processing') {
-    return 'Processing...';
+    return translateUiText('Processing...');
   }
   if (state === 'failed') {
     return 'Failed to add to context';

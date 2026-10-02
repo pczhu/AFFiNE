@@ -2,7 +2,7 @@ import { notify } from '@affine/component';
 import { isMindmapChild, isMindMapRoot } from '@affine/core/blocksuite/ai';
 import { EditorService } from '@affine/core/modules/editor';
 import { apis } from '@affine/electron-api';
-import { I18n } from '@affine/i18n';
+import { I18n, translateUiText } from '@affine/i18n';
 import type { MenuContext } from '@blocksuite/affine/components/toolbar';
 import { Bound, getCommonBound } from '@blocksuite/affine/global/gfx';
 import type { BlockStdScope } from '@blocksuite/affine/std';
@@ -219,7 +219,9 @@ export function copyAsImage(std: BlockStdScope) {
 export function createCopyAsPngMenuItem(framework: FrameworkProvider) {
   return {
     icon: CopyAsImgaeIcon({ width: '20', height: '20' }),
-    label: 'Copy as Image',
+    get label() {
+      return translateUiText('Copy as Image');
+    },
     type: 'copy-as-image',
     when: (ctx: MenuContext) => {
       if (ctx.isEmpty()) return false;

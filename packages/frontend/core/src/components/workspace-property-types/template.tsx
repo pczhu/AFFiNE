@@ -1,7 +1,7 @@
 import { Checkbox, MenuItem, PropertyValue } from '@affine/component';
 import type { FilterParams } from '@affine/core/modules/collection-rules';
 import { type DocRecord, DocService } from '@affine/core/modules/doc';
-import { useI18n } from '@affine/i18n';
+import { translateUiText, useI18n, useUiLanguage } from '@affine/i18n';
 import { TemplateIcon } from '@blocksuite/icons/rc';
 import { useLiveData, useService } from '@toeverything/infra';
 import { type ChangeEvent, useCallback } from 'react';
@@ -90,6 +90,7 @@ export const TemplateFilterValue = ({
   onDraftCompleted?: () => void;
   onChange?: (filter: FilterParams) => void;
 }) => {
+  useUiLanguage();
   return (
     <FilterValueMenu
       isDraft={isDraft}
@@ -105,7 +106,7 @@ export const TemplateFilterValue = ({
             }}
             selected={filter.value === 'true'}
           >
-            {'True'}
+            {translateUiText('True')}
           </MenuItem>
           <MenuItem
             onClick={() => {
@@ -116,12 +117,16 @@ export const TemplateFilterValue = ({
             }}
             selected={filter.value !== 'true'}
           >
-            {'False'}
+            {translateUiText('False')}
           </MenuItem>
         </>
       }
     >
-      <span>{filter.value === 'true' ? 'True' : 'False'}</span>
+      <span>
+        {filter.value === 'true'
+          ? translateUiText('True')
+          : translateUiText('False')}
+      </span>
     </FilterValueMenu>
   );
 };

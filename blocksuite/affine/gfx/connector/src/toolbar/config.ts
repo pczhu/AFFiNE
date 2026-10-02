@@ -28,6 +28,7 @@ import {
   ToolbarModuleExtension,
 } from '@blocksuite/affine-shared/services';
 import {
+  editorText,
   getMostCommonResolvedValue,
   getMostCommonValue,
 } from '@blocksuite/affine-shared/utils';
@@ -191,7 +192,7 @@ export const connectorToolbarConfig = {
         return html`
           <edgeless-color-picker-button
             class="stroke-color"
-            .label="${'Stroke style'}"
+            .label="${editorText('Stroke style')}"
             .pick=${onPickColor}
             .color=${stroke}
             .theme=${theme}
@@ -232,7 +233,9 @@ export const connectorToolbarConfig = {
         };
 
         return renderMenu({
-          label: 'Style',
+          get label() {
+            return editorText('Style');
+          },
           items: LINE_STYLE_LIST,
           currentValue: rough,
           onPick,
@@ -256,7 +259,9 @@ export const connectorToolbarConfig = {
             };
 
             return renderMenu({
-              label: 'Start point style',
+              get label() {
+                return editorText('Start point style');
+              },
               items: FRONT_ENDPOINT_STYLE_LIST,
               currentValue: pointStyle,
               onPick,
@@ -266,7 +271,9 @@ export const connectorToolbarConfig = {
         {
           id: 'b.flip-direction',
           icon: FlipDirectionIcon(),
-          tooltip: 'Flip direction',
+          get tooltip() {
+            return editorText('Flip direction');
+          },
           run(ctx) {
             const models = ctx.getSurfaceModelsByType(ConnectorElementModel);
             if (!models.length) return;
@@ -302,7 +309,9 @@ export const connectorToolbarConfig = {
             };
 
             return renderMenu({
-              label: 'End point style',
+              get label() {
+                return editorText('End point style');
+              },
               items: REAR_ENDPOINT_STYLE_LIST,
               currentValue: pointStyle,
               onPick,
@@ -323,8 +332,12 @@ export const connectorToolbarConfig = {
             };
 
             return renderMenu({
-              label: 'Shape',
-              tooltip: 'Connector shape',
+              get label() {
+                return editorText('Shape');
+              },
+              get tooltip() {
+                return editorText('Connector shape');
+              },
               items: CONNECTOR_MODE_LIST,
               currentValue: mode,
               onPick,
@@ -335,7 +348,9 @@ export const connectorToolbarConfig = {
     },
     {
       id: 'g.text',
-      tooltip: 'Add text',
+      get tooltip() {
+        return editorText('Add text');
+      },
       icon: AddTextIcon(),
       when(ctx) {
         const models = ctx.getSurfaceModelsByType(ConnectorElementModel);

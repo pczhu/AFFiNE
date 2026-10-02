@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import {
   BlockSelection,
   type BlockStdScope,
@@ -29,7 +30,9 @@ interface MoveBlockConfig {
 
 export const moveBlockConfigs: MoveBlockConfig[] = [
   {
-    name: 'Move Up',
+    get name() {
+      return editorText('Move Up');
+    },
     hotkey: ['Mod-Alt-ArrowUp', 'Mod-Shift-ArrowUp'],
     action: std => {
       const doc = std.store;
@@ -83,7 +86,9 @@ export const moveBlockConfigs: MoveBlockConfig[] = [
     },
   },
   {
-    name: 'Move Down',
+    get name() {
+      return editorText('Move Down');
+    },
     hotkey: ['Mod-Alt-ArrowDown', 'Mod-Shift-ArrowDown'],
     action: std => {
       const doc = std.store;

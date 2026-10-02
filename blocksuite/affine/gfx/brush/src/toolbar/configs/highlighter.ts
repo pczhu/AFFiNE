@@ -17,6 +17,7 @@ import {
   ToolbarModuleExtension,
 } from '@blocksuite/affine-shared/services';
 import {
+  editorText,
   getMostCommonResolvedValue,
   getMostCommonValue,
 } from '@blocksuite/affine-shared/utils';
@@ -115,7 +116,7 @@ export const highlighterToolbarConfig = {
         return html`
           <edgeless-color-picker-button
             .colorPanelClass="${'one-way small'}"
-            .label="${'Color'}"
+            .label="${editorText('Color')}"
             .pick=${onPick}
             .color=${color}
             .theme=${theme}

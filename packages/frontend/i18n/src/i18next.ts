@@ -111,7 +111,7 @@ export function isI18nString(value: unknown): value is I18nString {
   return false;
 }
 
-export function createI18nWrapper(getI18nFn: () => i18n) {
+export function createI18nWrapper(getI18nFn: () => i18n, language?: string) {
   const I18nMethod = {
     t(key: I18nString, options?: Record<string, any>) {
       if (typeof key === 'object' && 'i18nKey' in key) {
@@ -120,8 +120,8 @@ export function createI18nWrapper(getI18nFn: () => i18n) {
       }
 
       const i18n = getI18nFn();
-      if (i18n.exists(key)) {
-        return i18n.t(key, options);
+      if (i18n.exists(key, { lng: language })) {
+        return i18n.t(key, { lng: language, ...options });
       } else {
         // unknown translate key 'xxx.xxx' returns itself
         return key;
@@ -129,7 +129,10 @@ export function createI18nWrapper(getI18nFn: () => i18n) {
     },
     get language() {
       const i18n = getI18nFn();
-      return i18n.language;
+      return language ?? i18n.language;
+    },
+    uiText(text: string) {
+      return translateUiText(text, language);
     },
     changeLanguage(lng?: string | undefined) {
       const i18n = getI18nFn();
@@ -169,3 +172,27 @@ export function createI18nWrapper(getI18nFn: () => i18n) {
  */
 export const I18n = createI18nWrapper(getOrCreateI18n);
 export type I18nInstance = typeof I18n;
+
+/** 固定界面文案使用完整词条查找，句号不作为词条的层级分隔符。 */
+export function translateUiText(text: string, language?: string): string {
+  const key = text.replace(/\s+/g, ' ').trim();
+  const i18n = getOrCreateI18n();
+  if (
+    !i18n.exists(key, {
+      keySeparator: false,
+      nsSeparator: false,
+      lng: language,
+    })
+  ) {
+    return text;
+  }
+  const translated = i18n.t(key, {
+    keySeparator: false,
+    nsSeparator: false,
+    lng: language,
+  });
+  if (translated === key) {
+    return text;
+  }
+  return text.replace(text.trim(), translated);
+}

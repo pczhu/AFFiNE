@@ -50,6 +50,7 @@ import {
   adminMailDeliveriesQuery,
   previewLicenseMutation,
 } from '@affine/graphql';
+import { translateUiText, useI18n, useUiLanguage } from '@affine/i18n';
 import { ROUTES } from '@affine/routes';
 import {
   ChevronDownIcon,
@@ -262,8 +263,13 @@ function TrendChart({
   secondaryLabel?: string;
   secondaryFormatter?: (value: number) => string;
 }) {
+  useUiLanguage();
   if (points.length === 0) {
-    return <div className="text-sm text-muted-foreground">No data</div>;
+    return (
+      <div className="text-sm text-muted-foreground">
+        {translateUiText('No data')}
+      </div>
+    );
   }
 
   const chartPoints =
@@ -400,12 +406,13 @@ function MultiTrendChart({
   series: MultiTrendSeries[];
   valueFormatter: (value: number) => string;
 }) {
+  useUiLanguage();
   const visibleSeries = series.filter(item => item.total > 0).slice(0, 4);
 
   if (points.length === 0 || visibleSeries.length === 0) {
     return (
       <div className="flex h-44 items-center justify-center rounded-lg border border-dashed border-border/60 bg-muted/15 text-sm text-muted-foreground">
-        No mail deliveries in this window
+        {translateUiText('No mail deliveries in this window\n      ')}
       </div>
     );
   }
@@ -500,12 +507,13 @@ function PrimaryMetricCard({
   value: string;
   description: string;
 }) {
+  useUiLanguage();
   return (
     <Card className="h-full border-border/60 bg-card shadow-1">
       <CardHeader className="pb-2">
         <CardDescription className="flex items-center gap-2 text-sm">
           <UsersIcon className="h-4 w-4" aria-hidden="true" />
-          Current Sync Active Users
+          {translateUiText('Current Sync Active Users\n        ')}
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-1.5">
@@ -554,9 +562,11 @@ function SecondaryMetricCard({
 
 function rangeOptionLabel(option: number, unit: 'hours' | 'days') {
   if (unit === 'hours') {
-    return option === 168 ? '7d' : `${option}h`;
+    return option === 168
+      ? `7${translateUiText('days')}`
+      : `${option}${translateUiText('hours')}`;
   }
-  return `${option}d`;
+  return `${option}${translateUiText('days')}`;
 }
 
 function PanelRangeSelect({
@@ -577,7 +587,10 @@ function PanelRangeSelect({
       value={String(value)}
       onValueChange={next => onChange(Number(next))}
     >
-      <SelectTrigger className="w-full md:w-28" aria-label={ariaLabel}>
+      <SelectTrigger
+        className="w-full md:w-28"
+        aria-label={translateUiText(ariaLabel)}
+      >
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
@@ -598,9 +611,10 @@ function LicensePreviewDialog({
   license: LicensePreview | null;
   onOpenChange: (open: boolean) => void;
 }) {
+  useUiLanguage();
   const rows = license
     ? [
-        ['Status', license.valid ? 'Valid' : 'Invalid'],
+        ['Status', translateUiText(license.valid ? 'Valid' : 'Invalid')],
         ['License ID', license.id],
         ['Workspace ID', license.workspaceId],
         ['Plan', license.plan],
@@ -618,9 +632,11 @@ function LicensePreviewDialog({
     <Dialog open={!!license} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-xl">
         <DialogHeader>
-          <DialogTitle>License Preview</DialogTitle>
+          <DialogTitle>{translateUiText('License Preview')}</DialogTitle>
           <DialogDescription>
-            Signature and payload format are valid.
+            {translateUiText(
+              'Signature and payload format are valid.\n          '
+            )}
           </DialogDescription>
         </DialogHeader>
         <div className="rounded-lg border border-border/60 overflow-hidden">
@@ -629,7 +645,9 @@ function LicensePreviewDialog({
               key={label}
               className="grid grid-cols-[140px_1fr] gap-4 border-b border-border/60 px-4 py-3 last:border-b-0"
             >
-              <div className="text-sm text-muted-foreground">{label}</div>
+              <div className="text-sm text-muted-foreground">
+                {translateUiText(label)}
+              </div>
               <div className="min-w-0 break-words text-sm font-medium tabular-nums">
                 {value}
               </div>
@@ -637,7 +655,9 @@ function LicensePreviewDialog({
           ))}
         </div>
         <DialogFooter className="mt-2">
-          <Button onClick={() => onOpenChange(false)}>Confirm</Button>
+          <Button onClick={() => onOpenChange(false)}>
+            {translateUiText('Confirm')}
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
@@ -653,6 +673,9 @@ function DashboardActions({
   isValidating: boolean;
   onRefresh: () => void;
 }) {
+  const uiI18n = useI18n();
+
+  useUiLanguage();
   const inputRef = useRef<HTMLInputElement>(null);
   const pickerOpenRef = useRef(false);
   const [licensePreview, setLicensePreview] = useState<LicensePreview | null>(
@@ -663,13 +686,13 @@ function DashboardActions({
   });
 
   const notifyNoFileSelected = useCallback(() => {
-    toast.error('No license file selected.');
+    toast.error(translateUiText('No license file selected.'));
   }, []);
 
   const openLicensePicker = useCallback(() => {
     const input = inputRef.current;
     if (!input) {
-      toast.error('Failed to open license file picker.');
+      toast.error(translateUiText('Failed to open license file picker.'));
       return;
     }
 
@@ -706,7 +729,7 @@ function DashboardActions({
         })
         .catch(error => {
           console.error(error);
-          toast.error('Failed to preview license.');
+          toast.error(translateUiText('Failed to preview license.'));
         });
     },
     [notifyNoFileSelected, previewLicense]
@@ -719,18 +742,21 @@ function DashboardActions({
         : [
             {
               key: 'preview-license',
-              label: 'Preview license',
+              get label() {
+                return uiI18n.uiText('Preview license');
+              },
               onSelect: openLicensePicker,
             },
           ],
-    [openLicensePicker]
+    [openLicensePicker, uiI18n]
   );
 
   return (
     <>
       <div className="flex flex-wrap items-center justify-end gap-3">
         <span className="text-xs text-muted-foreground tabular-nums">
-          Updated at {formatDateTime(updatedAt)}
+          {translateUiText('Updated at ')}
+          {formatDateTime(updatedAt)}
         </span>
         <div className="flex items-center gap-2">
           <Button
@@ -743,12 +769,16 @@ function DashboardActions({
               className={`h-3.5 w-3.5 mr-1.5 ${isValidating ? 'animate-spin' : ''}`}
               aria-hidden="true"
             />
-            Refresh
+            {translateUiText('Refresh\n          ')}
           </Button>
           {menuItems.length ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="sm" aria-label="Dashboard menu">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  aria-label={translateUiText('Dashboard menu')}
+                >
                   <ChevronDownIcon className="h-3.5 w-3.5" aria-hidden />
                 </Button>
               </DropdownMenuTrigger>
@@ -784,10 +814,11 @@ function DashboardActions({
 }
 
 function DashboardPageSkeleton() {
+  useUiLanguage();
   return (
     <div className="h-dvh flex-1 flex-col flex overflow-hidden">
       <Header
-        title="Dashboard"
+        title={translateUiText('Dashboard')}
         endFix={
           <div className="flex items-center gap-3">
             <Skeleton className="h-3 w-44" />
@@ -855,6 +886,7 @@ function TopSharedLinksSection({
   sharedLinkWindowDays: number;
   onWindowChange: (value: number) => void;
 }) {
+  useUiLanguage();
   const variables = useMemo(
     () => ({
       input: {
@@ -885,14 +917,18 @@ function TopSharedLinksSection({
     <Card className="border-border/60 bg-card shadow-1">
       <CardHeader className="flex flex-col gap-3 pb-4 md:flex-row md:items-start md:justify-between">
         <div className="space-y-1.5">
-          <CardTitle className="text-base">Top Shared Links</CardTitle>
+          <CardTitle className="text-base">
+            {translateUiText('Top Shared Links')}
+          </CardTitle>
           <CardDescription>
-            Top {topSharedLinks.length} links in the last{' '}
-            {topSharedLinksWindow.effectiveSize} days
+            {translateUiText('Top ')}
+            {topSharedLinks.length} {translateUiText('links in the last')}{' '}
+            {topSharedLinksWindow.effectiveSize}{' '}
+            {translateUiText('days\n          ')}
           </CardDescription>
         </div>
         <PanelRangeSelect
-          ariaLabel="Top shared links range"
+          ariaLabel={translateUiText('Top shared links range')}
           value={sharedLinkWindowDays}
           options={SHARED_DAY_OPTIONS}
           unit="days"
@@ -903,26 +939,35 @@ function TopSharedLinksSection({
         {topSharedLinks.length === 0 ? (
           <div className="rounded-xl border border-dashed border-border/60 p-8 text-center bg-muted/15">
             <div className="text-sm font-medium">
-              No shared links in this window
+              {translateUiText('No shared links in this window\n            ')}
             </div>
             <div className="text-xs text-muted-foreground mt-2">
-              Publish pages and collect traffic, then this table will rank links
-              by views.
+              {translateUiText(
+                'Publish pages and collect traffic, then this table will rank links\n              by views.\n            '
+              )}
             </div>
             <Button asChild variant="outline" size="sm" className="mt-4">
-              <Link to={ROUTES.admin.workspaces}>Go to Workspaces</Link>
+              <Link to={ROUTES.admin.workspaces}>
+                {translateUiText('Go to Workspaces')}
+              </Link>
             </Button>
           </div>
         ) : (
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Document</TableHead>
-                <TableHead>Workspace</TableHead>
-                <TableHead className="text-right">Views</TableHead>
-                <TableHead className="text-right">Unique</TableHead>
-                <TableHead className="text-right">Guest</TableHead>
-                <TableHead>Last Accessed</TableHead>
+                <TableHead>{translateUiText('Document')}</TableHead>
+                <TableHead>{translateUiText('Workspace')}</TableHead>
+                <TableHead className="text-right">
+                  {translateUiText('Views')}
+                </TableHead>
+                <TableHead className="text-right">
+                  {translateUiText('Unique')}
+                </TableHead>
+                <TableHead className="text-right">
+                  {translateUiText('Guest')}
+                </TableHead>
+                <TableHead>{translateUiText('Last Accessed')}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -1056,6 +1101,7 @@ function MailDeliverySection({
   hours: number;
   onHoursChange: (value: number) => void;
 }) {
+  useUiLanguage();
   const [mode, setMode] = useState<MailChartMode>('status');
   const { data } = useQuery(
     {
@@ -1112,16 +1158,19 @@ function MailDeliverySection({
         <div className="space-y-1.5">
           <CardTitle className="flex items-center gap-2 text-base">
             <MailIcon className="h-4 w-4" aria-hidden="true" />
-            Email Delivery Trend
+            {translateUiText('Email Delivery Trend\n          ')}
           </CardTitle>
           <CardDescription>
-            {mailWindowLabel(hours)} at{' '}
-            {analytics.window.bucket === 'Hour' ? 'hour' : 'day'} bucket in UTC
+            {mailWindowLabel(hours)} {translateUiText('at')}{' '}
+            {analytics.window.bucket === 'Hour'
+              ? translateUiText('hour')
+              : translateUiText('day')}{' '}
+            {translateUiText('bucket in UTC\n          ')}
           </CardDescription>
         </div>
         <div className="flex w-full flex-col gap-2 md:w-auto md:flex-row">
           <PanelRangeSelect
-            ariaLabel="Email delivery range"
+            ariaLabel={translateUiText('Email delivery range')}
             value={hours}
             options={MAIL_HOUR_OPTIONS}
             unit="hours"
@@ -1135,9 +1184,15 @@ function MailDeliverySection({
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="status">Status</SelectItem>
-              <SelectItem value="type">Mail type</SelectItem>
-              <SelectItem value="outcome">Success / failure</SelectItem>
+              <SelectItem value="status">
+                {translateUiText('Status')}
+              </SelectItem>
+              <SelectItem value="type">
+                {translateUiText('Mail type')}
+              </SelectItem>
+              <SelectItem value="outcome">
+                {translateUiText('Success / failure')}
+              </SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -1145,25 +1200,33 @@ function MailDeliverySection({
       <CardContent className="space-y-4">
         <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
           <div className="rounded-md border border-border/60 bg-muted/15 px-3 py-2">
-            <div className="text-xs text-muted-foreground">Sent</div>
+            <div className="text-xs text-muted-foreground">
+              {translateUiText('Sent')}
+            </div>
             <div className="mt-1 text-xl font-semibold tabular-nums">
               {compactFormatter.format(analytics.summary.sent)}
             </div>
           </div>
           <div className="rounded-md border border-border/60 bg-muted/15 px-3 py-2">
-            <div className="text-xs text-muted-foreground">Not delivered</div>
+            <div className="text-xs text-muted-foreground">
+              {translateUiText('Not delivered')}
+            </div>
             <div className="mt-1 text-xl font-semibold tabular-nums">
               {compactFormatter.format(failedLike)}
             </div>
           </div>
           <div className="rounded-md border border-border/60 bg-muted/15 px-3 py-2">
-            <div className="text-xs text-muted-foreground">Pending</div>
+            <div className="text-xs text-muted-foreground">
+              {translateUiText('Pending')}
+            </div>
             <div className="mt-1 text-xl font-semibold tabular-nums">
               {compactFormatter.format(pending)}
             </div>
           </div>
           <div className="rounded-md border border-border/60 bg-muted/15 px-3 py-2">
-            <div className="text-xs text-muted-foreground">Success rate</div>
+            <div className="text-xs text-muted-foreground">
+              {translateUiText('Success rate')}
+            </div>
             <div className="mt-1 text-xl font-semibold tabular-nums">
               {(analytics.summary.successRate * 100).toFixed(1)}%
             </div>
@@ -1171,7 +1234,7 @@ function MailDeliverySection({
         </div>
 
         <MultiTrendChart
-          ariaLabel="Email delivery trend"
+          ariaLabel={translateUiText('Email delivery trend')}
           points={chartPoints}
           series={chartSeries}
           valueFormatter={value => intFormatter.format(value)}
@@ -1223,6 +1286,7 @@ function MailDeliveryCardSkeleton() {
 }
 
 function DashboardPageContent() {
+  useUiLanguage();
   const [storageHistoryDays, setStorageHistoryDays] = useState<number>(30);
   const [syncHistoryHours, setSyncHistoryHours] = useState<number>(48);
   const [copilotWindowDays, setCopilotWindowDays] = useState<number>(7);
@@ -1295,7 +1359,7 @@ function DashboardPageContent() {
   return (
     <div className="h-dvh flex-1 flex-col flex overflow-hidden">
       <Header
-        title="Dashboard"
+        title={translateUiText('Dashboard')}
         endFix={
           <DashboardActions
             updatedAt={dashboard.generatedAt}
@@ -1313,20 +1377,20 @@ function DashboardPageContent() {
           <div className="h-full min-w-0 lg:col-span-5">
             <PrimaryMetricCard
               value={intFormatter.format(dashboard.syncActiveUsers)}
-              description={`${dashboard.syncWindow.effectiveSize}h active window`}
+              description={`${dashboard.syncWindow.effectiveSize}${translateUiText('h active window')}`}
             />
           </div>
           <div className="h-full min-w-0 lg:col-span-3">
             <SecondaryMetricCard
-              title="Copilot Conversations"
+              title={translateUiText('Copilot Conversations')}
               value={intFormatter.format(dashboard.copilotConversations)}
-              description={`${dashboard.copilotWindow.effectiveSize}d aggregation`}
+              description={`${dashboard.copilotWindow.effectiveSize}${translateUiText('d aggregation')}`}
               icon={
                 <MessageSquareTextIcon className="h-4 w-4" aria-hidden="true" />
               }
               action={
                 <PanelRangeSelect
-                  ariaLabel="Copilot conversations range"
+                  ariaLabel={translateUiText('Copilot conversations range')}
                   value={copilotWindowDays}
                   options={COPILOT_DAY_OPTIONS}
                   unit="days"
@@ -1340,7 +1404,7 @@ function DashboardPageContent() {
               <CardHeader className="pb-2">
                 <CardDescription className="flex items-center gap-2 text-sm">
                   <DatabaseIcon className="h-4 w-4" aria-hidden="true" />
-                  Managed Storage
+                  {translateUiText('Managed Storage\n                ')}
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -1348,8 +1412,10 @@ function DashboardPageContent() {
                   {formatBytes(totalStorageBytes)}
                 </div>
                 <p className="text-xs text-muted-foreground mt-1">
-                  Workspace {formatBytes(dashboard.workspaceStorageBytes)} •
-                  Blob {formatBytes(dashboard.blobStorageBytes)}
+                  {translateUiText('Workspace ')}
+                  {formatBytes(dashboard.workspaceStorageBytes)}{' '}
+                  {translateUiText('•\n                  Blob ')}
+                  {formatBytes(dashboard.blobStorageBytes)}
                 </p>
               </CardContent>
             </Card>
@@ -1361,14 +1427,15 @@ function DashboardPageContent() {
             <CardHeader className="flex flex-col gap-3 pb-4 md:flex-row md:items-start md:justify-between">
               <div className="space-y-1.5">
                 <CardTitle className="text-base">
-                  Sync Active Users Trend
+                  {translateUiText('Sync Active Users Trend\n                ')}
                 </CardTitle>
                 <CardDescription>
-                  {dashboard.syncWindow.effectiveSize}h at minute bucket
+                  {dashboard.syncWindow.effectiveSize}
+                  {translateUiText('h at minute bucket\n                ')}
                 </CardDescription>
               </div>
               <PanelRangeSelect
-                ariaLabel="Sync active users range"
+                ariaLabel={translateUiText('Sync active users range')}
                 value={syncHistoryHours}
                 options={SYNC_HOUR_OPTIONS}
                 unit="hours"
@@ -1377,9 +1444,9 @@ function DashboardPageContent() {
             </CardHeader>
             <CardContent className="space-y-3">
               <TrendChart
-                ariaLabel="Sync active users trend"
+                ariaLabel={translateUiText('Sync active users trend')}
                 points={syncPoints}
-                primaryLabel="Sync Active Users"
+                primaryLabel={translateUiText('Sync Active Users')}
                 primaryFormatter={value => intFormatter.format(value)}
               />
             </CardContent>
@@ -1389,14 +1456,17 @@ function DashboardPageContent() {
             <CardHeader className="flex flex-col gap-3 pb-4 md:flex-row md:items-start md:justify-between">
               <div className="space-y-1.5">
                 <CardTitle className="text-base">
-                  Storage Trend (Workspace + Blob)
+                  {translateUiText(
+                    'Storage Trend (Workspace + Blob)\n                '
+                  )}
                 </CardTitle>
                 <CardDescription>
-                  {dashboard.storageWindow.effectiveSize}d at day bucket
+                  {dashboard.storageWindow.effectiveSize}
+                  {translateUiText('d at day bucket\n                ')}
                 </CardDescription>
               </div>
               <PanelRangeSelect
-                ariaLabel="Storage trend range"
+                ariaLabel={translateUiText('Storage trend range')}
                 value={storageHistoryDays}
                 options={STORAGE_DAY_OPTIONS}
                 unit="days"
@@ -1405,22 +1475,24 @@ function DashboardPageContent() {
             </CardHeader>
             <CardContent className="space-y-4">
               <TrendChart
-                ariaLabel="Workspace and blob storage trend"
+                ariaLabel={translateUiText('Workspace and blob storage trend')}
                 points={storagePoints}
-                primaryLabel="Workspace Storage"
+                primaryLabel={translateUiText('Workspace Storage')}
                 primaryFormatter={value => formatBytes(value)}
-                secondaryLabel="Blob Storage"
+                secondaryLabel={translateUiText('Blob Storage')}
                 secondaryFormatter={value => formatBytes(value)}
               />
 
               <div className="flex flex-wrap items-center gap-4 text-xs text-muted-foreground">
                 <div className="flex items-center gap-2">
                   <span className="h-2 w-2 rounded-full bg-primary" />
-                  Workspace: {formatBytes(dashboard.workspaceStorageBytes)}
+                  {translateUiText('Workspace: ')}
+                  {formatBytes(dashboard.workspaceStorageBytes)}
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="h-2 w-2 rounded-full bg-foreground/50" />
-                  Blob: {formatBytes(dashboard.blobStorageBytes)}
+                  {translateUiText('Blob: ')}
+                  {formatBytes(dashboard.blobStorageBytes)}
                 </div>
               </div>
             </CardContent>

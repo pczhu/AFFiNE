@@ -1,5 +1,5 @@
 import { BrowserWarning, LocalDemoTips } from '@affine/component/affine-banner';
-import { Trans, useI18n } from '@affine/i18n';
+import { Trans, translateUiText, useI18n } from '@affine/i18n';
 import { useLiveData, useService } from '@toeverything/infra';
 import { useCallback, useState } from 'react';
 
@@ -42,8 +42,11 @@ const OSWarningMessage = () => {
     return (
       <span>
         <Trans i18nKey="recommendBrowser">
-          We recommend the <strong>Chrome</strong> browser for an optimal
-          experience.
+          {translateUiText('We recommend the ')}
+          <strong>Chrome</strong>{' '}
+          {translateUiText(
+            'browser for an optimal\n          experience.\n        '
+          )}
         </Trans>
       </span>
     );

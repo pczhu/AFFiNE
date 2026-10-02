@@ -27,6 +27,7 @@ import {
 import {
   cloneReferenceInfo,
   cloneReferenceInfoWithoutAliases,
+  editorText,
   isNewTabTrigger,
   isNewViewTrigger,
   matchModels,
@@ -240,7 +241,11 @@ export class EmbedLinkedDocBlockComponent extends EmbedBlockComponent<EmbedLinke
   });
 
   get docTitle() {
-    return this.model.props.title || this.linkedDoc?.meta?.title || 'Untitled';
+    return (
+      this.model.props.title ||
+      this.linkedDoc?.meta?.title ||
+      editorText('Untitled')
+    );
   }
 
   get editorMode() {
@@ -435,13 +440,13 @@ export class EmbedLinkedDocBlockComponent extends EmbedBlockComponent<EmbedLinke
                         class="affine-embed-linked-doc-card-content-reload-button"
                         @click=${this.refreshData}
                       >
-                        ${ResetIcon()} <span>Reload</span>
+                        ${ResetIcon()} <span>${editorText('Reload')}</span>
                       </div>
                     </div>
                   `
                 : html`
                     <div class="affine-embed-linked-doc-content-date">
-                      <span>Updated</span>
+                      <span>${editorText('Updated')}</span>
 
                       <span>${dateText}</span>
                     </div>

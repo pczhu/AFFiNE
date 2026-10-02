@@ -13,7 +13,7 @@ import {
   FileSizeLimitProvider,
   TelemetryProvider,
 } from '@blocksuite/affine-shared/services';
-import { formatSize } from '@blocksuite/affine-shared/utils';
+import { editorText, formatSize } from '@blocksuite/affine-shared/utils';
 import { Bound, type IVec, Vec } from '@blocksuite/global/gfx';
 import type { BlockStdScope } from '@blocksuite/std';
 import { GfxControllerIdentifier } from '@blocksuite/std/gfx';
@@ -42,7 +42,7 @@ export function downloadAttachmentBlob(block: AttachmentBlockComponent) {
   const { host, model, blobUrl, resourceController } = block;
 
   if (resourceController.state$.peek().downloading) {
-    toast(host, 'Download in progress...');
+    toast(host, editorText('Download in progress...'));
     return;
   }
 

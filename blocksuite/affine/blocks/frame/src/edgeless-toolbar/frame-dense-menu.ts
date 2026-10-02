@@ -1,5 +1,6 @@
 import { DefaultTool } from '@blocksuite/affine-block-surface';
 import { menu } from '@blocksuite/affine-components/context-menu';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import type { DenseMenuBuilder } from '@blocksuite/affine-widget-edgeless-toolbar';
 import { FrameIcon } from '@blocksuite/icons/lit';
 
@@ -9,14 +10,18 @@ import { FrameConfig } from './config.js';
 
 export const buildFrameDenseMenu: DenseMenuBuilder = (edgeless, gfx) =>
   menu.subMenu({
-    name: 'Frame',
+    get name() {
+      return editorText('Frame');
+    },
     prefix: FrameIcon({ width: '20px', height: '20px' }),
     select: () => gfx.tool.setTool(FrameTool),
     isSelected: gfx.tool.currentToolName$.peek() === 'frame',
     options: {
       items: [
         menu.action({
-          name: 'Custom',
+          get name() {
+            return editorText('Custom');
+          },
           select: () => gfx.tool.setTool(FrameTool),
         }),
         ...FrameConfig.map(config =>

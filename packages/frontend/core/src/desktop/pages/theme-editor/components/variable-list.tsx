@@ -1,5 +1,6 @@
 import { Scrollable } from '@affine/component';
 import { ThemeEditorService } from '@affine/core/modules/theme-editor';
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import { useLiveData, useService } from '@toeverything/infra';
 
 import type { TreeNode } from '../resource';
@@ -9,6 +10,7 @@ import { ColorCell } from './color-cell';
 import { StringCell } from './string-cell';
 
 export const VariableList = ({ node }: { node: TreeNode }) => {
+  useUiLanguage();
   const themeEditor = useService(ThemeEditorService);
   const customTheme = useLiveData(themeEditor.customTheme$);
 
@@ -18,9 +20,9 @@ export const VariableList = ({ node }: { node: TreeNode }) => {
     <main className={styles.content}>
       <header>
         <ul className={styles.row}>
-          <li>Name</li>
-          <li>Light</li>
-          <li>Dark</li>
+          <li>{translateUiText('Name')}</li>
+          <li>{translateUiText('Light')}</li>
+          <li>{translateUiText('Dark')}</li>
         </ul>
       </header>
       <Scrollable.Root className={styles.mainScrollable}>

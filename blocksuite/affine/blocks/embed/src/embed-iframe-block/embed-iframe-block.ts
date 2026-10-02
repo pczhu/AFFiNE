@@ -13,7 +13,7 @@ import {
   NotificationProvider,
   VirtualKeyboardProvider,
 } from '@blocksuite/affine-shared/services';
-import { matchModels } from '@blocksuite/affine-shared/utils';
+import { editorText, matchModels } from '@blocksuite/affine-shared/utils';
 import { BlockSuiteError, ErrorCode } from '@blocksuite/global/exceptions';
 import { BlockSelection } from '@blocksuite/std';
 import { flip, offset, shift } from '@floating-ui/dom';
@@ -134,8 +134,12 @@ export class EmbedIframeBlockComponent extends CaptionedBlockComponent<EmbedIfra
     const link = this.model.props.url;
     if (!link) {
       this.notificationService?.notify({
-        title: 'No link found',
-        message: 'Please set a link to the block',
+        get title() {
+          return editorText('No link found');
+        },
+        get message() {
+          return editorText('Please set a link to the block');
+        },
         accent: 'warning',
         onClose: function (): void {},
       });

@@ -4,6 +4,7 @@ import type {
   ParagraphBlockModel,
 } from '@blocksuite/affine-model';
 import { insertContent } from '@blocksuite/affine-rich-text';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import {
   ArrowDownBigIcon,
   ArrowUpBigIcon,
@@ -76,7 +77,9 @@ export const defaultSlashMenuConfig: SlashMenuConfig = {
       },
       {
         name: 'Move Up',
-        description: 'Shift this line up.',
+        get description() {
+          return editorText('Shift this line up.');
+        },
         icon: ArrowUpBigIcon(),
         tooltip: slashMenuToolTips['Move Up'],
         group: '8_Actions@0',
@@ -98,7 +101,9 @@ export const defaultSlashMenuConfig: SlashMenuConfig = {
       },
       {
         name: 'Move Down',
-        description: 'Shift this line down.',
+        get description() {
+          return editorText('Shift this line down.');
+        },
         icon: ArrowDownBigIcon(),
         tooltip: slashMenuToolTips['Move Down'],
         group: '8_Actions@1',
@@ -115,7 +120,9 @@ export const defaultSlashMenuConfig: SlashMenuConfig = {
       },
       {
         name: 'Copy',
-        description: 'Copy this line to clipboard.',
+        get description() {
+          return editorText('Copy this line to clipboard.');
+        },
         icon: CopyIcon(),
         tooltip: slashMenuToolTips['Copy'],
         group: '8_Actions@2',
@@ -125,7 +132,7 @@ export const defaultSlashMenuConfig: SlashMenuConfig = {
           std.clipboard
             .copy(slice)
             .then(() => {
-              toast(std.host, 'Copied to clipboard');
+              toast(std.host, editorText('Copied to clipboard'));
             })
             .catch(e => {
               console.error(e);
@@ -134,7 +141,9 @@ export const defaultSlashMenuConfig: SlashMenuConfig = {
       },
       {
         name: 'Duplicate',
-        description: 'Create a duplicate of this line.',
+        get description() {
+          return editorText('Create a duplicate of this line.');
+        },
         icon: DualLinkIcon(),
         tooltip: slashMenuToolTips['Copy'],
         group: '8_Actions@3',
@@ -175,7 +184,9 @@ export const defaultSlashMenuConfig: SlashMenuConfig = {
       },
       {
         name: 'Delete',
-        description: 'Remove this line permanently.',
+        get description() {
+          return editorText('Remove this line permanently.');
+        },
         searchAlias: ['remove'],
         icon: DeleteIcon(),
         tooltip: slashMenuToolTips['Delete'],

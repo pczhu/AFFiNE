@@ -15,7 +15,7 @@ import {
 } from '@affine/core/modules/cloud';
 import type { AuthSessionStatus } from '@affine/core/modules/cloud/entities/session';
 import { ServerDeploymentType } from '@affine/graphql';
-import { Trans, useI18n } from '@affine/i18n';
+import { Trans, translateUiText, useI18n } from '@affine/i18n';
 import {
   ArrowRightBigIcon,
   LocalWorkspaceIcon,
@@ -117,8 +117,12 @@ export const SignInStep = ({
         }));
       } else {
         notify.error({
-          title: 'Failed to sign in',
-          message: 'This email is not available for sign in.',
+          get title() {
+            return translateUiText('Failed to sign in');
+          },
+          get message() {
+            return translateUiText('This email is not available for sign in.');
+          },
         });
       }
     } catch (err: any) {
@@ -126,7 +130,9 @@ export const SignInStep = ({
 
       // TODO(@eyhn): better error handling
       notify.error({
-        title: 'Failed to sign in',
+        get title() {
+          return translateUiText('Failed to sign in');
+        },
         message: err.message,
       });
     }
@@ -206,13 +212,14 @@ export const SignInStep = ({
             <div className={style.authMessage}>
               {/*prettier-ignore*/}
               <Trans i18nKey="com.affine.auth.sign.message">
-                By clicking &quot;Continue with Google/Email&quot; above, you acknowledge that
-                you agree to AFFiNE&apos;s <a href="https://affine.pro/terms" target="_blank" rel="noreferrer">Terms of Conditions</a> and <a href="https://affine.pro/privacy" target="_blank" rel="noreferrer">Privacy Policy</a>.
+                {translateUiText("By clicking &quot;Continue with Google/Email&quot; above, you acknowledge that\n                you agree to AFFiNE&apos;s ")}<a href="https://affine.pro/terms" target="_blank" rel="noreferrer">{translateUiText("Terms of Conditions")}</a> and <a href="https://affine.pro/privacy" target="_blank" rel="noreferrer">{translateUiText("Privacy Policy")}</a>.
             </Trans>
             </div>
             <div className={style.skipDivider}>
               <div className={style.skipDividerLine} />
-              <span className={style.skipDividerText}>or</span>
+              <span className={style.skipDividerText}>
+                {translateUiText('or')}
+              </span>
               <div className={style.skipDividerLine} />
             </div>
             <div className={style.skipSection}>

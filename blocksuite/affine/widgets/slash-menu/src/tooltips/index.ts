@@ -1,3 +1,5 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
+
 import type { SlashMenuTooltip } from '../types';
 import { CopyTooltip } from './copy';
 import { DeleteTooltip } from './delete';
@@ -10,42 +12,74 @@ import { YesterdayTooltip } from './yesterday';
 
 export const slashMenuToolTips: Record<string, SlashMenuTooltip> = {
   Today: {
-    figure: TodayTooltip,
-    caption: 'Today',
+    get figure() {
+      return TodayTooltip();
+    },
+    get caption() {
+      return editorText('Today');
+    },
   },
 
   Tomorrow: {
-    figure: TomorrowTooltip,
-    caption: 'Tomorrow',
+    get figure() {
+      return TomorrowTooltip();
+    },
+    get caption() {
+      return editorText('Tomorrow');
+    },
   },
 
   Yesterday: {
-    figure: YesterdayTooltip,
-    caption: 'Yesterday',
+    get figure() {
+      return YesterdayTooltip();
+    },
+    get caption() {
+      return editorText('Yesterday');
+    },
   },
 
   Now: {
-    figure: NowTooltip,
-    caption: 'Now',
+    get figure() {
+      return NowTooltip();
+    },
+    get caption() {
+      return editorText('Now');
+    },
   },
 
   'Move Up': {
-    figure: MoveUpTooltip,
-    caption: 'Move Up',
+    get figure() {
+      return MoveUpTooltip();
+    },
+    get caption() {
+      return editorText('Move Up');
+    },
   },
 
   'Move Down': {
-    figure: MoveDownTooltip,
-    caption: 'Move Down',
+    get figure() {
+      return MoveDownTooltip();
+    },
+    get caption() {
+      return editorText('Move Down');
+    },
   },
 
   Copy: {
-    figure: CopyTooltip,
-    caption: 'Copy / Duplicate',
+    get figure() {
+      return CopyTooltip();
+    },
+    get caption() {
+      return editorText('Copy / Duplicate');
+    },
   },
 
   Delete: {
-    figure: DeleteTooltip,
-    caption: 'Delete',
+    get figure() {
+      return DeleteTooltip();
+    },
+    get caption() {
+      return editorText('Delete');
+    },
   },
 };

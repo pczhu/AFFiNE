@@ -4,7 +4,7 @@ import {
   ExportToMarkdownIcon,
   NewIcon,
 } from '@blocksuite/affine-components/icons';
-import { openFilesWith } from '@blocksuite/affine-shared/utils';
+import { editorText, openFilesWith } from '@blocksuite/affine-shared/utils';
 import { WithDisposable } from '@blocksuite/global/lit';
 import type { ExtensionType, Schema, Workspace } from '@blocksuite/store';
 import { html, LitElement, type PropertyValues } from 'lit';
@@ -170,12 +170,11 @@ export class ImportDoc extends WithDisposable(LitElement) {
             @mousedown="${this._onMouseDown}"
             @mouseup="${this._onMouseUp}"
           >
-            <div>Import</div>
+            <div>${editorText('Import')}</div>
             <loader-element .width=${'50px'}></loader-element>
           </header>
           <div>
-            Importing the file may take some time. It depends on document size
-            and complexity.
+            ${editorText('Importing the file may take some time. It depends on document size and complexity.')}
           </div>
         </div>
       `;
@@ -190,12 +189,13 @@ export class ImportDoc extends WithDisposable(LitElement) {
           <icon-button height="28px" @click="${this._onCloseClick}">
             ${CloseIcon}
           </icon-button>
-          <div>Import</div>
+          <div>${editorText('Import')}</div>
         </header>
         <div>
-          AFFiNE will gradually support more file formats for import.
-          <a href="https://affine.pro/redirect/discord" target="_blank"
-            >Provide feedback.</a
+          ${editorText('\n          AFFiNE will gradually support more file formats for import.\n          ')}<a
+            href="https://affine.pro/redirect/discord"
+            target="_blank"
+            >${editorText('Provide feedback.')}</a
           >
         </div>
         <div class="button-container">

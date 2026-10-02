@@ -10,7 +10,10 @@ import {
   type ToolbarModuleConfig,
   ToolbarModuleExtension,
 } from '@blocksuite/affine-shared/services';
-import { getMostCommonValue } from '@blocksuite/affine-shared/utils';
+import {
+  editorText,
+  getMostCommonValue,
+} from '@blocksuite/affine-shared/utils';
 import {
   type MenuItem,
   renderMenu,
@@ -77,7 +80,9 @@ export const createMindmapStyleActionMenu = (
   };
 
   return renderMenu({
-    label: 'Style',
+    get label() {
+      return editorText('Style');
+    },
     icon: StyleIcon(),
     items: MINDMAP_STYLE_LIST,
     currentValue: style,
@@ -100,7 +105,9 @@ export const createMindmapLayoutActionMenu = (
   };
 
   return renderMenu({
-    label: 'Layout',
+    get label() {
+      return editorText('Layout');
+    },
     items: MINDMAP_LAYOUT_LIST,
     currentValue: layoutType,
     onPick,

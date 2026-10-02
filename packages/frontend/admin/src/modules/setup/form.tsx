@@ -7,6 +7,7 @@ import {
 } from '@affine/admin/components/ui/carousel';
 import { validateEmailAndPassword } from '@affine/admin/utils';
 import { useAsyncCallback } from '@affine/core/components/hooks/affine-async-hooks';
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
@@ -22,32 +23,36 @@ export enum CarouselSteps {
 }
 
 const Welcome = () => {
+  useUiLanguage();
   return (
     <div
       className="flex flex-col h-full w-full mt-60 max-lg:items-center max-lg:mt-16"
       style={{ minHeight: '300px' }}
     >
       <h1 className="text-5xl font-extrabold max-lg:text-3xl max-lg:font-bold">
-        Welcome to AFFiNE
+        {translateUiText('Welcome to AFFiNE\n      ')}
       </h1>
       <p className="mt-5 font-semibold text-xl max-lg:px-4 max-lg:text-lg">
-        Configure your Self Host AFFiNE with a few simple settings.
+        {translateUiText(
+          'Configure your Self Host AFFiNE with a few simple settings.\n      '
+        )}
       </p>
     </div>
   );
 };
 
 const SettingsDone = () => {
+  useUiLanguage();
   return (
     <div
       className="flex flex-col h-full w-full mt-60 max-lg:items-center max-lg:mt-16"
       style={{ minHeight: '300px' }}
     >
       <h1 className="text-5xl font-extrabold max-lg:text-3xl max-lg:font-bold">
-        All Settings Done
+        {translateUiText('All Settings Done\n      ')}
       </h1>
       <p className="mt-5 font-semibold text-xl max-lg:px-4 max-lg:text-lg">
-        AFFiNE is ready to use.
+        {translateUiText('AFFiNE is ready to use.\n      ')}
       </p>
     </div>
   );
@@ -60,6 +65,7 @@ const CarouselItemElements = {
 };
 
 export const Form = () => {
+  useUiLanguage();
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
@@ -115,7 +121,7 @@ export const Form = () => {
 
       await createResponse.json();
       await refreshServerConfig();
-      toast.success('Admin account created successfully.');
+      toast.success(translateUiText('Admin account created successfully.'));
     } catch (err) {
       toast.error((err as Error).message);
       console.error(err);
@@ -171,7 +177,9 @@ export const Form = () => {
       if (serverConfig.initialized === true) {
         return navigate('/admin', { replace: true });
       }
-      toast.error('Goto Admin Panel failed, please try again.');
+      toast.error(
+        translateUiText('Goto Admin Panel failed, please try again.')
+      );
       return;
     }
     api?.scrollPrev();
@@ -205,11 +213,15 @@ export const Form = () => {
       <div>
         {current > 1 && (
           <Button className="mr-3" onClick={onPrevious} variant="outline">
-            {current === count ? 'Goto Admin Panel' : 'Back'}
+            {current === count
+              ? translateUiText('Goto Admin Panel')
+              : translateUiText('Back')}
           </Button>
         )}
         <Button onClick={onNext} disabled={disableContinue}>
-          {current === count ? 'Open AFFiNE' : 'Continue'}
+          {current === count
+            ? translateUiText('Open AFFiNE')
+            : translateUiText('Continue')}
         </Button>
       </div>
 

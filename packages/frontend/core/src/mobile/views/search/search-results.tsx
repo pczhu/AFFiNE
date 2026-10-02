@@ -1,4 +1,4 @@
-import { useI18n } from '@affine/i18n';
+import { translateUiText, useI18n, useUiLanguage } from '@affine/i18n';
 
 import { DocCard, type DocCardProps } from '../../components';
 import {
@@ -29,6 +29,7 @@ export const SearchResults = ({
   tags,
   error,
 }: SearchResultsProps) => {
+  useUiLanguage();
   return (
     <>
       <div className={styles.resTitle}>{title}</div>
@@ -42,7 +43,7 @@ export const SearchResults = ({
       {/* Doc Res */}
       {docs?.length ? (
         <div className={styles.resBlock} data-scroll>
-          <div className={styles.resBlockTitle}>Docs</div>
+          <div className={styles.resBlockTitle}>{translateUiText('Docs')}</div>
           <div className={styles.resBlockScrollContent}>
             <div className={styles.scrollDocsContent}>
               {docs.map(doc => (
@@ -56,7 +57,9 @@ export const SearchResults = ({
       {/* Collection Res */}
       {collections?.length ? (
         <div className={styles.resBlock}>
-          <div className={styles.resBlockTitle}>Collections</div>
+          <div className={styles.resBlockTitle}>
+            {translateUiText('Collections')}
+          </div>
           <div className={styles.resBlockListContent}>
             {collections.map(collection => (
               <UniversalSearchResultItem
@@ -73,7 +76,7 @@ export const SearchResults = ({
       {/* Tag Res */}
       {tags?.length ? (
         <div className={styles.resBlock}>
-          <div className={styles.resBlockTitle}>Tags</div>
+          <div className={styles.resBlockTitle}>{translateUiText('Tags')}</div>
           <div className={styles.resBlockListContent}>
             {tags.map(tag => (
               <UniversalSearchResultItem

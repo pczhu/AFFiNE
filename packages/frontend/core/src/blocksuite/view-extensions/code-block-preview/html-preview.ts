@@ -1,3 +1,4 @@
+import { translateUiText } from '@affine/i18n';
 import { CodeBlockPreviewExtension } from '@blocksuite/affine/blocks/code';
 import { SignalWatcher, WithDisposable } from '@blocksuite/affine/global/lit';
 import type { CodeBlockModel } from '@blocksuite/affine/model';
@@ -120,29 +121,27 @@ export class HTMLPreview extends SignalWatcher(
             'loading',
             () =>
               html`<div class="html-preview-loading">
-                Rendering the code...
+                ${translateUiText('\n                Rendering the code...\n              ')}
               </div>`,
           ],
           [
             'error',
             () =>
               html`<div class="html-preview-error">
-                Failed to render the preview. Please check your HTML code for
-                errors.
+                ${translateUiText('Failed to render the preview. Please check your HTML code for errors.')}
               </div>`,
           ],
           [
             'fallback',
             () =>
               html`<div class="html-preview-fallback">
-                This feature is not supported in your browser. Please download
-                the AFFiNE Desktop App to use it.
+                ${translateUiText('This feature is not supported in your browser. Please download the AFFiNE Desktop App to use it.')}
               </div>`,
           ],
         ])}
         <iframe
           class="html-preview-iframe"
-          title="HTML Preview"
+          title=${translateUiText('HTML Preview')}
           style=${styleMap({
             display: this.state === 'finish' ? undefined : 'none',
           })}

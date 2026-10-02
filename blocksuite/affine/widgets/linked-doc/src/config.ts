@@ -14,6 +14,7 @@ import {
 import type { AffineInlineEditor } from '@blocksuite/affine-shared/types';
 import {
   createDefaultDoc,
+  editorText,
   isFuzzyMatch,
   type Signal,
 } from '@blocksuite/affine-shared/utils';
@@ -86,7 +87,9 @@ export function createLinkedDocMenuGroup(
   const MAX_DOCS = 6;
 
   return {
-    name: 'Link to Doc',
+    get name() {
+      return editorText('Link to Doc');
+    },
     items: filteredDocList.map(doc => ({
       key: doc.id,
       name: doc.title || DEFAULT_DOC_NAME,
@@ -162,7 +165,9 @@ export function createNewDocMenuGroup(
   if (!IS_MOBILE) {
     items.push({
       key: 'import',
-      name: 'Import',
+      get name() {
+        return editorText('Import');
+      },
       icon: ImportIcon,
       action: () => {
         abort();
@@ -201,7 +206,9 @@ export function createNewDocMenuGroup(
   }
 
   return {
-    name: 'New Doc',
+    get name() {
+      return editorText('New Doc');
+    },
     items,
   };
 }

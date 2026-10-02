@@ -1,3 +1,5 @@
+import { translateUiText, useUiLanguage } from '@affine/i18n';
+
 import { ConfirmDialog } from '../../../components/shared/confirm-dialog';
 
 export const EnableAccountDialog = ({
@@ -13,19 +15,22 @@ export const EnableAccountDialog = ({
   onConfirm: () => void;
   onOpenChange: (open: boolean) => void;
 }) => {
+  useUiLanguage();
   return (
     <ConfirmDialog
       open={open}
       onOpenChange={onOpenChange}
-      title="Enable Account"
+      title={translateUiText('Enable Account')}
       description={
         <>
-          Are you sure you want to enable the account? After enabling the
-          account, the <span className="font-bold">{email}</span> email can be
-          used to log in.
+          {translateUiText(
+            'Are you sure you want to enable the account? After enabling the\n          account, the '
+          )}
+          <span className="font-bold">{email}</span>{' '}
+          {translateUiText('email can be\n          used to log in.\n        ')}
         </>
       }
-      confirmText="Enable"
+      confirmText={translateUiText('Enable')}
       confirmButtonVariant="default"
       onConfirm={onConfirm}
       onClose={onClose}

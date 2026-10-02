@@ -1,4 +1,5 @@
 import { CaptchaService } from '@affine/core/modules/cloud';
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import { Turnstile } from '@marsidev/react-turnstile';
 import { useLiveData, useService } from '@toeverything/infra';
 import { useCallback, useEffect } from 'react';
@@ -6,6 +7,7 @@ import { useCallback, useEffect } from 'react';
 import * as style from './style.css';
 
 export const Captcha = () => {
+  useUiLanguage();
   const captchaService = useService(CaptchaService);
   const hasCaptchaFeature = useLiveData(captchaService.needCaptcha$);
   const isLoading = useLiveData(captchaService.isLoading$);
@@ -31,19 +33,35 @@ export const Captcha = () => {
   }
 
   if (error) {
-    return <div className={style.captchaWrapper}>Verification unavailable</div>;
+    return (
+      <div className={style.captchaWrapper}>
+        {translateUiText('Verification unavailable')}
+      </div>
+    );
   }
 
   if (isLoading || !provider) {
-    return <div className={style.captchaWrapper}>Loading...</div>;
+    return (
+      <div className={style.captchaWrapper}>
+        {translateUiText('Loading...')}
+      </div>
+    );
   }
 
   if (verifyToken) {
-    return <div className={style.captchaWrapper}>Verified Client</div>;
+    return (
+      <div className={style.captchaWrapper}>
+        {translateUiText('Verified Client')}
+      </div>
+    );
   }
 
   if (provider !== 'turnstile' || !turnstile) {
-    return <div className={style.captchaWrapper}>Verification failed</div>;
+    return (
+      <div className={style.captchaWrapper}>
+        {translateUiText('Verification failed')}
+      </div>
+    );
   }
 
   return (

@@ -9,7 +9,13 @@ import {
 } from '@affine/component';
 import { IntegrationService } from '@affine/core/modules/integration';
 import type { ReadwiseHighlight } from '@affine/core/modules/integration/type';
-import { i18nTime, Trans, useI18n } from '@affine/i18n';
+import {
+  i18nTime,
+  Trans,
+  translateUiText,
+  useI18n,
+  useUiLanguage,
+} from '@affine/i18n';
 import { InformationFillDuotoneIcon } from '@blocksuite/icons/rc';
 import { useLiveData, useService } from '@toeverything/infra';
 import clsx from 'clsx';
@@ -176,10 +182,11 @@ export const ImportDialog = ({ onClose }: { onClose: () => void }) => {
 };
 
 const CrawlerError = ({ onRetry }: { onRetry: () => void }) => {
+  useUiLanguage();
   return (
     <>
-      Unexpected error occurred, please try again.
-      <Button onClick={onRetry}>Retry</Button>
+      {translateUiText('Unexpected error occurred, please try again.\n      ')}
+      <Button onClick={onRetry}>{translateUiText('Retry')}</Button>
     </>
   );
 };

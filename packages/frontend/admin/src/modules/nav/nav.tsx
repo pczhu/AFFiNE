@@ -1,4 +1,5 @@
 import { cn } from '@affine/admin/utils';
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import { ROUTES } from '@affine/routes';
 import { AccountIcon, SelfhostIcon } from '@blocksuite/icons/rc';
 import { BarChart3Icon, LayoutDashboardIcon } from 'lucide-react';
@@ -13,6 +14,7 @@ interface NavProps {
 }
 
 export function Nav({ isCollapsed = false }: NavProps) {
+  useUiLanguage();
   return (
     <div
       className={cn(
@@ -30,21 +32,21 @@ export function Nav({ isCollapsed = false }: NavProps) {
           <NavItem
             to={ROUTES.admin.dashboard}
             icon={<BarChart3Icon size={18} />}
-            label="Dashboard"
+            label={translateUiText('Dashboard')}
             isCollapsed={isCollapsed}
           />
         )}
         <NavItem
           to={ROUTES.admin.accounts}
           icon={<AccountIcon fontSize={20} />}
-          label="Accounts"
+          label={translateUiText('Accounts')}
           isCollapsed={isCollapsed}
         />
         {environment.isSelfHosted ? null : (
           <NavItem
             to={ROUTES.admin.workspaces}
             icon={<LayoutDashboardIcon size={18} />}
-            label="Workspaces"
+            label={translateUiText('Workspaces')}
             isCollapsed={isCollapsed}
           />
         )}
@@ -52,7 +54,7 @@ export function Nav({ isCollapsed = false }: NavProps) {
         <NavItem
           to={ROUTES.admin.about}
           icon={<SelfhostIcon fontSize={20} />}
-          label="About"
+          label={translateUiText('About')}
           isCollapsed={isCollapsed}
         />
       </nav>

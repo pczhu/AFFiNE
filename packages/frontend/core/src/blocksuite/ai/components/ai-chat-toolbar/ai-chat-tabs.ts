@@ -1,4 +1,5 @@
 import type { CopilotChatHistoryFragment } from '@affine/graphql';
+import { translateUiText } from '@affine/i18n';
 import { WithDisposable } from '@blocksuite/affine/global/lit';
 import { unsafeCSSVarV2 } from '@blocksuite/affine/shared/theme';
 import { ShadowlessElement } from '@blocksuite/affine/std';
@@ -198,7 +199,7 @@ export class AIChatTabs extends WithDisposable(ShadowlessElement) {
         <button
           class="tab-close"
           data-testid="ai-chat-tab-close"
-          aria-label="Close tab"
+          aria-label=${translateUiText('Close tab')}
           @click=${(e: Event) => this._handleClose(e, session.sessionId)}
         >
           ${CloseIcon()}

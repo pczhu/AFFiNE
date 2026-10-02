@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import {
   EdgelessToolbarToolMixin,
   QuickToolMixin,
@@ -25,7 +26,7 @@ export class EdgelessPresentButton extends QuickToolMixin(
   override render() {
     return html`<edgeless-tool-icon-button
     class="edgeless-frame-navigator-button"
-    .tooltip=${'Present'}
+    .tooltip=${editorText('Present')}
     .tooltipOffset=${17}
     .iconContainerPadding=${6}
     .iconSize=${'24px'}

@@ -1,3 +1,4 @@
+import { translateUiText } from '@affine/i18n';
 import { sortEdgelessElements } from '@blocksuite/affine/blocks/root';
 import { AIStarIcon } from '@blocksuite/affine/components/icons';
 import { WithDisposable } from '@blocksuite/affine/global/lit';
@@ -60,12 +61,13 @@ export class EdgelessCopilotToolbarEntry extends WithDisposable(LitElement) {
 
   override render() {
     return html`<edgeless-tool-icon-button
-      aria-label="Ask AI"
+      aria-label=${translateUiText('Ask AI')}
       class="copilot-icon-button"
       data-testid="ask-ai-button"
       @click=${this._onClick}
     >
-      ${AIStarIcon} <span class="label medium">Ask AI</span>
+      ${AIStarIcon}
+      <span class="label medium">${translateUiText('Ask AI')}</span>
     </edgeless-tool-icon-button>`;
   }
 

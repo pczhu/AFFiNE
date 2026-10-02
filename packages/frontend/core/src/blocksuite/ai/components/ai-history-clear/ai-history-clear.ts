@@ -1,4 +1,5 @@
 import type { CopilotChatHistoryFragment } from '@affine/graphql';
+import { translateUiText } from '@affine/i18n';
 import { WithDisposable } from '@blocksuite/affine/global/lit';
 import { type NotificationService } from '@blocksuite/affine/shared/services';
 import { unsafeCSSVarV2 } from '@blocksuite/affine/shared/theme';
@@ -55,11 +56,20 @@ export class AIHistoryClear extends WithDisposable(ShadowlessElement) {
     const sessionId = this.session.sessionId;
     try {
       const confirm = await this.notificationService.confirm({
-        title: 'Clear History',
-        message:
-          'Are you sure you want to clear all history? This action will permanently delete all content, including all chat logs and data, and cannot be undone.',
-        confirmText: 'Confirm',
-        cancelText: 'Cancel',
+        get title() {
+          return translateUiText('Clear History');
+        },
+        get message() {
+          return translateUiText(
+            'Are you sure you want to clear all history? This action will permanently delete all content, including all chat logs and data, and cannot be undone.'
+          );
+        },
+        get confirmText() {
+          return translateUiText('Confirm');
+        },
+        get cancelText() {
+          return translateUiText('Cancel');
+        },
       });
 
       if (confirm) {
@@ -70,11 +80,13 @@ export class AIHistoryClear extends WithDisposable(ShadowlessElement) {
           ...(sessionId ? [sessionId] : []),
           ...(actionIds || []),
         ]);
-        this.notificationService.toast('History cleared');
+        this.notificationService.toast(translateUiText('History cleared'));
         this.onHistoryCleared?.();
       }
     } catch {
-      this.notificationService.toast('Failed to clear history');
+      this.notificationService.toast(
+        translateUiText('Failed to clear history')
+      );
     }
   };
 
@@ -86,7 +98,7 @@ export class AIHistoryClear extends WithDisposable(ShadowlessElement) {
         @click=${this._cleanupHistories}
         data-testid="chat-panel-clear"
       >
-        Clear
+        ${translateUiText('\n        Clear\n      ')}
       </div>
     `;
   }

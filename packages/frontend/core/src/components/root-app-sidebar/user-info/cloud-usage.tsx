@@ -1,7 +1,7 @@
 import { ErrorMessage, Skeleton } from '@affine/component';
 import { UserQuotaService } from '@affine/core/modules/cloud';
 import { WorkspaceDialogService } from '@affine/core/modules/dialogs';
-import { useI18n } from '@affine/i18n';
+import { translateUiText, useI18n } from '@affine/i18n';
 import { useLiveData, useService } from '@toeverything/infra';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 import clsx from 'clsx';
@@ -35,7 +35,9 @@ export const CloudUsage = () => {
 
   if (percent === null) {
     if (quotaError) {
-      return <ErrorMessage>Failed to load quota</ErrorMessage>;
+      return (
+        <ErrorMessage>{translateUiText('Failed to load quota')}</ErrorMessage>
+      );
     }
     return (
       <div>

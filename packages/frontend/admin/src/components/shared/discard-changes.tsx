@@ -1,3 +1,5 @@
+import { translateUiText, useUiLanguage } from '@affine/i18n';
+
 import { ConfirmDialog } from './confirm-dialog';
 
 export const DiscardChanges = ({
@@ -5,7 +7,7 @@ export const DiscardChanges = ({
   onClose,
   onConfirm,
   onOpenChange,
-  description = 'Changes will not be saved.',
+  description = translateUiText('Changes will not be saved.'),
 }: {
   open: boolean;
   onClose: () => void;
@@ -13,13 +15,14 @@ export const DiscardChanges = ({
   onOpenChange: (open: boolean) => void;
   description?: string;
 }) => {
+  useUiLanguage();
   return (
     <ConfirmDialog
       open={open}
       onOpenChange={onOpenChange}
-      title="Discard Changes"
+      title={translateUiText('Discard Changes')}
       description={description}
-      confirmText="Discard"
+      confirmText={translateUiText('Discard')}
       confirmButtonVariant="destructive"
       onConfirm={onConfirm}
       onClose={onClose}

@@ -19,7 +19,7 @@ import { JournalService } from '@affine/core/modules/journal';
 import { WorkbenchService } from '@affine/core/modules/workbench';
 import { ViewService } from '@affine/core/modules/workbench/services/view';
 import { WorkspaceService } from '@affine/core/modules/workspace';
-import { i18nTime } from '@affine/i18n';
+import { i18nTime, translateUiText } from '@affine/i18n';
 import { DisposableGroup } from '@blocksuite/affine/global/disposable';
 import { RefNodeSlotsProvider } from '@blocksuite/affine/inlines/reference';
 import {
@@ -263,7 +263,7 @@ const getSkeleton = (back: boolean) => (
 const getNotFound = (back: boolean) => (
   <>
     <PageHeader back={back} className={styles.header} />
-    Page Not Found (TODO)
+    {translateUiText('Page Not Found (TODO)\n  ')}
   </>
 );
 const skeleton = getSkeleton(false);

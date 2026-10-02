@@ -1,4 +1,5 @@
 import type { useI18n } from '@affine/i18n';
+import { translateUiText } from '@affine/i18n';
 import { track } from '@affine/track';
 import type { Workspace } from '@blocksuite/affine/store';
 import { ArrowRightBigIcon } from '@blocksuite/icons/rc';
@@ -43,7 +44,9 @@ export function registerAffineNavigationCommands({
       id: 'affine:goto-collection-list',
       category: 'affine:navigation',
       icon: <ArrowRightBigIcon />,
-      label: 'Go to Collection List',
+      get label() {
+        return translateUiText('Go to Collection List');
+      },
       run() {
         track.$.cmdk.navigation.navigate({
           to: 'collectionList',
@@ -59,7 +62,9 @@ export function registerAffineNavigationCommands({
       id: 'affine:goto-tag-list',
       category: 'affine:navigation',
       icon: <ArrowRightBigIcon />,
-      label: 'Go to Tag List',
+      get label() {
+        return translateUiText('Go to Tag List');
+      },
       run() {
         track.$.cmdk.navigation.navigate({
           to: 'tagList',

@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { nanoid } from '@blocksuite/store';
 
 import type { GroupBy } from '../../core/common/types.js';
@@ -98,7 +99,9 @@ export const ensureKanbanGroupColumn = (
 
   const statusId = dataSource.propertyAdd('end', {
     type: 'select',
-    name: 'Status',
+    get name() {
+      return editorText('Status');
+    },
   });
   if (!statusId) {
     return;

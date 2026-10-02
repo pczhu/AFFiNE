@@ -1,3 +1,5 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
+
 import { t } from '../../logical/type-presets.js';
 import { createFilter } from './create.js';
 
@@ -6,7 +8,9 @@ export const stringFilter = [
     name: 'contains',
     self: t.string.instance(),
     args: [t.string.instance()] as const,
-    label: 'Contains',
+    get label() {
+      return editorText('Contains');
+    },
     shortString: v => (v ? `: ${v.value}` : undefined),
     impl: (self = '', value) => {
       return self.toLowerCase().includes(value.toLowerCase());
@@ -17,7 +21,9 @@ export const stringFilter = [
     name: 'doesNoContains',
     self: t.string.instance(),
     args: [t.string.instance()] as const,
-    label: 'Does no contains',
+    get label() {
+      return editorText('Does no contains');
+    },
     shortString: v => (v ? `: Not ${v.value}` : undefined),
     impl: (self = '', value) => {
       return !self.toLowerCase().includes(value.toLowerCase());
@@ -27,7 +33,9 @@ export const stringFilter = [
     name: 'startsWith',
     self: t.string.instance(),
     args: [t.string.instance()] as const,
-    label: 'Starts with',
+    get label() {
+      return editorText('Starts with');
+    },
     shortString: v => (v ? `: Starts with ${v.value}` : undefined),
     impl: (self = '', value) => {
       return self.toLowerCase().startsWith(value.toLowerCase());
@@ -38,7 +46,9 @@ export const stringFilter = [
     name: 'endsWith',
     self: t.string.instance(),
     args: [t.string.instance()] as const,
-    label: 'Ends with',
+    get label() {
+      return editorText('Ends with');
+    },
     shortString: v => (v ? `: Ends with ${v.value}` : undefined),
     impl: (self = '', value) => {
       return self.toLowerCase().endsWith(value.toLowerCase());
@@ -49,7 +59,9 @@ export const stringFilter = [
     name: 'is',
     self: t.string.instance(),
     args: [t.string.instance()] as const,
-    label: 'Is',
+    get label() {
+      return editorText('Is');
+    },
     shortString: v => (v ? `: ${v.value}` : undefined),
     impl: (self = '', value) => {
       return self.toLowerCase() == value.toLowerCase();
@@ -60,7 +72,9 @@ export const stringFilter = [
     name: 'isNot',
     self: t.string.instance(),
     args: [t.string.instance()] as const,
-    label: 'Is not',
+    get label() {
+      return editorText('Is not');
+    },
     shortString: v => (v ? `: Not ${v.value}` : undefined),
     impl: (self = '', value) => {
       return self.toLowerCase() != value.toLowerCase();

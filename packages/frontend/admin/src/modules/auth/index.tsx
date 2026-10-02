@@ -2,6 +2,7 @@ import { Button } from '@affine/admin/components/ui/button';
 import { Input } from '@affine/admin/components/ui/input';
 import { Label } from '@affine/admin/components/ui/label';
 import { FeatureType, getUserFeaturesQuery } from '@affine/graphql';
+import { translateUiText, useUiLanguage } from '@affine/i18n';
 import type { FormEvent } from 'react';
 import { useCallback, useRef } from 'react';
 import { Navigate } from 'react-router-dom';
@@ -12,6 +13,7 @@ import { isAdmin, useCurrentUser, useRevalidateCurrentUser } from '../common';
 import logo from './logo.svg';
 
 export function Auth() {
+  useUiLanguage();
   const currentUser = useCurrentUser();
   const revalidate = useRevalidateCurrentUser();
   const emailRef = useRef<HTMLInputElement>(null);
@@ -59,10 +61,10 @@ export function Auth() {
             },
           }) => {
             if (features.includes(FeatureType.Admin)) {
-              toast.success('Logged in successfully');
+              toast.success(translateUiText('Logged in successfully'));
               await revalidate();
             } else {
-              toast.error('You are not an admin');
+              toast.error(translateUiText('You are not an admin'));
             }
           }
         )
@@ -82,15 +84,17 @@ export function Auth() {
       <div className="flex items-center justify-center py-12">
         <div className="mx-auto grid w-[350px] gap-6">
           <div className="grid gap-2 text-center">
-            <h1 className="text-3xl font-bold">Login</h1>
+            <h1 className="text-3xl font-bold">{translateUiText('Login')}</h1>
             <p className="text-balance text-muted-foreground">
-              Enter your email below to login to your account
+              {translateUiText(
+                'Enter your email below to login to your account\n            '
+              )}
             </p>
           </div>
           <form onSubmit={login} action="#">
             <div className="grid gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email">{translateUiText('Email')}</Label>
                 <Input
                   id="email"
                   type="email"
@@ -102,7 +106,9 @@ export function Auth() {
               </div>
               <div className="grid gap-2">
                 <div className="flex items-center">
-                  <Label htmlFor="password">Password</Label>
+                  <Label htmlFor="password">
+                    {translateUiText('Password')}
+                  </Label>
                 </div>
                 <Input
                   id="password"
@@ -113,7 +119,7 @@ export function Auth() {
                 />
               </div>
               <Button onClick={login} type="submit" className="w-full">
-                Login
+                {translateUiText('Login\n              ')}
               </Button>
             </div>
           </form>
@@ -122,7 +128,7 @@ export function Auth() {
       <div className="hidden bg-muted lg:flex lg:justify-center">
         <img
           src={logo}
-          alt="Image"
+          alt={translateUiText('Image')}
           className="h-1/2 object-cover dark:brightness-[0.2] dark:grayscale relative top-1/4 "
         />
       </div>

@@ -12,7 +12,7 @@ import {
   type WorkspaceMetadata,
   WorkspacesService,
 } from '@affine/core/modules/workspace';
-import { useI18n } from '@affine/i18n';
+import { translateUiText, useI18n } from '@affine/i18n';
 import track from '@affine/track';
 import { AllDocsIcon } from '@blocksuite/icons/rc';
 import { LiveData, useLiveData, useService } from '@toeverything/infra';
@@ -222,10 +222,14 @@ export const Component = () => {
         {t['com.affine.import-clipper.dialog.createDocFromClipper']()}
       </h6>
       {noWorkspace ? (
-        <p className={styles.desc}>A new workspace will be created.</p>
+        <p className={styles.desc}>
+          {translateUiText('A new workspace will be created.')}
+        </p>
       ) : (
         <>
-          <p className={styles.desc}>Choose a workspace.</p>
+          <p className={styles.desc}>
+            {translateUiText('Choose a workspace.')}
+          </p>
           <WorkspaceSelector
             workspaceMetadata={selectedWorkspace}
             onSelectWorkspace={handleSelectedWorkspace}

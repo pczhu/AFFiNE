@@ -6,7 +6,7 @@ import { AuthService } from '@affine/core/modules/cloud';
 import { GlobalDialogService } from '@affine/core/modules/dialogs';
 import type { SettingTab } from '@affine/core/modules/dialogs/constant';
 import { type WorkspaceMetadata } from '@affine/core/modules/workspace';
-import { useI18n } from '@affine/i18n';
+import { translateUiText, useI18n, useUiLanguage } from '@affine/i18n';
 import { track } from '@affine/track';
 import { Logo1Icon } from '@blocksuite/icons/rc';
 import { useLiveData, useService } from '@toeverything/infra';
@@ -123,6 +123,7 @@ const SettingSidebarItem = ({
   beta,
   ...props
 }: SettingSidebarItemProps) => {
+  useUiLanguage();
   return (
     <div
       {...props}
@@ -134,7 +135,11 @@ const SettingSidebarItem = ({
     >
       <div className={style.sidebarSelectItemIcon}>{icon}</div>
       <div className={style.sidebarSelectItemName}>{title}</div>
-      {beta ? <div className={style.sidebarSelectItemBeta}>Beta</div> : null}
+      {beta ? (
+        <div className={style.sidebarSelectItemBeta}>
+          {translateUiText('Beta')}
+        </div>
+      ) : null}
     </div>
   );
 };

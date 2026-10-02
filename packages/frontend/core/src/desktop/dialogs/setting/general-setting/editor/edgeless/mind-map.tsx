@@ -6,7 +6,7 @@ import {
 } from '@affine/component';
 import { SettingRow } from '@affine/component/setting-components';
 import { EditorSettingService } from '@affine/core/modules/editor-setting';
-import { useI18n } from '@affine/i18n';
+import { translateUiText, useI18n } from '@affine/i18n';
 import { getSurfaceBlock } from '@blocksuite/affine/blocks/surface';
 import { LayoutType, MindmapStyle } from '@blocksuite/affine/model';
 import type { Store } from '@blocksuite/affine/store';
@@ -20,19 +20,27 @@ import { EdgelessSnapshot } from './snapshot';
 const MINDMAP_STYLES = [
   {
     value: MindmapStyle.ONE,
-    name: 'Style 1',
+    get name() {
+      return translateUiText('Style 1');
+    },
   },
   {
     value: MindmapStyle.TWO,
-    name: 'Style 2',
+    get name() {
+      return translateUiText('Style 2');
+    },
   },
   {
     value: MindmapStyle.THREE,
-    name: 'Style 3',
+    get name() {
+      return translateUiText('Style 3');
+    },
   },
   {
     value: MindmapStyle.FOUR,
-    name: 'Style 4',
+    get name() {
+      return translateUiText('Style 4');
+    },
   },
 ];
 
@@ -87,11 +95,11 @@ export const MindMapSettings = () => {
       const isSelected = style === value;
       return (
         <MenuItem key={name} onSelect={handler} selected={isSelected}>
-          {name}
+          {t.uiText(String(name))}
         </MenuItem>
       );
     });
-  }, [editorSetting, settings]);
+  }, [editorSetting, settings, t]);
 
   const getElements = useCallback((doc: Store) => {
     const surface = getSurfaceBlock(doc);
@@ -115,7 +123,7 @@ export const MindMapSettings = () => {
           items={styleItems}
           trigger={
             <MenuTrigger className={menuTrigger}>
-              {`Style ${settings.mindmap.style}`}
+              {t.uiText(`Style ${settings.mindmap.style}`)}
             </MenuTrigger>
           }
         />

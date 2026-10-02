@@ -16,7 +16,7 @@ import type { CollectionInfo } from '@affine/core/modules/collection';
 import { CollectionRulesService } from '@affine/core/modules/collection-rules';
 import { DocsService } from '@affine/core/modules/doc';
 import { DocDisplayMetaService } from '@affine/core/modules/doc-display-meta';
-import { Trans, useI18n } from '@affine/i18n';
+import { Trans, translateUiText, useI18n } from '@affine/i18n';
 import {
   CloseIcon,
   EdgelessIcon,
@@ -293,9 +293,9 @@ export const RulesMode = ({
                 filteredCount: rulesPageIds.length,
               }}
             >
-              Selected
-              <span className={styles.previewCountTipsHighlight}>count</span>,
-              filtered
+              {translateUiText('Selected\n              ')}
+              <span className={styles.previewCountTipsHighlight}>count</span>
+              {translateUiText(',\n              filtered\n              ')}
               <span className={styles.previewCountTipsHighlight}>count</span>
             </Trans>
           </div>
@@ -343,8 +343,13 @@ const RulesEmpty = ({
       >
         {noRules ? (
           <Trans i18nKey="com.affine.editCollection.rules.empty.noRules.tips">
-            Please <strong>add rules</strong> to save this collection or switch
-            to <strong>Pages</strong>, use manual selection mode
+            {translateUiText('Please ')}
+            <strong>{translateUiText('add rules')}</strong>{' '}
+            {translateUiText(
+              'to save this collection or switch\n            to '
+            )}
+            <strong>{translateUiText('Pages')}</strong>
+            {translateUiText(', use manual selection mode\n          ')}
           </Trans>
         ) : (
           t['com.affine.editCollection.rules.empty.noResults.tips']()
