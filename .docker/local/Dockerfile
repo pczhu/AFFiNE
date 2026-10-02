@@ -35,11 +35,12 @@ ARG GIT_SHA=local-source
 ENV BUILD_TYPE=$BUILD_TYPE GITHUB_SHA=$GIT_SHA NODE_OPTIONS=--max-old-space-size=12288
 COPY .docker/local/build-checked.sh /usr/local/bin/affine-build-checked
 # 本构建只支持 Linux x64，避免打包器查找未构建的 ARM 文件。
-RUN node -e "require('fs').writeFileSync('packages/backend/native/index.js', 'module.exports = require(\"./server-native.node\");\n')" \
+RUN node -e "require('fs').writeFileSync('packages/backend/native/index.js', 'module.exports = require(\"./server-native.x64.node\");\n')" \
     && sed -i 's/\r$//' /usr/local/bin/affine-build-checked \
     && chmod +x /usr/local/bin/affine-build-checked
 RUN yarn workspace @affine/server prisma generate \
-    && affine-build-checked packages/backend/server/dist/main.js yarn workspace @affine/server build
+    && affine-build-checked packages/backend/server/dist/main.js yarn workspace @affine/server build \
+    && test -s packages/backend/server/dist/server-native.x64.node
 
 # 依次编译各网页，避免多个编译任务同时耗尽 Docker 内存。
 FROM backend AS web
@@ -69,7 +70,9 @@ ARG TARGETARCH
 ARG TARGETVARIANT
 RUN apt-get update && apt-get install -y --no-install-recommends openssl ca-certificates \
     && rm -rf /var/lib/apt/lists/* \
-    && AFFINE_DOCKER_CLEAN=1 TARGETARCH="$TARGETARCH" TARGETVARIANT="$TARGETVARIANT" node ./scripts/docker-clean.mjs
+    && AFFINE_DOCKER_CLEAN=1 TARGETARCH="$TARGETARCH" TARGETVARIANT="$TARGETVARIANT" node ./scripts/docker-clean.mjs \
+    && test -s ./dist/main.js \
+    && node -e "require('./dist/server-native.x64.node')"
 
 FROM node:22-bookworm-slim AS runtime
 WORKDIR /app
