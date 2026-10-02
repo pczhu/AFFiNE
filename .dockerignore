@@ -21,6 +21,10 @@
 # OS noise
 .DS_Store
 
+# 本地部署文件单独复制，避免密码泄漏和配置变动导致源码缓存失效。
+/.docker/local/*
+!/.docker/local/build-checked.sh
+
 # Sourcemaps (keep server sourcemap for backend stacktraces)
 **/*.map
 !packages/backend/server/dist/main.js.map
