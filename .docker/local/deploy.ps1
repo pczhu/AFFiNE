@@ -40,9 +40,12 @@ try {
             $keyMatch = [regex]::Match($ciConfig, '(?ms)AFFINE_PRO_PUBLIC_KEY:\s*\|\s*\r?\n(?<pem>[ \t]+-----BEGIN PUBLIC KEY-----\r?\n.*?-----END PUBLIC KEY-----)')
             if (-not $keyMatch.Success) { throw '未在官方 build-test.yml 中找到测试公钥，请检查上游构建配置。' }
             $publicKey = (($keyMatch.Groups['pem'].Value -split '\r?\n') | ForEach-Object { $_.Trim() }) -join "`n"
-            Write-Host '使用官方公开测试公钥，仅适合本机验证，不能验证正式付费授权。'
+            Write-Host '使用官方公开测试公钥进行本机验证，正式付费授权兼容性未经验证。'
         } else {
             throw '当前源码必须嵌入授权校验公钥。正式部署请传入 -PublicKeyPath 公钥文件；本机验证可使用 -UseTestPublicKey。'
+        }
+        if ($publicKey -notmatch '(?s)^\s*-----BEGIN PUBLIC KEY-----\s+.+-----END PUBLIC KEY-----\s*$') {
+            throw '公钥格式不正确，请提供 BEGIN PUBLIC KEY 开头的 PEM 公钥文件。'
         }
         Write-Host '开始从源码构建 AFFiNE，首次构建需要下载依赖并编译 Rust。'
         $buildLog = Join-Path $logPath 'build.log'

@@ -8,7 +8,7 @@ pwsh -File .docker/local/deploy.ps1 -UseTestPublicKey
 
 需要 Docker Desktop 正常运行并使用 Linux 容器。构建目标为 `linux/amd64`。首次构建会下载 Node、Rust 和软件依赖，然后依次编译服务端、网页、管理后台及手机网页。本流程不预置大模型权重。
 
-当前源码在启动时要求嵌入 `AFFINE_PRO_PUBLIC_KEY`。这把公钥用于确认授权文件的签名。`-UseTestPublicKey` 从官方 [build-test.yml](../../.github/workflows/build-test.yml) 读取公开测试公钥，仅用于本机测试，不能验证正式付费授权。正式部署应向官方取得正式公钥，并指定 PEM 格式文件：
+当前源码在启动时要求嵌入 `AFFINE_PRO_PUBLIC_KEY`。这把公钥用于确认授权文件的签名。`-UseTestPublicKey` 从官方 [build-test.yml](../../.github/workflows/build-test.yml) 读取公开测试公钥，用于本机测试，正式付费授权兼容性未经验证。正式用途请使用与官方授权匹配的正式公钥，并指定 PEM 格式文件：
 
 ```powershell
 pwsh -File .docker/local/deploy.ps1 -PublicKeyPath 'E:\路径\affine-pro-public-key.pem'
